@@ -62,7 +62,8 @@
             "php-http/discovery": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "tbachert/spi": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "symfony/runtime": true
         },
         "bin-dir": "vendor/bin",
         "sort-packages": true,
@@ -83,17 +84,39 @@
             }
         },
         "installer-paths": {
-            "web/private/scripts/quicksilver/{$name}/": ["type:quicksilver-script"],
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "./drush/Commands/contrib/{$name}": ["type:drupal-drush"],
-            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
-            "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
-            "./recipes/{$name}": ["type:drupal-recipe"],
-            "web/themes/custom/{$name}": ["type:drupal-custom-theme"]
+            "web/private/scripts/quicksilver/{$name}/": [
+                "type:quicksilver-script"
+            ],
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/libraries/{$name}": [
+                "type:drupal-library"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "./drush/Commands/contrib/{$name}": [
+                "type:drupal-drush"
+            ],
+            "web/modules/custom/{$name}": [
+                "type:drupal-custom-module"
+            ],
+            "web/profiles/custom/{$name}": [
+                "type:drupal-custom-profile"
+            ],
+            "./recipes/{$name}": [
+                "type:drupal-recipe"
+            ],
+            "web/themes/custom/{$name}": [
+                "type:drupal-custom-theme"
+            ]
         },
         "drupal-core-project-message": {
             "include-keys": [
@@ -121,9 +144,13 @@
             "@php -r \"@unlink('vendor/bin/composer');\"",
             "DrupalComposerManaged\\ComposerScripts::postUpdate"
         ],
-        "pre-update-cmd": ["DrupalComposerManaged\\ComposerScripts::preUpdate"]
+        "pre-update-cmd": [
+            "DrupalComposerManaged\\ComposerScripts::preUpdate"
+        ]
     },
     "autoload": {
-        "classmap": ["upstream-configuration/scripts/ComposerScripts.php"]
+        "classmap": [
+            "upstream-configuration/scripts/ComposerScripts.php"
+        ]
     }
 }
