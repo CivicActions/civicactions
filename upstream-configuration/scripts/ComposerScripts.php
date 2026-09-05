@@ -121,7 +121,9 @@ class ComposerScripts {
     // Ignore everything in the 'recipes' directory, if it isn't already ignored.
     if (!file_exists('recipes/.gitignore')) {
       $io->write("<info>Adding .gitignore to recipes directory</info>");
-      mkdir('recipes');
+      if (!is_dir('recipes')) {
+        mkdir('recipes', 0777, true);
+      }
       file_put_contents('recipes/.gitignore', '*' . PHP_EOL . '!/.gitignore' . PHP_EOL);
     }
 
