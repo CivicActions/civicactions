@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5dcdf73665638f1b2da394d42de260ab",
+    "content-hash": "993bbb05a6b837da99710d60f400f04a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1265,6 +1265,110 @@
             ],
             "support": {
                 "source": "https://git.drupalcode.org/project/ai_agents"
+            }
+        },
+        {
+            "name": "drupal/ai_context",
+            "version": "1.0.0-beta5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ai_context.git",
+                "reference": "1.0.0-beta5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ai_context-1.0.0-beta5.zip",
+                "reference": "1.0.0-beta5",
+                "shasum": "08c7324970061824b860fd2944a3438b615d38d7"
+            },
+            "require": {
+                "drupal/ai": "^1.4 || ^2",
+                "drupal/ai_agents": "^1.2",
+                "drupal/core": "^10.5 || ^11.2",
+                "league/commonmark": "^2.4"
+            },
+            "require-dev": {
+                "drupal/ai": "*",
+                "drupal/ai_agents_debugger": "^1.0@beta",
+                "drupal/ai_file_to_text": "^1.0",
+                "drupal/diff": "^1.0",
+                "drupal/document_loader": "^2.0.3",
+                "drupal/document_loader_mdx": "*",
+                "drupal/document_loader_media": "*",
+                "drupal/dynamic_entity_reference": "^3.2",
+                "drupal/field_widget_actions": "^1.4",
+                "drupal/scheduler": "^2.3",
+                "drupal/scheduler_content_moderation_integration": "^3.0",
+                "drupal/token": "^1.15",
+                "drush/drush": "^12|^13"
+            },
+            "suggest": {
+                "drupal/ai_agents_debugger": "Provides AI Agents debugger integration for testing agent context delivery.",
+                "drupal/ai_file_to_text": "Provides markdown editor importer support for Word, PDFs, and other document formats.",
+                "drupal/canvas": "Required when using Context Items on Canvas-enabled sites. Use Canvas 1.8.0 or later.",
+                "drupal/diff": "Allows you to compare revisions of context items.",
+                "drupal/document_loader": "Provides markdown editor importer support for common files (txt, md, pdf, docx, xlsx).",
+                "drupal/document_loader_webpage": "Provides markdown editor importer support for URL content.",
+                "drupal/dynamic_entity_reference": "Provides the entity item scope plugin for associating context with one or more entity items.",
+                "drupal/field_widget_actions": "Provides field widget actions used by enhanced context item editing workflows.",
+                "drupal/scheduler": "Schedules publishing and unpublishing of context items.",
+                "drupal/scheduler_content_moderation_integration": "Schedules moderation state changes for context items.",
+                "drupal/token": "Provides token replacement support used by optional integrations."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta5",
+                    "datestamp": "1788713091",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "scripts": {
+                "lint": [
+                    "@lint:cspell",
+                    "@lint:phpcs",
+                    "@lint:phpstan",
+                    "@lint:eslint",
+                    "@lint:stylelint"
+                ],
+                "lint:cspell": [
+                    "npx --yes cspell \"**/*.{php,js,yml,md,twig,css,sh}\" --config .cspell.json"
+                ],
+                "lint:phpcs": [
+                    "cd ../../../.. && vendor/bin/phpcs --standard=Drupal,DrupalPractice --extensions=php,module,inc,install,test,profile,theme,css,info,txt,yml --ignore='*/.gitlab/*' web/modules/contrib/ai_context"
+                ],
+                "lint:phpstan": [
+                    "cd ../../../.. && php -d memory_limit=512M vendor/bin/phpstan analyze web/modules/contrib/ai_context --configuration=web/modules/contrib/ai_context/phpstan.neon.dist"
+                ],
+                "lint:eslint": [
+                    "npx --yes eslint js/**/*.js"
+                ],
+                "lint:stylelint": [
+                    "../../../core/node_modules/.bin/stylelint --config .stylelint-local.json --config-basedir ../../../core \"css/**/*.css\""
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "kristen pol",
+                    "homepage": "https://www.drupal.org/user/8389"
+                },
+                {
+                    "name": "kurtfoster",
+                    "homepage": "https://www.drupal.org/user/403040"
+                }
+            ],
+            "description": "Manage AI context used in agent prompts for better AI outcomes.",
+            "homepage": "https://www.drupal.org/project/ai_context",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ai_context",
+                "issues": "https://drupal.org/project/issues/ai_context"
             }
         },
         {
@@ -14503,6 +14607,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "drupal/ai_context": 10,
         "drupal/webform": 10,
         "pantheon-upstreams/upstream-configuration": 20
     },
