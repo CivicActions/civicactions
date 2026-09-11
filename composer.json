@@ -21,6 +21,9 @@
             "url": "https://packages.drupal.org/8"
         }
     ],
+    "_comment": [
+        "NOTE: schemadotorg is pinned to an exact version as it has special upgrade requirements: https://www.drupal.org/project/schemadotorg",
+    ],
     "require": {
         "composer/composer": "^2.9.8",
         "composer/installers": "^2.3",
@@ -90,6 +93,7 @@
         "drupal/samlauth": "^3.14",
         "drupal/scheduler": "^2.2.2",
         "drupal/scheduler_content_moderation_integration": "^3.0.5",
+        "drupal/schemadotorg": "^1.0.0-alpha39",
         "drupal/search_api": "^1.40.0",
         "drupal/search_api_exclude": "^2.0.3",
         "drupal/selective_better_exposed_filters": "^3.0.3",
