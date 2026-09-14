@@ -22,7 +22,7 @@
         }
     ],
     "_comment": [
-        "NOTE: schemadotorg is pinned to an exact version as it has special upgrade requirements: https://www.drupal.org/project/schemadotorg",
+        "NOTE: schemadotorg is pinned to an exact version as it has special upgrade requirements: https://www.drupal.org/project/schemadotorg"
     ],
     "require": {
         "composer/composer": "^2.9.8",
