@@ -4,6 +4,7 @@ type: theme
 version: 1.0.0
 libraries:
   - home_drupal_pilot/base
+  - home_drupal_pilot/global
   - home_drupal_pilot/messages
   - core/normalize
 libraries-extend:

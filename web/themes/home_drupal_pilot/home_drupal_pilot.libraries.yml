@@ -42,6 +42,11 @@ base:
         weight: -10
       css/overrides/ui-dialog.css:
         weight: -10
+global:
+  version: VERSION
+  css:
+    theme:
+      css/global.css: {}
 dialog:
   version: VERSION
   css:
