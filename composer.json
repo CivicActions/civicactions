@@ -114,9 +114,7 @@
         "drupal/yoast_seo": "^2.2.0",
         "league/commonmark": "^2.4",
         "pantheon-systems/drupal-integrations": "^11.1",
-        "pantheon-upstreams/upstream-configuration": "dev-main"
-    },
-    "require-dev": {
+        "pantheon-upstreams/upstream-configuration": "dev-main",
         "drush/drush": "^13.7"
     },
     "conflict": {
