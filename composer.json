@@ -34,6 +34,7 @@
         "drupal/ai_image_alt_text": "^1",
         "drupal/ai_provider_amazeeio": "^1.2.7",
         "drupal/ai_provider_anthropic": "^1.1",
+        "drupal/ai_provider_google_vertex": "1.1.x-dev@dev",
         "drupal/ai_provider_openai": "^1.1",
         "drupal/automatic_updates": "^4.1",
         "drupal/autosave_form": "^1.11.0",
@@ -114,9 +115,7 @@
         "drupal/yoast_seo": "^2.2.0",
         "league/commonmark": "^2.4",
         "pantheon-systems/drupal-integrations": "^11.1",
-        "pantheon-upstreams/upstream-configuration": "dev-main"
-    },
-    "require-dev": {
+        "pantheon-upstreams/upstream-configuration": "dev-main",
         "drush/drush": "^13.7"
     },
     "conflict": {
