@@ -1,0 +1,27 @@
+name: Home Drupal Pilot
+type: theme
+'base theme': false
+version: 1.0.0
+libraries:
+  - home_drupal_pilot/base
+  - home_drupal_pilot/global
+  - home_drupal_pilot/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - home_drupal_pilot/user
+  core/drupal.dropbutton:
+    - home_drupal_pilot/dropbutton
+  core/drupal.dialog:
+    - home_drupal_pilot/dialog
+  file/drupal.file:
+    - home_drupal_pilot/file
+  core/drupal.item-list:
+    - home_drupal_pilot/item-list
+  core/drupal.progress:
+    - home_drupal_pilot/progress
+  core/drupal.tablesort:
+    - home_drupal_pilot/drupal.tablesort
+description: ''
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.4.6'
