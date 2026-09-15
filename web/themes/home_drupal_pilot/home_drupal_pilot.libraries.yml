@@ -1,0 +1,113 @@
+base:
+  version: VERSION
+  css:
+    component:
+      css/overrides/action-links.css:
+        weight: -10
+      css/overrides/breadcrumb.css:
+        weight: -10
+      css/overrides/button.css:
+        weight: -10
+      css/overrides/container-inline.css:
+        weight: -10
+      css/overrides/details.css:
+        weight: -10
+      css/overrides/exposed-filters.css:
+        weight: -10
+      css/overrides/field.css:
+        weight: -10
+      css/overrides/form.css:
+        weight: -10
+      css/overrides/icons.css:
+        weight: -10
+      css/overrides/inline-form.css:
+        weight: -10
+      css/overrides/link.css:
+        weight: -10
+      css/overrides/links.css:
+        weight: -10
+      css/overrides/menu.css:
+        weight: -10
+      css/overrides/more-link.css:
+        weight: -10
+      css/overrides/pager.css:
+        weight: -10
+      css/overrides/tabledrag.css:
+        weight: -10
+      css/overrides/tableselect.css:
+        weight: -10
+      css/overrides/tabs.css:
+        weight: -10
+      css/overrides/textarea.css:
+        weight: -10
+      css/overrides/ui-dialog.css:
+        weight: -10
+dialog:
+  version: VERSION
+  css:
+    component:
+      css/overrides/dialog.css:
+        weight: -10
+dropbutton:
+  version: VERSION
+  css:
+    component:
+      css/overrides/dropbutton.css:
+        weight: -10
+file:
+  version: VERSION
+  css:
+    component:
+      css/overrides/file.css:
+        weight: -10
+image-widget:
+  version: VERSION
+  css:
+    component:
+      css/overrides/image-widget.css: {  }
+indented:
+  version: VERSION
+  css:
+    component:
+      css/overrides/indented.css: {  }
+messages:
+  version: VERSION
+  css:
+    component:
+      css/overrides/messages.css:
+        weight: -10
+node:
+  version: VERSION
+  css:
+    component:
+      css/overrides/node.css:
+        weight: -10
+progress:
+  version: VERSION
+  css:
+    component:
+      css/overrides/progress.css:
+        weight: -10
+drupal.tablesort:
+  version: VERSION
+  css:
+    component:
+      css/overrides/tablesort.css:
+        weight: -10
+item-list:
+  version: VERSION
+  css:
+    component:
+      css/overrides/item-list.css:
+        weight: -10
+search-results:
+  version: VERSION
+  css:
+    component:
+      css/overrides/search-results.css: {  }
+user:
+  version: VERSION
+  css:
+    component:
+      css/overrides/user.css:
+        weight: -10
