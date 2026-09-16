@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Template for CivicActions Primary Page CTA component.
+ *
+ * Available props:
+ * - title: Heading text.
+ * - subtitle: Subtitle / descriptive prompt text.
+ * - variant: Style variant ('default' for Primary Blue, 'home' for Primary Red).
+ * - primary_button_text: Text for primary call-to-action button.
+ * - primary_button_url: URL for primary call-to-action button.
+ * - secondary_button_text: Text for secondary call-to-action button.
+ * - secondary_button_url: URL for secondary call-to-action button.
+ */
+#}
+{% set cta_variant = variant|default('default') %}
+{% set cta_classes = [
+  'ca-primary-page-cta',
+  cta_variant != 'default' ? 'ca-primary-page-cta--' ~ cta_variant,
+] %}
+
+<section {{ attributes ? attributes.addClass(cta_classes) : 'class="' ~ cta_classes|join(' ') ~ '"' }}>
+  <div class="ca-primary-page-cta__inner">
+    <div class="ca-primary-page-cta__text">
+      {% if title %}
+        <h2 class="ca-primary-page-cta__title">{{ title }}</h2>
+      {% endif %}
+      {% if subtitle %}
+        <p class="ca-primary-page-cta__subtitle">{{ subtitle }}</p>
+      {% endif %}
+    </div>
+
+    {% if (primary_button_text and primary_button_url) or (secondary_button_text and secondary_button_url) %}
+      <div class="ca-primary-page-cta__buttons">
+        {% if primary_button_text and primary_button_url %}
+          <a href="{{ primary_button_url }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--primary">
+            {{ primary_button_text }}
+          </a>
+        {% endif %}
+        {% if secondary_button_text and secondary_button_url %}
+          <a href="{{ secondary_button_url }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--secondary">
+            {{ secondary_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
