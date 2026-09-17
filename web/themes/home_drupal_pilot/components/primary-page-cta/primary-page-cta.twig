@@ -18,8 +18,9 @@
   'ca-primary-page-cta',
   cta_variant != 'default' ? 'ca-primary-page-cta--' ~ cta_variant,
 ] %}
+{% set cta_attributes = attributes|default(create_attribute()) %}
 
-<section {{ attributes ? attributes.addClass(cta_classes) : 'class="' ~ cta_classes|join(' ') ~ '"' }}>
+<section {{ cta_attributes.addClass(cta_classes) }}>
   <div class="ca-primary-page-cta__inner">
     <div class="ca-primary-page-cta__text">
       {% if title %}
@@ -33,12 +34,12 @@
     {% if (primary_button_text and primary_button_url) or (secondary_button_text and secondary_button_url) %}
       <div class="ca-primary-page-cta__buttons">
         {% if primary_button_text and primary_button_url %}
-          <a href="{{ primary_button_url }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--primary">
+          <a href="{{ primary_button_url|e('html_attr') }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--primary">
             {{ primary_button_text }}
           </a>
         {% endif %}
         {% if secondary_button_text and secondary_button_url %}
-          <a href="{{ secondary_button_url }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--secondary">
+          <a href="{{ secondary_button_url|e('html_attr') }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--secondary">
             {{ secondary_button_text }}
           </a>
         {% endif %}
