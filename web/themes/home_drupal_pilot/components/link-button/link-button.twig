@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Link Button component.
+ *
+ * Available props:
+ * - text: Link label.
+ * - src: Link destination.
+ * - type: Button type ('primary' or 'secondary').
+ * - size: Button size ('default' or 'large').
+ */
+#}
+{% set button_type = type|default('primary') %}
+{% set button_size = size|default('default') %}
+{% set button_classes = [
+  'ca-link-button',
+  'ca-link-button--' ~ button_type,
+  button_size == 'large' ? 'ca-link-button--large',
+] %}
+{% set button_attributes = attributes|default(create_attribute()) %}
+
+<a href="{{ src|e('html_attr') }}" {{ button_attributes.addClass(button_classes) }}>
+  {{ text }}
+</a>
