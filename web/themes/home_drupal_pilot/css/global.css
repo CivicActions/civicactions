@@ -28,15 +28,16 @@
   --black: #000000;
 
   /* Spacing (based on 4px increments) */
-  --size-1: 4px;
-  --size-2: 8px;
-  --size-4: 16px;
-  --size-5: 20px;
-  --size-6: 24px;
-  --size-8: 32px;
-  --size-9: 36px;
-  --size-12: 48px;
-  --size-14: 56px;
+  --size-1: 0.25rem;
+  --size-2: 0.5rem;
+  --size-4: 1rem;
+  --size-5: 1.25rem;
+  --size-6: 1.5rem;
+  --size-8: 2rem;
+  --size-9: 2.25rem;
+  --size-12: 3rem;
+  --size-14: 3.5rem;
+  --size-20: 5rem;
 
   /* Typography */
   --font-heading: 'Merriweather', Georgia, serif;
@@ -47,6 +48,11 @@
 
   /* Sizing */
   --icon-size-large: var(--size-8);
+  --container-spacing-sm: var(--size-6);
+  --container-spacing-md: var(--size-12);
+  /* 80px padding used in current homesite sections */
+  --container-spacing-lg: var(--size-20);
+  --container-max-width: 1200px;
 
   /* Focus */
   --focus-outline-width: 3px;
