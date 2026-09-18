@@ -37,7 +37,9 @@
         >
       {% endif %}
       <h3 class="editorial-teaser__title">{{ title }}</h3>
-      <p class="editorial-teaser__description body">{{ description }}</p>
+      {% if description %}
+        <p class="editorial-teaser__description body">{{ description }}</p>
+      {% endif %}
     {% else %}
       <h3 class="editorial-teaser__title">{{ title }}</h3>
       <svg class="editorial-teaser__arrow" width="46" height="30" viewBox="0 0 46 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
