@@ -70,6 +70,7 @@
 
 /* Section width styles */
 .ca-section__inner--full {
+  box-sizing: border-box;
   max-width: 100%;
   padding-left: var(--section-gap);
   padding-right: var(--section-gap);
