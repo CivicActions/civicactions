@@ -1,0 +1,52 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Editorial Teaser
+description: Linked content teaser available as an image card or compact title-and-arrow link.
+group: Teasers
+status: stable
+props:
+  type: object
+  required:
+    - teaserlink
+    - title
+  properties:
+    variant:
+      type: string
+      title: Display variant
+      enum:
+        - card
+        - compact
+      meta:enum:
+        card: Image card
+        compact: Title and arrow
+      default: card
+      examples:
+        - card
+    teaserlink:
+      type: string
+      title: Teaser link
+      format: uri-reference
+      default: '/press-releases/example'
+      examples:
+        - '/press-releases/example'
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Card image
+      description: Image selected from the Media Library.
+      examples:
+        - src: '/themes/home_drupal_pilot/images/canvas-assets/editorial-teaser-img.jpg'
+          alt: 'Traffic light against the sky'
+          width: 354
+          height: 220
+    title:
+      type: string
+      title: Title
+      default: 'CivicActions announces a public-sector partnership'
+      examples:
+        - 'CivicActions announces a public-sector partnership'
+    description:
+      type: string
+      title: Description
+      default: 'Learn more about this announcement.'
+      examples:
+        - 'Learn more about this announcement.'

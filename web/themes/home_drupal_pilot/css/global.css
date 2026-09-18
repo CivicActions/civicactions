@@ -6,35 +6,55 @@
 
 :root {
   /* Brand Colors - Primary */
-  --primary-red: #D83933;
-  --primary-blue: #162E51;
-  --light-blue: #73B3E7;
-  --accent-gold: #FA9441;
-  --accent-light-gold: #FFBC78;
+  --primary-red: #d83933;
+  --primary-blue: #162e51;
+  --light-blue: #73b3e7;
+  --accent-gold: #fa9441;
+  --accent-light-gold: #ffbc78;
 
   /* Brand Colors - Secondary */
-  --sec-red: #8B0A03;
-  --sec-blue: #1A4480;
-  --sec-alt-blue: #005EA2;
+  --sec-red: #8b0a03;
+  --sec-blue: #1a4480;
+  --sec-alt-blue: #005ea2;
 
   /* Brand Colors - Grayscale */
-  --white: #FFFFFF;
-  --gray-05: #F0F0F0;
-  --gray-10: #E6E6E6;
-  --gray-30: #ADADAD;
+  --white: #ffffff;
+  --gray-05: #f0f0f0;
+  --gray-10: #e6e6e6;
+  --gray-30: #adadad;
   --gray-50: #757575;
   --gray-70: #454545;
   --gray-90: #171717;
   --black: #000000;
 
+  /* Spacing (based on 4px increments) */
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-8: 32px;
+  --size-9: 36px;
+  --size-12: 48px;
+  --size-14: 56px;
+
   /* Typography */
   --font-heading: 'Merriweather', Georgia, serif;
   --font-body: 'Nunito', 'Helvetica Neue', sans-serif;
   --line-height-base: 1.15;
+  --line-height-body-large: 1.7;
+  --font-size-body-large: var(--size-5);
+
+  /* Sizing */
+  --icon-size-large: var(--size-8);
+
+  /* Focus */
+  --focus-outline-width: 3px;
+  --focus-outline-offset: 3px;
 
   /* Links */
-  --link-internal: #D83933;
-  --link-external: #D83933;
+  --link-internal: #d83933;
+  --link-external: #d83933;
 
   /* Elevation / Shadows */
   --shadow-card: 0 5px 25px -10px rgba(0, 0, 0, 0.3);
@@ -49,7 +69,12 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--primary-blue);
   font-weight: 400;
@@ -57,11 +82,22 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
 }
 
+h3 {
+  font-size: var(--size-8);
+}
+
+@media (max-width: 767px) {
+  h3 {
+    font-size: var(--size-6);
+  }
+}
+
 a {
   color: var(--link-internal);
   text-decoration: underline;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: var(--gray-90);
 }

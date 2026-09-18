@@ -49,7 +49,7 @@ class HomeDrupalPilotHooks {
    */
   #[TrustedCallback]
   public static function sanitizeComponentUrls(array $props): array {
-    foreach (['src', 'primary_button_url', 'secondary_button_url'] as $property) {
+    foreach (['src', 'primary_button_url', 'secondary_button_url', 'teaserlink'] as $property) {
       if (isset($props[$property]) && is_string($props[$property])) {
         $props[$property] = UrlHelper::stripDangerousProtocols($props[$property]);
       }
