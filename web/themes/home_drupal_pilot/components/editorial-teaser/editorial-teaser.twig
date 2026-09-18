@@ -19,7 +19,7 @@
 {% set teaser_attributes = attributes|default(create_attribute()) %}
 
 <div {{ teaser_attributes.addClass(teaser_classes) }}>
-  <a href="{{ teaserlink|e('html_attr') }}" class="editorial-teaser__link-{{ teaser_variant == 'compact' ? 'compact' : 'card' }}">
+  <a href="{{ teaserlink|e('html_attr') }}" class="editorial-teaser__link editorial-teaser__link-{{ teaser_variant == 'compact' ? 'compact' : 'card' }}">
     {% if teaser_variant == 'card' %}
       {% if image %}
         {% set image_srcset = image.src|toSrcSet(image.width) %}

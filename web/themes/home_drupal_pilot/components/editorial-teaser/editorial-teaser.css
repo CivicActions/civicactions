@@ -8,6 +8,14 @@
   box-shadow: var(--shadow-card);
 }
 
+.editorial-teaser__title {
+  line-height: 33px;
+
+  @media (max-width: 767px) {
+    line-height: 39px;
+  }
+}
+
 .editorial-teaser__link {
   color: var(--primary-blue);
   text-decoration: none;
