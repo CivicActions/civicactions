@@ -28,7 +28,7 @@
           src="{{ file_url(image.src)|e('html_attr') }}"
           {% if image_srcset %}
             srcset="{{ image_srcset|e('html_attr') }}"
-            sizes="auto 100vw"
+            sizes="auto, 100vw"
           {% endif %}
           alt="{{ image.alt|e('html_attr') }}"
           width="{{ image.width|e('html_attr') }}"
