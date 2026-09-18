@@ -27,23 +27,26 @@
   --gray-90: #171717;
   --black: #000000;
 
+  /* Spacing (based on 4px increments) */
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-8: 32px;
+  --size-9: 36px;
+  --size-12: 48px;
+  --size-14: 56px;
+
   /* Typography */
   --font-heading: 'Merriweather', Georgia, serif;
   --font-body: 'Nunito', 'Helvetica Neue', sans-serif;
   --line-height-base: 1.15;
   --line-height-body-large: 1.7;
-  --font-size-body-large: 20px;
-
-  /* Spacing */
-  --space-20: 20px;
-  --space-24: 24px;
-  --space-32: 32px;
-  --space-36: 36px;
-  --space-48: 48px;
-  --space-56: 56px;
+  --font-size-body-large: var(--size-5);
 
   /* Sizing */
-  --icon-size-large: 32px;
+  --icon-size-large: var(--size-8);
 
   /* Focus */
   --focus-outline-width: 3px;
@@ -80,12 +83,12 @@ h6 {
 }
 
 h3 {
-  font-size: 28px;
+  font-size: var(--size-8);
 }
 
 @media (max-width: 767px) {
   h3 {
-    font-size: 24px;
+    font-size: var(--size-6);
   }
 }
 
