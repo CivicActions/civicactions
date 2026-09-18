@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Section component.
+ *
+ * Available props:
+ * - layout: Column configuration: two-equal, three-equal, two-one, or one-two.
+ *
+ * Available slots:
+ * - column_one: First column content.
+ * - column_two: Second column content.
+ * - column_three: Third column content for the three-equal layout.
+ */
+#}
+{% set column_layout = layout|default('two-equal') %}
+{% set padding = padding|default('medium') %}
+{% set section_attributes = attributes|default(create_attribute()) %}
+
+<section {{ section_attributes.addClass([
+  'ca-section',
+  'ca-section--' ~ column_layout,
+  'ca-section--' ~ padding,
+]) }}>
+  <div class="ca-section__column ca-section__column--one">
+    {% block column_one %}{% endblock %}
+  </div>
+
+  <div class="ca-section__column ca-section__column--two">
+    {% block column_two %}{% endblock %}
+  </div>
+
+  {% if column_layout == 'three-equal' %}
+    <div class="ca-section__column ca-section__column--three">
+      {% block column_three %}{% endblock %}
+    </div>
+  {% endif %}
+</section>

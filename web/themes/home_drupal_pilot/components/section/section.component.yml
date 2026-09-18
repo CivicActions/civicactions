@@ -1,0 +1,49 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Section
+description: Responsive CSS Grid section with two- and three-column layout options.
+group: Layout
+status: stable
+props:
+  type: object
+  required:
+    - layout
+  properties:
+    layout:
+      type: string
+      title: Column layout
+      enum:
+        - two-equal
+        - three-equal
+        - two-one
+        - one-two
+      meta:enum:
+        two-equal: Two columns (50/50)
+        three-equal: Three columns (equal)
+        two-one: Two columns (25/75)
+        one-two: Two columns (75/25)
+      default: two-equal
+      examples:
+        - two-equal
+    padding:
+      type: string
+      title: Section padding
+      description: CSS padding for the section.
+      enum:
+        - small
+        - medium
+        - large
+      default: medium
+      meta:enum:
+        small: Small padding
+        medium: Medium padding
+        large: Large padding
+slots:
+  column_one:
+    title: First column
+    description: Content displayed in the first column.
+  column_two:
+    title: Second column
+    description: Content displayed in the second column.
+  column_three:
+    title: Third column
+    description: Content displayed in the third column when using the three-column layout.

@@ -1,0 +1,46 @@
+/**
+ * @file
+ * Styles for the CivicActions Section SDC.
+ */
+
+.ca-section {
+  --section-gap: 2rem;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--section-gap);
+}
+
+.ca-section--small {
+  padding: var(--container-padding-sm);
+}
+
+.ca-section--medium {
+  padding: var(--container-padding-md);
+}
+
+.ca-section--large {
+  padding: var(--container-padding-lg);
+}
+
+.ca-section__column {
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .ca-section--two-equal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ca-section--three-equal {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ca-section--two-one {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  }
+
+  .ca-section--one-two {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  }
+}
