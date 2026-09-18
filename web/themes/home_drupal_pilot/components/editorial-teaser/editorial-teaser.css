@@ -1,0 +1,92 @@
+/**
+ * @file
+ * Styles for the Editorial Teaser SDC.
+ */
+
+.editorial-teaser {
+  background-color: var(--white);
+}
+
+.editorial-teaser__link {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.editorial-teaser__link:focus-visible {
+  outline: var(--focus-outline-width) solid var(--primary-red);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.editorial-teaser--card .editorial-teaser__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.editorial-teaser__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: fill;
+}
+
+.editorial-teaser--card .editorial-teaser__title {
+  margin: 0;
+  padding: var(--space-36) var(--space-36) 0;
+  color: var(--primary-blue);
+  font-family: var(--font-heading);
+}
+
+.editorial-teaser__description {
+  margin: 0;
+  padding: var(--space-36);
+  color: var(--gray-90);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body-large);
+  line-height: var(--line-height-body-large);
+}
+
+.editorial-teaser--compact .editorial-teaser__link {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding: var(--space-48) var(--space-56);
+  box-sizing: border-box;
+}
+
+.editorial-teaser--compact .editorial-teaser__title {
+  margin: 0;
+  color: var(--primary-blue);
+  font-family: var(--font-heading);
+}
+
+.editorial-teaser__arrow {
+  display: block;
+  flex: 0 0 auto;
+  width: var(--icon-size-large);
+  height: auto;
+  margin-left: var(--space-20);
+  filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg)
+    saturate(600%) contrast(0.8);
+}
+
+.editorial-teaser__link:hover .editorial-teaser__title,
+.editorial-teaser__link:focus-visible .editorial-teaser__title {
+  color: var(--primary-red);
+}
+
+@media (max-width: 767px) {
+  .editorial-teaser--card .editorial-teaser__title,
+  .editorial-teaser__description {
+    padding-left: var(--space-24);
+    padding-right: var(--space-24);
+  }
+
+  .editorial-teaser--compact .editorial-teaser__link {
+    padding: var(--space-32) var(--space-24);
+  }
+
+}
