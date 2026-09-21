@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Case Study Teaser component.
+ *
+ * Available props:
+ * - teaserlink: Case study destination.
+ * - image: Optional Media Library image.
+ * - client: Client or partner name.
+ * - title: Case study heading.
+ * - summary: Optional case study summary.
+ */
+#}
+{% set teaser_attributes = attributes|default(create_attribute()) %}
+
+<article {{ teaser_attributes.addClass('ca-case-study-teaser') }}>
+  <a href="{{ teaserlink|e('html_attr') }}" class="ca-case-study-teaser__link">
+    {% if image %}
+      {% set image_srcset = image.src|toSrcSet(image.width) %}
+      <img
+        class="ca-case-study-teaser__image"
+        src="{{ file_url(image.src)|e('html_attr') }}"
+        {% if image_srcset %}
+          srcset="{{ image_srcset|e('html_attr') }}"
+          sizes="auto, 100vw"
+        {% endif %}
+        alt="{{ image.alt|default('')|e('html_attr') }}"
+        width="{{ image.width|e('html_attr') }}"
+        height="{{ image.height|e('html_attr') }}"
+        loading="lazy"
+      >
+    {% endif %}
+    <div class="ca-case-study-teaser__content">
+      {% if client %}
+        <span class="ca-case-study-teaser__client">{{ client }}</span>
+      {% endif %}
+      <h3 class="ca-case-study-teaser__title">{{ title }}</h3>
+      {% if summary %}
+        <p class="ca-case-study-teaser__summary">{{ summary }}</p>
+      {% endif %}
+    </div>
+  </a>
+</article>

@@ -1,0 +1,46 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Case Study Teaser
+description: Linked case study preview with a client label, image, title, and summary.
+group: Teasers
+status: stable
+props:
+  type: object
+  required:
+    - teaserlink
+    - title
+  properties:
+    teaserlink:
+      type: string
+      title: Teaser link
+      format: uri-reference
+      default: '/case-studies/example'
+      examples:
+        - '/case-studies/example'
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Case study image
+      description: Image selected from the Media Library.
+      examples:
+        - src: '/themes/home_drupal_pilot/images/canvas-assets/editorial-teaser-img.jpg'
+          alt: 'Traffic light against the sky'
+          width: 354
+          height: 220
+    client:
+      type: string
+      title: Client name
+      default: 'National Science Foundation'
+      examples:
+        - 'National Science Foundation'
+    title:
+      type: string
+      title: Title
+      default: 'Designing a better public experience'
+      examples:
+        - 'Designing a better public experience'
+    summary:
+      type: string
+      title: Summary
+      default: 'A digital service that helps people find what they need.'
+      examples:
+        - 'A digital service that helps people find what they need.'
