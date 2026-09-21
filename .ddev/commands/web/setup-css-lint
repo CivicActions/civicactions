@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+## Description: Install Drupal core's pinned CSS lint dependencies
+## Usage: setup-css-lint
+## Example: "ddev setup-css-lint"
+set -eu
+
+cd /var/www/html/web/core
+corepack yarn install --immutable

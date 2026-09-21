@@ -12,6 +12,20 @@ Composer.
 For more information and detailed installation guides, please visit the
 Integrated Composer Pantheon documentation: https://pantheon.io/docs/integrated-composer
 
+## Frontend linting
+
+The custom theme CSS uses Drupal core's pinned Stylelint configuration. Install
+the lint dependencies once per checkout, then run the theme lint after CSS
+changes:
+
+```bash
+ddev setup-css-lint
+ddev lint-css
+```
+
+The command checks changed files under `web/themes/home_drupal_pilot/`, not
+Drupal core or contributed code.
+
 ## Contributing
 
 Contributions are welcome in the form of GitHub pull requests. However, the
