@@ -10,12 +10,14 @@ if [[ ! -x "$STYLELINT" ]]; then
   exit 1
 fi
 
-cd /var/www/html/web/themes/home_drupal_pilot
+REPO_ROOT=/var/www/html
+THEME_PATH=web/themes/home_drupal_pilot
 lint_files=()
+cd "$REPO_ROOT"
 while IFS= read -r changed_file; do
   case "$changed_file" in
-    web/themes/home_drupal_pilot/*.css)
-      lint_files+=("./${changed_file#web/themes/home_drupal_pilot/}")
+    "$THEME_PATH"/*.css)
+      lint_files+=("./${changed_file#"$THEME_PATH/"}")
       ;;
   esac
 done < <(
@@ -30,6 +32,7 @@ if [[ ${#lint_files[@]} -eq 0 ]]; then
   exit 0
 fi
 
+cd "$REPO_ROOT/$THEME_PATH"
 "$STYLELINT" \
   --config .stylelint-local.json \
   --config-basedir /var/www/html/web/core \
