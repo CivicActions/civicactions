@@ -1,0 +1,44 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Card
+description: Reusable linked card with an icon, title, and optional body text.
+group: Content
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - link
+  properties:
+    title:
+      type: string
+      title: Title
+      default: "Web and CMS"
+      examples:
+        - "Web and CMS"
+    link:
+      type: string
+      title: Link URL
+      format: uri-reference
+      default: "/services#web-cms"
+      examples:
+        - "/services#web-cms"
+    icon:
+      type: string
+      title: Icon URL
+      description: "Bundled icons: check.svg, error.svg, feed.svg, help.png, and warning.svg in /themes/home_drupal_pilot/images/icons/."
+      format: uri-reference
+      default: "/themes/home_drupal_pilot/images/icons/check.svg"
+      examples:
+        - "/themes/home_drupal_pilot/images/icons/check.svg"
+    icon_alt:
+      type: string
+      title: Icon alternative text
+      default: "Service category icon"
+      examples:
+        - "Service category icon"
+    body:
+      type: string
+      title: Body text
+      default: "Accessible digital services for the public good."
+      examples:
+        - "Accessible digital services for the public good."

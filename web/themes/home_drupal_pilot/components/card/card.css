@@ -1,0 +1,166 @@
+/**
+ * @file
+ * Styles for the CivicActions Card SDC.
+ *
+ * The unscoped selectors provide the progressive-enhancement fallback for
+ * browsers without CSS @scope support. The scoped selectors preserve the
+ * component's encapsulation in browsers that support @scope.
+ */
+
+.ca-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 26px 40px;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  text-decoration: none;
+  color: var(--gray-90, #171717);
+  background-color: var(--white, #fff);
+  box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+  gap: 32px;
+}
+
+.ca-card:hover,
+.ca-card:active,
+.ca-card:focus-visible {
+  background-color: var(--gray-05, #f0f0f0);
+}
+
+.ca-card:active,
+.ca-card:focus-visible {
+  box-shadow: none;
+}
+
+.ca-card:focus-visible {
+  outline: 3px solid var(--primary-blue, #162e51);
+  outline-offset: 3px;
+}
+
+.ca-card__icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 64px;
+  height: auto;
+}
+
+.ca-card__content {
+  min-width: 0;
+}
+
+.ca-card__title {
+  margin: 0;
+  color: var(--primary-blue, #162e51);
+  font-family: var(--font-heading, "Merriweather", Georgia, serif);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ca-card__body {
+  margin: 8px 0 0;
+  color: var(--gray-70, #454545);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .ca-card__icon {
+    width: 52px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ca-card {
+    gap: 20px;
+    padding: 22px 24px;
+  }
+
+  .ca-card__icon {
+    width: 38px;
+  }
+}
+
+@scope (.ca-card) {
+  :scope {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 26px 40px;
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+    text-decoration: none;
+    color: var(--gray-90, #171717);
+    background-color: var(--white, #fff);
+    box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+    gap: 32px;
+  }
+
+  :scope:hover,
+  :scope:active,
+  :scope:focus-visible {
+    background-color: var(--gray-05, #f0f0f0);
+  }
+
+  :scope:active,
+  :scope:focus-visible {
+    box-shadow: none;
+  }
+
+  :scope:focus-visible {
+    outline: 3px solid var(--primary-blue, #162e51);
+    outline-offset: 3px;
+  }
+
+  .ca-card__icon {
+    display: block;
+    flex: 0 0 auto;
+    width: 64px;
+    height: auto;
+  }
+
+  .ca-card__content {
+    min-width: 0;
+  }
+
+  .ca-card__title {
+    margin: 0;
+    color: var(--primary-blue, #162e51);
+    font-family: var(--font-heading, "Merriweather", Georgia, serif);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ca-card__body {
+    margin: 8px 0 0;
+    color: var(--gray-70, #454545);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 767px) {
+    .ca-card__icon {
+      width: 52px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    :scope {
+      gap: 20px;
+      padding: 22px 24px;
+    }
+
+    .ca-card__icon {
+      width: 38px;
+    }
+  }
+}

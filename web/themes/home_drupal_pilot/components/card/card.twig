@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Card component.
+ *
+ * Available props:
+ * - title: Card heading.
+ * - link: Card destination.
+ * - icon: Icon image URL.
+ * - icon_alt: Icon alternative text. Leave empty for decorative icons.
+ * - body: Optional supporting text.
+ */
+#}
+{% set card_attributes = attributes|default(create_attribute()) %}
+{% set card_classes = ['ca-card'] %}
+
+<a href="{{ link|e('html_attr') }}" {{ card_attributes.addClass(card_classes) }}>
+  {% if icon %}
+    <img class="ca-card__icon" src="{{ icon|e('html_attr') }}" alt="{{ icon_alt|default('')|e('html_attr') }}">
+  {% endif %}
+  <div class="ca-card__content">
+    {% if title %}
+      <h3 class="ca-card__title">{{ title }}</h3>
+    {% endif %}
+    {% if body %}
+      <p class="ca-card__body">{{ body }}</p>
+    {% endif %}
+  </div>
+</a>
