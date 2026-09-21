@@ -53,7 +53,7 @@
 
 /* Section background colors */
 .ca-section--white {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .ca-section--gray {
@@ -72,8 +72,8 @@
 .ca-section__inner--full {
   box-sizing: border-box;
   max-width: 100%;
-  padding-left: var(--section-gap);
   padding-right: var(--section-gap);
+  padding-left: var(--section-gap);
 }
 
 .ca-section__inner--constrained {

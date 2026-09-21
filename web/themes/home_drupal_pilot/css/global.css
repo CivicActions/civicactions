@@ -18,14 +18,14 @@
   --sec-alt-blue: #005ea2;
 
   /* Brand Colors - Grayscale */
-  --white: #ffffff;
+  --white: #fff;
   --gray-05: #f0f0f0;
   --gray-10: #e6e6e6;
   --gray-30: #adadad;
   --gray-50: #757575;
   --gray-70: #454545;
   --gray-90: #171717;
-  --black: #000000;
+  --black: #000;
 
   /* Spacing (based on 4px increments) */
   --size-1: 0.25rem;
@@ -40,8 +40,8 @@
   --size-20: 5rem;
 
   /* Typography */
-  --font-heading: 'Merriweather', Georgia, serif;
-  --font-body: 'Nunito', 'Helvetica Neue', sans-serif;
+  --font-heading: "Merriweather", georgia, serif;
+  --font-body: "Nunito", "Helvetica Neue", sans-serif;
   --line-height-base: 1.15;
   --line-height-body-large: 1.7;
   --font-size-body-large: var(--size-5);
@@ -63,16 +63,16 @@
   --link-external: #d83933;
 
   /* Elevation / Shadows */
-  --shadow-card: 0 5px 25px -10px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 5px 25px -10px rgb(0, 0, 0, 0.3);
 }
 
 /* Base Typography Defaults */
 body {
-  font-family: var(--font-body);
-  color: var(--gray-90);
-  line-height: var(--line-height-base);
   margin: 0;
   padding: 0;
+  color: var(--gray-90);
+  font-family: var(--font-body);
+  line-height: var(--line-height-base);
 }
 
 h1,
@@ -81,11 +81,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
+  margin-top: 0;
   color: var(--primary-blue);
+  font-family: var(--font-heading);
   font-weight: 400;
   line-height: var(--line-height-base);
-  margin-top: 0;
 }
 
 h3 {
@@ -99,8 +99,8 @@ h3 {
 }
 
 a {
-  color: var(--link-internal);
   text-decoration: underline;
+  color: var(--link-internal);
 }
 
 a:hover,

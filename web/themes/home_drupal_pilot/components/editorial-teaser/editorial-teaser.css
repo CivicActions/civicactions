@@ -17,8 +17,8 @@
 }
 
 .editorial-teaser__link {
-  color: var(--primary-blue);
   text-decoration: none;
+  color: var(--primary-blue);
 }
 
 .editorial-teaser__link:focus-visible {
@@ -62,8 +62,8 @@
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  padding: var(--size-8);
   margin-bottom: var(--size-2);
+  padding: var(--size-8);
   box-shadow: var(--shadow-card);
 }
 
@@ -91,8 +91,8 @@
 @media (max-width: 767px) {
   .editorial-teaser--card .editorial-teaser__title,
   .editorial-teaser__description {
-    padding-left: var(--size-6);
     padding-right: var(--size-6);
+    padding-left: var(--size-6);
   }
 
   .editorial-teaser--compact .editorial-teaser__link {
