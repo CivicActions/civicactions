@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+## Description: Lint custom theme CSS with Drupal core Stylelint
+## Usage: lint-css
+## Example: "ddev lint-css"
+set -eu
+
+STYLELINT=/var/www/html/web/core/node_modules/.bin/stylelint
+if [[ ! -x "$STYLELINT" ]]; then
+  echo "Stylelint dependencies are not installed. Run: ddev setup-css-lint" >&2
+  exit 1
+fi
+
+REPO_ROOT=/var/www/html
+THEME_PATH=web/themes/home_drupal_pilot
+lint_files=()
+cd "$REPO_ROOT"
+while IFS= read -r changed_file; do
+  case "$changed_file" in
+    "$THEME_PATH"/*.css)
+      lint_files+=("./${changed_file#"$THEME_PATH/"}")
+      ;;
+  esac
+done < <(
+  {
+    git diff --name-only HEAD
+    git ls-files --others --exclude-standard
+  } | sort -u
+)
+
+if [[ ${#lint_files[@]} -eq 0 ]]; then
+  echo "No changed custom theme CSS files to lint."
+  exit 0
+fi
+
+cd "$REPO_ROOT/$THEME_PATH"
+"$STYLELINT" \
+  --config .stylelint-local.json \
+  --config-basedir /var/www/html/web/core \
+  "${lint_files[@]}"
