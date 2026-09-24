@@ -34,7 +34,14 @@ if (file_exists($pantheon_services_file)) {
 
 include \Pantheon\Integrations\Assets::dir() . "/settings.pantheon.php";
 
-
+/**
+ * Fix for https://www.drupal.org/project/trash/issues/3619527
+ * If https://github.com/pantheon-systems/drupal-integrations/pull/44 is merged this can be removed.
+ */
+if (isset($_ENV['PANTHEON_ROLLING_TMP'])) {
+  $settings['php_storage']['trash']['directory'] = $_ENV['PANTHEON_ROLLING_TMP'];
+  $settings['php_storage']['trash']['secret'] = $settings['hash_salt'] . ($settings['deployment_identifier'] ?? '');
+}
 
 /**
  * Skipping permissions hardening will make scaffolding
