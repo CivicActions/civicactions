@@ -11,7 +11,7 @@ if [[ ! -x "$STYLELINT" ]]; then
 fi
 
 REPO_ROOT=/var/www/html
-THEME_PATH=web/themes/home_drupal_pilot
+THEME_PATH=web/themes/omnichannel
 lint_files=()
 cd "$REPO_ROOT"
 while IFS= read -r changed_file; do

@@ -5,26 +5,27 @@ that work with the Platform's Integrated Composer build process. It is also the
 Platform's standard Drupal 9 upstream.
 
 Unlike with earlier Pantheon upstreams, files such as Drupal Core that you are
-unlikely to adjust while building sites are not in the main branch of the 
+unlikely to adjust while building sites are not in the main branch of the
 repository. Instead, they are referenced as dependencies that are installed by
 Composer.
 
 For more information and detailed installation guides, please visit the
-Integrated Composer Pantheon documentation: https://pantheon.io/docs/integrated-composer
+Integrated Composer Pantheon documentation: [Pantheon Integrated Composer documentation](https://pantheon.io/docs/integrated-composer)
 
 ## Frontend linting
 
-The custom theme CSS uses Drupal core's pinned Stylelint configuration. Install
-the lint dependencies once per checkout, then run the theme lint after CSS
-changes:
+The custom theme uses Drupal core's pinned Stylelint, ESLint, and Prettier
+configurations. Install the lint dependencies once per checkout, then run the
+theme lint commands after CSS or JavaScript changes:
 
 ```bash
 ddev setup-css-lint
 ddev lint-css
+ddev lint-js
 ```
 
-The command checks changed files under `web/themes/home_drupal_pilot/`, not
-Drupal core or contributed code.
+The commands check changed files under `web/themes/omnichannel/`, not Drupal
+core or contributed code.
 
 ## Contributing
 

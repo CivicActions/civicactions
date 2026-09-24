@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+## Description: Lint custom theme JavaScript with Drupal core ESLint
+## Usage: lint-js
+## Example: "ddev lint-js"
+set -eu
+
+ESLINT=/var/www/html/web/core/node_modules/.bin/eslint
+if [[ ! -x "$ESLINT" ]]; then
+  echo "ESLint dependencies are not installed. Run: ddev setup-css-lint" >&2
+  exit 1
+fi
+
+REPO_ROOT=/var/www/html
+THEME_PATH=web/themes/omnichannel
+lint_files=()
+cd "$REPO_ROOT"
+while IFS= read -r changed_file; do
+  case "$changed_file" in
+    "$THEME_PATH"/*.js)
+      lint_files+=("./${changed_file#"$THEME_PATH/"}")
+      ;;
+  esac
+done < <(
+  {
+    git diff --name-only HEAD
+    git ls-files --others --exclude-standard
+  } | sort -u
+)
+
+if [[ ${#lint_files[@]} -eq 0 ]]; then
+  echo "No changed custom theme JavaScript files to lint."
+  exit 0
+fi
+
+cd "$REPO_ROOT/$THEME_PATH"
+"$ESLINT" \
+  --config .eslintrc-local.json \
+  --resolve-plugins-relative-to /var/www/html/web/core \
+  "${lint_files[@]}"

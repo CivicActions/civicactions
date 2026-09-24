@@ -1,0 +1,172 @@
+/**
+ * @file
+ * Styles for the CivicActions Case Study Teaser SDC.
+ */
+
+.ca-case-study-teaser {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--white, #fff);
+  box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+}
+
+.ca-case-study-teaser__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  text-decoration: none;
+  color: var(--gray-90, #171717);
+}
+
+.ca-case-study-teaser__link:hover {
+  background-color: var(--gray-05, #f0f0f0);
+}
+
+.ca-case-study-teaser__link:active {
+  box-shadow: none;
+}
+
+.ca-case-study-teaser__link:focus-visible {
+  outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+  outline-offset: var(--focus-outline-offset, 3px);
+}
+
+.ca-case-study-teaser__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.ca-case-study-teaser__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: var(--size-6, 1.5rem) var(--size-8, 2rem) var(--size-8, 2rem);
+}
+
+.ca-case-study-teaser__client {
+  text-transform: uppercase;
+  color: var(--gray-70, #454545);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.ca-case-study-teaser__title {
+  margin: var(--size-2, 0.5rem) 0 0;
+  color: var(--primary-blue, #162e51);
+  font-family: var(--font-heading, "Merriweather", Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ca-case-study-teaser__summary {
+  margin: var(--size-4, 1rem) 0 0;
+  color: var(--gray-70, #454545);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--font-size-body-large, 1.25rem);
+  line-height: var(--line-height-body-large, 1.7);
+}
+
+@media (max-width: 767px) {
+  .ca-case-study-teaser__content {
+    padding-right: var(--size-6, 1.5rem);
+    padding-left: var(--size-6, 1.5rem);
+  }
+
+  .ca-case-study-teaser__title {
+    font-size: 1.25rem;
+  }
+}
+
+@scope (.ca-case-study-teaser) {
+  :scope {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--white, #fff);
+    box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+  }
+
+  .ca-case-study-teaser__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+    text-decoration: none;
+    color: var(--gray-90, #171717);
+  }
+
+  .ca-case-study-teaser__link:hover {
+    background-color: var(--gray-05, #f0f0f0);
+  }
+
+  .ca-case-study-teaser__link:active {
+    box-shadow: none;
+  }
+
+  .ca-case-study-teaser__link:focus-visible {
+    outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+    outline-offset: var(--focus-outline-offset, 3px);
+  }
+
+  .ca-case-study-teaser__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .ca-case-study-teaser__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: var(--size-6, 1.5rem) var(--size-8, 2rem) var(--size-8, 2rem);
+  }
+
+  .ca-case-study-teaser__client {
+    text-transform: uppercase;
+    color: var(--gray-70, #454545);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .ca-case-study-teaser__title {
+    margin: var(--size-2, 0.5rem) 0 0;
+    color: var(--primary-blue, #162e51);
+    font-family: var(--font-heading, "Merriweather", Georgia, serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .ca-case-study-teaser__summary {
+    margin: var(--size-4, 1rem) 0 0;
+    color: var(--gray-70, #454545);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--font-size-body-large, 1.25rem);
+    line-height: var(--line-height-body-large, 1.7);
+  }
+
+  @media (max-width: 767px) {
+    .ca-case-study-teaser__content {
+      padding-right: var(--size-6, 1.5rem);
+      padding-left: var(--size-6, 1.5rem);
+    }
+
+    .ca-case-study-teaser__title {
+      font-size: 1.25rem;
+    }
+  }
+}

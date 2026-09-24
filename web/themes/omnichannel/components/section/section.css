@@ -1,0 +1,90 @@
+/**
+ * @file
+ * Styles for the CivicActions Section SDC.
+ */
+
+.ca-section__inner {
+  --section-gap: 2rem;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--section-gap);
+}
+
+.ca-section__column {
+  min-width: 0;
+}
+
+.ca-section--small {
+  padding: var(--container-spacing-sm) 0;
+}
+
+.ca-section--medium {
+  padding: var(--container-spacing-md) 0;
+}
+
+.ca-section--large {
+  padding: var(--container-spacing-lg) 0;
+}
+
+/* Grid layouts for different column configurations */
+
+@media (min-width: 768px) {
+  .ca-section--four-equal {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ca-section--two-equal {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ca-section--three-equal {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ca-section--two-one {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  }
+
+  .ca-section--one-two {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  }
+}
+
+/* Section background colors */
+.ca-section--white {
+  background-color: #fff;
+}
+
+.ca-section--gray {
+  background-color: var(--gray-05);
+}
+
+.ca-section--blue {
+  background-color: var(--primary-blue);
+}
+
+.ca-section--red {
+  background-color: var(--primary-red);
+}
+
+/* Section width styles */
+.ca-section__inner--full {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding-right: var(--section-gap);
+  padding-left: var(--section-gap);
+}
+
+.ca-section__inner--constrained {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+}
+
+.ca-section--center {
+  align-items: center;
+}
+
+.ca-section--bottom {
+  align-items: end;
+}

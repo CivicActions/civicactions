@@ -1,0 +1,92 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Layout Section
+description: Responsive CSS Grid section with two-, three-, and four-column layout options.
+group: Layout
+status: stable
+props:
+  type: object
+  required:
+    - layout
+  properties:
+    layout:
+      type: string
+      title: Column layout
+      enum:
+        - two-equal
+        - three-equal
+        - two-one
+        - one-two
+        - four-equal
+      meta:enum:
+        two-equal: Two columns (50/50)
+        three-equal: Three columns (equal)
+        two-one: Two columns (25/75)
+        one-two: Two columns (75/25)
+        four-equal: Four columns (equal)
+      default: two-equal
+      examples:
+        - two-equal
+    padding:
+      type: string
+      title: Section padding
+      description: CSS padding for the section.
+      enum:
+        - small
+        - medium
+        - large
+      default: medium
+      meta:enum:
+        small: Small padding
+        medium: Medium padding
+        large: Large padding
+    alignment:
+      type: string
+      title: Vertical alignment for the section columns
+      enum:
+        - top
+        - center
+        - bottom
+      default: top
+      meta:enum:
+        top: Align content to the top
+        center: Center content vertically
+        bottom: Align content to the bottom
+    background_color:
+      type: string
+      title: Section background color
+      description: CSS background color for the section.
+      enum:
+        - white
+        - gray
+        - blue
+        - red
+      default: white
+      meta:enum:
+        white: White
+        gray: Light Gray
+        blue: Blue
+        red: Red
+    width:
+      type: string
+      title: Section width
+      description: CSS width for the section.
+      enum:
+        - full
+        - constrained
+      default: full
+      meta:enum:
+        full: Full width
+        constrained: Constrained width
+slots:
+  column_one:
+    title: First column
+    description: Content displayed in the first column.
+  column_two:
+    title: Second column
+    description: Content displayed in the second column.
+  column_three:
+    title: Third column
+    description: Content displayed in the third column when using the three-column layout.
+  column_four:
+    title: Fourth column
+    description: Content displayed in the fourth column when using the four-column layout.

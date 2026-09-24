@@ -1,0 +1,148 @@
+/**
+ * @file
+ * Styles for the CivicActions Link Button SDC.
+ *
+ * The unscoped selectors provide the progressive-enhancement fallback for
+ * browsers without CSS @scope support. The scoped selectors preserve the
+ * component's encapsulation in browsers that support @scope.
+ */
+
+.ca-link-button {
+  display: inline-block;
+  padding: 12px 24px;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--white, #fff);
+  border: 1px solid var(--primary-red, #d83933);
+  background-color: var(--primary-red, #d83933);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 34px;
+}
+
+.ca-link-button:hover,
+.ca-link-button:focus-visible {
+  color: var(--white, #fff);
+  border-color: var(--gray-90, #171717);
+  background-color: var(--gray-90, #171717);
+}
+
+.ca-link-button:focus-visible {
+  outline: 3px solid var(--primary-blue, #162e51);
+  outline-offset: 3px;
+}
+
+.ca-link-button:active {
+  color: var(--white, #fff);
+  border-color: var(--gray-90, #171717);
+  background-color: var(--gray-90, #171717);
+}
+
+.ca-link-button.ca-link-button--secondary {
+  color: var(--primary-blue, #162e51);
+  border: 1px solid var(--primary-blue, #162e51);
+  background-color: var(--white, #fff);
+  font-family: var(--font-heading, "Merriweather", Georgia, serif);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ca-link-button.ca-link-button--secondary:hover,
+.ca-link-button.ca-link-button--secondary:focus,
+.ca-link-button.ca-link-button--secondary:focus-visible {
+  color: var(--white, #fff);
+  border-color: var(--primary-blue, #162e51);
+  background-color: var(--primary-blue, #162e51);
+}
+
+.ca-link-button.ca-link-button--secondary:focus-visible {
+  outline-color: var(--primary-blue, #162e51);
+}
+
+.ca-link-button.ca-link-button--secondary:active {
+  color: var(--primary-blue, #162e51);
+  border-color: var(--primary-blue, #162e51);
+  background-color: var(--gray-10, #e6e6e6);
+}
+
+.ca-link-button.ca-link-button--large {
+  margin-bottom: 50px;
+  font-size: 18px;
+}
+
+@scope (.ca-link-button) {
+  :scope {
+    display: inline-block;
+    padding: 12px 24px;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease,
+      border-color 0.4s ease;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--white, #fff);
+    border: 1px solid var(--primary-red, #d83933);
+    background-color: var(--primary-red, #d83933);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 34px;
+  }
+
+  :scope:hover,
+  :scope:focus-visible {
+    color: var(--white, #fff);
+    border-color: var(--gray-90, #171717);
+    background-color: var(--gray-90, #171717);
+  }
+
+  :scope:focus-visible {
+    outline: 3px solid var(--primary-blue, #162e51);
+    outline-offset: 3px;
+  }
+
+  :scope:active {
+    color: var(--white, #fff);
+    border-color: var(--gray-90, #171717);
+    background-color: var(--gray-90, #171717);
+  }
+
+  :scope.ca-link-button--secondary {
+    color: var(--primary-blue, #162e51);
+    border: 1px solid var(--primary-blue, #162e51);
+    background-color: var(--white, #fff);
+    font-family: var(--font-heading, "Merriweather", Georgia, serif);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  :scope.ca-link-button--secondary:hover,
+  :scope.ca-link-button--secondary:focus,
+  :scope.ca-link-button--secondary:focus-visible {
+    color: var(--white, #fff);
+    border-color: var(--primary-blue, #162e51);
+    background-color: var(--primary-blue, #162e51);
+  }
+
+  :scope.ca-link-button--secondary:focus-visible {
+    outline-color: var(--primary-blue, #162e51);
+  }
+
+  :scope.ca-link-button--secondary:active {
+    color: var(--primary-blue, #162e51);
+    border-color: var(--primary-blue, #162e51);
+    background-color: var(--gray-10, #e6e6e6);
+  }
+
+  :scope.ca-link-button--large {
+    margin-bottom: 50px;
+    font-size: 18px;
+  }
+}

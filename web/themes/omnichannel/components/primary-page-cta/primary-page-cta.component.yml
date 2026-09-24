@@ -1,0 +1,61 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Primary Page CTA
+description: Full-width call-to-action section with headline, subtitle, and action buttons.
+group: Call to Action
+status: stable
+props:
+  type: object
+  required:
+    - title
+    - variant
+  properties:
+    title:
+      type: string
+      title: Title
+      default: "Let’s build a public success story."
+      examples:
+        - "Let’s build a public success story."
+    subtitle:
+      type: string
+      title: Subtitle
+      default: "Get in touch to start."
+      examples:
+        - "Get in touch to start."
+    variant:
+      type: string
+      title: Style variant
+      enum:
+        - default
+        - home
+      meta:enum:
+        default: Default (Primary Blue)
+        home: Homepage (Primary Red)
+      default: default
+      examples:
+        - default
+    primary_button_text:
+      type: string
+      title: Primary button text
+      default: "Put us to work"
+      examples:
+        - "Put us to work"
+    primary_button_url:
+      type: string
+      title: Primary button link
+      format: uri-reference
+      default: "/contact"
+      examples:
+        - "/contact"
+    secondary_button_text:
+      type: string
+      title: Secondary button text
+      default: "Join our team"
+      examples:
+        - "Join our team"
+    secondary_button_url:
+      type: string
+      title: Secondary button link
+      format: uri-reference
+      default: "/careers"
+      examples:
+        - "/careers"

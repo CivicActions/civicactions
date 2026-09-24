@@ -1,0 +1,27 @@
+name: Omnichannel
+type: theme
+'base theme': false
+version: 1.0.0
+libraries:
+  - omnichannel/base
+  - omnichannel/global
+  - omnichannel/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - omnichannel/user
+  core/drupal.dropbutton:
+    - omnichannel/dropbutton
+  core/drupal.dialog:
+    - omnichannel/dialog
+  file/drupal.file:
+    - omnichannel/file
+  core/drupal.item-list:
+    - omnichannel/item-list
+  core/drupal.progress:
+    - omnichannel/progress
+  core/drupal.tablesort:
+    - omnichannel/drupal.tablesort
+description: 'CivicActions Homesite Theme'
+core_version_requirement: ^11
+generator: 'starterkit_theme:11.4.6'

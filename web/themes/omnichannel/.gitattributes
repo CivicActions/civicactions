@@ -1,0 +1,6 @@
+# Treat theme binary assets as binary to prevent diff driver and whitespace checks on binary streams.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

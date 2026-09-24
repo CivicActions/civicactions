@@ -1,0 +1,48 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Link Button
+description: Reusable link button migrated from the legacy Gatsby component.
+group: Buttons
+status: stable
+props:
+  type: object
+  required:
+    - text
+    - src
+  properties:
+    text:
+      type: string
+      title: Button text
+      default: "See our work"
+      examples:
+        - "See our work"
+    src:
+      type: string
+      title: Link URL
+      format: uri-reference
+      default: "/case-studies"
+      examples:
+        - "/case-studies"
+    type:
+      type: string
+      title: Button type
+      enum:
+        - primary
+        - secondary
+      meta:enum:
+        primary: Primary
+        secondary: Secondary
+      default: primary
+      examples:
+        - primary
+    size:
+      type: string
+      title: Button size
+      enum:
+        - default
+        - large
+      meta:enum:
+        default: Default
+        large: Large
+      default: default
+      examples:
+        - default

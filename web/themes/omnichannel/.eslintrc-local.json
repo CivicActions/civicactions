@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "../../core/.eslintrc.json"
+  ],
+  "root": true
+}
