@@ -63,6 +63,7 @@
         "drupal/easy_encryption": "^1",
         "drupal/eca": "^3.1.2",
         "drupal/editoria11y": "^2.2",
+        "drupal/entity_usage": "^5.0",
         "drupal/field_group": "^4.0.0",
         "drupal/focal_point": "^2.1.2",
         "drupal/friendly_captcha_challenge": "^0.9",
