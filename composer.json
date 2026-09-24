@@ -111,7 +111,7 @@
         "drupal/ui_icons": "^1.1.2",
         "drupal/view_password": "^6.0.5",
         "drupal/views_infinite_scroll": "^2.0.3",
-        "drupal/webform": "^6.3.0-beta8",
+        "drupal/webform": "^6.3.1",
         "drupal/yoast_seo": "^2.2.0",
         "league/commonmark": "^2.4",
         "pantheon-systems/drupal-integrations": "^11.1",
