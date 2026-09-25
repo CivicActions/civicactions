@@ -107,6 +107,7 @@
         "drupal/svg_image": "^3.2.2",
         "drupal/symfony_mailer_lite": "^2.0.4",
         "drupal/tagify": "^1.2.51",
+        "drupal/taxonomy_access_fix": "^4.0",
         "drupal/token": "^1.17.0",
         "drupal/token_or": "^2.3.2",
         "drupal/trash": "^3.0.27",
