@@ -15,8 +15,10 @@
 {% set button_classes = [
   'ca-link-button',
   'ca-link-button--' ~ button_type,
-  button_size == 'large' ? 'ca-link-button--large',
 ] %}
+{% if button_size == 'large' %}
+  {% set button_classes = button_classes|merge(['ca-link-button--large']) %}
+{% endif %}
 {% set button_attributes = attributes|default(create_attribute()) %}
 
 <a href="{{ src|e('html_attr') }}" {{ button_attributes.addClass(button_classes) }}>
