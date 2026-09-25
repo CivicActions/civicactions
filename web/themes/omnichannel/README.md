@@ -27,3 +27,22 @@ ddev lint-css
 ddev lint-js
 ```
 
+## Storybook
+
+Storybook runs in the theme directory and renders Twig SDCs with Vite:
+
+```bash
+npm install
+npm run storybook
+npm run build-storybook
+```
+
+Storybook runs without the Drupal runtime. Image-bearing stories use the existing Canvas image
+fixture at `images/canvas-assets/editorial-teaser-img.jpg` and the bundled Card icon fixture at
+`images/icons/check.svg`; responsive `srcset` generation remains a Drupal and Canvas
+responsibility. The production Twig templates remain unchanged.
+
+To publish a static Storybook preview on Pantheon, run `npm run build-storybook` from this
+directory. The output is written to `web/storybook/` and is available at
+`https://<environment>-civicactions.pantheonsite.io/storybook/`. The generated files are
+intentionally tracked during the build phase so Pantheon can serve them from its `web` docroot.
