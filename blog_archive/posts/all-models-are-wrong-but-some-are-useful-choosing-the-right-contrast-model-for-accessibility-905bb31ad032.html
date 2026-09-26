@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>All Models Are Wrong, But Some Are Useful: Choosing the Right Contrast Model for Accessibility — CivicActions</title><link rel="canonical" href="https://medium.com/civicactions/all-models-are-wrong-but-some-are-useful-choosing-the-right-contrast-model-for-accessibility-905bb31ad032"><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65;max-width:780px;margin:3rem auto;padding:0 1rem;color:#222}h1,h2,h3,h4{line-height:1.25}header{border-bottom:1px solid #ddd;margin-bottom:2rem;padding-bottom:1rem}.meta{color:#555}figure{margin:2rem 0}img{max-width:100%;height:auto}figcaption{color:#666;font-size:.9em}blockquote{border-left:4px solid #ddd;margin-left:0;padding-left:1.25rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f5f5;padding:1rem}a{color:#0756a6}.list-item{margin:.25rem 0 .25rem 1.25rem}.embed{background:#f5f5f5;padding:1rem}</style></head><body><header><h1>All Models Are Wrong, But Some Are Useful: Choosing the Right Contrast Model for Accessibility</h1><p>By Mike Gifford &amp; Mitchell Evan</p><p class="meta">CivicActions · 2026-01-23T18:11:39.818000Z</p><p><a href="https://medium.com/civicactions/all-models-are-wrong-but-some-are-useful-choosing-the-right-contrast-model-for-accessibility-905bb31ad032">Original on Medium</a></p></header><article><p><strong>By Mike Gifford &amp; Mitchell Evan</strong></p>
+<p>The WCAG 2.x contrast ratio formula — (L1 + 0.05) / (L2 + 0.05) — has served us well. It’s been a practical and widely adopted benchmark for ensuring text readability on the web. But the accessibility community has long acknowledged its limitations. It reflects an older, luminance-based understanding of color contrast and doesn’t always match how people actually perceive color — and more importantly, how users with disabilities experience content.</p>
+<p>Mitchell Evan posed an important question to me about if we could use clauses of Section 508 and/or the European Accessibility Act (EAA) to provide better accessibility, while maintaining compliance. Section 508 includes a provision for Equivalent Facilitation, and this is echoed in the <strong>European Accessibility Act (EAA)</strong>. Although this equivalency clause is not included in WCAG, but perhaps it should.</p>
+<h2>The Contrast Ratio: Still Useful and Imperfect</h2>
+<p>Let’s be clear: the WCAG contrast ratio has advanced accessibility by providing a measurable, testable floor. <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">WCAG 2.0 chose a contrast ratio of 4.5:1</a> was an approximation of the loss in contrast sensitivity that some people with 20/40 vision experience. However, the method taken was reductionistic. It doesn’t consider:</p>
+<ul>
+<li>Finer gradations of font size</li>
+<li>Any form of color blindness</li>
+<li>Polarity (dark text on light vs. light on dark)</li>
+<li>Human perceptual bias</li>
+</ul>
+<p>It also fails to address user preferences — such as individuals who require or prefer <em>lower</em> contrast. These use cases are poorly served by rigid thresholds based on the luminance of foreground/background colors. Perception is more complicated than it appears.</p>
+<p>Today’s technology can express a much richer visual range than when WCAG 2.0 came out in 2008. CSS now supports new color spaces beyond Red Green Blue (RGB) which allow for more nuanced definitions. New formats include:</p>
+<ul>
+<li>Hue, Saturation, and Lightness (HSL),</li>
+<li>Hue, Whiteness, Blackness (HWB),</li>
+<li>Luminance, Chroma, and Hue (LCH), and</li>
+<li>Oklab color space’s OKLCH.</li>
+</ul>
+<p>Increasingly, we are seeing more dynamic color manipulation used on the web, which challenges current evaluation methods. As web color definitions have evolved; the model has not.</p>
+<p>There is, unfortunately, a gap where WCAG 2 forbids some more readable color combinations and allows some less readable ones. It is that gap is where professional judgment becomes critical.</p>
+<p>Accessibility that stops at compliance misses the point. The goal is not to simply <em>pass</em> a model’s threshold, but to deliver the best possible experience. The best experience may require a different approach to solve user challenges more effectively.</p>
+<h2>Enter APCA: An Already Useful Model</h2>
+<p>A model of perception which is growing in popularity is generally known just as APCA. Myndex produced both the Advanced Perceptual Contrast Algorithm (APCA™)’s and the Accessible Readability Criterion (ARC™) in an effort to improve readability. Within the APCA model, the closest equivalent to the WCAG 2 ratio of 4.5:1 is <a href="https://readtech.org/ARC/#bronze">ARC Bronze</a>.</p>
+<p>The <strong>APCA</strong> model provides an alternative approach based on a more complex understanding of how people actually perceive contrast. It adjusts for text size and polarity and can offer assessments of readability which are more meaningful. APCA is being discussed for possible inclusion in WCAG 3.0, but that process is far from final.</p>
+<p>APCA is already useful today. It can be applied alongside the WCAG 2 contrast ratio as an <strong>additional</strong> check, to help choose color combinations that are best for human perception.</p>
+<p>We advocate for using APCA alongside WCAG 2.x to build typography systems with stronger, more consistent readability — while still meeting current accessibility requirements. This would guarantee the best experience for users. Most color and size combinations that work for one will work for the other. Where they diverge, the APCA may highlight more readable alternatives. In certain regulated contexts, a combination that fails WCAG may still be valid if you can show that it improves readability under the principle of equivalent facilitation.</p>
+<p>To explore the differences between APCA and WCAG 2, Mike has <a href="https://github.com/mgifford/apca-wcag2">produced a script</a> which allows for several comparisons. With 16,777,216 possible variations of the RGB color scheme, it isn’t easy to manually determine which are indeed easier to read, over even how big the overlap is between the two models of perception.</p>
+<p>Are you aware of color combinations where WCAG 2 will give better contrast than APCA? If so, please let us know.</p>
+<figure><img src="../assets/a3650f4640a3015b98d5.png" alt="" loading="lazy"></figure>
+<h2>Equivalent Facilitation: A Regulatory Foundation</h2>
+<p>Section 508 explicitly permits <strong>Equivalent Facilitation</strong>:</p>
+<p><em>“The use of an alternative design or technology that results in </em><strong><em>substantially equivalent or greater accessibility</em></strong><em> and usability by individuals with disabilities than would be provided by conformance…”</em></p>
+<p><a href="https://www.access-board.gov/ict/">— Section 508 E101.2</a></p>
+<p>This clause allows agencies and vendors to meet the intent of the standard — even when deviating from its letter — <strong>as long as the result delivers equal or better accessibility</strong>.</p>
+<p>The <strong>European Accessibility Act (EAA)</strong> uses different language, but the principle is identical:</p>
+<p><em>“…if and only if […] it determines that the design and production of products and the provision of services results in </em><strong><em>equivalent or increased accessibility</em></strong><em> for the foreseeable use by persons with disabilities.”</em></p>
+<p><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019L0882">— </a><a href="https://eur-lex.europa.eu/eli/dir/2019/882#d1e732-100-1">EAA Annex I, Section VII</a></p>
+<p>Choosing to use the WCAG 2.x model to select your color scheme is will ensure compliance today. You could argue today to use Equivalent Facilitation, and use a color combination that meets APCA, but not WCAG 2.x today. Professional expertise will be critical if we are to ignore the 4.5:1 ratio on the grounds of better accessibility. Choosing to relyon the newer APCA will require careful justification and documentation. As non-lawyers, we would say the language allows for itin the USA and Europe. We would like to acknowledge<a href="https://kirby.yatil.net/blog/wcag-3-is-not-ready-yet"> Eric Eggert’s recommendations</a>. We don’t currently recommend meeting APCA, but not WCAG 2.x. Regulated agencies, in particular, should strive for both.</p>
+<p>The Right Question: Which Model Is Best?</p>
+<p>Depending on the color combinations, WCAG 2 or APCA may provide better contrast. Sites like <a href="https://www.color-contrast.dev/">Shimanta’s Color Contrast Tool</a> are starting to provide both. A foreground / background combination that supports both may be as good as we can get in 2025.</p>
+<p>This approach takes some color combinations off the table. Until, there is clear guidance on this, this is the most prudent path. This would also allow for the combinations to be future compatible, if APCA is introduced in WCAG 3. We look forward to what others in the accessibility profession have to say about leveraging “equivalent facilitation” of EN 301 549 and Section 508.</p>
+<p>Standards define the floor. But we should be aiming for the ceiling. Choosing between valid models will help delivers better clarity, and it should be an essential part of modern accessibility practice.</p>
+<figure><img src="../assets/98aa856bb1e15f872849.png" alt="The authors" loading="lazy"><figcaption>The authors</figcaption></figure>
+<h2>Conclusion</h2>
+<p>We are not bound to outdated models, but to better outcomes.</p>
+<p>We should not serve the standard, but rather serve the user.</p>
+<p>All models are wrong, but some are useful. Our responsibility is to know which ones are useful, when — and why.</p>
+<p>Furthermore, getting together with colleagues over dinner is always fun, but can also produce some very interesting results.</p>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">WCAG 2.2 — Understanding Success Criterion 1.4.3 Contrast (Minimum)</a></li>
+<li><a href="https://www.access-board.gov/ict/">Section 508 ICT Final Rule — E101.2 Equivalent Facilitation</a></li>
+<li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32019L0882">European Accessibility Act — Directive (EU) 2019/882</a></li>
+<li><a href="https://www.myndex.com/APCA/">APCA: Accessible Perceptual Contrast Algorithm</a></li>
+<li><a href="https://abilitynet.org.uk/accessibility-services/my-computer-my-way-adds-accessibility-your-website">My Computer My Way</a></li>
+</ul></article></body></html>
