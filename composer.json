@@ -96,7 +96,7 @@
         "drupal/samlauth": "^3.14",
         "drupal/scheduler": "^2.2.2",
         "drupal/scheduler_content_moderation_integration": "^3.0.5",
-        "drupal/schemadotorg": "^1.0.0-alpha39",
+        "drupal/schemadotorg": "1.0.0-alpha39",
         "drupal/search_api": "^1.40.0",
         "drupal/search_api_exclude": "^2.0.3",
         "drupal/selective_better_exposed_filters": "^3.0.3",
