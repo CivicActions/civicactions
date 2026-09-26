@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Better navigation tracking with Google Analytics 4 — CivicActions</title><link rel="canonical" href="https://medium.com/civicactions/better-navigation-tracking-with-google-analytics-4-26361abff82e"><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65;max-width:780px;margin:3rem auto;padding:0 1rem;color:#222}h1,h2,h3,h4{line-height:1.25}header{border-bottom:1px solid #ddd;margin-bottom:2rem;padding-bottom:1rem}.meta{color:#555}figure{margin:2rem 0}img{max-width:100%;height:auto}figcaption{color:#666;font-size:.9em}blockquote{border-left:4px solid #ddd;margin-left:0;padding-left:1.25rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f5f5;padding:1rem}a{color:#0756a6}.list-item{margin:.25rem 0 .25rem 1.25rem}.embed{background:#f5f5f5;padding:1rem}</style></head><body><header><h1>Better navigation tracking with Google Analytics 4</h1><p>This guide focuses on measuring user interactions with components from the US Web Design System (USWDS) implemented in a Drupal site, but…</p><p class="meta">Adrian Cooke · 2023-07-21T14:16:58.053000Z</p><p><a href="https://medium.com/civicactions/better-navigation-tracking-with-google-analytics-4-26361abff82e">Original on Medium</a></p></header><article><p><em>This guide focuses on measuring user interactions with components from the US Web Design System (USWDS) implemented in a Drupal site, but should be useful for anyone interested in custom event tracking.</em></p>
+<p>In this article I’ll outline why we added an additional analytics tool, how we did it, and the role we see it playing in our broader UX research strategy.</p>
+<h2>Farewell, Universal Analytics</h2>
+<p>Now that <a href="https://www.youtube.com/watch?v=_nAtC2Ps_x4">nightfall</a> has descended on Universal Analytics (UA), a product that’s been relatively stable over its decade-long existence, Google Analytics 4 (GA4) is having its moment, and the new version is quite different from its predecessor. The platform has been thoroughly redesigned to account for contemporary realities where on-page (or on-screen) interactions have risen in importance, major privacy regulations have come into force in Europe, California, and additional US states, and Google’s incentives to monetize big data tie-ins like <a href="https://support.google.com/analytics/answer/9358801?hl=en">Big Query</a> have grown.</p>
+<p>Moving to GA4 requires time and effort. But there’s good news, too — the new version is easier to customize! In our work supporting US federal agencies, implementing a separate GA4 account alongside centralized Google Analytics helps achieve two goals simultaneously: (1) transitioning reporting from UA to GA4, and (2) gathering important behavioral data to inform user experience research and design.</p>
+<p>We share our experience in the hope it helps other organizations manage the transition and realize benefits from these changes.</p>
+<h2>What’s happening on-page?</h2>
+<p>Web analytics tools have traditionally focused on reporting pageviews. This approach captures visit data based on URLs where a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">page load event</a> occurs. Such measurement is relatively easy because there are established, lightweight, standardized methods for reporting the address, title, and other characteristics of pages receiving hits.</p>
+<p>But other kinds of interaction events happen on pages (or within screens, for apps) that tools such as Universal Analytics do not track by default. User actions such as opening a menu, clicking a specific navigation link, or typing a query to search the site — all on-page events — are important indicators of utility, especially in aggregate. We want to know if most people are able to get where they need to go, and whether the site’s navigation and search tools are facilitating those goals.</p>
+<figure><img src="../assets/b23383fc86b332c146de.jpg" alt="Current section of megamenu open, Navigation link outlined, menu_click label pointing to it" loading="lazy"><figcaption><em>Figure 1. Tracking events on the USWDS </em><a href="https://designsystem.digital.gov/components/header/extended-mega/"><em>extended header with megamenu</em></a><em> component</em></figcaption></figure>
+<p>In measuring header or footer navigation behavior, or where users are opting to search, we need to capture specific “on-page events” from which we can generate activity benchmarks. This will give us a basis for comparison as we adjust these components in the future.</p>
+<h2>Google Analytics options</h2>
+<p>While there are many options available for web analytics, Google Analytics is the most widely used. All but the most heavily trafficked sites can use it for free without hitting quota limits, and it is relatively easy to install. It is also customizable (more on this soon). But as convenient and inexpensive as Google Analytics is, users are faced with several decisions. This section discusses how we arrived at the decision to use GA4 with Google Tag Manager.</p>
+<h2>Federal agencies and DAP</h2>
+<p>The General Services Administration (GSA) makes the <a href="https://digital.gov/guides/dap/">Digital Analytics Program</a> (DAP), a paid version of Google Analytics, available to federal agencies at no cost. On June 13, GSA announced that GA4 will be available in DAP beginning August 1. This presents a question: should federal agencies that have not previously run their own parallel analytics, invest resources in setting up a second account now?</p>
+<p>We say yes. For one thing, <a href="https://youtu.be/WA0Nk1I66uw?t=518">GSA recommends</a> that agencies run their own parallel analytics. This allows for experimentation, cross-referencing, and doing things that DAP cannot. Nevertheless, when we began working on custom event tracking last fall, it was worth asking whether it would be easier to customize DAP instead. It took some digging and analysis to arrive at an answer.</p>
+<h2>Factors we considered</h2>
+<p>We wanted to customize event tracking and needed to decide whether that should happen on the UA version of DAP, or in GA4. A less obvious consideration was whether to implement the changes in code, as we had done in the past, or switch to Google Tag Manager (GTM):</p>
+<ol>
+<li><strong>GA4 in code:</strong> Most customizable but would require more time to implement up-front and again, each time a change was needed.</li>
+<li><strong>GA4 via Google Tag Manager:</strong> Still very customizable, much easier to change, but would require establishing a governance process.</li>
+</ol>
+<p>A significant advantage of GTM is that, once implemented, it allows event customization to occur without requiring a software development release cycle. However, this convenience introduces risk since it is possible to add code while bypassing existing QA procedures. So governance would have to be carefully considered. Ultimately the project team and stakeholders decided that the pros of adding new services outweighed the effort required to establish a governance framework because:</p>
+<ul>
+<li>GA4’s new data model would allow for more comprehensive customization,</li>
+<li>Reporting would be more flexible than UA’s category, action, label system, and</li>
+<li>Iteration could be faster, providing a more effective input to our UX design process.</li>
+</ul>
+<h2>Discoveries and considerations</h2>
+<p>The process of adopting new software services can raise a lot of questions. We engaged in extensive research on security, privacy, and governance. This led to some interesting discoveries:</p>
+<ul>
+<li><em>Security:</em> GTM provides <a href="https://developers.google.com/tag-platform/tag-manager/web/security">optional measures</a> for hardening against injection attacks. These are implemented in code, so that it is not possible to compromise the security of the website without having access to its codebase.</li>
+<li><em>Data handling:</em> <a href="https://developers.google.com/analytics/devguides/migration/ua/analyticsjs-to-gtagjs">GA4 uses GTM infrastructure</a> even if you don’t use Tag Manager’s code snippet. If you’re curious to learn more, the collection, configuration, processing, and reporting of data on the platform is diagrammed in this <a href="https://developers.google.com/analytics/devguides/platform">Developer Guide</a>.</li>
+<li><em>Free plan limitations:</em> The free version of GA4 has no hit limit, unlike UA. However, the maximum data retention interval is 14 months, and you need to change this setting manually from the default, which is two months. <a href="https://cloud.google.com/bigquery/docs">BigQuery</a> allows you to programmatically export and warehouse your data, though there may be costs associated with this.</li>
+<li><em>Privacy:</em> GA4 is, in many respects, more privacy-guarded than UA, making it <a href="https://digital.gov/guides/dap/common-questions-about-dap/#data-access-retention-and-privacy">comparable</a> to the current version of DAP. For example, IP addresses are <a href="https://support.google.com/analytics/answer/2763052">not logged or stored</a> in GA4, and using the enhanced event measurement feature <a href="https://support.google.com/analytics/answer/9216061?hl=en&amp;ref_topic=9756175">requires</a> that Personally Identifiable Information (PII) is not collected.</li>
+<li><em>Governance:</em> Google Marketing Platform (GMP) provides <a href="https://support.google.com/marketingplatform/answer/9024856">tooling</a> for organizations to manage roles, groups, and user access. This can be tied to Google accounts and owners can require those accounts to use the organization’s own email domain (e.g. @example.gov).</li>
+<li><em>Federal procurement:</em> Neither service has a <a href="https://marketplace.fedramp.gov/#!/products?sort=productName">FedRAMP designation</a>.</li>
+</ul>
+<h2>GA4 and Tag Manager</h2>
+<p>We implemented GA4 using Tag Manager and a new governance process because developer resources for code-level customizations were not available. Fortunately, GTM provides tools such as triggers and custom variables that we can use to attach event listeners to the component we want to track. Instead of configuring our <em>site</em> to send the custom events, we told GTM which user interactions to “hear,” and what data to send. Because we aren’t touching the codebase, iteration can be much faster.</p>
+<p><strong><em>Tip:</em></strong><em> Google’s </em><a href="https://www.youtube.com/playlist?list=PLI5YfMzCfRtZ4bHJJDl_IJejxMwZFiBwz"><em>GA4 Tutorials</em></a><em> video series provides short, practical examples on how to get started with GTM and GA4. It makes a great companion to the </em><a href="https://support.google.com/analytics/answer/10089681"><em>product documentation</em></a><em>.</em></p>
+<h2>Key differences from UA</h2>
+<p>GA4 uses a <a href="https://support.google.com/analytics/answer/9964640?hl=en#zippy=%2Cin-this-article">different data model</a> than UA. The primary measurement unit is <strong>events</strong> rather than pageviews. Where events used to be tracked as a special case metric in addition to pageviews, pageviews are now considered a special case of events. This architectural shift comes with advantages for capturing data to inform the UX design process:</p>
+<ol>
+<li>GA4 comes with <a href="https://support.google.com/analytics/answer/9234069?hl=en">built-in</a> and <a href="https://support.google.com/analytics/answer/9216061">optionally</a> tracked automatic event collection: Pageviews, Pageviews on browser history state change, Scrolls, Outbound clicks, Form interactions, Video engagement, and File downloads can be captured easily. We enabled these.</li>
+<li>In addition to automatic events, there is a set of <a href="https://support.google.com/analytics/answer/9267735">recommended</a> events (e.g. search, sign_up, login) that can easily be implemented in the administration interface. This provides a greater degree of standardization than was typical with UA.</li>
+<li>Similarly, fully <a href="https://support.google.com/analytics/answer/12229021">custom events and parameters</a> can be configured easily in GA4 using GTM, allowing for additional context to be captured. For example, we are tracking the section, category, item, and path of the navigation menu items that users select.</li>
+</ol>
+<h2>GTM and Drupal</h2>
+<p>To deploy GTM, we used the <a href="https://www.drupal.org/project/google_tag">GoogleTagManager</a> Drupal module. This flexible utility supports several key features of GTM through the administration interface, including:</p>
+<ul>
+<li>The ability to add security restrictions to the container. We opted not to use these.</li>
+<li>GTM environments, which allows you to run a separate version of the container on lower environments than on Production. We use this to test data flow and report configuration.</li>
+</ul>
+<p>For GTM environments we used a <a href="https://www.drupal.org/docs/contributed-modules/configuration-split/per-environment-configuration">Drupal configuration split</a> which applies the <em>Latest</em> environment tag (env-2) to Dev, and the <em>Live</em> environment tag (env-1) to Production. In GTM, this means we use:</p>
+<ol>
+<li>“Create version” (Latest) to test something on a lower environment, and</li>
+<li>“Publish and create version” (Live) to publish changes to Production. You can also use the Publish option on Latest to make it Live.</li>
+</ol>
+<p>We also make extensive use of the Preview feature to make sure we’re correctly targeting the elements we want to track and capturing their data (more on this below).</p>
+<figure><img src="../assets/1a800c706a0203df2646.jpg" alt="Step 1: Create workspace using ticket number. Step 2: Create variables, tags, and triggers. Step 3: Use Preview to test tags in the browser and make edits. Step 4: Send a version to dev environment, create dimensions, and publish to Prod." loading="lazy"><figcaption><em>Figure 2. Google Tag Manager publishing workflow</em></figcaption></figure>
+<h2>Just enough customization</h2>
+<p>Our first iteration of GA4 event customization focused on collecting menu and footer clicks and ranking the pages on which site searches were being initiated. This data aims to fill a gap in our knowledge of how frequently visitors use site navigation or search during their session. We also want to know when those events are occurring on key landing pages, since this might have implications for how we develop other components on those pages.</p>
+<p>We are taking an experimental approach, benchmarking the new navigation for a period of time so we can observe whether subsequent changes (e.g. link positions, groupings, labels) have the effect of increasing clicks to the target pages. We want to reveal which pages are generating what kind of navigation activity, and understand click behavior in menu section context.</p>
+<h2>Event design</h2>
+<p>To create our custom events, we first sketched out the parameters we wanted to collect based on the menu design. The design was informed by the Category, Action, and Label structure of UA event tracking, but we geared it towards how we want to use the data for creating navigation benchmarks. We may change it!</p>
+<h3>menu_click parameters</h3>
+<p>Each is paired with notes about the on-page content we need to fetch:</p>
+<ul>
+<li><em>menu_item:</em> click text (e.g. Search the collection)</li>
+<li><em>menu_path:</em> click URL</li>
+<li><em>menu_subhead:</em> item group (e.g. subhead within the menu)</li>
+<li><em>menu_section:</em> parent category (e.g. major menu section)</li>
+<li><em>ui_region:</em> Header</li>
+</ul>
+<h3>footer_click parameters</h3>
+<ul>
+<li><em>footer_item:</em> click text (e.g. News)</li>
+<li><em>footer_path:</em> click URL</li>
+<li><em>footer_subhead:</em> item group</li>
+<li><em>footer_section:</em> parent block (e.g. block-footer)</li>
+<li><em>ui_region:</em> Footer</li>
+</ul>
+<p>For site search we created an event with a single parameter containing the form_id value to capture activations of our site search field. This is a preliminary step. While we want to track site search completions using the built-in “search” event, the recommended approach is to capture a conversion: a pageview of content after clicking through from search results, before sending the search event. This will take longer to support because of the current site search implementation, so we went with the simpler event tracking design for now.</p>
+<h2>Event configuration in GTM</h2>
+<p>Some GA4 variables work without customization. For example, Click Text captures the text string of the clicked element. To capture data like paths, subheads, and sections particular to the site, we created custom variables with the help of Simo Ahava’s <a href="https://www.simoahava.com/analytics/capturing-the-correct-element-in-google-tag-manager/">Find Closest</a> script. (Ahava provides code examples and discusses dependencies — we include an excerpt here but recommend reading the full article.) This utility allows our custom variables to ascend the element tree seeking the HTML that contains the related content:</p>
+<pre><code>function() {
+  return function(target, selector) {
+    while (!target.matches(selector) &amp;&amp; !target.matches(&#x27;body&#x27;)) {
+      target = target.parentElement;
+    }
+    return target.matches(selector) ? target : undefined;
+  }
+}</code></pre>
+<p>Custom variables that make use of Find Closest can then provide the event parameter content we need to fetch from the page markup.</p>
+<h3>Megamenu Subhead</h3>
+<p>The “Megamenu Subhead” variable, for example, uses Find Closest to fetch the nearest subhead text to the link that was clicked. Because the markup we want to capture is not a direct ancestor of the clicked element, Megamenu Subhead moves up the element tree to the containing “usa-col” div and then down to the element that contains the subhead label, capturing its text content.</p>
+<pre><code>function() {
+  var el = {{Find Closest}}({{Click Element}}, &#x27;div.usa-col&#x27;);
+  return el.querySelector(&#x27;span.usa-nav__submenu-item-dupe-parent&#x27;).innerText;
+}</code></pre>
+<h3>Megamenu Section</h3>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelector">querySelector method</a> can be used with USWDS component markup to capture most content and attributes without needing to modify the default markup. This means GTM is parsing your USWDS components as-is, and adding the tracking for you. For Megamenu Section, we used a similar pattern to capture the top-level button text that users click to open a menu.</p>
+<pre><code>function() {
+  var el = {{Find Closest}}({{Click Element}}, &#x27;li.usa-nav__primary-item&#x27;);
+  return el.querySelector(&#x27;button span&#x27;).innerText;
+}</code></pre>
+<h3>Building the event trigger</h3>
+<p>Once we had variables to capture the appropriate content, we made a trigger that tells GTM to activate the event using a specific CSS selector. That way it knows which subset of click events to call a menu_click. “Megamenu Trigger,” for example, consists of <em>Type:</em> “Click — All Elements,” <em>Activation:</em> “Some Clicks” and <em>Conditions:</em> “Click Element matches CSS selector” with this value:</p>
+<pre><code>li.usa-nav__submenu-item span</code></pre>
+<p>The above selector uniquely identifies clicks on the site’s navigation menu in the header, as illustrated in Figure 1. We kept this as concise as possible to minimize the chance of breakage if anything changes in the markup.</p>
+<h3>The Menu Click event</h3>
+<p>Finally, the “GA4 Menu Click Event” tag pulls everything together and sends menu_click events and their parameters to GA4. By creating the variables above, they are available in event configuration when encloseed in double braces. “Header” is a literal value.</p>
+<ul>
+<li><em>menu_item:</em> {{Click Text}}</li>
+<li><em>menu_path:</em> {{Menu Path}}</li>
+<li><em>menu_subhead:</em> {{Megamenu Subhead}}</li>
+<li><em>menu_section:</em> {{Megamenu Section}}</li>
+<li><em>ui_region:</em> Header</li>
+</ul>
+<p>Figure 3 shows where the event is triggered in the page markup, and how the surrounding content is captured to populate the event parameters.</p>
+<figure><img src="../assets/a154383f57e024587fef.jpg" alt="Annotated megamenu component &lt;nav&gt; markup showing the elements that Find Closest and Megamenu Section variables target to return UI strings to the menu_click event" loading="lazy"><figcaption><em>Figure 3. Capturing the button label text with </em><a href="https://www.simoahava.com/analytics/capturing-the-correct-element-in-google-tag-manager/"><em>Find Closest</em></a><em> and a custom variable called </em><a href="https://docs.google.com/document/d/19C0WKTR6sejPDl4AutJZWxJXUoc0gLo-hyXKsxLkRWk/edit#heading=h.jiyqz8xvtsl2"><em>Megamenu Section</em></a></figcaption></figure>
+<h2>Preview and versioning</h2>
+<p>GTM’s Preview feature is invaluable for testing in real time that the event activates as intended and sends the correct data. Using this feature we were able to click on a nav item, check if the event fired, and see exactly what strings were sent for each parameter. This allowed refinement of the custom variables to make sure they targeted and captured the elements correctly.</p>
+<p>Once we were confident menu_click and footer_click were working, we created a version and then tested the container update on our development environments to generate some data. This time we checked the events in GA4’s Realtime report, which updates within 10–30 seconds.</p>
+<h2>Event validation in GA4</h2>
+<p>One more step is needed to prepare for data collection before pushing your changes to Production. To be able to access custom events in reporting, you need to <a href="https://support.google.com/analytics/answer/10075209">create a custom dimension</a> for each one in the Custom definitions area of GA4 Admin. Note that there is a limit of 50 custom event-scoped dimensions and you will use one slot for each parameter you define.</p>
+<p>To confirm that our implementation would collect data when the container was published to Production, we created custom dimensions for each parameter, and then <a href="https://youtu.be/o3J0zuaX9M0?t=222">created an Exploration</a> that referenced the custom dimensions. Around 24–48 hours elapses before these are available, so be sure to leave yourself enough time to test that the data is flowing. Creating some test data on dev servers several days running might be a useful strategy to validate your setup.</p>
+<h2>Publishing the container</h2>
+<p>Once you have confirmed that custom events are flowing to custom dimensions, the last step is to Publish your container to Production in GTM. If you have no further changes to make to the container, that is as simple as selecting options (vertical ellipsis) on the Latest version and choosing Publish. If you need to make changes you can publish them using “Publish and Create Version,” which has the same effect. As long as your site has active users, you should begin to see data in the Realtime report in GA4 almost immediately.</p>
+<h2>Holistic usability</h2>
+<p>The data we gather from our customizations <a href="https://www.youtube.com/watch?v=5wEFrKVTrmA">will not tell us why</a> our users are taking actions on the site; it’s difficult to infer user <em>intent</em> from these kinds of metrics. But they can show shifts in aggregate user behavior when we make design changes, or surface things that might be going awry for users if the pattern we see is not what we expect.</p>
+<p>These customizations are already providing an input into the UX research and design process, enabling us to more easily detect usability issues, respond to them, and evaluate whether that response was effective. The goal is not to instrument every component and feature on the site, or collect buckets of data. It’s to learn what we don’t already know and make smarter decisions about what to do next to improve usability.</p>
+<p>While GSA announced that GA4 tracking will begin in DAP on August 1, it’s not yet clear how customizable the DAP version will be. So if your agency would like to start working with custom events, setting up a parallel GA4 account is a great way to get started. An agency-owned analytics account allows you to experiment with UX data collection that meets your actual users’ needs. Implementing it with Google Tag Manager is a quick and easy way to get your custom data flowing.</p>
+<p>If you’re on the fence, a good question to ask is:</p>
+<blockquote><em>If I knew more about where users click on the megamenu, and which pages they are viewing at the moment they select popular menu items, would I be able to make better decisions about navigation and landing page design, or conduct a better usability study?</em></blockquote>
+<p>If the answer is yes, then custom menu tracking with GA4 might be for you!</p></article></body></html>
