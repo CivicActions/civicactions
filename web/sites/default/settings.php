@@ -43,6 +43,9 @@ if (isset($_ENV['PANTHEON_ROLLING_TMP'])) {
   $settings['php_storage']['trash']['secret'] = $settings['hash_salt'] . ($settings['deployment_identifier'] ?? '');
 }
 
+# Disable HTML5 validation for accessibility reasons
+$settings['enable_html5_validation'] = FALSE;
+
 /**
  * Skipping permissions hardening will make scaffolding
  * work better, but will also raise a warning when you
