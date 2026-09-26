@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5cd1469c909d8b3ea6c4e9a86de28fb",
+    "content-hash": "a068bcfd6bc994be27a208a19719aa89",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -257,16 +257,16 @@
         },
         {
             "name": "composer/class-map-generator",
-            "version": "1.7.3",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/class-map-generator.git",
-                "reference": "86d8208fc3c649a3a999daf1a63c25201be2990f"
+                "reference": "c0efbeb2f3fd7e23c7f180a59765c0b48a31fbc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/86d8208fc3c649a3a999daf1a63c25201be2990f",
-                "reference": "86d8208fc3c649a3a999daf1a63c25201be2990f",
+                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/c0efbeb2f3fd7e23c7f180a59765c0b48a31fbc4",
+                "reference": "c0efbeb2f3fd7e23c7f180a59765c0b48a31fbc4",
                 "shasum": ""
             },
             "require": {
@@ -310,7 +310,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/class-map-generator/issues",
-                "source": "https://github.com/composer/class-map-generator/tree/1.7.3"
+                "source": "https://github.com/composer/class-map-generator/tree/1.8.0"
             },
             "funding": [
                 {
@@ -322,7 +322,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-05T09:17:07+00:00"
+            "time": "2026-09-25T15:24:19+00:00"
         },
         {
             "name": "composer/composer",
@@ -1849,17 +1849,17 @@
         },
         {
             "name": "drupal/ai_context",
-            "version": "1.0.0-beta5",
+            "version": "1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ai_context.git",
-                "reference": "1.0.0-beta5"
+                "reference": "1.0.0-rc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ai_context-1.0.0-beta5.zip",
-                "reference": "1.0.0-beta5",
-                "shasum": "08c7324970061824b860fd2944a3438b615d38d7"
+                "url": "https://ftp.drupal.org/files/projects/ai_context-1.0.0-rc1.zip",
+                "reference": "1.0.0-rc1",
+                "shasum": "96aae95bc02710548fdc2f0abd17969990d16e9d"
             },
             "require": {
                 "drupal/ai": "^1.4 || ^2",
@@ -1880,7 +1880,8 @@
                 "drupal/scheduler": "^2.3",
                 "drupal/scheduler_content_moderation_integration": "^3.0",
                 "drupal/token": "^1.15",
-                "drush/drush": "^12|^13"
+                "drush/drush": "^12|^13",
+                "twig/twig": "~3.29.0"
             },
             "suggest": {
                 "drupal/ai_agents_debugger": "Provides AI Agents debugger integration for testing agent context delivery.",
@@ -1898,11 +1899,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-beta5",
-                    "datestamp": "1788713091",
+                    "version": "1.0.0-rc1",
+                    "datestamp": "1790375754",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -1928,7 +1929,7 @@
                     "npx --yes eslint js/**/*.js"
                 ],
                 "lint:stylelint": [
-                    "../../../core/node_modules/.bin/stylelint --config .stylelint-local.json --config-basedir ../../../core \"css/**/*.css\""
+                    "../../../core/node_modules/.bin/stylelint --config .stylelint-local.json --config-basedir ../../../core \"css/**/*.css\" \"modules/*/css/**/*.css\""
                 ]
             },
             "license": [
@@ -2743,17 +2744,17 @@
         },
         {
             "name": "drupal/canvas",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/canvas.git",
-                "reference": "1.11.0"
+                "reference": "1.12.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/canvas-1.11.0.zip",
-                "reference": "1.11.0",
-                "shasum": "dea4a0245ceb6ef770ffe86ae0baaf9316ad8849"
+                "url": "https://ftp.drupal.org/files/projects/canvas-1.12.0.zip",
+                "reference": "1.12.0",
+                "shasum": "7b42c6c17329c90612aa15e5187941ff1371bc9e"
             },
             "require": {
                 "drupal/core": "^11.3",
@@ -2761,8 +2762,8 @@
             },
             "require-dev": {
                 "devizzent/cebe-php-openapi": "^1.1.4",
-                "drupal/ai": "^1.2.1",
-                "drupal/ai_agents": "^1.2",
+                "drupal/ai": "^1.4.0",
+                "drupal/ai_agents": "^1.3.3",
                 "drupal/ai_agents_test": "^1.0@alpha",
                 "drupal/canvas_ai": "*",
                 "drupal/coder": "^8",
@@ -2786,8 +2787,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.11.0",
-                    "datestamp": "1788891018",
+                    "version": "1.12.0",
+                    "datestamp": "1790371957",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3180,6 +3181,50 @@
                 "source": "https://git.drupalcode.org/project/coffee",
                 "issues": "https://drupal.org/project/issues/coffee",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/config_language_lock",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_language_lock.git",
+                "reference": "1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_language_lock-1.0.2.zip",
+                "reference": "1.0.2",
+                "shasum": "9afa4129c97c280460e385b8bd8e423857c8382c"
+            },
+            "require": {
+                "drupal/core": "^11.2 || ^12"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.2",
+                    "datestamp": "1789203643",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "gábor hojtsy",
+                    "homepage": "https://www.drupal.org/user/4166"
+                }
+            ],
+            "description": "Locks configuration language to an independently configured language.",
+            "homepage": "https://www.drupal.org/project/config_language_lock",
+            "support": {
+                "source": "https://git.drupalcode.org/project/config_language_lock"
             }
         },
         {
@@ -3938,26 +3983,26 @@
         },
         {
             "name": "drupal/drupal_cms_helper",
-            "version": "2.1.4",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/drupal_cms_helper.git",
-                "reference": "2.1.4"
+                "reference": "2.2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/drupal_cms_helper-2.1.4.zip",
-                "reference": "2.1.4",
-                "shasum": "0a1defdb7b6c9616d77d91575cbad95051244d53"
+                "url": "https://ftp.drupal.org/files/projects/drupal_cms_helper-2.2.0.zip",
+                "reference": "2.2.0",
+                "shasum": "d223dd8f42b1cfca479bb9379d539d66f5e445e1"
             },
             "require": {
-                "drupal/core": "^11.3.10"
+                "drupal/core": "^11.4"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.1.4",
-                    "datestamp": "1788292262",
+                    "version": "2.2.0",
+                    "datestamp": "1790374896",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3987,17 +4032,22 @@
         },
         {
             "name": "drupal/drupal_cms_installer",
-            "version": "2.1.6",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/drupal_cms_installer.git",
-                "reference": "5f9b73adf0d911aa1e4c0fb62c30ed6e6ec982ce"
+                "reference": "be539b9b3dd98b666438cd0c0b523174af13fdd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://git.drupalcode.org/api/v4/projects/project%2Fdrupal_cms_installer/repository/archive.zip?sha=5f9b73adf0d911aa1e4c0fb62c30ed6e6ec982ce",
-                "reference": "5f9b73adf0d911aa1e4c0fb62c30ed6e6ec982ce",
+                "url": "https://git.drupalcode.org/api/v4/projects/project%2Fdrupal_cms_installer/repository/archive.zip?sha=be539b9b3dd98b666438cd0c0b523174af13fdd7",
+                "reference": "be539b9b3dd98b666438cd0c0b523174af13fdd7",
                 "shasum": ""
+            },
+            "require": {
+                "composer/composer": "^2.9",
+                "drupal/config_language_lock": "^1.0.1",
+                "drupal/recipe_locale": "^1"
             },
             "type": "drupal-profile",
             "notification-url": "https://packagist.org/downloads/",
@@ -4006,9 +4056,9 @@
             ],
             "description": "Provides install-time tweaks for Drupal CMS. Not to be used in production.",
             "support": {
-                "source": "https://git.drupalcode.org/project/drupal_cms_installer/-/tree/2.1.6"
+                "source": "https://git.drupalcode.org/project/drupal_cms_installer/-/tree/2.2.0"
             },
-            "time": "2026-09-23T15:55:17+00:00"
+            "time": "2026-09-25T18:09:39+00:00"
         },
         {
             "name": "drupal/drupical",
@@ -6639,6 +6689,50 @@
             "homepage": "https://www.drupal.org/project/project_browser",
             "support": {
                 "source": "https://git.drupalcode.org/project/project_browser"
+            }
+        },
+        {
+            "name": "drupal/recipe_locale",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/recipe_locale.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/recipe_locale-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "2104d14b42c46df1d50a735ebb99f37e0f56c4e6"
+            },
+            "require": {
+                "drupal/core": "^11.4 || ^12"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1790341808",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "gábor hojtsy",
+                    "homepage": "https://www.drupal.org/user/4166"
+                }
+            ],
+            "description": "Keeps a list of the recipes applied to the site, so the Interface Translation module can download and update their translations.",
+            "homepage": "https://www.drupal.org/project/recipe_locale",
+            "support": {
+                "source": "https://git.drupalcode.org/project/recipe_locale"
             }
         },
         {
@@ -15802,16 +15896,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.29.0",
+            "version": "v3.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "45a3c6e9224c3377a39c7b150bb29d5d97d2c75d"
+                "reference": "8c737079b726af72ff8ef3c595be9f6a810ea1ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/45a3c6e9224c3377a39c7b150bb29d5d97d2c75d",
-                "reference": "45a3c6e9224c3377a39c7b150bb29d5d97d2c75d",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8c737079b726af72ff8ef3c595be9f6a810ea1ef",
+                "reference": "8c737079b726af72ff8ef3c595be9f6a810ea1ef",
                 "shasum": ""
             },
             "require": {
@@ -15866,7 +15960,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.29.0"
+                "source": "https://github.com/twigphp/Twig/tree/v3.30.0"
             },
             "funding": [
                 {
@@ -15878,7 +15972,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-18T09:10:14+00:00"
+            "time": "2026-09-25T13:20:01+00:00"
         },
         {
             "name": "yethee/tiktoken",
