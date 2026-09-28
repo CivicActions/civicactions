@@ -1,4 +1,4 @@
-import template from './section.twig';
+import template from './section-preview.twig';
 import './section.css';
 
 const meta = {
@@ -39,5 +39,17 @@ export const ThreeColumns = {
 export const FourColumns = {
   args: {
     layout: 'four-equal',
+  },
+};
+
+export const TwoOne = {
+  args: {
+    layout: 'two-one',
+  },
+};
+
+export const OneTwo = {
+  args: {
+    layout: 'one-two',
   },
 };
