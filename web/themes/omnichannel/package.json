@@ -1,0 +1,16 @@
+{
+  "name": "@civicactions/omnichannel-theme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build -o ../../storybook"
+  },
+  "devDependencies": {
+    "@storybook/html": "^10.6.0",
+    "@storybook/html-vite": "^10.6.0",
+    "storybook": "^10.6.0",
+    "vite": "^7.3.6",
+    "vite-plugin-twig-drupal": "^1.6.2"
+  }
+}

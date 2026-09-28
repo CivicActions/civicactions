@@ -16,8 +16,10 @@
 {% set cta_variant = variant|default('default') %}
 {% set cta_classes = [
   'ca-primary-page-cta',
-  cta_variant != 'default' ? 'ca-primary-page-cta--' ~ cta_variant,
 ] %}
+{% if cta_variant != 'default' %}
+  {% set cta_classes = cta_classes|merge(['ca-primary-page-cta--' ~ cta_variant]) %}
+{% endif %}
 {% set cta_attributes = attributes|default(create_attribute()) %}
 
 <section {{ cta_attributes.addClass(cta_classes) }}>
