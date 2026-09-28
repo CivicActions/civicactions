@@ -1,0 +1,197 @@
+/**
+ * @file
+ * Styles for the CivicActions Site Footer SDC.
+ *
+ * The grid uses named areas so each editable chunk is positioned by name
+ * rather than by source order, which lets the areas reflow independently
+ * at each breakpoint.
+ */
+
+.ca-footer {
+  font-size: var(--size-4);
+  line-height: 1.375;
+}
+
+.ca-footer__inner {
+  display: grid;
+  grid-template-areas:
+    "branding"
+    "about"
+    "contact"
+    "menu"
+    "social"
+    "links";
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0 var(--size-6);
+  max-width: var(--container-max-width);
+  padding: var(--size-12) 0;
+}
+
+.ca-footer__area {
+  min-width: 0;
+}
+
+.ca-footer__branding {
+  grid-area: branding;
+  margin-bottom: var(--size-8);
+}
+
+.ca-footer__about {
+  grid-area: about;
+  max-width: 18.375rem;
+}
+
+.ca-footer__contact {
+  grid-area: contact;
+}
+
+.ca-footer__menu {
+  grid-area: menu;
+}
+
+.ca-footer__social {
+  grid-area: social;
+}
+
+.ca-footer__bottom-links {
+  grid-area: links;
+}
+
+.ca-footer__about p:first-child,
+.ca-footer__contact p:first-child {
+  margin-top: 0;
+}
+
+/* Menus rendered into the footer areas. */
+.ca-footer__menu ul,
+.ca-footer__bottom-links ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.ca-footer__menu li,
+.ca-footer__bottom-links li {
+  margin: var(--size-4) 0 0;
+}
+
+.ca-footer__menu li:first-child,
+.ca-footer__bottom-links li:first-child {
+  margin-top: 0;
+}
+
+.ca-footer__menu a,
+.ca-footer__bottom-links a {
+  display: inline-block;
+  padding: var(--size-2) 0;
+}
+
+.ca-footer__menu ul {
+  column-count: 2;
+  column-gap: var(--size-20);
+}
+
+/* Social icon links. */
+.ca-footer__social ul {
+  display: flex;
+  gap: var(--size-2);
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.ca-footer__social img,
+.ca-footer__social svg {
+  height: var(--size-9);
+  width: var(--size-8);
+}
+
+/* Tablet: two columns, menu spans the about/contact rows. */
+@media (min-width: 768px) {
+  .ca-footer__inner {
+    grid-template-areas:
+      "branding branding"
+      "about    menu"
+      "contact  menu"
+      "social   links";
+    grid-template-columns: minmax(0, 1fr) 40%;
+    margin: 0 var(--size-12);
+  }
+
+  .ca-footer__bottom-links {
+    padding-top: var(--size-4);
+  }
+}
+
+/* Desktop: about/contact/menu share one row, social and links stack below. */
+@media (min-width: 1024px) {
+  .ca-footer__inner {
+    column-gap: var(--size-20);
+    grid-template-areas:
+      "branding branding branding"
+      "about    contact  menu"
+      ".        social   social"
+      ".        links    links";
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    padding: calc(var(--size-20) + var(--size-4)) var(--size-12);
+  }
+
+  .ca-footer__branding {
+    margin-bottom: var(--size-14);
+  }
+
+  .ca-footer__menu {
+    margin-top: 0;
+  }
+
+  .ca-footer__menu ul {
+    column-count: 3;
+    column-gap: var(--size-14);
+  }
+
+  .ca-footer__social {
+    margin-top: var(--size-4);
+  }
+
+  .ca-footer__social ul {
+    justify-content: flex-end;
+  }
+
+  .ca-footer__bottom-links ul {
+    columns: unset;
+    text-align: right;
+  }
+
+  .ca-footer__bottom-links li {
+    display: inline-block;
+    margin-top: 0;
+  }
+
+  .ca-footer__bottom-links li a {
+    padding: var(--size-2) var(--size-4);
+  }
+
+  .ca-footer__bottom-links li:last-child a {
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .ca-footer__inner {
+    margin: 0 auto;
+  }
+}
+
+/* Footer background colors. */
+.ca-footer--white {
+  background-color: var(--white);
+}
+
+.ca-footer--gray {
+  background-color: var(--gray-05);
+}
+
+.ca-footer--blue {
+  background-color: var(--primary-blue);
+  color: var(--white);
+}

@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Site Footer component.
+ *
+ * Available props:
+ * - background_color: Footer background color: white, gray, or blue.
+ * - heading_id: ID of the visually hidden heading labelling the navigation.
+ *
+ * Available slots:
+ * - branding: Footer logo.
+ * - about: Short description of the organization.
+ * - contact: Mailing address, phone, and email.
+ * - menu: Primary footer navigation links.
+ * - social: Social media icon links.
+ * - bottom_links: Legal and policy links.
+ */
+#}
+{% set background_color = background_color|default('white') %}
+{% set heading_id = heading_id|default('footer--menu') %}
+{% set footer_attributes = attributes|default(create_attribute()) %}
+
+<footer{{ footer_attributes.addClass([
+  'ca-footer',
+  'ca-footer--' ~ background_color,
+]).setAttribute('id', 'footer--section').setAttribute('tabindex', '-1') }}>
+  <div class="ca-footer__inner">
+    <div class="ca-footer__area ca-footer__branding">
+      {% block branding %}{% endblock %}
+    </div>
+
+    <div class="ca-footer__area ca-footer__about">
+      {% block about %}{% endblock %}
+    </div>
+
+    <div class="ca-footer__area ca-footer__contact">
+      {% block contact %}{% endblock %}
+    </div>
+
+    <div class="ca-footer__area ca-footer__menu">
+      <h2 id="{{ heading_id }}" class="visually-hidden">{{ 'Footer'|t }}</h2>
+      <nav aria-labelledby="{{ heading_id }}">
+        {% block menu %}{% endblock %}
+      </nav>
+    </div>
+
+    <div class="ca-footer__area ca-footer__social">
+      {% block social %}{% endblock %}
+    </div>
+
+    <div class="ca-footer__area ca-footer__bottom-links">
+      {% block bottom_links %}{% endblock %}
+    </div>
+  </div>
+</footer>
