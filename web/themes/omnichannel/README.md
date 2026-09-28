@@ -37,10 +37,44 @@ npm run storybook
 npm run build-storybook
 ```
 
-Storybook runs without the Drupal runtime. Image-bearing stories use the existing Canvas image
-fixture at `images/canvas-assets/editorial-teaser-img.jpg` and the bundled Card icon fixture at
+Storybook runs without Drupal. Stories that render images use the existing Canvas image fixture at
+`images/canvas-assets/editorial-teaser-img.jpg` and the bundled Card icon fixture at
 `images/icons/check.svg`; responsive `srcset` generation remains a Drupal and Canvas
 responsibility. The production Twig templates remain unchanged.
+
+### Adding a component story
+
+Storybook automatically includes any `*.stories.js` file under `components/`. Add a story beside
+the component files, for example `components/example/example.stories.js`:
+
+```js
+import template from './example.twig';
+import './example.css';
+
+const meta = {
+  title: 'Components/Example',
+  render: (args) => template(args),
+  argTypes: {
+    title: { control: 'text' },
+  },
+  args: {
+    title: 'Example component',
+  },
+};
+
+export default meta;
+
+export const Default = {};
+```
+
+Use `argTypes` for editable prop controls and `args` for the default values shown in the story.
+For image or icon props, import the existing helpers from `.storybook/fixtures.js` so local and production
+asset paths stay consistent. If a component uses Twig blocks for slots, create a Storybook-only
+wrapper template that extends the production template and supplies preview content; keep Drupal
+Canvas slot composition in the production template.
+
+Run `npm run storybook` while developing, then run `npm run build-storybook` to verify the static
+bundle before submitting the change.
 
 To publish a static Storybook preview on Pantheon, run `npm run build-storybook` from this
 directory. The output is written to `web/storybook/` and is available at
