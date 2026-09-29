@@ -7,191 +7,202 @@
  * at each breakpoint.
  */
 
-.ca-footer {
+.footer {
   font-size: var(--size-4);
-  line-height: 1.375;
+  line-height: 22px;
 }
 
-.ca-footer__inner {
-  display: grid;
-  grid-template-areas:
-    "branding"
-    "about"
-    "contact"
-    "menu"
-    "social"
-    "links";
-  grid-template-columns: minmax(0, 1fr);
+.footer__inner {
   margin: 0 var(--size-6);
   max-width: var(--container-max-width);
-  padding: var(--size-12) 0;
+  padding: var(--size-8) 0;
 }
 
-.ca-footer__area {
-  min-width: 0;
-}
-
-.ca-footer__branding {
-  grid-area: branding;
+/* Footer branding */
+.footer__branding {
   margin-bottom: var(--size-8);
 }
 
-.ca-footer__about {
-  grid-area: about;
-  max-width: 18.375rem;
+.footer__branding svg {
+  max-width: 218px;
 }
 
-.ca-footer__contact {
-  grid-area: contact;
+.footer__about {
+  max-width: 294px;
 }
 
-.ca-footer__menu {
-  grid-area: menu;
-}
-
-.ca-footer__social {
-  grid-area: social;
-}
-
-.ca-footer__bottom-links {
-  grid-area: links;
-}
-
-.ca-footer__about p:first-child,
-.ca-footer__contact p:first-child {
-  margin-top: 0;
-}
-
-/* Menus rendered into the footer areas. */
-.ca-footer__menu ul,
-.ca-footer__bottom-links ul {
+/* Footer menu */
+.footer__menu--list {
   list-style: none;
-  margin: 0;
+  margin-top: var(--size-8);
   padding-left: 0;
+  margin-bottom: var(--size-10);
 }
 
-.ca-footer__menu li,
-.ca-footer__bottom-links li {
+.footer__menu--list li {
   margin: var(--size-4) 0 0;
 }
 
-.ca-footer__menu li:first-child,
-.ca-footer__bottom-links li:first-child {
-  margin-top: 0;
-}
-
-.ca-footer__menu a,
-.ca-footer__bottom-links a {
-  display: inline-block;
+.footer__menu--list li a {
   padding: var(--size-2) 0;
 }
 
-.ca-footer__menu ul {
-  column-count: 2;
-  column-gap: var(--size-20);
-}
-
-/* Social icon links. */
-.ca-footer__social ul {
-  display: flex;
-  gap: var(--size-2);
+/* Footer bottom links */
+.footer__bottom--links ul {
   list-style: none;
   margin: 0;
   padding-left: 0;
 }
 
-.ca-footer__social img,
-.ca-footer__social svg {
-  height: var(--size-9);
-  width: var(--size-8);
+.footer__bottom--links li {
+  margin: var(--size-4) 0 0;
 }
 
-/* Tablet: two columns, menu spans the about/contact rows. */
+.footer__bottom--links li a {
+  padding: var(--size-2) 0;
+}
+
+/* ------ Tablet grid styles -------- */
 @media (min-width: 768px) {
-  .ca-footer__inner {
+  .footer__inner {
+    display: grid;
     grid-template-areas:
       "branding branding"
-      "about    menu"
-      "contact  menu"
-      "social   links";
-    grid-template-columns: minmax(0, 1fr) 40%;
+      "about menu"
+      "contact menu"
+      "social links";
+    grid-template-columns: 1fr 40%;
+    grid-template-rows: auto;
     margin: 0 var(--size-12);
   }
 
-  .ca-footer__bottom-links {
-    padding-top: var(--size-4);
+  .footer__branding {
+    grid-area: branding;
   }
+
+  .footer__about {
+    grid-area: about;
+  }
+
+  .footer__about p:first-child {
+    margin-top: 0;
+  }
+
+  .footer__contact {
+    grid-area: contact;
+  }
+
+  .footer__menu--wrapper {
+    grid-area: menu;
+  }
+
+  .footer__social {
+    grid-area: social;
+    align-self: end;
+    margin-bottom: -(var(--size-5));
+  }
+
+  .footer__bottom--links {
+    grid-area: links;
+    margin-bottom: -17px;
+    margin-top: 15px;
+  }
+
+  .footer__menu,
+  .footer__bottom--links {
+    margin-right: -2rem;
+  }
+
+  .footer__menu--list,
+  .footer__bottom--links ul {
+    column-count: 2;
+    column-gap: var(--size-20);
+  }
+
+  .footer__menu--list {
+    margin-top: 0;
+  }
+
+  .footer__bottom--links li {
+    margin-top: var(--size-1);
+  }
+
+  .footer__bottom--links li:first-child,
+  .footer__menu--list li:first-child {
+    margin-top: 0;
+  }
+  /* End of tablet grid styles */
 }
 
-/* Desktop: about/contact/menu share one row, social and links stack below. */
 @media (min-width: 1024px) {
-  .ca-footer__inner {
-    column-gap: var(--size-20);
-    grid-template-areas:
-      "branding branding branding"
-      "about    contact  menu"
-      ".        social   social"
-      ".        links    links";
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    padding: calc(var(--size-20) + var(--size-4)) var(--size-12);
+  .footer__inner {
+    padding: var(--size-24) var(--size-12);
   }
 
-  .ca-footer__branding {
-    margin-bottom: var(--size-14);
-  }
-
-  .ca-footer__menu {
-    margin-top: 0;
-  }
-
-  .ca-footer__menu ul {
-    column-count: 3;
-    column-gap: var(--size-14);
-  }
-
-  .ca-footer__social {
-    margin-top: var(--size-4);
-  }
-
-  .ca-footer__social ul {
-    justify-content: flex-end;
-  }
-
-  .ca-footer__bottom-links ul {
-    columns: unset;
-    text-align: right;
-  }
-
-  .ca-footer__bottom-links li {
-    display: inline-block;
-    margin-top: 0;
-  }
-
-  .ca-footer__bottom-links li a {
-    padding: var(--size-2) var(--size-4);
-  }
-
-  .ca-footer__bottom-links li:last-child a {
-    padding-right: 0;
+  .footer__social {
+    margin-bottom: var(--size-1);
   }
 }
 
 @media (min-width: 1200px) {
-  .ca-footer__inner {
+  .footer__inner {
     margin: 0 auto;
+    column-gap: var(--size-24);
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "branding branding branding"
+      "about contact menu"
+      ". social social"
+      ". links links";
   }
-}
 
-/* Footer background colors. */
-.ca-footer--white {
-  background-color: var(--white);
-}
+  .footer__branding {
+    margin-bottom: 4.125rem;
+  }
 
-.ca-footer--gray {
-  background-color: var(--gray-05);
-}
+  .footer__branding svg {
+    max-width: 300px;
+  }
 
-.ca-footer--blue {
-  background-color: var(--primary-blue);
-  color: var(--white);
+  .footer__about p {
+    margin: var(--size-6) 0;
+  }
+
+  .footer__contact p:first-child,
+  .footer__menu--wrapper {
+    margin-top: 0;
+  }
+
+  .footer__menu--list {
+    column-count: 3;
+    column-gap: var(--size-20);
+    margin: 0;
+  }
+
+  .footer__menu--wrapper a {
+    font-size: var(--size-5);
+    line-height: 33.6px;
+  }
+
+  .footer__social {
+    margin-top: var(--size-4);
+  }
+
+  .footer__bottom--links {
+    margin-bottom: var(--size-2);
+    margin-right: 0;
+  }
+
+  .footer__bottom--links ul {
+    columns: unset;
+    text-align: right;
+  }
+
+  .footer__bottom--links li {
+    display: inline-block;
+  }
+
+  .footer__bottom--links li a {
+    padding: var(--size-2) var(--size-4);
+  }
 }

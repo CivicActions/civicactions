@@ -6,19 +6,6 @@ status: stable
 props:
   type: object
   properties:
-    background_color:
-      type: string
-      title: Footer background color
-      description: CSS background color for the footer.
-      enum:
-        - white
-        - gray
-        - blue
-      default: white
-      meta:enum:
-        white: White
-        gray: Light Gray
-        blue: Blue
     heading_id:
       type: string
       title: Navigation heading ID
