@@ -1,0 +1,41 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Social Links
+description: Icon links prefilled with the CivicActions social media accounts.
+group: Navigation
+status: stable
+props:
+  type: object
+  required:
+    - vimeo_url
+    - bluesky_url
+    - x_url
+    - linkedin_url
+  properties:
+    vimeo_url:
+      type: string
+      title: Vimeo URL
+      format: uri
+      default: https://vimeo.com/civicactions
+      examples:
+        - https://vimeo.com/civicactions
+    bluesky_url:
+      type: string
+      title: Bluesky URL
+      format: uri
+      default: https://bsky.app/profile/civicactions.com
+      examples:
+        - https://bsky.app/profile/civicactions.com
+    x_url:
+      type: string
+      title: X URL
+      format: uri
+      default: https://twitter.com/civicactions?lang=en
+      examples:
+        - https://twitter.com/civicactions?lang=en
+    linkedin_url:
+      type: string
+      title: LinkedIn URL
+      format: uri
+      default: https://www.linkedin.com/company/civicactions/mycompany/
+      examples:
+        - https://www.linkedin.com/company/civicactions/mycompany/

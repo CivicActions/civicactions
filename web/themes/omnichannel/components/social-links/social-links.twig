@@ -1,0 +1,39 @@
+{%
+  set links = [
+    {
+      url: vimeo_url|default('https://vimeo.com/civicactions'),
+      label: 'Watch our videos on Vimeo'|t,
+      icon: 'vimeo',
+    },
+    {
+      url: bluesky_url|default('https://bsky.app/profile/civicactions.com'),
+      label: 'Follow us on Bluesky'|t,
+      icon: 'bluesky',
+    },
+    {
+      url: x_url|default('https://twitter.com/civicactions?lang=en'),
+      label: 'Follow us on X'|t,
+      icon: 'twitter',
+    },
+    {
+      url: linkedin_url|default('https://www.linkedin.com/company/civicactions/mycompany/'),
+      label: 'Follow us on LinkedIn'|t,
+      icon: 'linkedin',
+    },
+  ]
+%}
+
+<ul{{ attributes.addClass('ca-social-links') }}>
+  {% for link in links %}
+    <li class="ca-social-links__item">
+      <a class="ca-social-links__link" href="{{ link.url }}" rel="nofollow" aria-label="{{ link.label }}">
+        <span class="ca-social-links__icon ca-social-links__icon--default" aria-hidden="true">
+          {{ source(componentMetadata.path ~ '/icons/' ~ link.icon ~ '.svg') }}
+        </span>
+        <span class="ca-social-links__icon ca-social-links__icon--hover" aria-hidden="true">
+          {{ source(componentMetadata.path ~ '/icons/' ~ link.icon ~ '-hover.svg') }}
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
