@@ -54,7 +54,9 @@
   --container-spacing-md: var(--size-12);
   /* 80px padding used in current homesite sections */
   --container-spacing-lg: var(--size-20);
+  --container-narrow-width: 45rem;
   --container-max-width: 1200px;
+  --container-wide-width: 90rem;
 
   /* Breakpoints */
   /* This merely records breakpoints since CSS vars cannot be used in media queries. */
@@ -82,8 +84,8 @@ body {
   padding: 0;
   color: var(--gray-90);
   font-family: var(--font-body);
-  line-height: var(--line-height-base);
   font-weight: 300;
+  line-height: var(--line-height-base);
 }
 
 h1,

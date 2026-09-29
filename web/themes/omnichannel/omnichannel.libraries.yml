@@ -48,6 +48,11 @@ global:
     theme:
       https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap: { type: external, minified: true }
       css/global.css: { }
+layout:
+  version: VERSION
+  css:
+    theme:
+      css/layout.css: { }
 dialog:
   version: VERSION
   css:

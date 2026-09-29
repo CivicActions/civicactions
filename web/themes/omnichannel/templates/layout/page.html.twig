@@ -42,44 +42,67 @@
  * @see html.html.twig
  */
 #}
-<div class="layout-container">
+{% set page_attributes = attributes|default(create_attribute()) %}
+{% set footer_attributes = create_attribute()
+  .addClass('ca-page__footer')
+  .setAttribute('role', 'contentinfo')
+%}
+<div{{ page_attributes.addClass('ca-page') }}>
 
-  <header>
-    {{ page.header }}
-  </header>
+  {% if page.header or page.primary_menu or page.secondary_menu %}
+    <header class="ca-page__header">
+      {{ page.header }}
+      {{ page.primary_menu }}
+      {{ page.secondary_menu }}
+    </header>
+  {% endif %}
 
-  {{ page.primary_menu }}
-  {{ page.secondary_menu }}
-
-  {{ page.breadcrumb }}
-
-  {{ page.highlighted }}
-
-  {{ page.help }}
-
-  <main>
-    <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-
-    <div class="layout-content">
-      {{ page.content }}
-    </div>{# /.layout-content #}
-
-    {% if page.sidebar_first %}
-      <aside class="layout-sidebar-first">
-        {{ page.sidebar_first }}
-      </aside>
+  <main id="main-content" class="ca-page__main" tabindex="-1">
+    {% if page.breadcrumb or page.highlighted or page.help %}
+      <div class="ca-container">
+        {{ page.breadcrumb }}
+        {{ page.highlighted }}
+        {{ page.help }}
+      </div>
     {% endif %}
 
-    {% if page.sidebar_second %}
-      <aside class="layout-sidebar-second" >
-        {{ page.sidebar_second }}
-      </aside>
+    {% set has_sidebar_first = page.sidebar_first is not empty %}
+    {% set has_sidebar_second = page.sidebar_second is not empty %}
+    {% set is_editorial_node = node and node.bundle != 'canvas_page' %}
+    {% set main_layout_class = 'ca-page__main-layout' %}
+    {% if has_sidebar_first and has_sidebar_second %}
+      {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--two-sidebars' %}
+    {% elseif has_sidebar_first %}
+      {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--sidebar-first' %}
+    {% elseif has_sidebar_second %}
+      {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--sidebar-second' %}
     {% endif %}
 
+    <div class="{{ main_layout_class }}">
+      {% set content_classes = ['ca-page__content'] %}
+      {% if is_editorial_node %}
+        {% set content_classes = content_classes|merge(['ca-container', 'ca-container--narrow']) %}
+      {% endif %}
+      <div class="{{ content_classes|join(' ') }}">
+        {{ page.content }}
+      </div>
+
+      {% if has_sidebar_first %}
+        <aside class="ca-page__sidebar ca-page__sidebar--first" aria-label="{{ 'First sidebar'|t|e('html_attr') }}">
+          {{ page.sidebar_first }}
+        </aside>
+      {% endif %}
+
+      {% if has_sidebar_second %}
+        <aside class="ca-page__sidebar ca-page__sidebar--second" aria-label="{{ 'Second sidebar'|t|e('html_attr') }}">
+          {{ page.sidebar_second }}
+        </aside>
+      {% endif %}
+    </div>
   </main>
 
   {# Temporary static content until the footer slots are populated through Canvas. #}
-  {% embed 'omnichannel:site-footer' only %}
+  {% embed 'omnichannel:site-footer' with { attributes: footer_attributes } only %}
     {% block about %}
       {% include '@omnichannel/templates/partials/footer/about.html.twig' only %}
     {% endblock %}
@@ -106,4 +129,4 @@
     {% endblock %}
   {% endembed %}
 
-</div>{# /.layout-container #}
+</div>

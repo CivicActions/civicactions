@@ -1,0 +1,205 @@
+/**
+ * @file
+ * Site-wide layout utilities for the Omnichannel theme.
+ */
+
+.ca-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.ca-page__main {
+  flex: 1 0 auto;
+  min-width: 0;
+}
+
+.ca-page__content,
+.ca-page__main-layout {
+  min-width: 0;
+}
+
+.ca-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--container-spacing-sm);
+}
+
+.ca-container--narrow {
+  max-width: var(--container-narrow-width);
+}
+
+.ca-container--wide {
+  max-width: var(--container-wide-width);
+}
+
+.ca-grid {
+  display: grid;
+  gap: var(--size-6);
+  min-width: 0;
+}
+
+.ca-grid--2-col {
+  grid-template-columns: 1fr;
+}
+
+.ca-grid--3-col {
+  grid-template-columns: 1fr;
+}
+
+.ca-grid--4-col {
+  grid-template-columns: 1fr;
+}
+
+.ca-grid--1-2 {
+  grid-template-columns: 1fr;
+}
+
+.ca-grid--2-1 {
+  grid-template-columns: 1fr;
+}
+
+.ca-page__main-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+  width: 100%;
+  gap: var(--size-6);
+}
+
+.ca-page__main-layout--sidebar-first,
+.ca-page__main-layout--sidebar-second,
+.ca-page__main-layout--two-sidebars {
+  padding-inline: var(--container-spacing-sm);
+}
+
+.ca-page__sidebar {
+  min-width: 0;
+}
+
+.ca-skip-link {
+  position: absolute;
+  z-index: 100;
+  inset-block-start: var(--size-2);
+  inset-inline-start: var(--size-2);
+  padding: var(--size-2) var(--size-4);
+  transform: translateY(-200%);
+  color: var(--white);
+  background-color: var(--primary-blue);
+}
+
+.ca-skip-link:focus,
+.ca-skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--white);
+  outline: var(--focus-outline-width) solid var(--accent-gold);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.ca-page__main:focus {
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .ca-container {
+    padding-inline: var(--container-spacing-md);
+  }
+
+  .ca-grid--2-col,
+  .ca-grid--1-2,
+  .ca-grid--2-1 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ca-grid--1-2 {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+
+  .ca-grid--2-1 {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+
+  .ca-grid--3-col {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ca-grid--4-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ca-page__main-layout--sidebar-first,
+  .ca-page__main-layout--sidebar-second,
+  .ca-page__main-layout--two-sidebars {
+    padding-inline: var(--container-spacing-md);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ca-container {
+    padding-inline: var(--container-spacing-lg);
+  }
+
+  .ca-grid--4-col {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ca-page__main-layout--sidebar-first {
+    grid-template-columns: minmax(15rem, 1fr) minmax(0, 3fr);
+    max-width: var(--container-max-width);
+    margin-inline: auto;
+  }
+
+  .ca-page__main-layout--sidebar-second {
+    grid-template-columns: minmax(0, 3fr) minmax(15rem, 1fr);
+    max-width: var(--container-max-width);
+    margin-inline: auto;
+  }
+
+  .ca-page__main-layout--sidebar-first .ca-page__content {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .ca-page__main-layout--sidebar-first .ca-page__sidebar {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .ca-page__main-layout--sidebar-second .ca-page__content {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .ca-page__main-layout--sidebar-second .ca-page__sidebar {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .ca-page__main-layout--two-sidebars {
+    grid-template-columns: minmax(14rem, 1fr) minmax(0, 3fr) minmax(14rem, 1fr);
+    max-width: var(--container-max-width);
+    margin-inline: auto;
+  }
+
+  .ca-page__main-layout--two-sidebars .ca-page__content {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .ca-page__main-layout--two-sidebars .ca-page__sidebar--first {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .ca-page__main-layout--two-sidebars .ca-page__sidebar--second {
+    grid-row: 1;
+    grid-column: 3;
+  }
+}
+
+.ca-container--full {
+  max-width: none;
+  padding-inline: 0;
+}
