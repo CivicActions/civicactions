@@ -78,10 +78,32 @@
 
   </main>
 
-  {% if page.footer %}
-    <footer>
-      {{ page.footer }}
-    </footer>
-  {% endif %}
+  {# Temporary static content until the footer slots are populated through Canvas. #}
+  {% embed 'omnichannel:site-footer' only %}
+    {% block about %}
+      {% include '@omnichannel/templates/partials/footer/about.html.twig' only %}
+    {% endblock %}
+
+    {% block contact %}
+      {% include '@omnichannel/templates/partials/footer/contact.html.twig' only %}
+    {% endblock %}
+
+    {% block menu %}
+      {% include '@omnichannel/templates/partials/footer/menu.html.twig' only %}
+    {% endblock %}
+
+    {% block social %}
+      {% include 'omnichannel:social-links' with {
+        vimeo_url: 'https://vimeo.com/civicactions',
+        bluesky_url: 'https://bsky.app/profile/civicactions.com',
+        x_url: 'https://twitter.com/civicactions?lang=en',
+        linkedin_url: 'https://www.linkedin.com/company/civicactions/mycompany/',
+      } only %}
+    {% endblock %}
+
+    {% block bottom_links %}
+      {% include '@omnichannel/templates/partials/footer/bottom-links.html.twig' only %}
+    {% endblock %}
+  {% endembed %}
 
 </div>{# /.layout-container #}

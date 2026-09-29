@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Site Footer
+description: Site footer grid with named areas for branding, about text, contact details, menu, social links, and bottom links.
+group: Layout
+status: stable
+props:
+  type: object
+  properties:
+    heading_id:
+      type: string
+      title: Navigation heading ID
+      description: ID of the visually hidden heading that labels the footer navigation.
+      default: footer--menu
+slots:
+  branding:
+    title: Branding
+    description: Footer logo, typically linked to the front page.
+  about:
+    title: About text
+    description: Short description of the organization.
+  contact:
+    title: Contact details
+    description: Mailing address, phone number, and email address.
+  menu:
+    title: Footer menu
+    description: Primary footer navigation links.
+  social:
+    title: Social links
+    description: Social media icon links.
+  bottom_links:
+    title: Bottom links
+    description: Legal and policy links displayed in the bottom bar.

@@ -16,6 +16,8 @@ Production Drupal 11 theme for the CivicActions homesite rebuild, scaffolded fro
 - `link-button`: Call-to-action link button supporting primary and secondary variants.
 - `primary-page-cta`: Full-width call-to-action banner supporting default (blue) and home (red) variants.
 - `section`: Responsive CSS Grid section supporting 2-, 3-, and 4-column layouts.
+- `site-footer`: Responsive site footer with slots for organization, navigation, and policy content.
+- `social-links`: CivicActions social media icon links with hover and focus states.
 
 ## Frontend Linting
 
@@ -32,6 +34,7 @@ ddev lint-js
 Storybook runs in the theme directory and renders Twig SDCs with Vite:
 
 ```bash
+cd web/themes/omnichannel/
 npm install
 npm run storybook
 npm run build-storybook

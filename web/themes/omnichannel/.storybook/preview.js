@@ -1,4 +1,5 @@
 import '../css/global.css';
+import './storybook-overrides.css';
 
 const preview = {
   parameters: {
