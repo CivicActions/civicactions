@@ -5,6 +5,7 @@ version: 1.0.0
 libraries:
   - omnichannel/base
   - omnichannel/global
+  - omnichannel/layout
   - omnichannel/messages
   - core/normalize
 libraries-extend:

@@ -52,7 +52,9 @@
   --container-spacing-md: var(--size-12);
   /* 80px padding used in current homesite sections */
   --container-spacing-lg: var(--size-20);
+  --container-narrow-width: 45rem;
   --container-max-width: 1200px;
+  --container-wide-width: 90rem;
 
   /* Focus */
   --focus-outline-width: 3px;
