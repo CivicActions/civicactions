@@ -68,7 +68,8 @@
 
     {% set has_sidebar_first = page.sidebar_first is not empty %}
     {% set has_sidebar_second = page.sidebar_second is not empty %}
-    {% set is_editorial_node = node and node.bundle != 'canvas_page' %}
+    {% set is_canvas_page = node and node.bundle == 'canvas_page' %}
+    {% set needs_narrow_content = (node and not is_canvas_page) or (not node and not is_admin) %}
     {% set main_layout_class = 'ca-page__main-layout' %}
     {% if has_sidebar_first and has_sidebar_second %}
       {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--two-sidebars' %}
@@ -80,7 +81,7 @@
 
     <div class="{{ main_layout_class }}">
       {% set content_classes = ['ca-page__content'] %}
-      {% if is_editorial_node %}
+      {% if needs_narrow_content %}
         {% set content_classes = content_classes|merge(['ca-container', 'ca-container--narrow']) %}
       {% endif %}
       <div class="{{ content_classes|join(' ') }}">
