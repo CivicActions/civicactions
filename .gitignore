@@ -97,3 +97,6 @@
 #/.env
 
 /patches.lock.json
+
+# Ignore generated Storybook build output.
+/web/themes/omnichannel/storybook-static/
