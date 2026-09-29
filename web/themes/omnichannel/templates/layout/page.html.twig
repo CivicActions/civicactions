@@ -42,7 +42,12 @@
  * @see html.html.twig
  */
 #}
-<div class="ca-page">
+{% set page_attributes = attributes|default(create_attribute()) %}
+{% set footer_attributes = create_attribute()
+  .addClass('ca-page__footer')
+  .setAttribute('role', 'contentinfo')
+%}
+<div{{ page_attributes.addClass('ca-page') }}>
 
   {% if page.header or page.primary_menu or page.secondary_menu %}
     <header class="ca-page__header">
@@ -63,6 +68,7 @@
 
     {% set has_sidebar_first = page.sidebar_first is not empty %}
     {% set has_sidebar_second = page.sidebar_second is not empty %}
+    {% set is_editorial_node = node and node.bundle != 'canvas_page' %}
     {% set main_layout_class = 'ca-page__main-layout' %}
     {% if has_sidebar_first and has_sidebar_second %}
       {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--two-sidebars' %}
@@ -73,7 +79,11 @@
     {% endif %}
 
     <div class="{{ main_layout_class }}">
-      <div class="ca-page__content">
+      {% set content_classes = ['ca-page__content'] %}
+      {% if is_editorial_node %}
+        {% set content_classes = content_classes|merge(['ca-container', 'ca-container--narrow']) %}
+      {% endif %}
+      <div class="{{ content_classes|join(' ') }}">
         {{ page.content }}
       </div>
 
@@ -92,7 +102,7 @@
   </main>
 
   {# Temporary static content until the footer slots are populated through Canvas. #}
-  {% embed 'omnichannel:site-footer' only %}
+  {% embed 'omnichannel:site-footer' with { attributes: footer_attributes } only %}
     {% block about %}
       {% include '@omnichannel/templates/partials/footer/about.html.twig' only %}
     {% endblock %}
