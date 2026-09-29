@@ -100,7 +100,7 @@
   .footer__social {
     grid-area: social;
     align-self: end;
-    margin-bottom: -(var(--size-5));
+    margin-bottom: calc(-1 * var(--size-5));
   }
 
   .footer__bottom--links {
