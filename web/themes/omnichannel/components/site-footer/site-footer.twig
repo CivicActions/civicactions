@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Site Footer component.
+ *
+ * Available props:
+ * - heading_id: ID of the visually hidden heading labelling the navigation.
+ *
+ * Available slots:
+ * - branding: Footer logo.
+ * - about: Short description of the organization.
+ * - contact: Mailing address, phone, and email.
+ * - menu: Primary footer navigation links.
+ * - social: Social media icon links.
+ * - bottom_links: Legal and policy links.
+ */
+#}
+{% set heading_id = heading_id|default('footer--menu') %}
+{% set footer_attributes = attributes|default(create_attribute()) %}
+
+<footer{{ footer_attributes.addClass('footer').setAttribute('id', 'footer--section').setAttribute('tabindex', '-1') }}>
+  <div class="footer__inner">
+    <div class="footer__area footer__branding">
+      {% block branding %}
+        <a class="footer__branding-link" href="{{ path('<front>') }}" aria-label="{{ 'CivicActions home page'|t }}">
+          {{ source(componentMetadata.path ~ '/ca-extended-logo.svg') }}
+        </a>
+      {% endblock %}
+    </div>
+
+    <div class="footer__area footer__about">
+      {% block about %}{% endblock %}
+    </div>
+
+    <div class="footer__area footer__contact">
+      {% block contact %}{% endblock %}
+    </div>
+
+    <div class="footer__area footer__menu--wrapper">
+      <h2 id="{{ heading_id }}" class="visually-hidden">{{ 'Footer'|t }}</h2>
+      <nav class="footer__menu" aria-labelledby="{{ heading_id }}">
+        {% block menu %}{% endblock %}
+      </nav>
+    </div>
+
+    <div class="footer__area footer__social">
+      {% block social %}{% endblock %}
+    </div>
+
+    <div class="footer__area footer__bottom--links">
+      {% block bottom_links %}{% endblock %}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,41 @@
+{% set links = [
+  {
+    url: vimeo_url,
+    label: 'Watch our videos on Vimeo',
+    icon: vimeo_icon,
+    hover_icon: vimeo_hover_icon,
+  },
+  {
+    url: bluesky_url,
+    label: 'Follow us on Bluesky',
+    icon: bluesky_icon,
+    hover_icon: bluesky_hover_icon,
+  },
+  {
+    url: x_url,
+    label: 'Follow us on X',
+    icon: x_icon,
+    hover_icon: x_hover_icon,
+  },
+  {
+    url: linkedin_url,
+    label: 'Follow us on LinkedIn',
+    icon: linkedin_icon,
+    hover_icon: linkedin_hover_icon,
+  },
+] %}
+
+<ul{{ attributes.addClass('ca-social-links') }}>
+  {% for link in links %}
+    <li class="ca-social-links__item">
+      <a class="ca-social-links__link" href="{{ link.url }}" rel="nofollow" aria-label="{{ link.label }}">
+        <span class="ca-social-links__icon ca-social-links__icon--default" aria-hidden="true">
+          {{ link.icon|raw }}
+        </span>
+        <span class="ca-social-links__icon ca-social-links__icon--hover" aria-hidden="true">
+          {{ link.hover_icon|raw }}
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

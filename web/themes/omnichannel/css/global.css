@@ -35,9 +35,11 @@
   --size-6: 1.5rem;
   --size-8: 2rem;
   --size-9: 2.25rem;
+  --size-10: 2.5rem;
   --size-12: 3rem;
   --size-14: 3.5rem;
   --size-20: 5rem;
+  --size-24: 6rem;
 
   /* Typography */
   --font-heading: "Merriweather", georgia, serif;
@@ -55,6 +57,14 @@
   --container-narrow-width: 45rem;
   --container-max-width: 1200px;
   --container-wide-width: 90rem;
+
+  /* Breakpoints */
+  /* This merely records breakpoints since CSS vars cannot be used in media queries. */
+  /* 
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1200px;
+  */
 
   /* Focus */
   --focus-outline-width: 3px;
@@ -75,6 +85,7 @@ body {
   color: var(--gray-90);
   font-family: var(--font-body);
   line-height: var(--line-height-base);
+  font-weight: 300;
 }
 
 h1,
