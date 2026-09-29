@@ -4,7 +4,6 @@
  * Template for the CivicActions Site Footer component.
  *
  * Available props:
- * - background_color: Footer background color: white, gray, or blue.
  * - heading_id: ID of the visually hidden heading labelling the navigation.
  *
  * Available slots:
@@ -16,14 +15,10 @@
  * - bottom_links: Legal and policy links.
  */
 #}
-{% set background_color = background_color|default('white') %}
 {% set heading_id = heading_id|default('footer--menu') %}
 {% set footer_attributes = attributes|default(create_attribute()) %}
 
-<footer{{ footer_attributes.addClass([
-  'footer',
-  'footer--' ~ background_color,
-]).setAttribute('id', 'footer--section').setAttribute('tabindex', '-1') }}>
+<footer{{ footer_attributes.addClass('footer').setAttribute('id', 'footer--section').setAttribute('tabindex', '-1') }}>
   <div class="footer__inner">
     <div class="footer__area footer__branding">
       {% block branding %}

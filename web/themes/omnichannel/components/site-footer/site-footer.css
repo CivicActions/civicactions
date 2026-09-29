@@ -8,6 +8,7 @@
  */
 
 .footer {
+  background-color: var(--white);
   font-size: var(--size-4);
   line-height: 22px;
 }

@@ -1,0 +1,56 @@
+{% extends './site-footer.twig' %}
+
+{% block branding %}
+  <a class="footer__branding-link" href="/" aria-label="CivicActions home page">
+    {{ branding_logo|raw }}
+  </a>
+{% endblock %}
+
+{% block about %}
+  <p>
+    We're a professional services firm providing design, technology, consulting, and training services to government.
+  </p>
+  <p>
+    Want to help us make an impact?<br>
+    <a href="/careers/">Check out our open positions.</a>
+  </p>
+{% endblock %}
+
+{% block contact %}
+  <p>
+    Our mailing address is:<br>
+    3527 Mt. Diablo Blvd., Unit 269<br>
+    Lafayette, CA 94549
+  </p>
+  <a href="tel:510-408-7510">510-408-7510</a><br>
+  <a href="mailto:contact@civicactions.com">contact@civicactions.com</a>
+{% endblock %}
+
+{% block menu %}
+  <ul class="footer__menu--list">
+    <li><a href="#">Team</a></li>
+    <li><a href="#">Press</a></li>
+    <li><a href="#">Impact</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Case Studies</a></li>
+    <li><a href="#">Contracting</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Insights</a></li>
+    <li><a href="#">Careers</a></li>
+  </ul>
+{% endblock %}
+
+{% block social %}
+  {{ social_links|raw }}
+{% endblock %}
+
+{% block bottom_links %}
+  <ul>
+    <li><a href="/accessibility-statement/">Accessibility</a></li>
+    <li><a href="/licensing/">Licensing</a></li>
+    <li><a href="/privacy/">Privacy</a></li>
+    <li><a href="/sustainability/">Sustainability</a></li>
+    <li><a href="/feedback/">Feedback</a></li>
+    <li>&copy; 2026</li>
+  </ul>
+{% endblock %}
