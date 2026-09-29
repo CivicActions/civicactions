@@ -84,8 +84,8 @@ body {
   padding: 0;
   color: var(--gray-90);
   font-family: var(--font-body);
-  line-height: var(--line-height-base);
   font-weight: 300;
+  line-height: var(--line-height-base);
 }
 
 h1,
