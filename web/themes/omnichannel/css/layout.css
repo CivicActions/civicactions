@@ -19,10 +19,6 @@
   min-width: 0;
 }
 
-.ca-page__footer {
-  flex-shrink: 0;
-}
-
 .ca-container {
   box-sizing: border-box;
   width: 100%;
