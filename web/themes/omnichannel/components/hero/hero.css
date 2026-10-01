@@ -113,8 +113,9 @@
 
 .ca-hero__button--primary:hover,
 .ca-hero__button--primary:focus-visible {
-  border-color: var(--sec-red, #8b0a03);
-  background-color: var(--sec-red, #8b0a03);
+  color: var(--white, #fff);
+  border-color: var(--gray-90, #171717);
+  background-color: var(--gray-90, #171717);
 }
 
 .ca-hero__button--secondary {
@@ -272,8 +273,9 @@
 
   .ca-hero__button--primary:hover,
   .ca-hero__button--primary:focus-visible {
-    border-color: var(--sec-red, #8b0a03);
-    background-color: var(--sec-red, #8b0a03);
+    color: var(--white, #fff);
+    border-color: var(--gray-90, #171717);
+    background-color: var(--gray-90, #171717);
   }
 
   .ca-hero__button--secondary {
