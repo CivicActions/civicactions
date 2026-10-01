@@ -1,0 +1,66 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Hero
+description: Introductory page hero with an optional eyebrow, summary, and call-to-action links.
+group: Content
+status: stable
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Title
+      default: "Government services that build public trust"
+      examples:
+        - "Government services that build public trust"
+    eyebrow:
+      type: string
+      title: Eyebrow
+      default: "CivicActions"
+      examples:
+        - "CivicActions"
+    summary:
+      type: string
+      title: Summary
+      default: "We help government deliver trusted public services through open technology and design."
+      examples:
+        - "We help government deliver trusted public services through open technology and design."
+    variant:
+      type: string
+      title: Style variant
+      enum:
+        - card
+        - flush
+      meta:enum:
+        card: Card
+        flush: Flush
+      default: card
+      examples:
+        - card
+    primary_button_text:
+      type: string
+      title: Primary button text
+      default: "See our work"
+      examples:
+        - "See our work"
+    primary_button_url:
+      type: string
+      title: Primary button link
+      format: uri-reference
+      default: "/case-studies"
+      examples:
+        - "/case-studies"
+    secondary_button_text:
+      type: string
+      title: Secondary button text
+      default: "Contact us"
+      examples:
+        - "Contact us"
+    secondary_button_url:
+      type: string
+      title: Secondary button link
+      format: uri-reference
+      default: "/contact"
+      examples:
+        - "/contact"
