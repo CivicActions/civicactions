@@ -41,15 +41,6 @@ export const TextOnly = {
   },
 };
 
-export const WithTwoButtons = {
-  args: {
-    primary_button_text: 'See our work',
-    primary_button_url: '/case-studies',
-    secondary_button_text: 'Contact us',
-    secondary_button_url: '/contact',
-  },
-};
-
 export const WithEyebrow = {
   args: {
     eyebrow: 'U.S. Department of Transportation',
