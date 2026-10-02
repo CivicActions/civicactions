@@ -1,0 +1,1 @@
+const t="canvas-assets/editorial-teaser-img.jpg",a="icons/check.svg",s={src:`/storybook/images/${t}`,alt:"Traffic light against the sky",width:354,height:220},o=`/storybook/images/${a}`,e={src:"/storybook/images/canvas-assets/quote-portrait.png",alt:"Portrait of Alex Rivera",width:346,height:446};export{s as a,o as p,e as q};
