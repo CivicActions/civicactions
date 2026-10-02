@@ -10,12 +10,14 @@ const meta = {
     name: { control: 'text' },
     role: { control: 'text' },
     image: { control: 'object' },
+    background: { control: 'select', options: ['gray', 'white'] },
   },
   args: {
     quote:
       'We believe government works best when technology is built in the open with the people it serves.',
     name: 'Alex Rivera',
     role: 'Co-Founder & Government Solutions Lead',
+    background: 'gray',
   },
 };
 
@@ -33,5 +35,12 @@ export const TextOnly = {
       'CivicActions transformed how our agency approaches digital service delivery and public cloud migration.',
     name: '',
     role: 'Senior Federal Program Director',
+  },
+};
+
+export const WhiteBackground = {
+  args: {
+    image: quotePortrait,
+    background: 'white',
   },
 };

@@ -38,3 +38,16 @@ props:
           alt: "Portrait of Alex Rivera"
           width: 346
           height: 446
+    background:
+      type: string
+      title: Background
+      description: Gray applies at desktop width and above; smaller screens always use white.
+      enum:
+        - gray
+        - white
+      meta:enum:
+        gray: Gray
+        white: White
+      default: gray
+      examples:
+        - gray

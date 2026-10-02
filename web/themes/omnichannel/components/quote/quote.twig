@@ -8,10 +8,14 @@
  * - name: Optional person or organization being quoted.
  * - role: Optional job title or attribution source.
  * - image: Optional portrait from the Media Library.
+ * - background: Background color ('gray' or 'white').
  */
 #}
 {% set quote_attributes = attributes|default(create_attribute()) %}
-{% set quote_classes = ['ca-quote'] %}
+{% set quote_classes = [
+  'ca-quote',
+  'ca-quote--' ~ (background|default('gray')),
+] %}
 {% if image %}
   {% set quote_classes = quote_classes|merge(['ca-quote--with-portrait']) %}
 {% endif %}

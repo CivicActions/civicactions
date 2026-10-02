@@ -13,7 +13,7 @@
   margin: var(--size-12, 48px) 0 0;
   padding: 55px 0;
   color: var(--gray-90, #171717);
-  background-color: transparent;
+  background-color: var(--white, #fff);
 }
 
 .ca-quote__inner {
@@ -80,14 +80,14 @@
   margin-top: var(--size-6, 24px);
   color: var(--gray-90, #171717);
   font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
-  font-size: 16px;
+  font-size: var(--size-4, 16px);
   font-weight: 300;
   line-height: 22px;
 }
 
 @media (min-width: 600px) {
   .ca-quote__text {
-    font-size: 24px;
+    font-size: var(--size-6, 24px);
     line-height: 33px;
   }
 }
@@ -126,6 +126,10 @@
     margin-top: 72px;
   }
 
+  .ca-quote.ca-quote--gray {
+    background-color: var(--gray-05, #f0f0f0);
+  }
+
   .ca-quote__inner {
     margin: 0 auto;
   }
@@ -135,7 +139,7 @@
   }
 
   .ca-quote.ca-quote--with-portrait .ca-quote__content {
-    margin-left: 32px;
+    margin-left: var(--size-8, 32px);
   }
 
   .ca-quote__text {
@@ -143,8 +147,8 @@
   }
 
   .ca-quote__caption {
-    font-size: 20px;
-    line-height: 34px;
+    font-size: var(--font-size-body-large, 20px);
+    line-height: var(--line-height-body-large, 1.7);
   }
 }
 
@@ -161,7 +165,7 @@
     margin: var(--size-12, 48px) 0 0;
     padding: 55px 0;
     color: var(--gray-90, #171717);
-    background-color: transparent;
+    background-color: var(--white, #fff);
   }
 
   .ca-quote__inner {
@@ -228,14 +232,14 @@
     margin-top: var(--size-6, 24px);
     color: var(--gray-90, #171717);
     font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
-    font-size: 16px;
+    font-size: var(--size-4, 16px);
     font-weight: 300;
     line-height: 22px;
   }
 
   @media (min-width: 600px) {
     .ca-quote__text {
-      font-size: 24px;
+      font-size: var(--size-6, 24px);
       line-height: 33px;
     }
   }
@@ -274,6 +278,10 @@
       margin-top: 72px;
     }
 
+    :scope.ca-quote--gray {
+      background-color: var(--gray-05, #f0f0f0);
+    }
+
     .ca-quote__inner {
       margin: 0 auto;
     }
@@ -283,7 +291,7 @@
     }
 
     :scope.ca-quote--with-portrait .ca-quote__content {
-      margin-left: 32px;
+      margin-left: var(--size-8, 32px);
     }
 
     .ca-quote__text {
@@ -291,8 +299,8 @@
     }
 
     .ca-quote__caption {
-      font-size: 20px;
-      line-height: 34px;
+      font-size: var(--font-size-body-large, 20px);
+      line-height: var(--line-height-body-large, 1.7);
     }
   }
 
