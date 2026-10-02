@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Quote component.
+ *
+ * Available props:
+ * - quote: Quotation text.
+ * - name: Optional person or organization being quoted.
+ * - role: Optional job title or attribution source.
+ * - image: Optional portrait from the Media Library.
+ */
+#}
+{% set quote_attributes = attributes|default(create_attribute()) %}
+{% set quote_classes = ['ca-quote'] %}
+{% if image %}
+  {% set quote_classes = quote_classes|merge(['ca-quote--with-portrait']) %}
+{% endif %}
+
+<figure {{ quote_attributes.addClass(quote_classes) }}>
+  <div class="ca-quote__inner">
+    {% if image %}
+      <img
+        class="ca-quote__portrait"
+        src="{{ file_url(image.src)|e('html_attr') }}"
+        alt="{{ image.alt|default('')|e('html_attr') }}"
+        width="{{ image.width|default(173)|e('html_attr') }}"
+        height="{{ image.height|default(223)|e('html_attr') }}"
+        loading="lazy"
+      >
+    {% endif %}
+    <div class="ca-quote__content">
+      <blockquote class="ca-quote__blockquote">
+        <p class="ca-quote__text">{{ quote }}</p>
+      </blockquote>
+      {% if name or role %}
+        <figcaption class="ca-quote__caption">
+          {% if name %}
+            <span class="ca-quote__name">{{ name }}</span>
+          {% endif %}
+          {% if role %}
+            <span class="ca-quote__role">{{ role }}</span>
+          {% endif %}
+        </figcaption>
+      {% endif %}
+    </div>
+  </div>
+</figure>

@@ -1,0 +1,304 @@
+/**
+ * @file
+ * Styles for the CivicActions Quote SDC.
+ *
+ * The unscoped selectors provide the progressive-enhancement fallback for
+ * browsers without CSS @scope support. The scoped selectors preserve the
+ * component's encapsulation in browsers that support @scope.
+ */
+
+.ca-quote {
+  box-sizing: border-box;
+  width: 100%;
+  margin: var(--size-12, 48px) 0 0;
+  padding: 55px 0;
+  color: var(--gray-90, #171717);
+  background-color: transparent;
+}
+
+.ca-quote__inner {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  box-sizing: border-box;
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 var(--size-6, 24px);
+  padding: 0 var(--size-5, 20px);
+}
+
+.ca-quote.ca-quote--with-portrait .ca-quote__inner::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  aspect-ratio: 44 / 80;
+  content: "";
+  background: radial-gradient(circle closest-side, var(--primary-red, #d83933) 72%, transparent 76%) 0 0 / 25% calc(100% / 7);
+}
+
+.ca-quote__portrait {
+  display: none;
+  flex: 0 0 auto;
+  width: 173px;
+  height: 223px;
+  margin-left: 22px;
+  object-fit: cover;
+}
+
+.ca-quote__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+  text-align: left;
+}
+
+.ca-quote.ca-quote--with-portrait .ca-quote__content {
+  margin-left: 44px;
+}
+
+.ca-quote__blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+.ca-quote__text {
+  margin: 0;
+  padding: 0;
+  color: var(--primary-blue, #162e51);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.ca-quote__caption {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--size-6, 24px);
+  color: var(--gray-90, #171717);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22px;
+}
+
+@media (min-width: 600px) {
+  .ca-quote__text {
+    font-size: 24px;
+    line-height: 33px;
+  }
+}
+
+@media (min-width: 768px) {
+  .ca-quote {
+    margin-top: var(--size-14, 56px);
+  }
+
+  .ca-quote__inner {
+    margin: 0 var(--size-12, 48px);
+  }
+
+  .ca-quote.ca-quote--with-portrait .ca-quote__inner::before {
+    width: 44px;
+  }
+
+  .ca-quote.ca-quote--with-portrait .ca-quote__content {
+    margin-left: 64px;
+  }
+}
+
+/* Legacy keeps the compact layout through 768px inclusive. */
+@media (min-width: 769px) {
+  .ca-quote {
+    padding: 85px 0;
+  }
+
+  .ca-quote__portrait {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ca-quote {
+    margin-top: 72px;
+  }
+
+  .ca-quote__inner {
+    margin: 0 auto;
+  }
+
+  .ca-quote.ca-quote--with-portrait .ca-quote__inner::before {
+    top: -9px;
+  }
+
+  .ca-quote.ca-quote--with-portrait .ca-quote__content {
+    margin-left: 32px;
+  }
+
+  .ca-quote__text {
+    line-height: 39px;
+  }
+
+  .ca-quote__caption {
+    font-size: 20px;
+    line-height: 34px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .ca-quote__text {
+    font-size: 28px;
+  }
+}
+
+@scope (.ca-quote) {
+  :scope {
+    box-sizing: border-box;
+    width: 100%;
+    margin: var(--size-12, 48px) 0 0;
+    padding: 55px 0;
+    color: var(--gray-90, #171717);
+    background-color: transparent;
+  }
+
+  .ca-quote__inner {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    box-sizing: border-box;
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 var(--size-6, 24px);
+    padding: 0 var(--size-5, 20px);
+  }
+
+  :scope.ca-quote--with-portrait .ca-quote__inner::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 26px;
+    aspect-ratio: 44 / 80;
+    content: "";
+    background: radial-gradient(circle closest-side, var(--primary-red, #d83933) 72%, transparent 76%) 0 0 / 25% calc(100% / 7);
+  }
+
+  .ca-quote__portrait {
+    display: none;
+    flex: 0 0 auto;
+    width: 173px;
+    height: 223px;
+    margin-left: 22px;
+    object-fit: cover;
+  }
+
+  .ca-quote__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-width: 0;
+    text-align: left;
+  }
+
+  :scope.ca-quote--with-portrait .ca-quote__content {
+    margin-left: 44px;
+  }
+
+  .ca-quote__blockquote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ca-quote__text {
+    margin: 0;
+    padding: 0;
+    color: var(--primary-blue, #162e51);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+  }
+
+  .ca-quote__caption {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--size-6, 24px);
+    color: var(--gray-90, #171717);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+  }
+
+  @media (min-width: 600px) {
+    .ca-quote__text {
+      font-size: 24px;
+      line-height: 33px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    :scope {
+      margin-top: var(--size-14, 56px);
+    }
+
+    .ca-quote__inner {
+      margin: 0 var(--size-12, 48px);
+    }
+
+    :scope.ca-quote--with-portrait .ca-quote__inner::before {
+      width: 44px;
+    }
+
+    :scope.ca-quote--with-portrait .ca-quote__content {
+      margin-left: 64px;
+    }
+  }
+
+  /* Legacy keeps the compact layout through 768px inclusive. */
+  @media (min-width: 769px) {
+    :scope {
+      padding: 85px 0;
+    }
+
+    .ca-quote__portrait {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :scope {
+      margin-top: 72px;
+    }
+
+    .ca-quote__inner {
+      margin: 0 auto;
+    }
+
+    :scope.ca-quote--with-portrait .ca-quote__inner::before {
+      top: -9px;
+    }
+
+    :scope.ca-quote--with-portrait .ca-quote__content {
+      margin-left: 32px;
+    }
+
+    .ca-quote__text {
+      line-height: 39px;
+    }
+
+    .ca-quote__caption {
+      font-size: 20px;
+      line-height: 34px;
+    }
+  }
+
+  @media (min-width: 1201px) {
+    .ca-quote__text {
+      font-size: 28px;
+    }
+  }
+}

@@ -9,3 +9,10 @@ export const placeholderImage = {
 };
 
 export const placeholderIcon = `${import.meta.env.PROD ? '/storybook' : ''}/images/${iconPath}`;
+
+export const quotePortrait = {
+  src: `${import.meta.env.PROD ? '/storybook' : ''}/images/canvas-assets/quote-portrait.png`,
+  alt: 'Portrait of Alex Rivera',
+  width: 346,
+  height: 446,
+};
