@@ -8,29 +8,31 @@
  */
 
 .ca-quote {
+  --ca-quote-gutter: var(--size-6, 24px);
+  --ca-quote-pad-block: 55px;
+  --ca-quote-gap: 44px;
+
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
   box-sizing: border-box;
   width: 100%;
   margin: var(--size-12, 48px) 0 0;
-  padding: 55px 0;
+  padding: var(--ca-quote-pad-block) calc(var(--ca-quote-gutter) + var(--size-5, 20px));
   color: var(--gray-90, #171717);
   background-color: var(--white, #fff);
 }
 
-.ca-quote__inner {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  box-sizing: border-box;
-  max-width: var(--container-max-width, 1200px);
-  margin: 0 var(--size-6, 24px);
-  padding: 0 var(--size-5, 20px);
+.ca-quote.ca-quote--with-portrait {
+  column-gap: var(--ca-quote-gap);
 }
 
-.ca-quote.ca-quote--with-portrait .ca-quote__inner::before {
+.ca-quote.ca-quote--with-portrait::before {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: var(--ca-quote-pad-block);
+  left: var(--ca-quote-gutter);
   width: 26px;
   aspect-ratio: 44 / 80;
   content: "";
@@ -39,29 +41,20 @@
 
 .ca-quote__portrait {
   display: none;
-  flex: 0 0 auto;
+  grid-row: 1 / span 2;
+  grid-column: 1;
   width: 173px;
   height: 223px;
   margin-left: 22px;
   object-fit: cover;
 }
 
-.ca-quote__content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  min-width: 0;
-  text-align: left;
-}
-
-.ca-quote.ca-quote--with-portrait .ca-quote__content {
-  margin-left: 44px;
-}
-
 .ca-quote__blockquote {
+  grid-row: 1;
+  grid-column: 2;
   margin: 0;
   padding: 0;
+  text-align: left;
 }
 
 .ca-quote__text {
@@ -77,7 +70,10 @@
 .ca-quote__caption {
   display: flex;
   flex-direction: column;
+  grid-row: 2;
+  grid-column: 2;
   margin-top: var(--size-6, 24px);
+  text-align: left;
   color: var(--gray-90, #171717);
   font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
   font-size: var(--size-4, 16px);
@@ -94,26 +90,21 @@
 
 @media (min-width: 768px) {
   .ca-quote {
+    --ca-quote-gutter: var(--size-12, 48px);
+    --ca-quote-gap: 64px;
+
     margin-top: var(--size-14, 56px);
   }
 
-  .ca-quote__inner {
-    margin: 0 var(--size-12, 48px);
-  }
-
-  .ca-quote.ca-quote--with-portrait .ca-quote__inner::before {
+  .ca-quote.ca-quote--with-portrait::before {
     width: 44px;
-  }
-
-  .ca-quote.ca-quote--with-portrait .ca-quote__content {
-    margin-left: 64px;
   }
 }
 
 /* Legacy keeps the compact layout through 768px inclusive. */
 @media (min-width: 769px) {
   .ca-quote {
-    padding: 85px 0;
+    --ca-quote-pad-block: 85px;
   }
 
   .ca-quote__portrait {
@@ -123,6 +114,9 @@
 
 @media (min-width: 1024px) {
   .ca-quote {
+    --ca-quote-gutter: max(0px, calc((100% - var(--container-max-width, 1200px)) / 2));
+    --ca-quote-gap: var(--size-8, 32px);
+
     margin-top: 72px;
   }
 
@@ -130,16 +124,8 @@
     background-color: var(--gray-05, #f0f0f0);
   }
 
-  .ca-quote__inner {
-    margin: 0 auto;
-  }
-
-  .ca-quote.ca-quote--with-portrait .ca-quote__inner::before {
-    top: -9px;
-  }
-
-  .ca-quote.ca-quote--with-portrait .ca-quote__content {
-    margin-left: var(--size-8, 32px);
+  .ca-quote.ca-quote--with-portrait::before {
+    top: calc(var(--ca-quote-pad-block) - 9px);
   }
 
   .ca-quote__text {
@@ -160,29 +146,31 @@
 
 @scope (.ca-quote) {
   :scope {
+    --ca-quote-gutter: var(--size-6, 24px);
+    --ca-quote-pad-block: 55px;
+    --ca-quote-gap: 44px;
+
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
     box-sizing: border-box;
     width: 100%;
     margin: var(--size-12, 48px) 0 0;
-    padding: 55px 0;
+    padding: var(--ca-quote-pad-block) calc(var(--ca-quote-gutter) + var(--size-5, 20px));
     color: var(--gray-90, #171717);
     background-color: var(--white, #fff);
   }
 
-  .ca-quote__inner {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    box-sizing: border-box;
-    max-width: var(--container-max-width, 1200px);
-    margin: 0 var(--size-6, 24px);
-    padding: 0 var(--size-5, 20px);
+  :scope.ca-quote--with-portrait {
+    column-gap: var(--ca-quote-gap);
   }
 
-  :scope.ca-quote--with-portrait .ca-quote__inner::before {
+  :scope.ca-quote--with-portrait::before {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: var(--ca-quote-pad-block);
+    left: var(--ca-quote-gutter);
     width: 26px;
     aspect-ratio: 44 / 80;
     content: "";
@@ -191,29 +179,20 @@
 
   .ca-quote__portrait {
     display: none;
-    flex: 0 0 auto;
+    grid-row: 1 / span 2;
+    grid-column: 1;
     width: 173px;
     height: 223px;
     margin-left: 22px;
     object-fit: cover;
   }
 
-  .ca-quote__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    min-width: 0;
-    text-align: left;
-  }
-
-  :scope.ca-quote--with-portrait .ca-quote__content {
-    margin-left: 44px;
-  }
-
   .ca-quote__blockquote {
+    grid-row: 1;
+    grid-column: 2;
     margin: 0;
     padding: 0;
+    text-align: left;
   }
 
   .ca-quote__text {
@@ -229,7 +208,10 @@
   .ca-quote__caption {
     display: flex;
     flex-direction: column;
+    grid-row: 2;
+    grid-column: 2;
     margin-top: var(--size-6, 24px);
+    text-align: left;
     color: var(--gray-90, #171717);
     font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
     font-size: var(--size-4, 16px);
@@ -246,26 +228,21 @@
 
   @media (min-width: 768px) {
     :scope {
+      --ca-quote-gutter: var(--size-12, 48px);
+      --ca-quote-gap: 64px;
+
       margin-top: var(--size-14, 56px);
     }
 
-    .ca-quote__inner {
-      margin: 0 var(--size-12, 48px);
-    }
-
-    :scope.ca-quote--with-portrait .ca-quote__inner::before {
+    :scope.ca-quote--with-portrait::before {
       width: 44px;
-    }
-
-    :scope.ca-quote--with-portrait .ca-quote__content {
-      margin-left: 64px;
     }
   }
 
   /* Legacy keeps the compact layout through 768px inclusive. */
   @media (min-width: 769px) {
     :scope {
-      padding: 85px 0;
+      --ca-quote-pad-block: 85px;
     }
 
     .ca-quote__portrait {
@@ -275,6 +252,9 @@
 
   @media (min-width: 1024px) {
     :scope {
+      --ca-quote-gutter: max(0px, calc((100% - var(--container-max-width, 1200px)) / 2));
+      --ca-quote-gap: var(--size-8, 32px);
+
       margin-top: 72px;
     }
 
@@ -282,16 +262,8 @@
       background-color: var(--gray-05, #f0f0f0);
     }
 
-    .ca-quote__inner {
-      margin: 0 auto;
-    }
-
-    :scope.ca-quote--with-portrait .ca-quote__inner::before {
-      top: -9px;
-    }
-
-    :scope.ca-quote--with-portrait .ca-quote__content {
-      margin-left: var(--size-8, 32px);
+    :scope.ca-quote--with-portrait::before {
+      top: calc(var(--ca-quote-pad-block) - 9px);
     }
 
     .ca-quote__text {

@@ -11,31 +11,31 @@ props:
     quote:
       type: string
       title: Quote
-      default: "We believe government works best when technology is built in the open with the people it serves."
+      default: 'We believe government works best when technology is built in the open with the people it serves.'
       examples:
-        - "We believe government works best when technology is built in the open with the people it serves."
+        - 'We believe government works best when technology is built in the open with the people it serves.'
     name:
       type: string
       title: Name
       description: Optional person or organization being quoted.
-      default: "Alex Rivera"
+      default: 'Alex Rivera'
       examples:
-        - "Alex Rivera"
+        - 'Alex Rivera'
     role:
       type: string
       title: Role or source
       description: Optional job title or attribution source shown below the name.
-      default: "Co-Founder & Government Solutions Lead"
+      default: 'Co-Founder & Government Solutions Lead'
       examples:
-        - "Co-Founder & Government Solutions Lead"
+        - 'Co-Founder & Government Solutions Lead'
     image:
       $ref: json-schema-definitions://canvas.module/image
       type: object
       title: Portrait
       description: Optional portrait from the Media Library. Shown at tablet width and above, with a decorative dot pattern.
       examples:
-        - src: "/themes/omnichannel/images/canvas-assets/quote-portrait.png"
-          alt: "Portrait of Alex Rivera"
+        - src: '/themes/omnichannel/images/canvas-assets/quote-portrait.png'
+          alt: 'Portrait of Alex Rivera'
           width: 346
           height: 446
     background:
