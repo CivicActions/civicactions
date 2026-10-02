@@ -55,6 +55,10 @@ class OmnichannelHooks {
       }
     }
 
+    if (isset($props['image']['src']) && is_string($props['image']['src'])) {
+      $props['image']['src'] = UrlHelper::stripDangerousProtocols($props['image']['src']);
+    }
+
     return $props;
   }
 
