@@ -17,7 +17,7 @@ Keep validation scoped to the changed theme surface and distinguish generated pr
    - `ddev lint-css` for stylesheet validation.
    - `ddev lint-js` for theme JavaScript validation.
 4. Keep generated Storybook output such as `web/storybook/` and `storybook-static/` out of source lint input unless the generated bundle itself is under review.
-5. For component CSS, check the `.ca-<component>` namespace, `@scope` structure, BEM fallback, custom-property usage, and absence of bare HTML selectors. Global shell selectors in `css/global.css` are documented exceptions and should be reported as drift, not silently normalized in an unrelated ticket.
+5. For component CSS, check the `.ca-<component>` namespace, `@scope` structure, BEM fallback, custom-property usage (flag hard-coded values that exactly match an existing `css/global.css` token), and absence of bare HTML selectors. Global shell selectors in `css/global.css` are documented exceptions and should be reported as drift, not silently normalized in an unrelated ticket.
 6. For Storybook changes, restart the Storybook process after configuration changes before interpreting browser results.
 7. If DDEV or Mutagen changes the local file state, check `git status` and file sizes before diagnosing a frontend failure.
 8. Report command, scope, result, and any unrelated repository blocker separately.

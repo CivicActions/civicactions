@@ -34,6 +34,7 @@ npm run build-storybook
 - Place components under `web/themes/omnichannel/components/<name>/`.
 - Use the `.ca-<component>` namespace and BEM element/modifier names.
 - Scope component CSS with `@scope (.ca-<component>)` and provide the established BEM fallback where needed.
+- Before writing a color, spacing, font-size, line-height, width, or shadow value in component CSS, check `web/themes/omnichannel/css/global.css` for an existing custom property and use it (for example `var(--gray-05, #f0f0f0)`, not `#f0f0f0`). Hard-code a value only when no token matches exactly, and do not round a legacy value to a nearby token without calling out the difference.
 - Do not add bare HTML selectors to component CSS. Global shell rules are documented exceptions in `docs/specs/canon.md`.
 - Initialize Twig attributes with `attributes|default(create_attribute())`.
 - Escape user-controlled HTML attributes with `|e('html_attr')`.
