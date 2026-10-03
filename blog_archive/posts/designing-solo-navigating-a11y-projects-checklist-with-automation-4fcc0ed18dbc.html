@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Designing solo? Navigating A11Y Project’s Checklist with automation — CivicActions</title><link rel="canonical" href="https://medium.com/civicactions/designing-solo-navigating-a11y-projects-checklist-with-automation-4fcc0ed18dbc"><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65;max-width:780px;margin:3rem auto;padding:0 1rem;color:#222}h1,h2,h3,h4{line-height:1.25}header{border-bottom:1px solid #ddd;margin-bottom:2rem;padding-bottom:1rem}.meta{color:#555}figure{margin:2rem 0}img{max-width:100%;height:auto}figcaption{color:#666;font-size:.9em}blockquote{border-left:4px solid #ddd;margin-left:0;padding-left:1.25rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f5f5;padding:1rem}a{color:#0756a6}.list-item{margin:.25rem 0 .25rem 1.25rem}.embed{background:#f5f5f5;padding:1rem}</style></head><body><header><h1>Designing solo? Navigating A11Y Project’s Checklist with automation</h1><p>So you’re advocating for accessibility, but flying solo on a redesign project. Timelines are tight, but you also want to keep your…</p><p class="meta">Nira Datta · 2024-03-11T18:16:14.596000Z</p><p><a href="https://medium.com/civicactions/designing-solo-navigating-a11y-projects-checklist-with-automation-4fcc0ed18dbc">Original on Medium</a></p></header><article><figure><img src="../assets/19f058661daa543e024d.png" alt="A person with long hair on their laptop, sitting on top of a calendar, with an hourglass and settings icons in the background." loading="lazy"></figure>
+<p>So you’re advocating for accessibility, but flying solo on a redesign project. Timelines are tight, but you also want to keep your project’s accessibility standards high.</p>
+<p>While there are many accessibility tools and guides available, you rely on <a href="https://www.a11yproject.com/checklist/">A11Y’s Project Checklist</a>. It’s a great designer-friendly tool to make sure more usability-focused accessibility issues are addressed.</p>
+<p>And when you’re redesigning a website, you’re rolling out larger features (or editing existing ones). These could have potentially large impacts on accessibility.</p>
+<p>But with limited bandwidth and time, you need to be intentional on where you place your effort.</p>
+<p>Is there a way to help raise your project’s accessibility standards so the right issues are prioritized, and save (some) time while you execute on other critical deliverables?</p>
+<h2>Include A11Y Project checklist items in automated testing</h2>
+<p>A helpful first step is to automate parts of A11Y Project Checklist by customizing an automated accessibility testing tool like axe-core. This way, you’ve enhanced the standards by which your team flags accessibility issues as part of the automated testing process.</p>
+<p>This approach is particularly useful for small redesign teams managing many priorities (ideally, you’d run axe-core tests for all code changes).</p>
+<h2>Axe-core defines some issues as ‘minor’ accessibility impact (but some of these are pretty ‘major’)</h2>
+<p>On our project, we were already using an automated accessibility checker called axe-core. In its default state, the tool is a solid starting point.</p>
+<p>It is able to flag many different types of accessibility issues (also called axe-core rules). It then designates an impact score to each rule as either:</p>
+<ul>
+<li>Critical</li>
+<li>Serious</li>
+<li>Medium</li>
+<li>Minor</li>
+</ul>
+<p>But some of what axe-core default designates as ‘minor’ or ‘medium’ are actually pretty ‘major’ for usability and inclusive design. These ‘major’ issues are what’s included in A11Y’s Project Checklist.</p>
+<p>For instance, axe-core default could be enhanced to align better with A11Y’s Project rules on issues related to:</p>
+<ul>
+<li>mobile and touch (our project’s site had ~25% mobile visitors)</li>
+<li>structured content (this is important for government websites that tend to have long-form content)</li>
+</ul>
+<p>By mapping the issues in axe-core default to A11Y Project’s checklist, we identified a full list of axe-core rules that we could either:</p>
+<ul>
+<li>Update to ‘serious’ or ‘critical’</li>
+<li>Enable in axe-core default</li>
+</ul>
+<h2>Making sure more usability-focused accessibility issues are prioritized</h2>
+<p>Aligning axe-core with the A11Y Project checklist not only saves time, but helps prioritize and increase your project’s accessibility standards. You can customize axe-core so it assigns a higher impact category (like ‘serious’ or ‘critical’). Otherwise, they’ll get stuck in the backlog and be handled much later (at best) or not at all (at worst).</p>
+<p>When some of A11Y’s rules are represented in axe-core, we can:</p>
+<ul>
+<li>Reduce ambiguity regarding the seriousness of accessibility issues</li>
+<li>Elevate accessibility standards beyond the out-of-the-box configuration</li>
+<li>Include inclusive design principles into our process that are (relatively) light-weight</li>
+<li>Help focus on issues that require further manual testing</li>
+</ul>
+<h2>How to modify axe-core to include custom items</h2>
+<p>You can work with your dev team to customize axe-core so it expands its definition of what’s ‘critical’ — like including those more usability focused accessibility issues in A11Y’s Project checklist.</p>
+<p>Here’s a list of axe-core rules that can either be upgraded to ‘critical’ or need to be enabled altogether (like what’s in Mobile and Touch).</p>
+<figure><img src="../assets/947b76f6070a1d25c9aa.png" alt="List of AxeCore rules that developers can either a) increase the impact designation to ‘critical’ or b) enable in AxeCore. Impact designations help to prioritize which accessibility issues are tackled. It will help ensure teams are tackling any that affect usability as a priority." loading="lazy"><figcaption>List of axe-corerules that developers can either a) increase the impact designation to ‘critical’ or b) enable in axe-core. Impact designations help to prioritize which accessibility issues are tackled. It will help ensure teams are tackling any that affect usability as a priority.</figcaption></figure>
+<h2>Manual testing is still essential</h2>
+<p>Automation tools alone are not enough. For instance, it will tell you when an alt-text is missing, but it doesn’t tell you what alt-text (in plain language) should be. Or it will tell you the link is not underlined, but it doesn’t assess the quality of the text in the link.</p>
+<p>You can incorporate manual testing during your design and/or QA process. For instance:</p>
+<ul>
+<li>Can a person navigating with a keyboard or screen reader move around the page in a predictable way?</li>
+<li>Are form input errors displayed as expected?</li>
+<li>Are links communicated as links? For instance, are they styled so that users will understand them to be links (underlines or boldface)? Or do they rely on a text color change alone?</li>
+<li>Are there any errors in your HTML that will make it hard for assistive devices? Assistive devices will have a difficult time if there are errors in your HTML (like a label missing from a form field, for instance).</li>
+<li>You can use an <a href="https://validator.w3.org/">HTML validation tool</a> to confirm there are no errors in your HTML. Tip: run this before your axe-core testing to produce a cleaner report.</li>
+</ul>
+<h2>Accessibility is a long game</h2>
+<p>Manual accessibility testing, and including a diversity of participants in usability testing throughout your process is essential. But automating parts of A11Y’s checklist can help you detect and prioritize more issues. This leaves more time for the important human work for accessibility testing.</p>
+<p>It’s also a practical first step for the dedicated and strapped designer running solo on a large project.</p></article></body></html>

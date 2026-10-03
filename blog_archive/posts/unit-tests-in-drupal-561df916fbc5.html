@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Unit tests in Drupal — CivicActions</title><link rel="canonical" href="https://medium.com/civicactions/unit-tests-in-drupal-561df916fbc5"><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65;max-width:780px;margin:3rem auto;padding:0 1rem;color:#222}h1,h2,h3,h4{line-height:1.25}header{border-bottom:1px solid #ddd;margin-bottom:2rem;padding-bottom:1rem}.meta{color:#555}figure{margin:2rem 0}img{max-width:100%;height:auto}figcaption{color:#666;font-size:.9em}blockquote{border-left:4px solid #ddd;margin-left:0;padding-left:1.25rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f5f5;padding:1rem}a{color:#0756a6}.list-item{margin:.25rem 0 .25rem 1.25rem}.embed{background:#f5f5f5;padding:1rem}</style></head><body><header><h1>Unit tests in Drupal</h1><p>Tips on getting started with test-driven development for cleaner, faster code</p><p class="meta">CivicActions · 2021-03-01T14:17:43.497000Z</p><p><a href="https://medium.com/civicactions/unit-tests-in-drupal-561df916fbc5">Original on Medium</a></p></header><article><h3>Tips on getting started with test-driven development for cleaner, faster code</h3>
+<figure><img src="../assets/717e79dfa208ffed6430.jpg" alt="Lines of code on a screen" loading="lazy"><figcaption>Photo by<a href="https://unsplash.com/@markusspiske?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"> Markus Spiske</a> on<a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"> Unsplash</a></figcaption></figure>
+<p>At <a href="https://events.drupal.org/global2020">DrupalCon Global 2020</a>, CivicActions Engineer <a href="https://civicactions.com/team/eric-napier">Eric Napier</a> and Open Data Expert <a href="https://civicactions.com/team/gerardo-gonzalez">Gerardo Gonalez</a> discussed Test-Driven Development (or TDD) for writing clean code that works in Drupal. TDD is an approach to software creation that requires engineers to write tests for code that doesn’t yet exist, in order to create a continuous feedback loop between the code and the developer(s).</p>
+<p>TDD first came about as a response to outdated and inefficient software development processes such as <a href="https://www.projectmanager.com/waterfall-methodology">Waterfall</a>. While it might feel unnatural to test something first without knowing whether or not it will work, this presentation aims to take the fear out of Test Driven Development. Watch as our engineers give live demos of this process, along with the following:</p>
+<ul>
+<li>The history of TDD (Test-Driven Development)</li>
+<li>Why TDD works</li>
+<li>How to write Awesome Unit Tests</li>
+<li>How to apply TDD in Drupal</li>
+<li>When to use different types of unit tests</li>
+</ul>
+<div class="embed"><img src="../assets/897ba133a3fdb910e502.jpg" alt="Embedded media preview" loading="lazy"><p><a href="https://www.youtube.com/watch?v=UGg3G0dsAGw">Watch “Unit Tests in Drupal” from DrupalCon Global 2020</a></p></div>
+<p>“At its core, TDD is a very simple process: write a test first, see the test fails, write just enough code to make the test pass, and then let the test drive your workflow.” — Eric</p>
+<p><strong>Highlights</strong></p>
+<ul>
+<li>1:00 — Overview of TDD and how it was first used by NASA on <a href="https://www.nasa.gov/content/the-history-of-mercury-mission-control/#.YCWW9WgZ6Et">Project Mercury</a></li>
+<li>7:03 — How CivicActions uses Agile and TDD practices to bring value to client work</li>
+<li>9:03 — The two rules and three phases of TDD</li>
+<li>10:36 — How to run tests using PHPUnit</li>
+<li>11:17 — Creating the memory store</li>
+<li>12:33 — Retrieving the strings from the store</li>
+<li>13:37 — How to run a completed test (and what to do when it fails)</li>
+<li>17:45 — Viewer participation helps a test pass when an unknown issue arises</li>
+<li>25:43 — Defining and demonstrating the difference between Solitary and Sociable tests</li>
+<li>30:00 — Gerardo’s <a href="https://github.com/GetDKAN/mock-chain">Mockchain Library</a>, and how it helps users working in PHPUnit</li>
+<li>35:37 — How to run these tests in Drupal, and the common challenges you might face</li>
+<li>40:10 — Live demo test in Drupal, and the results</li>
+</ul>
+<p><strong>Resources</strong></p>
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1CbCw55xm5WKE8MAhcw7J7A5tclFG39fEa5hxLGtejPM/edit">Presentation Slide Deck</a></li>
+<li><a href="https://events.drupal.org/global2020/sessions/unit-tests-drupal-road-test-driven-development">Presentation Overview</a></li>
+<li><a href="https://www.drupalgovcon.org/2020/program/sessions/mock-chain-library-easier-unit-testing-drupal-and-beyond">More About Mockchain</a></li>
+<li><a href="https://www.goodreads.com/book/show/387190.Test_Driven_Development?ac=1&amp;from_search=true&amp;qid=fhDzjvpejn&amp;rank=1">Kent Beck’s Book</a></li>
+</ul>
+<p><strong>Connect with Eric Napier</strong></p>
+<ul>
+<li><a href="https://www.linkedin.com/in/eknapier/">LinkedIn</a></li>
+<li><a href="https://github.com/eknapier">GitHub</a></li>
+<li><a href="https://www.drupal.org/u/ericnapier">Drupal</a></li>
+<li><a href="mailto:eric.napier@civicactions.com">Email</a></li>
+</ul>
+<p><strong>Connect with Gerardo Gonalez</strong></p>
+<ul>
+<li><a href="https://www.linkedin.com/in/fmizzell/">LinkedIn</a></li>
+<li><a href="https://github.com/fmizzell">GitHub</a></li>
+<li><a href="https://github.com/fmizzell">Drupal</a></li>
+<li><a href="mailto:gerardo.gonzalez@civicactions.com">Email</a></li>
+</ul></article></body></html>

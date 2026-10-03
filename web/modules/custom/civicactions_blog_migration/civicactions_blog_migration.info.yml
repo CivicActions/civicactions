@@ -1,0 +1,7 @@
+name: 'CivicActions Blog Migration'
+type: module
+description: 'Migrates archived Medium CivicActions articles into the local blog content type using local metadata and HTML files.'
+core_version_requirement: ^10 || ^11
+package: 'Migration'
+dependencies:
+  - migrate_plus:migrate_plus

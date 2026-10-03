@@ -1,0 +1,37 @@
+id: civicactions_medium_articles
+migration_tags:
+  - content
+source:
+  plugin: civicactions_blog_archive_posts
+  metadata_path: blog_archive/metadata.json
+  asset_public_directory: public://blog_archive_assets
+process:
+  title:
+    plugin: get
+    source: title
+  schema_article_body/value:
+    plugin: get
+    source: body_html
+  schema_article_body/format:
+    plugin: default_value
+    default_value: full_content
+  created:
+    plugin: format_date
+    from_format: 'Y-m-d\TH:i:s.u\Z'
+    to_format: U
+    source: published_at
+  status:
+    plugin: default_value
+    default_value: 1
+  promote:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  langcode:
+    plugin: default_value
+    default_value: en
+destination:
+  plugin: 'entity:node'
+  default_bundle: article
