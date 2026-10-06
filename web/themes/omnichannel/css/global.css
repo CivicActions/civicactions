@@ -49,6 +49,7 @@
   --font-size-body-large: var(--size-5);
 
   /* Sizing */
+  --icon-size-md: var(--size-6);
   --icon-size-large: var(--size-8);
   --container-spacing-sm: var(--size-6);
   --container-spacing-md: var(--size-12);
