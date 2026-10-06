@@ -6,7 +6,9 @@
  * Available props:
  * - variant: Content type ('press' or 'news').
  * - layout: Press release layout ('card' or 'compact').
- * - teaserlink: Teaser destination.
+ * - teaserlink: Press release destination.
+ * - date: News date (news only).
+ * - fullstorylink: Full story destination (news only).
  * - image: Optional Media Library image.
  * - title: Teaser heading.
  * - description: Optional teaser description.
@@ -34,7 +36,16 @@
     {% endif %}
     {% include 'omnichannel:editorial-press-teaser' with press_args only %}
   {% elseif teaser_variant == 'news' %}
-    {# News variant content goes here #}
-    <h2>Read all about it</h2>
+    {% set news_args = {
+      title: title,
+      fullstorylink: fullstorylink|default(teaserlink),
+    } %}
+    {% if date %}
+      {% set news_args = news_args|merge({ date: date }) %}
+    {% endif %}
+    {% if description %}
+      {% set news_args = news_args|merge({ description: description }) %}
+    {% endif %}
+    {% include 'omnichannel:editorial-news-teaser' with news_args only %}
   {% endif %}
 </div>
