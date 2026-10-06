@@ -1,6 +1,6 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Editorial Teaser
-description: Linked content teaser available as an image card or compact title-and-arrow link.
+description: Linked content teaser for press releases (image card or compact title-and-arrow link) and news.
 group: Teasers
 status: stable
 props:
@@ -11,7 +11,20 @@ props:
   properties:
     variant:
       type: string
-      title: Display variant
+      title: Content type
+      enum:
+        - press
+        - news
+      meta:enum:
+        press: Press release
+        news: News
+      default: press
+      examples:
+        - press
+    layout:
+      type: string
+      title: Press release layout
+      description: Only used when the content type is Press release.
       enum:
         - card
         - compact

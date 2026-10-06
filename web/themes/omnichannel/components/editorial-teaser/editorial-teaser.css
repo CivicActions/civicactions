@@ -26,7 +26,7 @@
   outline-offset: var(--focus-outline-offset);
 }
 
-.editorial-teaser--card .editorial-teaser__link {
+.editorial-teaser-press--card .editorial-teaser__link {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -40,7 +40,7 @@
   object-fit: cover;
 }
 
-.editorial-teaser--card .editorial-teaser__title {
+.editorial-teaser-press--card .editorial-teaser__title {
   margin: 0;
   padding: var(--size-8);
   color: var(--primary-blue);
@@ -58,7 +58,7 @@
 
 /* The compact teaser */
 
-.editorial-teaser--compact .editorial-teaser__link-compact {
+.editorial-teaser-press--compact .editorial-teaser__link-compact {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -67,7 +67,7 @@
   box-shadow: var(--shadow-card);
 }
 
-.editorial-teaser--compact .editorial-teaser__title {
+.editorial-teaser-press--compact .editorial-teaser__title {
   margin: var(--size-8) 0;
   color: var(--primary-blue);
   font-family: var(--font-heading);
@@ -88,13 +88,13 @@
 }
 
 @media (max-width: 767px) {
-  .editorial-teaser--card .editorial-teaser__title,
+  .editorial-teaser-press--card .editorial-teaser__title,
   .editorial-teaser__description {
     padding-right: var(--size-6);
     padding-left: var(--size-6);
   }
 
-  .editorial-teaser--compact .editorial-teaser__link {
+  .editorial-teaser-press--compact .editorial-teaser__link {
     padding: var(--size-8) var(--size-6);
   }
 }

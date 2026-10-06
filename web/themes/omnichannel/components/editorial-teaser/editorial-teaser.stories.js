@@ -6,14 +6,21 @@ const meta = {
   title: 'Components/Editorial Teaser',
   render: (args) => template(args),
   argTypes: {
-    variant: { control: 'select', options: ['card', 'compact'] },
+    variant: { control: 'inline-radio', options: ['press', 'news'] },
+    layout: {
+      control: 'inline-radio',
+      options: ['card', 'compact'],
+      description: 'Press release layout. Ignored for news.',
+      if: { arg: 'variant', eq: 'press' },
+    },
     teaserlink: { control: 'text' },
     image: { control: 'object' },
     title: { control: 'text' },
     description: { control: 'text' },
   },
   args: {
-    variant: 'card',
+    variant: 'press',
+    layout: 'card',
     teaserlink: '/press-releases/example',
     image: placeholderImage,
     title: 'CivicActions announces a public-sector partnership',
@@ -23,10 +30,28 @@ const meta = {
 
 export default meta;
 
-export const Card = {};
-
-export const Compact = {
+export const PressReleaseCard = {
   args: {
-    variant: 'compact',
+    layout: 'card',
+    variant: 'press',
+  },
+};
+
+export const PressReleaseCompact = {
+  args: {
+    layout: 'compact',
+  },
+};
+
+export const PressReleaseCardWithoutImage = {
+  args: {
+    image: null,
+  },
+};
+
+export const NewsRelease = {
+  args: {
+    variant: 'news',
+    teaserlink: '/news/example',
   },
 };
