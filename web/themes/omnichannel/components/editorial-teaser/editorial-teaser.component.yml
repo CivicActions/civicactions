@@ -6,7 +6,6 @@ status: stable
 props:
   type: object
   required:
-    - teaserlink
     - title
   properties:
     variant:
@@ -37,7 +36,7 @@ props:
     teaserlink:
       type: string
       title: Teaser link
-      description: Used for press releases. News uses the full story link.
+      description: This is the URL for press releases. News uses the full story link.
       format: uri-reference
       default: '/press-releases/example'
       examples:

@@ -26,7 +26,10 @@ const meta = {
       control: 'text',
       if: { arg: 'variant', eq: 'news' },
     },
-    image: { control: 'object' },
+    image: {
+      control: 'object',
+      if: { arg: 'variant', eq: 'press' },
+    },
     title: { control: 'text' },
     description: { control: 'text' },
   },
