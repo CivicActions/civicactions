@@ -1,28 +1,11 @@
 /**
  * @file
+ * Minimal changes from Olivero js for omnichannel theme.
+ *
  * Customization of navigation.
- * Borrows heavily from Olivero: https://git.drupalcode.org/project/olivero/-/blob/2.x/js/navigation.js
  */
 
 ((Drupal, once, tabbable) => {
-      /**
-   * Checks if the mobile navigation button is visible.
-   *
-   * @return {boolean}
-   *   True if navButtons is hidden, false if not.
-   */
-  function isDesktopNav() {
-    const navButtons = document.querySelector(
-      '[data-drupal-selector="mobile-buttons"]',
-    );
-
-    return navButtons
-      ? window.getComputedStyle(navButtons).getPropertyValue('display') ===
-          'none'
-      : false;
-  }
-
-  
   /**
    * Checks if navWrapper contains "is-active" class.
    *
@@ -48,8 +31,12 @@
     const value = !!state;
     props.navButton.setAttribute('aria-expanded', value);
     props.body.classList.toggle('is-overlay-active', value);
-    // props.body.classList.toggle('is-fixed', value);
+    props.body.classList.toggle('is-fixed', value);
     props.navWrapper.classList.toggle('is-active', value);
+    props.navButton.setAttribute(
+      'aria-label',
+      value ? 'Close main menu' : 'Open main menu',
+    );
   }
 
   /**
@@ -61,6 +48,7 @@
   function init(props) {
     props.navButton.setAttribute('aria-controls', props.navWrapperId);
     props.navButton.setAttribute('aria-expanded', 'false');
+    props.navButton.setAttribute('aria-label', 'Open main menu');
 
     props.navButton.addEventListener('click', () => {
       toggleNav(props, !isNavOpen(props.navWrapper));
@@ -69,11 +57,12 @@
     // Close any open sub-navigation first, then close the header navigation.
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape') {
-        //     if (props.olivero.areAnySubNavsOpen()) {
-        //       props.olivero.closeAllSubNav();
-        //     } else {
-        toggleNav(props, false);
-        //     }
+        if (props.olivero.areAnySubNavsOpen()) {
+          props.olivero.closeAllSubNav();
+          toggleNav(props, false);
+        } else {
+          toggleNav(props, false);
+        }
       }
     });
 
@@ -97,13 +86,16 @@
           tabbableNavElements[tabbableNavElements.length - 1];
 
         if (e.shiftKey) {
-          if (document.activeElement === firstTabbableEl && !isDesktopNav()) {
+          if (
+            document.activeElement === firstTabbableEl &&
+            !props.olivero.isDesktopNav()
+          ) {
             lastTabbableEl.focus();
             e.preventDefault();
           }
         } else if (
           document.activeElement === lastTabbableEl &&
-          !isDesktopNav()
+          !props.olivero.isDesktopNav()
         ) {
           firstTabbableEl.focus();
           e.preventDefault();
@@ -113,14 +105,14 @@
 
     // Remove overlays when browser is resized and desktop nav appears.
     window.addEventListener('resize', () => {
-      if (isDesktopNav()) {
+      if (props.olivero.isDesktopNav()) {
         toggleNav(props, false);
         props.body.classList.remove('is-overlay-active');
         props.body.classList.remove('is-fixed');
       }
 
-    //   // Ensure that all sub-navigation menus close when the browser is resized.
-    //   Drupal.olivero.closeAllSubNav();
+      // Ensure that all sub-navigation menus close when the browser is resized.
+      Drupal.olivero.closeAllSubNav();
     });
 
     // If hyperlink links to an anchor in the current page, close the
@@ -146,9 +138,9 @@
    */
   Drupal.behaviors.oliveroNavigation = {
     attach(context) {
-      const headerId = 'ca-header';
+      const headerId = 'header';
       const header = once('navigation', `#${headerId}`, context).shift();
-      const navWrapperId = 'ca-header-nav-wrapper';
+      const navWrapperId = 'header-nav';
 
       if (header) {
         const navWrapper = header.querySelector(`#${navWrapperId}`);

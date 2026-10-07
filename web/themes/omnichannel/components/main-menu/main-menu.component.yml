@@ -6,6 +6,8 @@ libraryOverrides:
   dependencies:
     - core/drupal
     - core/once
+    - core/tabbable
   js:
-    # second-level-navigation.js: {}
-    # js/secondary-script.js: {}
+    navigation-utils.js: {}
+    second-level-navigation.js: {}
+    navigation.js: {}

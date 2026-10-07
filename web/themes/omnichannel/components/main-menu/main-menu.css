@@ -1,9 +1,18 @@
 /* Styles for the main navigation menu. */
 
-
 /******************************  Mobile styles *****************************/
+
+/* Stop page scroll when menu is open. */
+body {
+  &.is-fixed {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
 /* Page overlay when menu is open. */
-.ca-header-nav-overlay {
+.header-nav-overlay {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -19,31 +28,9 @@
   }
 }
 
-/*main menu wrapper. Opens and closes on click. */
-.ca-header-nav-wrapper {
-  display: none;
-  &.is-active {
-    display: block;
-  }
-}
-/* nav.menu--main */
-.menu--main {
-  border: 4px dotted greenyellow !important;
-  height: 100%;
-  overflow: auto;
-  background: var(--white);
-  padding: var(--container-spacing-md);
-  font-family: var(--font-heading);
-  color: var(--gray-90);
-
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 1100;
-  width: 75%;
-  max-width: 540px;
-  min-width: 320px;
-
+/* Remove default button styling from all menu buttons. */
+.mobile-buttons,
+.primary-nav__menu {
   button {
     background-color: unset;
     border: unset;
@@ -51,20 +38,82 @@
   }
 }
 
-ul.menu-main--list {
-  margin: 0;
+/* Mobile menu open and close buttons */
+.mobile-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 var(--container-spacing-md);
+}
+.mobile-nav-button {
+  z-index: 1101;
+  padding: var(--size-4);
+  margin-right: calc(var(--size-4) * -1);
+
+  svg {
+    height: var(--icon-size-md);
+    width: var(--icon-size-md);
+  }
+
+  .is-overlay-active & {
+    position: fixed; /* To align with flyout menu. */
+    top: calc(var(--container-spacing-md) / 2);
+  }
+}
+.mobile-nav-button .icon-menu {
+  display: block;
+
+  .is-overlay-active & {
+    display: none;
+  }
+}
+.mobile-nav-button .icon-close {
+  display: none;
+
+  .is-overlay-active & {
+    display: block;
+  }
 }
 
-/* li.menu-item */
-.menu-item {
+/* Main menu wrapper. Opens and closes on click. */
+.header-nav {
+  display: none;
+  height: 100%;
+  overflow: auto;
+  background: var(--white);
+  padding: var(--container-spacing-md);
+  font-family: var(--font-heading);
+  color: var(--gray-90);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1100;
+  width: 75%;
+  max-width: 540px;
+  min-width: 320px;
+  /* from olivero */
+  transition:
+    visibility 0.2s,
+    transform 0.2s;
+
+  &.is-active {
+    display: block;
+  }
+}
+
+ul.primary-nav__menu {
+  margin: 0 0 0 inherit;
+}
+ul.primary-nav__menu--level-1 {
+  margin: var(--container-spacing-md) 0;
+}
+
+.primary-nav__menu-item {
   list-style-type: none;
   font-size: 1.5rem;
   font-weight: 300;
-  /* line-height: var(--line-height-body); */
   line-height: 1.5em;
-
-  /* padding-top: 32px; */
   padding-top: var(--size-8);
+
   a {
     text-decoration: none;
     color: var(--gray-90);
@@ -73,6 +122,15 @@ ul.menu-main--list {
   a:focus {
     text-decoration: underline;
   }
+}
+
+.primary-nav__menu-item--level-1 {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 24px 0;
+  font-size: 1.75rem;
+}
+
+.primary-nav__menu-item--has-children {
   button {
     display: flex;
     justify-content: space-between;
@@ -81,52 +139,39 @@ ul.menu-main--list {
 
     &::after {
       display: block;
-      background-image: url("../main-menu/ios-arrow-icon.svg");
+      background-image: url("../main-menu/icon-arrow-caret.svg");
       background-repeat: no-repeat;
       content: "";
       width: 25px;
       height: 25px;
     }
-  }
-}
 
-.menu-item--expanded {
-  button {
-    align-items: unset;
+    &[aria-expanded="true"] {
+      align-items: unset;
 
-    &::after {
-      transform: rotate(90deg);
+      &::after {
+        transform: rotate(90deg);
+      }
     }
   }
 }
 
-.ca-menu-item--toplevel {
-  border-bottom: 1px solid #c4c4c4;
-  padding: 24px 0;
-  font-size: 1.75rem;
-  font-weight: 400;
-  line-height: 1.5em;
-  list-style: none;
-}
-
-.ca-main-menu--mobile-button__wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
-  margin-bottom: var(--container-spacing-md);
-}
-/* .ca-main-menu--mobile-button, */
-.ca-mobile-nav-button {
-  position: relative;
-  z-index: 1101;
-  padding: var(--size-2);
-  margin-right: calc(var(--size-2) * -1);
-
-  svg {
-    height: var(--icon-size-md);
-    width: var(--icon-size-md);
+.primary-nav__menu--level-2 {
+  display: none;
+  &.is-active-menu-parent {
+    display: block;
   }
 }
 
 /******************************  Desktop styles **************************** */
+@media (min-width: 1200px) {
+  .mobile-buttons {
+    /* Display of these buttons triggers some mobile nav js.  */
+    display: none;
+  }
+
+  .header-nav {
+    /* Unlike mobile, always display the menu. */
+    display: block;
+  }
+}

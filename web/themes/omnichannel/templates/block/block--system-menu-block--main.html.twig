@@ -45,18 +45,6 @@
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
 <nav aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }}>
 
-  {# close mobile menu button #}
-  {# olivero = mobile-nav-button #}
-  {# omni = ca-main-menu--mobile-button  #}
-  Inside nav.
-  {# <div class="ca-main-menu--mobile-button__wrapper">
-    <button id="ca-mobile-button-close" class="ca-main-menu--mobile-button" aria-label="Close main menu" aria-controls="block-omnichannel-main" aria-expanded="true">
-      <span class="ca-main-menu--mobile-button__label visually-hidden">Menu</span>
-      <span class="ca-main-menu--mobile-button__icon">
-        {{ include(directory ~ '/components/main-menu/close-icon.svg') }}
-      </span>
-    </button>  </div> #}
-
   {# Label. If not displayed, we still provide it for screen readers. #}
   {% if not configuration.label_display %}
     {% set title_attributes = title_attributes.addClass('visually-hidden') %}
