@@ -1,0 +1,33 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Editorial Press Teaser
+description: Press release layouts rendered by Editorial Teaser. Not placed directly in Canvas.
+group: Teasers
+status: stable
+noUi: true
+props:
+  type: object
+  required:
+    - teaserlink
+    - title
+  properties:
+    layout:
+      type: string
+      title: Layout
+      enum:
+        - card
+        - compact
+      default: card
+    teaserlink:
+      type: string
+      title: Teaser link
+      format: uri-reference
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Card image
+    title:
+      type: string
+      title: Title
+    description:
+      type: string
+      title: Description

@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * News variant for the Editorial Teaser component.
+ *
+ * Available props:
+ * - date: Optional publication date (YYYY-MM-DD).
+ * - fullstorylink: Destination of the full story.
+ * - title: Teaser heading.
+ * - description: Optional news summary.
+ */
+#}
+
+{% set teaser_attributes = attributes|default(create_attribute()) %}
+
+<article {{ teaser_attributes.addClass(['editorial-teaser-news']) }}>
+  {% if date %}
+    <p class="editorial-teaser__date">News Release: <time datetime="{{ date|e('html_attr') }}">{{ date }}</time></p>
+  {% endif %}
+  <h2 class="editorial-teaser__title">{{ title }}</h2>
+  {% if description %}
+    <p class="editorial-teaser__description">{{ description }}</p>
+  {% endif %}
+  <p class="editorial-teaser__full-story">
+    Full Story: <a href="{{ fullstorylink|e('html_attr') }}" class="editorial-teaser__link">{{ title }}</a>
+  </p>
+</article>

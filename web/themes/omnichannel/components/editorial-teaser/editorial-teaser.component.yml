@@ -1,17 +1,29 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Editorial Teaser
-description: Linked content teaser available as an image card or compact title-and-arrow link.
+description: Linked content teaser for press releases (image card or compact title-and-arrow link) and news.
 group: Teasers
 status: stable
 props:
   type: object
   required:
-    - teaserlink
     - title
   properties:
     variant:
       type: string
-      title: Display variant
+      title: Content type
+      enum:
+        - press
+        - news
+      meta:enum:
+        press: Press release
+        news: News
+      default: press
+      examples:
+        - press
+    layout:
+      type: string
+      title: Press release layout
+      description: Only used when the content type is Press release.
       enum:
         - card
         - compact
@@ -24,10 +36,26 @@ props:
     teaserlink:
       type: string
       title: Teaser link
+      description: This is the URL for press releases. News uses the full story link.
       format: uri-reference
       default: '/press-releases/example'
       examples:
         - '/press-releases/example'
+    date:
+      type: string
+      title: News date
+      description: Only used when the content type is News.
+      format: date
+      # Canvas cannot yet store a default or example for date props without a
+      # config schema error (canvas.module issue 3530808).
+    fullstorylink:
+      type: string
+      title: Full story link
+      description: Only used when the content type is News.
+      format: uri-reference
+      default: '/press/example'
+      examples:
+        - '/press/example'
     image:
       $ref: json-schema-definitions://canvas.module/image
       type: object

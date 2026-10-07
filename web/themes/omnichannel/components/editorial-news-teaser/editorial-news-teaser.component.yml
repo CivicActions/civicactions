@@ -1,0 +1,25 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Editorial News Teaser
+description: News release teaser with a date, summary and full story link. It is not placed directly in Canvas but is rendered by Editorial Teaser.
+status: stable
+noUi: true
+props:
+  type: object
+  required:
+    - title
+    - fullstorylink
+  properties:
+    date:
+      type: string
+      title: Date
+      format: date
+    fullstorylink:
+      type: string
+      title: Full story link
+      format: uri-reference
+    title:
+      type: string
+      title: Title
+    description:
+      type: string
+      title: Description
