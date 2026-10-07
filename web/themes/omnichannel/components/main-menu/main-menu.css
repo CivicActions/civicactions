@@ -1,0 +1,263 @@
+/* Styles for the main navigation menu. */
+
+/******************************  Mobile styles *****************************/
+
+/* Stop page scroll when menu is open. */
+body {
+  &.is-fixed {
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+/* Page overlay when menu is open. */
+.header-nav-overlay {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  top: 0;
+  right: 0;
+
+  .is-overlay-active & {
+    display: block;
+  }
+}
+
+/* Remove default button styling from all menu buttons. */
+.mobile-buttons,
+.primary-nav__menu {
+  button {
+    background-color: unset;
+    border: unset;
+    text-align: start;
+  }
+}
+
+/* Mobile menu open and close buttons */
+.mobile-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 var(--container-spacing-md);
+}
+.mobile-nav-button {
+  z-index: 1101;
+  padding: var(--size-4);
+  margin-right: calc(var(--size-4) * -1);
+
+  svg {
+    height: var(--icon-size-md);
+    width: var(--icon-size-md);
+  }
+
+  .is-overlay-active & {
+    position: fixed; /* To align with flyout menu. */
+    top: calc(var(--container-spacing-md) / 2);
+  }
+}
+.mobile-nav-button .icon-menu {
+  display: block;
+
+  .is-overlay-active & {
+    display: none;
+  }
+}
+.mobile-nav-button .icon-close {
+  display: none;
+
+  .is-overlay-active & {
+    display: block;
+  }
+}
+
+/* Main menu wrapper. Opens and closes on click. */
+.header-nav {
+  display: none;
+  height: 100%;
+  overflow: auto;
+  background: var(--white);
+  padding: var(--container-spacing-md);
+  font-family: var(--font-heading);
+  color: var(--gray-90);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1100;
+  width: 75%;
+  max-width: 540px;
+  min-width: 320px;
+  transition:
+    visibility 0.2s,
+    transform 0.2s;
+
+  &.is-active {
+    display: block;
+  }
+}
+
+ul.primary-nav__menu--level-1 {
+  margin: var(--container-spacing-md) 0;
+}
+
+.primary-nav__menu-item {
+  list-style-type: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.5em;
+  padding-top: var(--size-8);
+
+  a {
+    text-decoration: none;
+    color: var(--gray-90);
+  }
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+}
+
+.primary-nav__menu-item--level-1 {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 24px 0;
+  font-size: 1.75rem;
+}
+
+.primary-nav__menu-item--has-children {
+  button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    &::after {
+      display: block;
+      background-image: url("../main-menu/icon-arrow-caret.svg");
+      background-repeat: no-repeat;
+      content: "";
+      width: 25px;
+      height: 25px;
+    }
+
+    &[aria-expanded="true"] {
+      align-items: unset;
+
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.primary-nav__menu--level-2 {
+  display: none;
+  &.is-active-menu-parent {
+    display: block;
+  }
+}
+
+/******************************  Desktop styles **************************** */
+@media (min-width: 1200px) {
+  .mobile-buttons {
+    /* Display of these buttons triggers some mobile nav js.  */
+    display: none;
+  }
+
+  /* Main menu wrapper. */
+  .header-nav {
+    /* Unlike mobile, always display the menu. */
+    display: block;
+    overflow: visible;
+
+    /* Unset mobile styles. */
+    height: auto;
+    position: relative;
+    width: auto;
+    max-width: none;
+    font-family: var(--font-body);
+  }
+
+  ul.primary-nav__menu--level-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    margin-top: 0;
+  }
+
+  .primary-nav__menu-item {
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+
+    button,
+    a {
+      padding: var(--size-2);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  }
+
+  .primary-nav__menu-item--level-1 {
+    position: relative;
+    border-bottom: none;
+    padding: 0;
+    margin-left: var(--size-6);
+    overflow: visible;
+
+    &:last-child {
+      margin-right: calc(var(--size-2) * -1);
+    }
+  }
+
+  .primary-nav__menu-item--has-children {
+    button {
+      justify-content: flex-start;
+      align-items: center;
+      width: auto;
+
+      &::after {
+        background-image: url("../main-menu/icon-menu-dropdown.svg");
+        width: 11px;
+        height: var(--size-2);
+        margin-left: var(--size-3);
+      }
+
+      &[aria-expanded="true"] {
+        &::after {
+          transform: rotate(180deg);
+          height: 0.625rem; /* Magic number to keep caret centered. */
+        }
+      }
+    }
+  }
+
+  ul.primary-nav__menu--level-2 {
+    z-index: 105;
+    position: absolute;
+    width: max-content;
+    margin: var(--size-3) 0 0;
+    padding: var(--size-4);
+    box-shadow: var(--shadow-card);
+    transition:
+      visibility 0.2s,
+      transform 0.2s,
+      opacity 0.2s;
+  }
+
+  .primary-nav__menu-item--level-2 {
+    padding: 0;
+    margin-bottom: var(--size-2);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    button,
+    a {
+      padding: var(--size-2);
+    }
+  }
+}

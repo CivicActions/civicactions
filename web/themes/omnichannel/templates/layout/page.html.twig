@@ -49,85 +49,121 @@
 %}
 <div{{ page_attributes.addClass('ca-page') }}>
 
-  {% if page.header or page.primary_menu or page.secondary_menu %}
-    <header class="ca-page__header">
-      {{ page.header }}
-      {{ page.primary_menu }}
-      {{ page.secondary_menu }}
-    </header>
+{% if page.header or page.primary_menu or page.secondary_menu %}
+  <header id="header" class="site-header" data-drupal-selector="site-header">
+
+    {# Gets fixed by JavaScript at wide widths. #}
+    {# <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial"> #}
+    {# <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="{{ 'Sticky header'|t }}" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button> #}
+    {# </div> #}
+
+    <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+      <div class="container site-header__inner__container">
+
+        {{ page.header }}
+
+        {% if page.primary_menu or page.secondary_menu %}
+          <div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+          <div class="mobile-buttons" data-drupal-selector="mobile-buttons">
+            <button class="mobile-nav-button" data-drupal-selector="mobile-nav-button" aria-label="{{ 'Main Menu'|t }}" aria-controls="header-nav" aria-expanded="false">
+              {# <span class="mobile-nav-button__label visually-hidden">{{ 'Menu'|t }}</span> #}
+              <span class="mobile-nav-button__icon">
+                {{ include(directory ~ '/components/main-menu/icon-menu.svg') }}
+                {{ include(directory ~ '/components/main-menu/icon-close.svg') }}
+              </span>
+            </button>
+          </div>
+
+          <div id="header-nav" class="header-nav" data-drupal-selector="header-nav">
+            {{ page.primary_menu }}
+            {{ page.secondary_menu }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    </div>
+  </header>
+{% endif %}
+
+<main id="main-content" class="ca-page__main" tabindex="-1">
+  {% if page.breadcrumb or page.highlighted or page.help %}
+    <div class="ca-container">
+      {{ page.breadcrumb }}
+      {{ page.highlighted }}
+      {{ page.help }}
+    </div>
   {% endif %}
 
-  <main id="main-content" class="ca-page__main" tabindex="-1">
-    {% if page.breadcrumb or page.highlighted or page.help %}
-      <div class="ca-container">
-        {{ page.breadcrumb }}
-        {{ page.highlighted }}
-        {{ page.help }}
-      </div>
+  {% set has_sidebar_first = page.sidebar_first is not empty %}
+  {% set has_sidebar_second = page.sidebar_second is not empty %}
+  {% set is_canvas_page = node and node.bundle == 'canvas_page' %}
+  {% set needs_narrow_content = (node and not is_canvas_page) or (not node and not is_admin) %}
+  {% set main_layout_class = 'ca-page__main-layout' %}
+  {% if has_sidebar_first and has_sidebar_second %}
+    {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--two-sidebars' %}
+  {% elseif has_sidebar_first %}
+    {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--sidebar-first' %}
+  {% elseif has_sidebar_second %}
+    {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--sidebar-second' %}
+  {% endif %}
+
+  <div class="{{ main_layout_class }}">
+    {% set content_classes = ['ca-page__content'] %}
+    {% if needs_narrow_content %}
+      {% set content_classes = content_classes|merge(['ca-container', 'ca-container--narrow']) %}
     {% endif %}
-
-    {% set has_sidebar_first = page.sidebar_first is not empty %}
-    {% set has_sidebar_second = page.sidebar_second is not empty %}
-    {% set is_canvas_page = node and node.bundle == 'canvas_page' %}
-    {% set needs_narrow_content = (node and not is_canvas_page) or (not node and not is_admin) %}
-    {% set main_layout_class = 'ca-page__main-layout' %}
-    {% if has_sidebar_first and has_sidebar_second %}
-      {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--two-sidebars' %}
-    {% elseif has_sidebar_first %}
-      {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--sidebar-first' %}
-    {% elseif has_sidebar_second %}
-      {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--sidebar-second' %}
-    {% endif %}
-
-    <div class="{{ main_layout_class }}">
-      {% set content_classes = ['ca-page__content'] %}
-      {% if needs_narrow_content %}
-        {% set content_classes = content_classes|merge(['ca-container', 'ca-container--narrow']) %}
-      {% endif %}
-      <div class="{{ content_classes|join(' ') }}">
-        {{ page.content }}
-      </div>
-
-      {% if has_sidebar_first %}
-        <aside class="ca-page__sidebar ca-page__sidebar--first" aria-label="{{ 'First sidebar'|t|e('html_attr') }}">
-          {{ page.sidebar_first }}
-        </aside>
-      {% endif %}
-
-      {% if has_sidebar_second %}
-        <aside class="ca-page__sidebar ca-page__sidebar--second" aria-label="{{ 'Second sidebar'|t|e('html_attr') }}">
-          {{ page.sidebar_second }}
-        </aside>
-      {% endif %}
+    <div class="{{ content_classes|join(' ') }}">
+      {{ page.content }}
     </div>
-  </main>
 
-  {# Temporary static content until the footer slots are populated through Canvas. #}
-  {% embed 'omnichannel:site-footer' with { attributes: footer_attributes } only %}
-    {% block about %}
-      {% include '@omnichannel/templates/partials/footer/about.html.twig' only %}
-    {% endblock %}
+    {% if has_sidebar_first %}
+      <aside class="ca-page__sidebar ca-page__sidebar--first" aria-label="{{ 'First sidebar'|t|e('html_attr') }}">
+        {{ page.sidebar_first }}
+      </aside>
+    {% endif %}
 
-    {% block contact %}
-      {% include '@omnichannel/templates/partials/footer/contact.html.twig' only %}
-    {% endblock %}
+    {% if has_sidebar_second %}
+      <aside class="ca-page__sidebar ca-page__sidebar--second" aria-label="{{ 'Second sidebar'|t|e('html_attr') }}">
+        {{ page.sidebar_second }}
+      </aside>
+    {% endif %}
+  </div>
+</main>
 
-    {% block menu %}
-      {% include '@omnichannel/templates/partials/footer/menu.html.twig' only %}
-    {% endblock %}
+{# Temporary static content until the footer slots are populated through Canvas. #}
+{% embed 'omnichannel:site-footer' with { attributes: footer_attributes } only %}
+  {% block about %}
+    {% include '@omnichannel/templates/partials/footer/about.html.twig' only %}
+  {% endblock %}
 
-    {% block social %}
-      {% include 'omnichannel:social-links' with {
+  {% block contact %}
+    {% include '@omnichannel/templates/partials/footer/contact.html.twig' only %}
+  {% endblock %}
+
+  {% block menu %}
+    {% include '@omnichannel/templates/partials/footer/menu.html.twig' only %}
+  {% endblock %}
+
+  {% block social %}
+    {% include 'omnichannel:social-links' with {
         vimeo_url: 'https://vimeo.com/civicactions',
         bluesky_url: 'https://bsky.app/profile/civicactions.com',
         x_url: 'https://twitter.com/civicactions?lang=en',
         linkedin_url: 'https://www.linkedin.com/company/civicactions/mycompany/',
       } only %}
-    {% endblock %}
+  {% endblock %}
 
-    {% block bottom_links %}
-      {% include '@omnichannel/templates/partials/footer/bottom-links.html.twig' only %}
-    {% endblock %}
-  {% endembed %}
+  {% block bottom_links %}
+    {% include '@omnichannel/templates/partials/footer/bottom-links.html.twig' only %}
+  {% endblock %}
+{% endembed %}
 
 </div>
