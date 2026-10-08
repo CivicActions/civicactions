@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Site Header component.
+ *
+Regions:
+ * - page.header: Items for the header region.
+ * - page.primary_menu: Items for the primary menu region.
+ * - page.secondary_menu: Items for the secondary menu region.
+ *
+ */
+#}
+
+<header id="header" class="site-header" data-drupal-selector="site-header">
+
+  {# Gets fixed by JavaScript at wide widths. #}
+  {# <div class="site-header__fixable" data-drupal-selector="site-header-fixable">
+          <div class="site-header__initial"> #}
+  {# <button class="sticky-header-toggle" data-drupal-selector="sticky-header-toggle" role="switch" aria-controls="site-header__inner" aria-label="{{ 'Sticky header'|t }}" aria-checked="false">
+              <span class="sticky-header-toggle__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </button> #}
+  {# </div> #}
+
+  <div id="site-header__inner" class="site-header__inner" data-drupal-selector="site-header-inner">
+    <div class="container site-header__inner__container">
+
+      {{ page.header }}
+
+      {% if page.primary_menu or page.secondary_menu %}
+        <div class="header-nav-overlay" data-drupal-selector="header-nav-overlay"></div>
+
+        <div class="mobile-buttons" data-drupal-selector="mobile-buttons">
+          <button class="mobile-nav-button" data-drupal-selector="mobile-nav-button" aria-label="{{ 'Main Menu'|t }}" aria-controls="header-nav" aria-expanded="false">
+            {# <span class="mobile-nav-button__label visually-hidden">{{ 'Menu'|t }}</span> #}
+            <span class="mobile-nav-button__icon">
+              {{ include(directory ~ '/components/main-menu/icon-menu.svg') }}
+              {{ include(directory ~ '/components/main-menu/icon-close.svg') }}
+            </span>
+          </button>
+        </div>
+
+        <div id="header-nav" class="header-nav" data-drupal-selector="header-nav">
+          {{ page.primary_menu }}
+          {{ page.secondary_menu }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+</header>
