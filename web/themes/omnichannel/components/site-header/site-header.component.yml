@@ -1,0 +1,6 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Site header
+description: Site header with areas for branding and primary navigation.
+group: Layout
+status: stable
+

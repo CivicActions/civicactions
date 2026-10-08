@@ -1,0 +1,47 @@
+/******************************  Mobile styles **************************** */
+
+.site-header {
+  background: var(--white);
+  padding: var(--size-10) var(--container-spacing-sm) 0;
+  margin-bottom: var(--size-10);
+}
+
+.site-header__inner__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--container-max-width);
+}
+
+.site-logo {
+  display: block;
+  padding: var(--size-1);
+  margin-left: calc(var(--size-1) * -1);
+
+  img {
+    max-width: 159px;
+  }
+}
+
+/******************************  Desktop styles **************************** */
+@media (min-width: 1200px) {
+  .site-header__inner__container {
+    margin: 0 auto;
+    align-items: end;
+  }
+
+  .ca-region--header {
+    flex: 1;
+  }
+
+  .site-logo {
+    img {
+      width: 100%;
+      max-width: 294px;
+    }
+  }
+
+  .header-nav {
+    flex: 0 0 auto;
+  }
+}
