@@ -34,6 +34,7 @@ Deliver a reusable Person Teaser Single Directory Component (SDC) for team listi
 - [x] Run responsive, keyboard, focus, Storybook, CSS, and JavaScript validation.
 - [x] Verify the existing disposable Canvas component route exposes all props and persists edited name, role, profile link, and inline bio values.
 - [x] Complete authenticated Canvas Library drag-and-drop placement, confirmed by the user on the disposable draft page.
+- [x] Address PR #19 review findings: add structured `image` default to schema, refine portrait alt text to avoid redundant screen reader vocalization, and enhance unlinked flex card layout.
 - [ ] Complete Axe review for the rendered component.
 
 ## Validation
