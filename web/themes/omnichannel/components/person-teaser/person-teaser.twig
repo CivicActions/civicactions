@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Person Teaser component.
+ *
+ * Available props:
+ * - heading_level: Heading level for the person name.
+ * - name: Person name.
+ * - role: Person role or title.
+ * - image: Portrait from the Media Library.
+ * - teaserlink: Optional profile destination.
+ * - bio: Optional short biography.
+ */
+#}
+{% set teaser_attributes = attributes|default(create_attribute()) %}
+{% set teaser_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6'} %}
+{% set teaser_heading_tag = teaser_heading_tags[heading_level|default(3)]|default('h3') %}
+
+<article {{ teaser_attributes.addClass('ca-person-teaser') }}>
+  {% if teaserlink %}
+    <a href="{{ teaserlink|e('html_attr') }}" class="ca-person-teaser__link">
+  {% endif %}
+    <div class="ca-person-teaser__media">
+      <img
+        class="ca-person-teaser__image"
+        src="{{ file_url(image.src)|e('html_attr') }}"
+        alt="{{ image.alt|default(name)|e('html_attr') }}"
+        width="{{ image.width|e('html_attr') }}"
+        height="{{ image.height|e('html_attr') }}"
+        loading="lazy"
+      >
+    </div>
+    <div class="ca-person-teaser__content">
+      <{{ teaser_heading_tag }} class="ca-person-teaser__name">{{ name }}</{{ teaser_heading_tag }}>
+      <p class="ca-person-teaser__role">{{ role }}</p>
+      {% if bio %}
+        <p class="ca-person-teaser__bio">{{ bio }}</p>
+      {% endif %}
+    </div>
+  {% if teaserlink %}
+    </a>
+  {% endif %}
+</article>

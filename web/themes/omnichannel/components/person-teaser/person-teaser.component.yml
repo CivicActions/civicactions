@@ -1,0 +1,62 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Person Teaser
+description: Person card with a portrait, identity details, and optional profile link or bio.
+group: Teasers
+status: stable
+props:
+  type: object
+  required:
+    - name
+    - role
+    - image
+  properties:
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Heading level for the person name. Use a lower level when the card sits inside a headed section.
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 3
+      examples:
+        - 3
+    name:
+      type: string
+      title: Name
+      default: 'Alex Rivera'
+      examples:
+        - 'Alex Rivera'
+    role:
+      type: string
+      title: Role
+      default: 'Co-Founder & Government Solutions Lead'
+      examples:
+        - 'Co-Founder & Government Solutions Lead'
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Portrait
+      description: Person portrait selected from the Media Library.
+      examples:
+        - src: '/themes/omnichannel/images/canvas-assets/quote-portrait.png'
+          alt: 'Portrait of Alex Rivera'
+          width: 346
+          height: 446
+    teaserlink:
+      type: string
+      title: Profile link
+      description: Optional destination for the person profile or related profile.
+      format: uri-reference
+      default: '/team/alex-rivera'
+      examples:
+        - '/team/alex-rivera'
+    bio:
+      type: string
+      title: Short bio
+      description: Optional inline biography for related-person or author contexts.
+      default: 'Alex helps public-interest teams deliver useful, humane digital services.'
+      examples:
+        - 'Alex helps public-interest teams deliver useful, humane digital services.'
