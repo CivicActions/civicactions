@@ -24,7 +24,7 @@
       <img
         class="ca-person-teaser__image"
         src="{{ file_url(image.src)|e('html_attr') }}"
-        alt="{{ image.alt|default(name)|e('html_attr') }}"
+        alt="{{ image.alt|default('')|e('html_attr') }}"
         width="{{ image.width|e('html_attr') }}"
         height="{{ image.height|e('html_attr') }}"
         loading="lazy"

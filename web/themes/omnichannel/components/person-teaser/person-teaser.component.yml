@@ -40,6 +40,11 @@ props:
       type: object
       title: Portrait
       description: Person portrait selected from the Media Library.
+      default:
+        src: '/themes/omnichannel/images/canvas-assets/quote-portrait.png'
+        alt: 'Portrait of Alex Rivera'
+        width: 346
+        height: 446
       examples:
         - src: '/themes/omnichannel/images/canvas-assets/quote-portrait.png'
           alt: 'Portrait of Alex Rivera'

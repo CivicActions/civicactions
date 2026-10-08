@@ -1,4 +1,6 @@
 .ca-person-teaser {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   width: 100%;
   background-color: var(--white, #fff);
@@ -88,6 +90,8 @@
 
 @scope (.ca-person-teaser) {
   :scope {
+    display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     width: 100%;
     background-color: var(--white, #fff);
