@@ -1,0 +1,181 @@
+.ca-person-teaser {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--white, #fff);
+  box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+}
+
+.ca-person-teaser__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  text-decoration: none;
+  color: var(--gray-90, #171717);
+}
+
+.ca-person-teaser__link:hover {
+  background-color: var(--gray-05, #f0f0f0);
+}
+
+.ca-person-teaser__link:active {
+  box-shadow: none;
+}
+
+.ca-person-teaser__link:focus-visible {
+  outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+  outline-offset: var(--focus-outline-offset, 3px);
+}
+
+.ca-person-teaser__media {
+  overflow: hidden;
+  background-color: var(--gray-05, #f0f0f0);
+}
+
+.ca-person-teaser__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.ca-person-teaser__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: var(--size-6, 1.5rem) var(--size-8, 2rem) var(--size-8, 2rem);
+}
+
+.ca-person-teaser__name {
+  margin: 0;
+  color: var(--primary-blue, #162e51);
+  font-family: var(--font-heading, "Merriweather", georgia, serif);
+  font-size: var(--size-6, 1.5rem);
+  font-weight: 700;
+  line-height: var(--line-height-base, 1.15);
+}
+
+.ca-person-teaser__role {
+  margin: var(--size-2, 0.5rem) 0 0;
+  color: var(--gray-70, #454545);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--size-4, 1rem);
+  font-weight: 700;
+  line-height: var(--line-height-base, 1.15);
+}
+
+.ca-person-teaser__bio {
+  margin: var(--size-4, 1rem) 0 0;
+  color: var(--gray-70, #454545);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--size-4, 1rem);
+  line-height: var(--line-height-body-large, 1.7);
+}
+
+@media (max-width: 767px) {
+  .ca-person-teaser__content {
+    padding-right: var(--size-6, 1.5rem);
+    padding-left: var(--size-6, 1.5rem);
+  }
+
+  .ca-person-teaser__name {
+    font-size: var(--size-5, 1.25rem);
+  }
+}
+
+@scope (.ca-person-teaser) {
+  :scope {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--white, #fff);
+    box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+  }
+
+  .ca-person-teaser__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+    text-decoration: none;
+    color: var(--gray-90, #171717);
+  }
+
+  .ca-person-teaser__link:hover {
+    background-color: var(--gray-05, #f0f0f0);
+  }
+
+  .ca-person-teaser__link:active {
+    box-shadow: none;
+  }
+
+  .ca-person-teaser__link:focus-visible {
+    outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+    outline-offset: var(--focus-outline-offset, 3px);
+  }
+
+  .ca-person-teaser__media {
+    overflow: hidden;
+    background-color: var(--gray-05, #f0f0f0);
+  }
+
+  .ca-person-teaser__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .ca-person-teaser__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: var(--size-6, 1.5rem) var(--size-8, 2rem) var(--size-8, 2rem);
+  }
+
+  .ca-person-teaser__name {
+    margin: 0;
+    color: var(--primary-blue, #162e51);
+    font-family: var(--font-heading, "Merriweather", georgia, serif);
+    font-size: var(--size-6, 1.5rem);
+    font-weight: 700;
+    line-height: var(--line-height-base, 1.15);
+  }
+
+  .ca-person-teaser__role {
+    margin: var(--size-2, 0.5rem) 0 0;
+    color: var(--gray-70, #454545);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--size-4, 1rem);
+    font-weight: 700;
+    line-height: var(--line-height-base, 1.15);
+  }
+
+  .ca-person-teaser__bio {
+    margin: var(--size-4, 1rem) 0 0;
+    color: var(--gray-70, #454545);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--size-4, 1rem);
+    line-height: var(--line-height-body-large, 1.7);
+  }
+
+  @media (max-width: 767px) {
+    .ca-person-teaser__content {
+      padding-right: var(--size-6, 1.5rem);
+      padding-left: var(--size-6, 1.5rem);
+    }
+
+    .ca-person-teaser__name {
+      font-size: var(--size-5, 1.25rem);
+    }
+  }
+}

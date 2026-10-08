@@ -9,6 +9,19 @@ props:
     - title
     - link
   properties:
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Heading level for the card title. Use a lower level when the card sits inside a headed section.
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 3
+      examples:
+        - 3
     title:
       type: string
       title: Title

@@ -4,6 +4,7 @@
  * Template for the CivicActions Card component.
  *
  * Available props:
+ * - heading_level: Heading level for the card title.
  * - title: Card heading.
  * - link: Card destination.
  * - icon: Icon image URL.
@@ -13,6 +14,8 @@
 #}
 {% set card_attributes = attributes|default(create_attribute()) %}
 {% set card_classes = ['ca-card'] %}
+{% set card_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6'} %}
+{% set card_heading_tag = card_heading_tags[heading_level|default(3)]|default('h3') %}
 
 <a href="{{ link|e('html_attr') }}" {{ card_attributes.addClass(card_classes) }}>
   {% if icon %}
@@ -20,7 +23,7 @@
   {% endif %}
   <div class="ca-card__content">
     {% if title %}
-      <h3 class="ca-card__title">{{ title }}</h3>
+      <{{ card_heading_tag }} class="ca-card__title">{{ title }}</{{ card_heading_tag }}>
     {% endif %}
     {% if body %}
       <p class="ca-card__body">{{ body }}</p>
