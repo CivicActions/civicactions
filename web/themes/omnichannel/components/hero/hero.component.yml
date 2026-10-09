@@ -1,6 +1,6 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Hero
-description: Introductory page hero with an optional eyebrow, summary, and call-to-action links.
+description: Introductory page hero with an optional eyebrow, summary, image, and call-to-action links.
 group: Content
 status: stable
 props:
@@ -38,6 +38,21 @@ props:
       default: card
       examples:
         - card
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Hero image
+      description: Optional Media Library image. Hidden below 768px; fills the right 40% column in a centered 411:378 crop on larger screens. Keep essential information in the text. Remove the image for a text-only hero.
+      default:
+        src: '/themes/omnichannel/images/canvas-assets/editorial-teaser-img.jpg'
+        alt: 'Traffic light against the sky'
+        width: 354
+        height: 220
+      examples:
+        - src: '/themes/omnichannel/images/canvas-assets/editorial-teaser-img.jpg'
+          alt: 'Traffic light against the sky'
+          width: 354
+          height: 220
     primary_button_text:
       type: string
       title: Primary button text

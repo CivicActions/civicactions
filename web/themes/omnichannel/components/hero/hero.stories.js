@@ -1,5 +1,6 @@
 import template from './hero.twig';
 import './hero.css';
+import { placeholderImage, quotePortrait } from '../../.storybook/fixtures';
 
 const meta = {
   title: 'Components/Hero',
@@ -9,6 +10,11 @@ const meta = {
     eyebrow: { control: 'text' },
     summary: { control: 'text' },
     variant: { control: 'select', options: ['card', 'flush'] },
+    image: {
+      control: 'object',
+      description:
+        'Optional image with src, alt, width, and height. Set to null to remove. Hidden below 768px; cropped to 411:378 in the right 40% column otherwise. Keep essential information in the text.',
+    },
     primary_button_text: { control: 'text' },
     primary_button_url: { control: 'text' },
     secondary_button_text: { control: 'text' },
@@ -20,6 +26,7 @@ const meta = {
     summary:
       'We help government deliver trusted public services through open technology and design.',
     variant: 'card',
+    image: null,
     primary_button_text: 'See our work',
     primary_button_url: '/case-studies',
     secondary_button_text: 'Contact us',
@@ -58,5 +65,43 @@ export const FlushVariant = {
       'Join our team of talented and open-minded people working to build modern and accessible government services for all.',
     primary_button_text: 'See open positions',
     primary_button_url: '/careers#open-positions',
+  },
+};
+
+export const WithImage = {
+  args: {
+    image: placeholderImage,
+  },
+};
+
+export const FlushWithImage = {
+  args: {
+    ...FlushVariant.args,
+    image: placeholderImage,
+  },
+};
+
+export const PortraitImage = {
+  args: {
+    image: quotePortrait,
+  },
+};
+
+export const ImageWithoutButtons = {
+  args: {
+    ...TextOnly.args,
+    image: placeholderImage,
+  },
+};
+
+export const ImageWithLongContent = {
+  args: {
+    image: placeholderImage,
+    title:
+      'Building accessible government services that earn public trust and meet the needs of every community',
+    summary:
+      'We partner with government teams to modernize complex systems through open technology, human-centered design, and accessible digital experiences that help people find and use the services they need.',
+    primary_button_text: 'Explore our government modernization case studies',
+    secondary_button_text: 'Talk with our team about your next project',
   },
 };

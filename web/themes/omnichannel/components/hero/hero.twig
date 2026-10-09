@@ -8,6 +8,7 @@
  * - eyebrow: Optional client, category, or section label.
  * - summary: Optional introductory copy.
  * - variant: Presentation variant ('card' or 'flush').
+ * - image: Optional Media Library image, hidden on mobile.
  * - primary_button_text: Primary call-to-action label.
  * - primary_button_url: Primary call-to-action destination.
  * - secondary_button_text: Secondary call-to-action label.
@@ -18,34 +19,57 @@
 {% if hero_variant not in ['card', 'flush'] %}
   {% set hero_variant = 'card' %}
 {% endif %}
+{% set hero_has_image = image.src is not empty %}
+{% set hero_srcset = hero_has_image ? image.src|toSrcSet(image.width) : '' %}
 {% set hero_classes = [
   'ca-hero',
   'ca-hero--' ~ hero_variant,
 ] %}
+{% if hero_has_image %}
+  {% set hero_classes = hero_classes|merge(['ca-hero--with-image']) %}
+{% endif %}
 {% set hero_attributes = attributes|default(create_attribute()) %}
 
 <section {{ hero_attributes.addClass(hero_classes) }}>
   <div class="ca-hero__inner">
-    {% if eyebrow %}
-      <p class="ca-hero__eyebrow">{{ eyebrow }}</p>
-    {% endif %}
-    <h1 class="ca-hero__title">{{ title }}</h1>
-    {% if summary %}
-      <p class="ca-hero__summary">{{ summary }}</p>
-    {% endif %}
+    <div class="ca-hero__text">
+      {% if eyebrow %}
+        <p class="ca-hero__eyebrow">{{ eyebrow }}</p>
+      {% endif %}
+      <h1 class="ca-hero__title">{{ title }}</h1>
+      {% if summary %}
+        <p class="ca-hero__summary">{{ summary }}</p>
+      {% endif %}
 
-    {% if (primary_button_text and primary_button_url) or (secondary_button_text and secondary_button_url) %}
-      <div class="ca-hero__buttons">
-        {% if primary_button_text and primary_button_url %}
-          <a href="{{ primary_button_url|e('html_attr') }}" class="ca-hero__button ca-hero__button--primary">
-            {{ primary_button_text }}
-          </a>
-        {% endif %}
-        {% if secondary_button_text and secondary_button_url %}
-          <a href="{{ secondary_button_url|e('html_attr') }}" class="ca-hero__button ca-hero__button--secondary">
-            {{ secondary_button_text }}
-          </a>
-        {% endif %}
+      {% if (primary_button_text and primary_button_url) or (secondary_button_text and secondary_button_url) %}
+        <div class="ca-hero__buttons">
+          {% if primary_button_text and primary_button_url %}
+            <a href="{{ primary_button_url|e('html_attr') }}" class="ca-hero__button ca-hero__button--primary">
+              {{ primary_button_text }}
+            </a>
+          {% endif %}
+          {% if secondary_button_text and secondary_button_url %}
+            <a href="{{ secondary_button_url|e('html_attr') }}" class="ca-hero__button ca-hero__button--secondary">
+              {{ secondary_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    {% if hero_has_image %}
+      <div class="ca-hero__media">
+        <img
+          class="ca-hero__image"
+          src="{{ file_url(image.src)|e('html_attr') }}"
+          {% if hero_srcset %}
+            srcset="{{ hero_srcset|e('html_attr') }}"
+            sizes="(min-width: 1200px) calc(480px - 3.2rem), (min-width: 768px) calc(40vw - 3.2rem), 0px"
+          {% endif %}
+          alt="{{ image.alt|default('')|e('html_attr') }}"
+          width="{{ image.width|e('html_attr') }}"
+          height="{{ image.height|e('html_attr') }}"
+          loading="eager"
+        >
       </div>
     {% endif %}
   </div>
