@@ -1,0 +1,18 @@
+uuid: 98497f4b-b95d-48a5-84c1-ad32e97869cd
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user
+target_entity_type_id: user
+multiple: false
+label_prefix: ''
+id_prefix: ''
+recommended_schema_types: {  }
+default_schema_types: {  }
+default_schema_type_properties: {  }
+default_schema_type_view_displays: {  }
+default_base_fields: {  }
+default_component_weights: {  }
+default_component_weights_update: false

@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: 99KUJJltluc93wdWkg29MRfXl8CItTc1gSub6VlgFuI
+paragraphs_library:
+  - Claim--proof_point
+  - Quotation--quote
+  - CreativeWork--compliance_requirement

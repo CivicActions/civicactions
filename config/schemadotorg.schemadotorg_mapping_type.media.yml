@@ -1,0 +1,32 @@
+uuid: 1405d664-e070-4f4e-a199-50e57919b590
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+_core:
+  default_config_hash: V9tFdS0s6_rzH9QQEedXB-d8w7GBbfCRhHpNhhIDFs8
+id: media
+target_entity_type_id: media
+multiple: true
+label_prefix: ''
+id_prefix: ''
+recommended_schema_types:
+  civicactions:
+    label: CivicActions
+    types:
+      - ImageObject
+      - VideoObject
+      - MediaObject
+default_schema_types:
+  image: ImageObject
+  remote_video: VideoObject
+  document: MediaObject
+  procurement_document: MediaObject
+default_schema_type_properties: {  }
+default_schema_type_view_displays: {  }
+default_base_fields:
+  name:
+    - name
+default_component_weights: {  }
+default_component_weights_update: false

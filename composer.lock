@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84d9fca30179f611e42cd5307a020424",
+    "content-hash": "bda7d9aef51d8c6dcb445f357052aba7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6909,6 +6909,92 @@
             }
         },
         {
+            "name": "drupal/pantheon_secrets",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/pantheon_secrets.git",
+                "reference": "1.1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/pantheon_secrets-1.1.0.zip",
+                "reference": "1.1.0",
+                "shasum": "630920e9da99a3fefc39c01e8ee69a3c3c832093"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11",
+                "drupal/key": "^1.16",
+                "pantheon-systems/customer-secrets-php-sdk": "^1.0",
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "drupal/coder": "^8.3",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.0",
+                    "datestamp": "1783092527",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "scripts": {
+                "code:lint": [
+                    "vendor/bin/phpcs src --standard=Drupal",
+                    "vendor/bin/phpcs src --standard=DrupalPractice"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "anaispantheor",
+                    "homepage": "https://www.drupal.org/user/3846519"
+                },
+                {
+                    "name": "greg.1.anderson",
+                    "homepage": "https://www.drupal.org/user/438598"
+                },
+                {
+                    "name": "kporras07",
+                    "homepage": "https://www.drupal.org/user/1349780"
+                },
+                {
+                    "name": "metasim",
+                    "homepage": "https://www.drupal.org/user/3714887"
+                },
+                {
+                    "name": "pantheon-ci",
+                    "homepage": "https://www.drupal.org/user/3735947"
+                },
+                {
+                    "name": "pwtyler",
+                    "homepage": "https://www.drupal.org/user/3835268"
+                },
+                {
+                    "name": "roshnykunjappan",
+                    "homepage": "https://www.drupal.org/user/3581210"
+                },
+                {
+                    "name": "scottbuscemi",
+                    "homepage": "https://www.drupal.org/user/3829532"
+                }
+            ],
+            "description": "Pantheon secrets integration with the Key module",
+            "homepage": "https://www.drupal.org/project/pantheon_secrets",
+            "support": {
+                "source": "https://git.drupalcode.org/project/pantheon_secrets"
+            }
+        },
+        {
             "name": "drupal/paragraphs",
             "version": "1.23.0",
             "source": {
@@ -11397,6 +11483,72 @@
                 }
             ],
             "time": "2026-09-17T11:01:09+00:00"
+        },
+        {
+            "name": "pantheon-systems/customer-secrets-php-sdk",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pantheon-systems/customer-secrets-php-sdk.git",
+                "reference": "50a7e7194df97e3ce4463723dc5a7bb4f3db2a09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pantheon-systems/customer-secrets-php-sdk/zipball/50a7e7194df97e3ce4463723dc5a7bb4f3db2a09",
+                "reference": "50a7e7194df97e3ce4463723dc5a7bb4f3db2a09",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "g1a/composer-test-scenarios": "^3.2",
+                "phpunit/phpunit": "^9",
+                "squizlabs/php_codesniffer": "^3.6 || ^4.0",
+                "symfony/polyfill": "^1.38",
+                "yoast/phpunit-polyfills": "^2.0 || ^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "scenarios": {
+                    "php8.1": {
+                        "config": {
+                            "platform": {
+                                "php": "8.1.13"
+                            }
+                        }
+                    },
+                    "php8.2": {
+                        "config": {
+                            "platform": {
+                                "php": "8.2.0"
+                            }
+                        }
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PantheonSystems\\CustomerSecrets\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Stovall",
+                    "email": "119924+stovak@users.noreply.github.com"
+                }
+            ],
+            "description": "Supporting libraries for customer secrets project",
+            "support": {
+                "issues": "https://github.com/pantheon-systems/customer-secrets-php-sdk/issues",
+                "source": "https://github.com/pantheon-systems/customer-secrets-php-sdk/tree/v1.0.3"
+            },
+            "time": "2026-08-28T17:32:58+00:00"
         },
         {
             "name": "pantheon-systems/drupal-integrations",

@@ -1,0 +1,310 @@
+langcode: en
+requirements:
+  recommended_modules: false
+schema_data:
+  file: 'data/[VERSION]/schemaorg-current-https-[TABLE].csv'
+schema_types:
+  default_types: {  }
+  default_properties:
+    Intangible:
+      - name
+  default_field_types:
+    DefinedTerm:
+      - string
+      - list_string
+      - 'field_ui:entity_reference:taxonomy_term'
+    PostalAddress:
+      - string_long
+    AudioObject:
+      - 'field_ui:entity_reference:media'
+      - link
+    ImageObject:
+      - 'field_ui:entity_reference:media'
+      - image
+      - link
+    VideoObject:
+      - 'field_ui:entity_reference:media'
+      - link
+    DataDownload:
+      - 'field_ui:entity_reference:media'
+      - file
+      - link
+    Energy:
+      - decimal
+      - float
+      - integer
+    MonetaryAmount:
+      - range_integer
+      - range_decimal
+      - range_float
+      - integer
+      - decimal
+      - float
+    Mass:
+      - decimal
+      - float
+      - integer
+    QuantitativeValue:
+      - integer
+      - decimal
+      - float
+      - range_integer
+      - range_decimal
+      - range_float
+    URL:
+      - link
+      - string
+    Time:
+      - time
+      - string
+      - datetime
+    DateTime:
+      - datetime
+    Date:
+      - datetime
+    Duration:
+      - duration
+      - string
+    Boolean:
+      - boolean
+    Integer:
+      - integer
+      - list_integer
+    Number:
+      - integer
+      - float
+      - decimal
+      - list_integer
+      - list_float
+    Text:
+      - string
+      - string_long
+      - list_string
+      - text
+      - text_long
+      - text_with_summary
+  categories:
+    people:
+      label: People
+      color: '#eddcd2'
+      types:
+        - Person
+        - IndividualPhysician
+    page:
+      label: Page
+      color: '#fff1e6'
+      types:
+        - WebPage
+        - WebSite
+        - FAQPage
+        - CollectionPage
+    content:
+      label: Content
+      color: '#fde2e4'
+      types:
+        - Article
+        - Event
+        - HowTo
+        - SpecialAnnouncement
+        - ItemList
+    organization:
+      label: Organization
+      color: '#fad2e1'
+      types:
+        - Organization
+        - Service
+        - JobPosting
+        - Legislation
+    education:
+      label: Education
+      color: '#dbe7e4'
+      types:
+        - EducationalOrganization
+        - CourseInstance
+        - Course
+    place:
+      label: Place
+      color: '#c5dedd'
+      types:
+        - Accommodation
+        - AdministrativeArea
+        - CivicStructure
+        - Landform
+        - LandmarksOrHistoricalBuildings
+        - LodgingBusiness
+        - Residence
+        - TouristAttraction
+        - TouristDestination
+    food:
+      label: Food
+      color: '#f0efeb'
+      types:
+        - FoodEstablishment
+        - Menu
+        - Recipe
+        - Diet
+    media:
+      label: Media
+      color: '#d6e2e9'
+      types:
+        - PodcastSeries
+        - PodcastSeason
+        - PodcastEpisode
+        - TVSeries
+        - TVSeason
+        - TVEpisode
+    medical_organization:
+      label: 'Medical organization'
+      color: '#bcd4e6'
+      types:
+        - MedicalOrganization
+        - MedicalBusiness
+    medical_information:
+      label: 'Medical information'
+      color: '#99c1de'
+      types:
+        - HealthTopicContent
+        - MedicalWebPage
+        - MedicalEntity
+schema_properties:
+  range_includes:
+    Claim--citation:
+      - Text
+    Quotation--isBasedOn:
+      - URL
+    Intangible--identifier:
+      - Text
+    CreativeWork--citation:
+      - Text
+    Article--citation:
+      - CreativeWork
+    WebPage--citation:
+      - CreativeWork
+    MediaObject--version:
+      - Text
+    Article--additionalType:
+      - Text
+    Event--location:
+      - Text
+  ignored_properties:
+    - accessMode
+    - accessModeSufficient
+    - accessibilityAPI
+    - accessibilityControl
+    - accessibilityFeature
+    - accessibilityHazard
+    - accessibilitySummary
+    - acquireLicensePage
+    - actionableFeedbackPolicy
+    - answerCount
+    - assesses
+    - branchCode
+    - conditionsOfAccess
+    - correction
+    - creditText
+    - deathPlace
+    - diversityStaffingReport
+    - downvoteCount
+    - duns
+    - editEIDR
+    - encodingFormat
+    - geoContains
+    - geoCoveredBy
+    - geoCovers
+    - geoCrosses
+    - geoDisjoint
+    - geoEquals
+    - geoIntersects
+    - geoOverlaps
+    - geoTouches
+    - geoWithin
+    - gtin
+    - gtin12
+    - gtin13
+    - gtin14
+    - gtin8
+    - hasOfferCatalog
+    - homeLocation
+    - interactionStatistic
+    - interactivityType
+    - interpretedAsClaim
+    - isicV4
+    - iso6523Code
+    - itemListOrder
+    - leiCode
+    - materialExtent
+    - naics
+    - netWorth
+    - numberOfItems
+    - ownershipFundingInfo
+    - pageEnd
+    - pageStart
+    - pagination
+    - pattern
+    - position
+    - potentialAction
+    - publisherImprint
+    - publishingPrinciples
+    - schemaVersion
+    - sdDatePublished
+    - sdLicense
+    - sdPublisher
+    - sha256
+    - spatial
+    - suggestedAnswer
+    - taxID
+    - temporal
+    - temporalCoverage
+    - unnamedSourcesPolicy
+    - vatID
+    - wordCount
+  default_fields:
+    WebPage--text:
+      type: text_long
+      name: text
+    WebPage--abstract:
+      type: text_long
+      name: page_abstract
+    WebPage--about:
+      type: entity_reference
+      name: page_about
+      unlimited: true
+      field_storage_settings:
+        target_type: taxonomy_term
+    WebPage--keywords:
+      type: entity_reference
+      name: page_keywords
+      unlimited: true
+      field_storage_settings:
+        target_type: taxonomy_term
+    WebPage--hasPart:
+      type: entity_reference_revisions
+      name: page_has_part
+      unlimited: true
+      field_storage_settings:
+        target_type: paragraph
+    WebPage--citation:
+      type: entity_reference_revisions
+      name: page_citation
+      unlimited: true
+      field_storage_settings:
+        target_type: paragraph
+    WebPage--mentions:
+      type: entity_reference
+      name: page_mentions
+      unlimited: true
+      field_storage_settings:
+        target_type: node
+    WebPage--image:
+      type: entity_reference
+      name: page_image
+      unlimited: true
+      field_storage_settings:
+        target_type: media
+    ProfilePage--text:
+      type: text_long
+      name: text
+  default_field_formatter_settings: {  }
+  default_field_types: {  }
+  default_field_weights: {  }
+  disable_entity_display: {  }

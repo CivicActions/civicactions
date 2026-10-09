@@ -1,0 +1,66 @@
+_core:
+  default_config_hash: WWvo9_41v-oaqjbKdBtohSrem-s9w-7MIfvCWjZvAI4
+prompt_logging: false
+prompt_logging_tags: ''
+default_providers:
+  chat:
+    provider_id: openai
+    model_id: gpt-6-sol
+  chat_with_complex_json:
+    provider_id: openai
+    model_id: gpt-5.6-sol
+  chat_with_image_vision:
+    provider_id: openai
+    model_id: gpt-5.6-sol
+  chat_with_structured_response:
+    provider_id: openai
+    model_id: gpt-5.6-sol
+  chat_with_tools:
+    provider_id: openai
+    model_id: gpt-5.6-sol
+  embeddings:
+    provider_id: openai
+    model_id: text-embedding-3-large
+  moderation:
+    provider_id: openai
+    model_id: omni-moderation-latest
+  speech_to_text:
+    provider_id: openai
+    model_id: whisper-1
+  text_to_image:
+    provider_id: openai
+    model_id: gpt-image-1
+  text_to_speech:
+    provider_id: openai
+    model_id: tts-1-hd
+  translate_text:
+    provider_id: amazeeio
+    model_id: chat
+default_vdb_provider: ''
+request_timeout: 60
+models:
+  google_vertex:
+    chat:
+      gemini:
+        operation_type: chat
+        model_id: gemini
+        label: gemini
+        chat_with_image_vision: 1
+        chat_with_audio: 1
+        chat_with_video: 1
+        chat_with_pdf: 1
+        chat_system_role: 1
+        chat_json_output: 1
+        chat_structured_response: 1
+        chat_tools: 1
+        chat_combined_tools_and_structured_response: 1
+        max_input_tokens: '1048576'
+        max_output_tokens: '65536'
+        project_id: civicactions-internal-it-dev
+        location: global
+        vertex_model_id: gemini-3.8-flash
+        datastore: ''
+        provider: google_vertex
+allowed_hosts: {  }
+allowed_hosts_rewrite_links: false
+global_guardrails: {  }
