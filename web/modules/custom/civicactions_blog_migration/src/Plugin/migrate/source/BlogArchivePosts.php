@@ -50,6 +50,11 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
   protected ?int $editorialTypeTermId = NULL;
 
   /**
+   * Cached Person node ids keyed by normalized title.
+   */
+  protected ?array $personNodeIdsByTitle = NULL;
+
+  /**
    * BlogArchivePosts constructor.
    */
   public function __construct(
@@ -100,6 +105,7 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       'published_at' => $this->t('Published datetime in ISO format.'),
       'source_url' => $this->t('Original source URL.'),
       'author' => $this->t('Author name.'),
+      'schema_author_target_id' => $this->t('Person node id matching the author name.'),
       'editorial_type_target_id' => $this->t('Editorial type term id for Article.'),
       'schema_image_target_id' => $this->t('Media image entity id associated with article image.'),
       'field_content_items' => $this->t('Body content paragraph reference-revision items for field_content.'),
@@ -214,6 +220,7 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
         'published_at' => $this->normalizePublishedAt((string) $entry['published_at']),
         'source_url' => $entry['source_url'],
         'author' => $entry['author'],
+        'schema_author_target_id' => $this->resolveSchemaAuthorTargetId((string) $entry['author']),
         'editorial_type_target_id' => $this->resolveEditorialTypeTermId(),
         'schema_image_target_id' => $schema_image_target_id,
         'field_content_items' => !empty($paragraph_reference) ? [$paragraph_reference] : [],
@@ -330,6 +337,37 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
     }
 
     return NULL;
+  }
+
+  /**
+   * Resolves author name to a Person node id for schema_author.
+   */
+  protected function resolveSchemaAuthorTargetId(string $author): ?int {
+    $author = trim($author);
+    if ($author === '') {
+      return NULL;
+    }
+
+    // Skip organization bylines like "CivicActions".
+    if (preg_match('/^civic\s*actions$/i', $author)) {
+      return NULL;
+    }
+
+    if ($this->personNodeIdsByTitle === NULL) {
+      $this->personNodeIdsByTitle = [];
+      $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+      $people = $node_storage->loadByProperties(['type' => 'person']);
+      foreach ($people as $person_node) {
+        $title = trim((string) $person_node->label());
+        if ($title === '') {
+          continue;
+        }
+        $this->personNodeIdsByTitle[mb_strtolower($title)] = (int) $person_node->id();
+      }
+    }
+
+    $normalized_author = mb_strtolower($author);
+    return $this->personNodeIdsByTitle[$normalized_author] ?? NULL;
   }
 
   /**

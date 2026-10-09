@@ -12,9 +12,9 @@ process:
   field_editorial_type/target_id:
     plugin: get
     source: editorial_type_target_id
-  schema_author:
+  schema_author/target_id:
     plugin: get
-    source: author
+    source: schema_author_target_id
   schema_short_description:
     plugin: get
     source: subtitle
