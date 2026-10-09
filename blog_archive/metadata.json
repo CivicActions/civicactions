@@ -1,0 +1,2129 @@
+{
+  "publication": "CivicActions",
+  "publication_url": "https://medium.com/civicactions",
+  "source": "Medium publication stream and individual post JSON",
+  "retrieved_at": "2026-09-26T03:17:13.928992+00:00",
+  "post_count": 115,
+  "expected_post_count": 115,
+  "posts": [
+    {
+      "id": "e1065360851f",
+      "title": "Stabilizing website performance",
+      "subtitle": "By Daniel Mundra, Associate Director of Drupal",
+      "author": "Daniel Mundra",
+      "published_at": "2026-06-02T19:59:37.004000Z",
+      "updated_at": "2026-06-02T21:35:52.258000Z",
+      "source_url": "https://medium.com/civicactions/stabilizing-website-performance-e1065360851f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/stabilizing-website-performance-e1065360851f.html",
+      "tags": [
+        "Caching",
+        "Load Testing"
+      ],
+      "word_count": 1155
+    },
+    {
+      "id": "a6b7db36a519",
+      "title": "Steve Curtis: Empathy-Driven Leadership",
+      "subtitle": "We spoke with Steve Curtis, Project Manager at CivicActions, about his work on the LINCS program for the Department of Education, what…",
+      "author": "CivicActions",
+      "published_at": "2026-03-30T16:52:30.338000Z",
+      "updated_at": "2026-03-30T18:35:53.003000Z",
+      "source_url": "https://medium.com/civicactions/steve-curtis-empathy-driven-program-management-a6b7db36a519",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/steve-curtis-empathy-driven-program-management-a6b7db36a519.html",
+      "tags": [
+        "People And Culture",
+        "Lincs",
+        "Department Of Education"
+      ],
+      "word_count": 736
+    },
+    {
+      "id": "0a558c2db440",
+      "title": "Handling bot traffic on government websites",
+      "subtitle": "By Daniel Mundra, Associate Director of Drupal",
+      "author": "CivicActions",
+      "published_at": "2026-03-19T15:01:00.906000Z",
+      "updated_at": "2026-03-19T16:46:42.572000Z",
+      "source_url": "https://medium.com/civicactions/handling-bot-traffic-on-government-websites-0a558c2db440",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/handling-bot-traffic-on-government-websites-0a558c2db440.html",
+      "tags": [
+        "Captcha",
+        "Bots",
+        "Digital Services"
+      ],
+      "word_count": 1785
+    },
+    {
+      "id": "905bb31ad032",
+      "title": "All Models Are Wrong, But Some Are Useful: Choosing the Right Contrast Model for Accessibility",
+      "subtitle": "By Mike Gifford & Mitchell Evan",
+      "author": "CivicActions",
+      "published_at": "2026-01-23T18:11:39.818000Z",
+      "updated_at": "2026-01-23T19:36:03.595000Z",
+      "source_url": "https://medium.com/civicactions/all-models-are-wrong-but-some-are-useful-choosing-the-right-contrast-model-for-accessibility-905bb31ad032",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/all-models-are-wrong-but-some-are-useful-choosing-the-right-contrast-model-for-accessibility-905bb31ad032.html",
+      "tags": [
+        "Accessibility",
+        "Web Accessibility",
+        "Color Contrast",
+        "Tech And Design"
+      ],
+      "word_count": 1201
+    },
+    {
+      "id": "d39f8f7c8408",
+      "title": "Advancing the Open Web, IRL: Global Standards at W3C TPAC 2025",
+      "subtitle": "By Mike Gifford, Open Standards and Practices Lead",
+      "author": "CivicActions",
+      "published_at": "2025-12-17T20:21:18.689000Z",
+      "updated_at": "2025-12-17T21:36:14.882000Z",
+      "source_url": "https://medium.com/civicactions/advancing-the-open-web-irl-global-standards-at-w3c-tpac-2025-d39f8f7c8408",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/advancing-the-open-web-irl-global-standards-at-w3c-tpac-2025-d39f8f7c8408.html",
+      "tags": [
+        "Open Web",
+        "W3c",
+        "People And Culture",
+        "A11y",
+        "Accessibility"
+      ],
+      "word_count": 636
+    },
+    {
+      "id": "a5f323baddce",
+      "title": "Remembering Laura Flannery",
+      "subtitle": "By Maggie Wachs",
+      "author": "CivicActions",
+      "published_at": "2025-12-10T18:21:09.285000Z",
+      "updated_at": "2025-12-10T19:46:20.758000Z",
+      "source_url": "https://medium.com/civicactions/remembering-laura-flannery-a5f323baddce",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/remembering-laura-flannery-a5f323baddce.html",
+      "tags": [
+        "People And Culture",
+        "Veterans Affairs",
+        "In Memoriam"
+      ],
+      "word_count": 447
+    },
+    {
+      "id": "adebf3fb94cd",
+      "title": "CivicActions and Open Source: 2004–Present",
+      "subtitle": "This Open November, CivicActions is proud to reflect on more than two decades of advancing openness in government, technology, and…",
+      "author": "CivicActions",
+      "published_at": "2025-11-18T19:14:35.189000Z",
+      "updated_at": "2025-11-19T00:30:02.204000Z",
+      "source_url": "https://medium.com/civicactions/civicactions-and-open-source-2004-2025-adebf3fb94cd",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/civicactions-and-open-source-2004-2025-adebf3fb94cd.html",
+      "tags": [
+        "Open Source",
+        "Open Source Software",
+        "People And Culture",
+        "Open Data",
+        "Digital Services"
+      ],
+      "word_count": 731
+    },
+    {
+      "id": "9379be1377c3",
+      "title": "Python for the Public Good: A Conversation with Tom Camp & Jonathan Bourland",
+      "subtitle": "The following is an excerpt of a conversation between two CivicActions team members: Tom Camp, Security & Compliance Engineer, and Jonathan…",
+      "author": "CivicActions",
+      "published_at": "2025-11-12T14:55:23.515000Z",
+      "updated_at": "2025-11-12T15:30:23.603000Z",
+      "source_url": "https://medium.com/civicactions/python-for-the-public-good-a-conversation-with-tom-camp-jonathan-bourland-9379be1377c3",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/python-for-the-public-good-a-conversation-with-tom-camp-jonathan-bourland-9379be1377c3.html",
+      "tags": [
+        "Python",
+        "Digital Services",
+        "People And Culture",
+        "Open Source"
+      ],
+      "word_count": 822
+    },
+    {
+      "id": "372dd67ca89c",
+      "title": "DITAP Refresh: Executive Strategy in Action with Jaime Gracia",
+      "subtitle": "We recently spoke with Jaime Gracia, Acquisition Leader and Director of The Wolverine Group, Inc., former procurement executive at the IRS…",
+      "author": "CivicActions",
+      "published_at": "2025-10-27T14:15:42.227000Z",
+      "updated_at": "2025-10-27T15:30:49.585000Z",
+      "source_url": "https://medium.com/civicactions/ditap-refresh-executive-strategy-in-action-with-jaime-gracia-372dd67ca89c",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/ditap-refresh-executive-strategy-in-action-with-jaime-gracia-372dd67ca89c.html",
+      "tags": [
+        "Ditap",
+        "People And Culture",
+        "Digital Services",
+        "Federal Executive",
+        "Govtech"
+      ],
+      "word_count": 529
+    },
+    {
+      "id": "de73159bfa12",
+      "title": "Design to Drupal: Bridging the Handoff",
+      "subtitle": "By Kelly Smith, Senior UX Strategist",
+      "author": "CivicActions",
+      "published_at": "2025-10-17T12:37:15.331000Z",
+      "updated_at": "2025-10-17T13:37:03.718000Z",
+      "source_url": "https://medium.com/civicactions/design-to-drupal-bridging-the-handoff-de73159bfa12",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/design-to-drupal-bridging-the-handoff-de73159bfa12.html",
+      "tags": [
+        "Tech And Design",
+        "People And Culture",
+        "Drupal",
+        "Design"
+      ],
+      "word_count": 776
+    },
+    {
+      "id": "fa530041745d",
+      "title": "DITAP Refresh: Product Thinking in Action with Traci Walker",
+      "subtitle": "We recently spoke with Traci Walker, Executive Director of the Digital Services Coalition, who served as the former Founding Procurement…",
+      "author": "CivicActions",
+      "published_at": "2025-10-16T18:25:16.132000Z",
+      "updated_at": "2025-10-16T19:59:58.486000Z",
+      "source_url": "https://medium.com/civicactions/ditap-refresh-product-thinking-in-action-with-traci-walker-fa530041745d",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/ditap-refresh-product-thinking-in-action-with-traci-walker-fa530041745d.html",
+      "tags": [
+        "People And Culture",
+        "Digital Services",
+        "Ditap",
+        "Product"
+      ],
+      "word_count": 655
+    },
+    {
+      "id": "bbd08f97cea3",
+      "title": "The DITAP Refresh Has Arrived: Training for the New Acquisition Era",
+      "subtitle": "For more than a decade, the Digital IT Acquisition Professional (DITAP) program has helped federal professionals navigate the complexities…",
+      "author": "CivicActions",
+      "published_at": "2025-10-09T16:47:04.626000Z",
+      "updated_at": "2025-10-09T17:30:05.881000Z",
+      "source_url": "https://medium.com/civicactions/the-ditap-refresh-has-arrived-training-for-the-new-acquisition-era-bbd08f97cea3",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/the-ditap-refresh-has-arrived-training-for-the-new-acquisition-era-bbd08f97cea3.html",
+      "tags": [
+        "Ditap",
+        "People And Culture",
+        "Digital Services",
+        "Procurement",
+        "Civic Tech"
+      ],
+      "word_count": 1009
+    },
+    {
+      "id": "c91131c53003",
+      "title": "AI Crawl Analysis: Iris Ibekwe’s Vision for Smarter Government Web Audits",
+      "subtitle": "Iris Ibekwe, Associate Director of Front End Development at CivicActions, is bringing innovation to the newly launched Open Python…",
+      "author": "CivicActions",
+      "published_at": "2025-09-05T15:06:37.899000Z",
+      "updated_at": "2025-09-05T19:46:15.770000Z",
+      "source_url": "https://medium.com/civicactions/ai-crawl-analysis-iris-ibekwes-vision-for-smarter-government-web-audits-c91131c53003",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/ai-crawl-analysis-iris-ibekwes-vision-for-smarter-government-web-audits-c91131c53003.html",
+      "tags": [
+        "People And Culture",
+        "Tech And Design",
+        "AI",
+        "Python"
+      ],
+      "word_count": 576
+    },
+    {
+      "id": "e01266c492b8",
+      "title": "Level up your version control with automation",
+      "subtitle": "By Daniel Mundra, Associate Director of Drupal, with Dr. Eryn Cangi, planetary scientist at University of Colorado Boulder",
+      "author": "CivicActions",
+      "published_at": "2025-08-19T17:03:31.108000Z",
+      "updated_at": "2025-08-19T18:27:59.196000Z",
+      "source_url": "https://medium.com/civicactions/level-up-your-version-control-with-automation-e01266c492b8",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/level-up-your-version-control-with-automation-e01266c492b8.html",
+      "tags": [
+        "Digital Services",
+        "Open Source",
+        "Open Source Software",
+        "Automation",
+        "Git"
+      ],
+      "word_count": 2110
+    },
+    {
+      "id": "67e91fae28f2",
+      "title": "Evolving Digital Procurement with Jonathan Mostowski",
+      "subtitle": "We recently spoke with Jonathan Mostowski, a founding architect of the Digital IT Acquisition Professional (DITAP) program and author of…",
+      "author": "CivicActions",
+      "published_at": "2025-08-08T17:54:14.115000Z",
+      "updated_at": "2025-08-08T18:27:38.795000Z",
+      "source_url": "https://medium.com/civicactions/evolving-digital-procurement-with-jonathan-mostowski-67e91fae28f2",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/evolving-digital-procurement-with-jonathan-mostowski-67e91fae28f2.html",
+      "tags": [
+        "Ditap",
+        "Procurement",
+        "Public Procurement",
+        "Digital Services",
+        "People And Culture"
+      ],
+      "word_count": 1158
+    },
+    {
+      "id": "8b82a6d9a670",
+      "title": "Using SBOMs To Keep a Government Website More Secure",
+      "subtitle": "By Scott McGee, Senior DevSecOps Engineer",
+      "author": "CivicActions",
+      "published_at": "2025-07-02T12:26:50.623000Z",
+      "updated_at": "2025-07-15T16:29:11.530000Z",
+      "source_url": "https://medium.com/civicactions/using-sboms-to-keep-a-government-website-more-secure-8b82a6d9a670",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/using-sboms-to-keep-a-government-website-more-secure-8b82a6d9a670.html",
+      "tags": [
+        "Tech And Design",
+        "Digital Services",
+        "Cybersecurity",
+        "Devsecops",
+        "Sbom"
+      ],
+      "word_count": 1649
+    },
+    {
+      "id": "c7580e3efb1a",
+      "title": "Improving Procurement Practices with Peter Smith",
+      "subtitle": "We recently spoke with Peter Smith, a leading UK procurement expert and author of Procurement with Purpose, to explore modern strategies…",
+      "author": "CivicActions",
+      "published_at": "2025-06-26T14:51:52.163000Z",
+      "updated_at": "2025-06-26T15:28:42.145000Z",
+      "source_url": "https://medium.com/civicactions/improving-procurement-practices-with-peter-smith-c7580e3efb1a",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/improving-procurement-practices-with-peter-smith-c7580e3efb1a.html",
+      "tags": [
+        "Digital Services Act",
+        "Procurement",
+        "Government Procurement",
+        "AI"
+      ],
+      "word_count": 903
+    },
+    {
+      "id": "cd2e07f66db8",
+      "title": "Navigation as Unifier: Using Mega Menu Design to Create Cohesion",
+      "subtitle": "The Challenge: Websites That Didn’t Feel Connected",
+      "author": "Nira Datta",
+      "published_at": "2025-06-24T14:27:30.786000Z",
+      "updated_at": "2025-06-24T15:28:56.039000Z",
+      "source_url": "https://medium.com/civicactions/navigation-as-unifier-using-mega-menu-design-to-create-cohesion-cd2e07f66db8",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/navigation-as-unifier-using-mega-menu-design-to-create-cohesion-cd2e07f66db8.html",
+      "tags": [
+        "UX Design",
+        "Content Design",
+        "Civicdesign",
+        "Tech And Design",
+        "Digital Services"
+      ],
+      "word_count": 1036
+    },
+    {
+      "id": "491095ae934c",
+      "title": "Open Is More Secure: The Case for Open Source in Government Cybersecurity",
+      "subtitle": "As federal agencies race to modernize, adopting zero trust architectures and cloud-first policies, one foundational truth is becoming…",
+      "author": "Fen Labalme",
+      "published_at": "2025-06-09T14:30:57.697000Z",
+      "updated_at": "2025-06-09T15:28:42.267000Z",
+      "source_url": "https://medium.com/civicactions/open-is-more-secure-the-case-for-open-source-in-government-cybersecurity-491095ae934c",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/open-is-more-secure-the-case-for-open-source-in-government-cybersecurity-491095ae934c.html",
+      "tags": [
+        "Tech And Design",
+        "Digital Services",
+        "Cybersecurity",
+        "Foss",
+        "Open Source"
+      ],
+      "word_count": 632
+    },
+    {
+      "id": "e365e0a40098",
+      "title": "Prioritizing accessibility bugs for maximum impact",
+      "subtitle": "By Jack Haas, Front End Engineer",
+      "author": "CivicActions",
+      "published_at": "2025-04-01T16:27:20.066000Z",
+      "updated_at": "2025-04-01T17:30:11.335000Z",
+      "source_url": "https://medium.com/civicactions/prioritizing-accessibility-bugs-for-maximum-impact-e365e0a40098",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/prioritizing-accessibility-bugs-for-maximum-impact-e365e0a40098.html",
+      "tags": [
+        "Accessibility",
+        "Tech And Design",
+        "A11y",
+        "Digital Services"
+      ],
+      "word_count": 845
+    },
+    {
+      "id": "effafaabb681",
+      "title": "Leveling Up DITAP: Insights from Experience Institute’s Erin Murphy",
+      "subtitle": "CivicActions is currently working on the Digital IT Acquisition Professional (DITAP) Program Refresh as part of a contract awarded by the…",
+      "author": "CivicActions",
+      "published_at": "2025-03-21T16:43:37.691000Z",
+      "updated_at": "2025-03-21T17:28:33.843000Z",
+      "source_url": "https://medium.com/civicactions/leveling-up-ditap-insights-from-experience-institutes-erin-murphy-effafaabb681",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/leveling-up-ditap-insights-from-experience-institutes-erin-murphy-effafaabb681.html",
+      "tags": [
+        "Ditap",
+        "Tech And Design",
+        "Digital Services",
+        "Experiential Learning"
+      ],
+      "word_count": 1166
+    },
+    {
+      "id": "273059b80d8f",
+      "title": "Building the Future of Digital Procurement: Highlights from the DITAP Refresh Onsite",
+      "subtitle": "At CivicActions, we’re passionate about equipping acquisition professionals with the skills they need to succeed in an increasingly digital…",
+      "author": "CivicActions",
+      "published_at": "2025-01-30T20:28:27.426000Z",
+      "updated_at": "2025-01-30T21:21:53.714000Z",
+      "source_url": "https://medium.com/civicactions/building-the-future-of-digital-procurement-highlights-from-the-ditap-refresh-onsite-273059b80d8f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/building-the-future-of-digital-procurement-highlights-from-the-ditap-refresh-onsite-273059b80d8f.html",
+      "tags": [
+        "People And Culture",
+        "Ditap",
+        "Gsa"
+      ],
+      "word_count": 683
+    },
+    {
+      "id": "a452a1667238",
+      "title": "Janet Downs: Project Management with a Vision",
+      "subtitle": "We spoke with Janet Downs, Senior Project Manager on WECMS about her expertise in Project Management, her experience at CivicActions, and…",
+      "author": "CivicActions",
+      "published_at": "2025-01-27T18:52:10.162000Z",
+      "updated_at": "2025-01-27T19:28:23.334000Z",
+      "source_url": "https://medium.com/civicactions/janet-downs-project-management-with-a-vision-a452a1667238",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/janet-downs-project-management-with-a-vision-a452a1667238.html",
+      "tags": [
+        "People And Culture",
+        "Project Management",
+        "Project Manager"
+      ],
+      "word_count": 673
+    },
+    {
+      "id": "93ec4b630ba8",
+      "title": "Advancing Digital Public Goods: A Global Vision for Open Source Transformation",
+      "subtitle": "CivicActioners Mike Gifford, Open Standard and Practices Lead, and Bill Ogilvie, Chief Growth Officer, recently embarked on a tour of…",
+      "author": "CivicActions",
+      "published_at": "2024-12-03T18:47:14.502000Z",
+      "updated_at": "2024-12-03T19:31:03.599000Z",
+      "source_url": "https://medium.com/civicactions/advancing-digital-public-goods-a-global-vision-for-open-source-transformation-93ec4b630ba8",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/advancing-digital-public-goods-a-global-vision-for-open-source-transformation-93ec4b630ba8.html",
+      "tags": [
+        "Digital Public Goods",
+        "Dpg",
+        "Open Source"
+      ],
+      "word_count": 648
+    },
+    {
+      "id": "d999a2caf595",
+      "title": "Empowering Collaboration: Our 20th Anniversary Summit and the Power of Open Space",
+      "subtitle": "As a fully distributed company now in our 20th year, the act of bringing together over 100 team members for an in-person summit in Denver…",
+      "author": "CivicActions",
+      "published_at": "2024-11-13T17:50:45.156000Z",
+      "updated_at": "2025-02-25T22:25:23.101000Z",
+      "source_url": "https://medium.com/civicactions/empowering-collaboration-our-20th-anniversary-summit-and-the-power-of-open-space-d999a2caf595",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/empowering-collaboration-our-20th-anniversary-summit-and-the-power-of-open-space-d999a2caf595.html",
+      "tags": [
+        "Open Space",
+        "Open Space Technology",
+        "People And Culture"
+      ],
+      "word_count": 979
+    },
+    {
+      "id": "a4cc6016be4c",
+      "title": "Nira Datta: Crafting User-Centered Solutions in Civic Tech",
+      "subtitle": "We caught up with Nira Datta, a Senior UX Content Designer at CivicActions, to discuss her journey in civic tech, the power of…",
+      "author": "CivicActions",
+      "published_at": "2024-10-24T15:08:58.650000Z",
+      "updated_at": "2024-11-14T18:26:23.540000Z",
+      "source_url": "https://medium.com/civicactions/nira-datta-crafting-user-centered-solutions-in-civic-tech-a4cc6016be4c",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/nira-datta-crafting-user-centered-solutions-in-civic-tech-a4cc6016be4c.html",
+      "tags": [
+        "UX",
+        "People And Culture",
+        "UX Design"
+      ],
+      "word_count": 445
+    },
+    {
+      "id": "048031db111b",
+      "title": "Dave Pickett: Designing for Impact",
+      "subtitle": "We spoke with CivicActioner Dave Pickett, Senior Content Designer for our client U.S. Department of Veterans Affairs (VA), about his many…",
+      "author": "CivicActions",
+      "published_at": "2024-09-09T16:32:27.938000Z",
+      "updated_at": "2024-11-16T21:55:59.798000Z",
+      "source_url": "https://medium.com/civicactions/dave-pickett-designing-for-impact-048031db111b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/dave-pickett-designing-for-impact-048031db111b.html",
+      "tags": [
+        "People And Culture",
+        "Civic Tech",
+        "Content Design",
+        "UX",
+        "UX Design"
+      ],
+      "word_count": 755
+    },
+    {
+      "id": "9c6960abdb2f",
+      "title": "Kelly Smith: Designing for the Greater Good",
+      "subtitle": "We caught up with CivicActioner Kelly Smith, Associate Director of Design to discuss her journey in civic tech, the impact of accessible…",
+      "author": "CivicActions",
+      "published_at": "2024-08-26T15:11:36.570000Z",
+      "updated_at": "2024-11-17T18:24:41.435000Z",
+      "source_url": "https://medium.com/civicactions/kelly-smith-designing-for-the-greater-good-9c6960abdb2f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/kelly-smith-designing-for-the-greater-good-9c6960abdb2f.html",
+      "tags": [
+        "People And Culture",
+        "Civic Tech",
+        "Design",
+        "Veterans Affairs"
+      ],
+      "word_count": 282
+    },
+    {
+      "id": "4feff1162da5",
+      "title": "Building a culture of continuous user research",
+      "subtitle": "by Ariel Bolles, Content Designer",
+      "author": "CivicActions",
+      "published_at": "2024-08-08T17:00:54.776000Z",
+      "updated_at": "2024-11-18T22:38:47.874000Z",
+      "source_url": "https://medium.com/civicactions/building-a-culture-of-continuous-user-research-4feff1162da5",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/building-a-culture-of-continuous-user-research-4feff1162da5.html",
+      "tags": [
+        "User Research",
+        "User Experience",
+        "Tech And Design",
+        "Digital Services"
+      ],
+      "word_count": 991
+    },
+    {
+      "id": "f6f4f733b844",
+      "title": "CivicActions’ Sustainability Pledge: Building a Greener Digital Future in 2024 and Beyond",
+      "subtitle": "In an era where digital transformation and environmental responsibility are increasingly intertwined, we are advancing our commitment to…",
+      "author": "CivicActions",
+      "published_at": "2024-07-17T14:12:11.725000Z",
+      "updated_at": "2024-11-20T16:16:02.474000Z",
+      "source_url": "https://medium.com/civicactions/civicactions-sustainability-pledge-building-a-greener-digital-future-in-2024-and-beyond-f6f4f733b844",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/civicactions-sustainability-pledge-building-a-greener-digital-future-in-2024-and-beyond-f6f4f733b844.html",
+      "tags": [
+        "Sustainability",
+        "People And Culture",
+        "Green Energy"
+      ],
+      "word_count": 413
+    },
+    {
+      "id": "ea77101f36ea",
+      "title": "CivicActions’ 20th Anniversary: Reflecting on Two Decades of Innovation and Impact",
+      "subtitle": "CivicActions’ 20th Anniversary: Reflecting on Two Decades of Innovation and Impact",
+      "author": "CivicActions",
+      "published_at": "2024-07-02T14:50:27.524000Z",
+      "updated_at": "2024-11-21T20:33:33.128000Z",
+      "source_url": "https://medium.com/civicactions/civicactions-20th-anniversary-reflecting-on-two-decades-of-innovation-and-impact-ea77101f36ea",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/civicactions-20th-anniversary-reflecting-on-two-decades-of-innovation-and-impact-ea77101f36ea.html",
+      "tags": [
+        "People And Culture",
+        "Anniversary",
+        "Digital Services Agency",
+        "Open Source"
+      ],
+      "word_count": 1397
+    },
+    {
+      "id": "a35e3c5383fe",
+      "title": "Kristen Jernigan: Optimizing Customer Satisfaction",
+      "subtitle": "We spoke with CivicActioner Kristen Jernigan, Technical Support and Training Specialist on our GlobalNET team, about “lightbulb moments,”…",
+      "author": "CivicActions",
+      "published_at": "2024-06-18T14:20:43.450000Z",
+      "updated_at": "2024-11-23T00:41:01.469000Z",
+      "source_url": "https://medium.com/civicactions/kristen-jernigan-optimizing-customer-satisfaction-a35e3c5383fe",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/kristen-jernigan-optimizing-customer-satisfaction-a35e3c5383fe.html",
+      "tags": [
+        "People And Culture",
+        "Customer Experience"
+      ],
+      "word_count": 245
+    },
+    {
+      "id": "5012ebade8ea",
+      "title": "Kit Lykos: Security at the Forefront",
+      "subtitle": "We spoke with CivicActioner Kit Lykos, DevOps Engineer on our GlobalNET team, about their passion for DevSecOps, the importance of site…",
+      "author": "CivicActions",
+      "published_at": "2024-06-10T14:56:32.106000Z",
+      "updated_at": "2025-02-25T20:32:16.217000Z",
+      "source_url": "https://medium.com/civicactions/kit-lykos-security-at-the-forefront-5012ebade8ea",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/kit-lykos-security-at-the-forefront-5012ebade8ea.html",
+      "tags": [
+        "Security",
+        "Devsecops",
+        "People And Culture"
+      ],
+      "word_count": 299
+    },
+    {
+      "id": "67df1d2fe2ff",
+      "title": "Designing a Non-Personalized Recommendation System",
+      "subtitle": "An introduction towards why and how to design a recommendation system for the public good.",
+      "author": "Nehal Dave Desai",
+      "published_at": "2024-05-20T15:06:04.248000Z",
+      "updated_at": "2024-11-25T22:17:48.932000Z",
+      "source_url": "https://medium.com/civicactions/designing-a-non-personalized-recommendation-system-67df1d2fe2ff",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/designing-a-non-personalized-recommendation-system-67df1d2fe2ff.html",
+      "tags": [
+        "Recommendation System",
+        "Applied Ai",
+        "Data Science",
+        "Tech And Design"
+      ],
+      "word_count": 1036
+    },
+    {
+      "id": "4fcc0ed18dbc",
+      "title": "Designing solo? Navigating A11Y Project’s Checklist with automation",
+      "subtitle": "So you’re advocating for accessibility, but flying solo on a redesign project. Timelines are tight, but you also want to keep your…",
+      "author": "Nira Datta",
+      "published_at": "2024-03-11T18:16:14.596000Z",
+      "updated_at": "2024-11-30T12:34:17.968000Z",
+      "source_url": "https://medium.com/civicactions/designing-solo-navigating-a11y-projects-checklist-with-automation-4fcc0ed18dbc",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/designing-solo-navigating-a11y-projects-checklist-with-automation-4fcc0ed18dbc.html",
+      "tags": [
+        "Accessible Design",
+        "Prioritization",
+        "Solo Designer",
+        "Tech And Design"
+      ],
+      "word_count": 849
+    },
+    {
+      "id": "f6aea8e3a6f0",
+      "title": "Delivering Digital First: Turning 21st Century IDEA into Action",
+      "subtitle": "By Mike Gifford and Emily Ryan",
+      "author": "CivicActions",
+      "published_at": "2024-01-31T16:03:59.413000Z",
+      "updated_at": "2025-02-25T22:25:26.182000Z",
+      "source_url": "https://medium.com/civicactions/delivering-digital-first-turning-21st-century-idea-into-action-f6aea8e3a6f0",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/delivering-digital-first-turning-21st-century-idea-into-action-f6aea8e3a6f0.html",
+      "tags": [
+        "Design And Tech",
+        "Digital Service",
+        "Accessibility"
+      ],
+      "word_count": 1503
+    },
+    {
+      "id": "29afe8ddbc96",
+      "title": "Reducing Risk for Government Agencies Implementing Generative AI",
+      "subtitle": "Personal experiences with ChatGPT or other AI tools may leave government agencies feeling like AI technology isn’t ready. They may have…",
+      "author": "Valerie Runde",
+      "published_at": "2024-01-29T14:54:26.166000Z",
+      "updated_at": "2024-01-29T14:54:35.330000Z",
+      "source_url": "https://medium.com/civicactions/reducing-risk-for-government-agencies-implementing-generative-ai-29afe8ddbc96",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/reducing-risk-for-government-agencies-implementing-generative-ai-29afe8ddbc96.html",
+      "tags": [
+        "Digital Service",
+        "Design And Tech",
+        "AI",
+        "ChatGPT",
+        "Govtech"
+      ],
+      "word_count": 732
+    },
+    {
+      "id": "e052a58d9d16",
+      "title": "Measuring the Impact of Manual Accessibility Testing",
+      "subtitle": "By Maggie Wachs",
+      "author": "CivicActions",
+      "published_at": "2024-01-19T20:42:14.682000Z",
+      "updated_at": "2024-01-20T04:18:40.509000Z",
+      "source_url": "https://medium.com/civicactions/measuring-the-impact-of-manual-accessibility-testing-e052a58d9d16",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/measuring-the-impact-of-manual-accessibility-testing-e052a58d9d16.html",
+      "tags": [
+        "Accessibility",
+        "Accessibility Testing",
+        "Digital Service",
+        "Govtech"
+      ],
+      "word_count": 752
+    },
+    {
+      "id": "93018b3d14d7",
+      "title": "Securing Success at CivicActions: Fen Labalme, Chief Information Security Officer",
+      "subtitle": "We spoke to Fen Labalme, CivicActions’ Chief Information Security Officer, about his long tenure at the company, his long standing interest…",
+      "author": "CivicActions",
+      "published_at": "2023-12-13T18:33:35.508000Z",
+      "updated_at": "2023-12-14T05:30:00.984000Z",
+      "source_url": "https://medium.com/civicactions/securing-success-at-civicactions-fen-labalme-chief-information-security-officer-93018b3d14d7",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/securing-success-at-civicactions-fen-labalme-chief-information-security-officer-93018b3d14d7.html",
+      "tags": [
+        "Security",
+        "Cybersecurity",
+        "Ciso"
+      ],
+      "word_count": 578
+    },
+    {
+      "id": "38e7cf3cc52a",
+      "title": "How We Helped a Government Website Achieve Zero Accessibility Errors*",
+      "subtitle": "At CivicActions we have pledged to advance our accessibility maturity to provide critical human services to as many people as possible so…",
+      "author": "CivicActions",
+      "published_at": "2023-12-08T15:38:35.233000Z",
+      "updated_at": "2023-12-09T05:25:20.386000Z",
+      "source_url": "https://medium.com/civicactions/how-we-helped-a-government-website-achieve-zero-accessibility-errors-38e7cf3cc52a",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/how-we-helped-a-government-website-achieve-zero-accessibility-errors-38e7cf3cc52a.html",
+      "tags": [
+        "Accessibility",
+        "A11y",
+        "Govtech",
+        "Digital Service"
+      ],
+      "word_count": 1779
+    },
+    {
+      "id": "a2f86ed8e053",
+      "title": "Lessons from Lille: Sustainability and DrupalCon",
+      "subtitle": "In October, I was excited to attend DrupalCon Lille. I was giving a talk on accessibility, but was also thrilled to attend three…",
+      "author": "Mike Gifford",
+      "published_at": "2023-11-16T15:03:46.368000Z",
+      "updated_at": "2023-11-28T20:01:54.019000Z",
+      "source_url": "https://medium.com/civicactions/lessons-from-lille-sustainability-and-drupalcon-a2f86ed8e053",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/lessons-from-lille-sustainability-and-drupalcon-a2f86ed8e053.html",
+      "tags": [
+        "Drupal",
+        "Drupalcon",
+        "Web Sustainability",
+        "Sustainability"
+      ],
+      "word_count": 688
+    },
+    {
+      "id": "0fb3b6b2acc1",
+      "title": "Empowering Scientific Discovery: Iris Ibekwe",
+      "subtitle": "We spoke to Iris Ibekwe, CivicActions’ Associate Director of Front End Development about her work as Front End Lead on the National Science…",
+      "author": "CivicActions",
+      "published_at": "2023-10-23T14:30:37.655000Z",
+      "updated_at": "2023-10-24T05:26:41.766000Z",
+      "source_url": "https://medium.com/civicactions/empowering-scientific-discovery-iris-ibekwe-0fb3b6b2acc1",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/empowering-scientific-discovery-iris-ibekwe-0fb3b6b2acc1.html",
+      "tags": [
+        "People And Culture",
+        "Scientific Research",
+        "Front End Development",
+        "Work Life Balance"
+      ],
+      "word_count": 445
+    },
+    {
+      "id": "5c954861776c",
+      "title": "DevSecOps: Keeping Our Clients Secure",
+      "subtitle": "At CivicActions, we work hard to keep clients safe and secure at the foundational level. Sharjeel Aziz, Associate Director of DevSecOps…",
+      "author": "CivicActions",
+      "published_at": "2023-10-19T13:45:30.066000Z",
+      "updated_at": "2023-10-20T05:25:48.502000Z",
+      "source_url": "https://medium.com/civicactions/devsecops-keeping-our-clients-secure-5c954861776c",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/devsecops-keeping-our-clients-secure-5c954861776c.html",
+      "tags": [
+        "Devsecops",
+        "Security",
+        "Cybersecurity",
+        "Tech And Design",
+        "Digital Service"
+      ],
+      "word_count": 599
+    },
+    {
+      "id": "e63c25d957c9",
+      "title": "Nana Poku: Creativity on the Front End",
+      "subtitle": "We spoke with CivicActioner Nana Poku, Front End Engineer, about the creativity of front end engineering, seeing the larger vision of a…",
+      "author": "CivicActions",
+      "published_at": "2023-09-08T14:57:21.016000Z",
+      "updated_at": "2023-09-09T05:18:06.839000Z",
+      "source_url": "https://medium.com/civicactions/nana-poku-creativity-on-the-front-end-e63c25d957c9",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/nana-poku-creativity-on-the-front-end-e63c25d957c9.html",
+      "tags": [
+        "People And Culture",
+        "Drupal",
+        "Front End Developer",
+        "Creativity"
+      ],
+      "word_count": 569
+    },
+    {
+      "id": "e224ba1ad010",
+      "title": "VA Leading Small-Scale Service Design",
+      "subtitle": "By Suzanne Gray, Senior Content Designer, CivicActions",
+      "author": "Suzanne Gray",
+      "published_at": "2023-08-23T14:18:24.088000Z",
+      "updated_at": "2023-08-23T14:18:27.643000Z",
+      "source_url": "https://medium.com/civicactions/va-leading-small-scale-service-design-e224ba1ad010",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/va-leading-small-scale-service-design-e224ba1ad010.html",
+      "tags": [
+        "Service Design",
+        "Tech And Design",
+        "Human Centered Design"
+      ],
+      "word_count": 1813
+    },
+    {
+      "id": "bd322c9c38cf",
+      "title": "Kristian Ducharme: Transforming Ideas into Action",
+      "subtitle": "We spoke with longtime CivicActioner Kristian Ducharme, Associate Director of Drupal Engineering, about his work as a tech lead for the…",
+      "author": "CivicActions",
+      "published_at": "2023-08-14T17:10:09.733000Z",
+      "updated_at": "2025-09-22T16:27:51.929000Z",
+      "source_url": "https://medium.com/civicactions/kristian-ducharme-transforming-ideas-into-action-bd322c9c38cf",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/kristian-ducharme-transforming-ideas-into-action-bd322c9c38cf.html",
+      "tags": [
+        "People And Culture",
+        "Drupal",
+        "Nationalsciencefoundation",
+        "Govtech"
+      ],
+      "word_count": 333
+    },
+    {
+      "id": "2f9ba779ede0",
+      "title": "Cameron Prince: Finding “Elegance in Drupal”",
+      "subtitle": "We spoke with Cameron Prince, Back End Engineer, about his passion for Drupal, his work as a tech lead for CMS.gov, and his past…",
+      "author": "CivicActions",
+      "published_at": "2023-08-09T14:16:54.405000Z",
+      "updated_at": "2023-08-10T04:16:13.535000Z",
+      "source_url": "https://medium.com/civicactions/cameron-prince-finding-elegance-in-drupal-2f9ba779ede0",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/cameron-prince-finding-elegance-in-drupal-2f9ba779ede0.html",
+      "tags": [
+        "People And Culture",
+        "Govtech",
+        "Drupal",
+        "Open Source"
+      ],
+      "word_count": 648
+    },
+    {
+      "id": "b5dd6d9bccd7",
+      "title": "CivicActions: Pioneering Remote Work and Collaboration",
+      "subtitle": "At CivicActions, the concept of remote work has been deeply ingrained in our culture for years — we have been fully remote since we started…",
+      "author": "CivicActions",
+      "published_at": "2023-08-01T13:47:15.929000Z",
+      "updated_at": "2023-08-02T04:17:15.412000Z",
+      "source_url": "https://medium.com/civicactions/civicactions-pioneering-remote-work-and-collaboration-b5dd6d9bccd7",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/civicactions-pioneering-remote-work-and-collaboration-b5dd6d9bccd7.html",
+      "tags": [
+        "Remote Working",
+        "Remote",
+        "Zoom",
+        "WFH",
+        "People And Culture"
+      ],
+      "word_count": 918
+    },
+    {
+      "id": "26361abff82e",
+      "title": "Better navigation tracking with Google Analytics 4",
+      "subtitle": "This guide focuses on measuring user interactions with components from the US Web Design System (USWDS) implemented in a Drupal site, but…",
+      "author": "Adrian Cooke",
+      "published_at": "2023-07-21T14:16:58.053000Z",
+      "updated_at": "2023-07-21T14:17:06.663000Z",
+      "source_url": "https://medium.com/civicactions/better-navigation-tracking-with-google-analytics-4-26361abff82e",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/better-navigation-tracking-with-google-analytics-4-26361abff82e.html",
+      "tags": [
+        "Ga4",
+        "Gtm",
+        "Navigation",
+        "Tech And Design",
+        "Drupal"
+      ],
+      "word_count": 3016
+    },
+    {
+      "id": "6eccc4e56f0f",
+      "title": "Chianti Lomax: Delivering Excellence through DITAP",
+      "subtitle": "We spoke to Chianti Lomax, CivicActions’ Workforce Development Lead about her work with Digital IT Acquisition Professional (DITAP)…",
+      "author": "CivicActions",
+      "published_at": "2023-07-10T17:49:50.247000Z",
+      "updated_at": "2023-07-11T04:16:09.487000Z",
+      "source_url": "https://medium.com/civicactions/chianti-lomax-delivering-excellence-through-ditap-6eccc4e56f0f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/chianti-lomax-delivering-excellence-through-ditap-6eccc4e56f0f.html",
+      "tags": [
+        "Acquisition",
+        "Procurement",
+        "People And Culture",
+        "Digital Service"
+      ],
+      "word_count": 539
+    },
+    {
+      "id": "d25bfdd017f",
+      "title": "Meet Kendra Beaty: Senior Program Manager",
+      "subtitle": "We spoke to Kendra Beaty, CivicActions’ new Senior Program Manager about her past experiences working with the Defense Health Agency (DHA)…",
+      "author": "CivicActions",
+      "published_at": "2023-06-26T14:41:58.467000Z",
+      "updated_at": "2023-06-27T04:16:28.092000Z",
+      "source_url": "https://medium.com/civicactions/meet-kendra-beaty-senior-program-manager-d25bfdd017f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/meet-kendra-beaty-senior-program-manager-d25bfdd017f.html",
+      "tags": [
+        "People And Culture",
+        "Program Management",
+        "Health Equity"
+      ],
+      "word_count": 834
+    },
+    {
+      "id": "da1eaa29eacd",
+      "title": "The White House’s Customer Experience Executive Order: 18 Months Later",
+      "subtitle": "In December 2021, President Biden signed an Executive Order focused on Federal customer experience (CX). It highlighted 36 areas where the…",
+      "author": "Valerie Runde",
+      "published_at": "2023-06-14T14:46:13.420000Z",
+      "updated_at": "2023-06-14T15:23:53.915000Z",
+      "source_url": "https://medium.com/civicactions/the-white-houses-customer-experience-executive-order-18-months-later-da1eaa29eacd",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/the-white-houses-customer-experience-executive-order-18-months-later-da1eaa29eacd.html",
+      "tags": [
+        "Civictech",
+        "Hcd",
+        "Human Centered Design",
+        "Executive Order"
+      ],
+      "word_count": 1506
+    },
+    {
+      "id": "fd82bd99f95a",
+      "title": "Medicare & You: Increasing Customer Satisfaction",
+      "subtitle": "The Medicare & You handbook is an important resource for beneficiaries to understand their benefits and coverage options. Last summer, the…",
+      "author": "CivicActions",
+      "published_at": "2023-05-31T14:01:44.291000Z",
+      "updated_at": "2025-02-25T22:25:24.013000Z",
+      "source_url": "https://medium.com/civicactions/medicare-you-increasing-customer-satisfaction-fd82bd99f95a",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/medicare-you-increasing-customer-satisfaction-fd82bd99f95a.html",
+      "tags": [
+        "Digital Services",
+        "Tech And Design",
+        "Medicare",
+        "Digital Transformation"
+      ],
+      "word_count": 295
+    },
+    {
+      "id": "5f0fb324393b",
+      "title": "Pod Calls: Connecting our Constellation of CivicActioners",
+      "subtitle": "As you might guess, working at a fully distributed company means we have to get a little creative when it comes to connecting with our…",
+      "author": "CivicActions",
+      "published_at": "2023-05-17T16:41:49.777000Z",
+      "updated_at": "2023-05-18T04:15:38.290000Z",
+      "source_url": "https://medium.com/civicactions/pod-calls-connecting-our-constellation-of-civicactioners-5f0fb324393b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/pod-calls-connecting-our-constellation-of-civicactioners-5f0fb324393b.html",
+      "tags": [
+        "Remote Working",
+        "Connection",
+        "Connectivity",
+        "People And Culture"
+      ],
+      "word_count": 511
+    },
+    {
+      "id": "4a63bf99996b",
+      "title": "Daniel Mundra: Diving into Drupal",
+      "subtitle": "We spoke to CivicActioner Daniel Mundra, Associate Director of Drupal, about the benefits of Drupal, community contributions, and why…",
+      "author": "CivicActions",
+      "published_at": "2023-04-10T14:00:11.384000Z",
+      "updated_at": "2023-04-11T04:21:21.666000Z",
+      "source_url": "https://medium.com/civicactions/daniel-mundra-diving-into-drupal-4a63bf99996b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/daniel-mundra-diving-into-drupal-4a63bf99996b.html",
+      "tags": [
+        "Drupal",
+        "Open Source",
+        "Accessibility"
+      ],
+      "word_count": 737
+    },
+    {
+      "id": "8a1dff130b37",
+      "title": "Helping disabled Veterans Check-In: Designing an Accessibility Map",
+      "subtitle": "A note on language: We’re using both son”)…",
+      "author": "Nira Datta",
+      "published_at": "2023-04-06T13:15:33.125000Z",
+      "updated_at": "2023-04-06T13:15:34.427000Z",
+      "source_url": "https://medium.com/civicactions/helping-disabled-veterans-check-in-designing-an-accessibility-map-8a1dff130b37",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/helping-disabled-veterans-check-in-designing-an-accessibility-map-8a1dff130b37.html",
+      "tags": [
+        "Accessibility",
+        "Civic Design",
+        "Design Process",
+        "Service Design"
+      ],
+      "word_count": 1475
+    },
+    {
+      "id": "b4a0f63e3871",
+      "title": "ChatGPT, Security, and OpenPrivacy",
+      "subtitle": "OpenAI’s ChatGPT has been a controversial topic of discussion over the past few months. Many have been quick to hail its positive…",
+      "author": "Fen Labalme",
+      "published_at": "2023-03-27T15:32:03.325000Z",
+      "updated_at": "2023-03-28T08:05:19.606000Z",
+      "source_url": "https://medium.com/civicactions/chatgpt-security-and-openprivacy-b4a0f63e3871",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/chatgpt-security-and-openprivacy-b4a0f63e3871.html",
+      "tags": [
+        "AI",
+        "Privacy",
+        "Security",
+        "ChatGPT",
+        "Machine Learning"
+      ],
+      "word_count": 751
+    },
+    {
+      "id": "39ab9edb102",
+      "title": "Alaine Karoleff: Delivering Impact",
+      "subtitle": "As the Director of Digital Services at CivicActions, what initially drew you to a career in civic tech?",
+      "author": "CivicActions",
+      "published_at": "2023-03-20T15:16:46.322000Z",
+      "updated_at": "2023-03-21T04:17:12.122000Z",
+      "source_url": "https://medium.com/civicactions/alaine-karoleff-delivering-impact-39ab9edb102",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/alaine-karoleff-delivering-impact-39ab9edb102.html",
+      "tags": [
+        "Impact",
+        "Digital Transformation",
+        "Women In Tech",
+        "Careers",
+        "Civictech"
+      ],
+      "word_count": 1070
+    },
+    {
+      "id": "917f501ddfca",
+      "title": "Creating a Culture of Care: Retention at CivicActions",
+      "subtitle": "Tech companies have a reputation across the board for high turnover and burnout. At CivicActions, we are working hard to reverse this trend…",
+      "author": "CivicActions",
+      "published_at": "2023-02-14T17:12:54.862000Z",
+      "updated_at": "2025-02-25T22:25:19.914000Z",
+      "source_url": "https://medium.com/civicactions/creating-a-culture-of-care-retention-at-civicactions-917f501ddfca",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/creating-a-culture-of-care-retention-at-civicactions-917f501ddfca.html",
+      "tags": [
+        "Retention",
+        "Retention Strategies",
+        "Care",
+        "Culture",
+        "People And Culture"
+      ],
+      "word_count": 770
+    },
+    {
+      "id": "978c7843f398",
+      "title": "Sourcing Top Tech Talent: Meet Technical Recruiter Em Wilson",
+      "subtitle": "I set the foundation of trust, openness, and care so that each potential candidate I connect with knows and feels that I respect their time",
+      "author": "CivicActions",
+      "published_at": "2023-02-08T15:47:29.476000Z",
+      "updated_at": "2023-02-09T04:15:58.412000Z",
+      "source_url": "https://medium.com/civicactions/sourcing-top-tech-talent-meet-technical-recruiter-em-wilson-978c7843f398",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/sourcing-top-tech-talent-meet-technical-recruiter-em-wilson-978c7843f398.html",
+      "tags": [
+        "Recruiting",
+        "Tech Recruiting",
+        "Technical Recruiting",
+        "Recruitment",
+        "People And Culture"
+      ],
+      "word_count": 919
+    },
+    {
+      "id": "9d6bc1287191",
+      "title": "WECMS: Making a Lasting Impact",
+      "subtitle": "Delivering on the promise of government as a platform (GaaP)",
+      "author": "CivicActions",
+      "published_at": "2023-02-01T15:17:30.410000Z",
+      "updated_at": "2023-02-02T04:15:59.960000Z",
+      "source_url": "https://medium.com/civicactions/wecms-making-a-lasting-impact-9d6bc1287191",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/wecms-making-a-lasting-impact-9d6bc1287191.html",
+      "tags": [
+        "Medicare",
+        "CMS",
+        "Gaap",
+        "Healthcare",
+        "Digital Services"
+      ],
+      "word_count": 934
+    },
+    {
+      "id": "d10e019cb5a2",
+      "title": "7 Gen Z-Inspired Civic Tech Trends for 2023",
+      "subtitle": "It is 2023 and we think that Gen Z, those born between 1996–2012, will drive this year’s civic tech trends.",
+      "author": "CivicActions",
+      "published_at": "2023-01-24T16:33:04.681000Z",
+      "updated_at": "2025-02-25T22:25:16.207000Z",
+      "source_url": "https://medium.com/civicactions/7-gen-z-inspired-civic-tech-trends-for-2023-d10e019cb5a2",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/7-gen-z-inspired-civic-tech-trends-for-2023-d10e019cb5a2.html",
+      "tags": [
+        "Gen Z",
+        "Gen Z Marketing",
+        "Civic Technology",
+        "Civictech",
+        "Tech And Design"
+      ],
+      "word_count": 1485
+    },
+    {
+      "id": "adb4f91f6095",
+      "title": "Improving Centers for Medicare and Medicaid Services (CMS) through Drupal Contributions",
+      "subtitle": "At CivicActions, Drupal is a core tool in making the web more accessible, human-centered, and beneficial to users. In addition to solving…",
+      "author": "CivicActions",
+      "published_at": "2023-01-18T17:28:52.969000Z",
+      "updated_at": "2023-01-18T17:29:01.779000Z",
+      "source_url": "https://medium.com/civicactions/improving-centers-for-medicare-and-medicaid-services-cms-through-drupal-contributions-adb4f91f6095",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/improving-centers-for-medicare-and-medicaid-services-cms-through-drupal-contributions-adb4f91f6095.html",
+      "tags": [
+        "Drupal",
+        "Medicare",
+        "Open Data",
+        "Digital Services",
+        "Tech And Design"
+      ],
+      "word_count": 561
+    },
+    {
+      "id": "e11cef227ed7",
+      "title": "Integrating change management into Agile product design",
+      "subtitle": "Practical tools for planning, monitoring and measuring your change program",
+      "author": "Denise Eisner",
+      "published_at": "2023-01-12T19:12:26.175000Z",
+      "updated_at": "2023-01-12T19:12:33.577000Z",
+      "source_url": "https://medium.com/civicactions/integrating-change-management-into-agile-product-design-e11cef227ed7",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/integrating-change-management-into-agile-product-design-e11cef227ed7.html",
+      "tags": [
+        "Change Management",
+        "UX Research",
+        "Content Strategy",
+        "Digital Services",
+        "Tech And Design"
+      ],
+      "word_count": 1474
+    },
+    {
+      "id": "24f2ea9233b6",
+      "title": "Liz Tupper, Director of Product: Making an Impact During the First 90 Days",
+      "subtitle": "Liz Tupper, CivicActions’ first Director of Product, has a rich background in Impact Tech. Based out of Minneapolis, MN, Liz’s experience…",
+      "author": "CivicActions",
+      "published_at": "2022-11-22T19:51:57.759000Z",
+      "updated_at": "2022-11-30T14:35:13.761000Z",
+      "source_url": "https://medium.com/civicactions/liz-tupper-director-of-product-24f2ea9233b6",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/liz-tupper-director-of-product-24f2ea9233b6.html",
+      "tags": [
+        "Product",
+        "Product Management",
+        "First 90 Days",
+        "Tech And Design",
+        "People And Culture"
+      ],
+      "word_count": 445
+    },
+    {
+      "id": "4b45e8b77389",
+      "title": "Hybridizing the Annual Summit as a Distributed Company",
+      "subtitle": "As a fully distributed company, CivicActions has used all-team, annual in-person summits as a way to more deeply connect with colleagues…",
+      "author": "CivicActions",
+      "published_at": "2022-10-19T15:46:30.839000Z",
+      "updated_at": "2022-10-19T15:46:39.016000Z",
+      "source_url": "https://medium.com/civicactions/hybridizing-the-annual-summit-as-a-distributed-company-4b45e8b77389",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/hybridizing-the-annual-summit-as-a-distributed-company-4b45e8b77389.html",
+      "tags": [
+        "Remote Working",
+        "Summit",
+        "Hybrid Work",
+        "People And Culture"
+      ],
+      "word_count": 663
+    },
+    {
+      "id": "73c70fb99a4",
+      "title": "Discussing Veterans Affairs (VA) and Accessibility with Martha Wilkes, Designer/Accessibility…",
+      "subtitle": "Tell us a little about yourself, including your career trajectory and your role at the US Digital Service (USDS).",
+      "author": "CivicActions",
+      "published_at": "2022-10-04T14:35:41.572000Z",
+      "updated_at": "2022-10-04T14:35:48.090000Z",
+      "source_url": "https://medium.com/civicactions/discussing-veterans-affairs-va-and-accessibility-with-martha-wilkes-designer-accessibility-73c70fb99a4",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/discussing-veterans-affairs-va-and-accessibility-with-martha-wilkes-designer-accessibility-73c70fb99a4.html",
+      "tags": [
+        "Trauma Informed",
+        "Design",
+        "Veterans",
+        "Digital Services",
+        "Tech And Design"
+      ],
+      "word_count": 1553
+    },
+    {
+      "id": "50528e379a5f",
+      "title": "6 Things You’ll Gain from DITAP",
+      "subtitle": "In government, buying digital services is a unique and different skill set than general procurement practices. According to a recent…",
+      "author": "CivicActions",
+      "published_at": "2022-09-20T20:05:14.908000Z",
+      "updated_at": "2022-09-20T20:05:24.214000Z",
+      "source_url": "https://medium.com/civicactions/6-things-youll-gain-from-ditap-50528e379a5f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/6-things-youll-gain-from-ditap-50528e379a5f.html",
+      "tags": [
+        "Procurement",
+        "Digital Procurement",
+        "Federal Government",
+        "Technology"
+      ],
+      "word_count": 538
+    },
+    {
+      "id": "ff4b5835f4f3",
+      "title": "Introducing the Kevin Walsh Impact Award",
+      "subtitle": "Kevin Walsh could brighten up any room (including Zoom rooms) with his warm smile and bright eyes. For over 15 years, Kev contributed to…",
+      "author": "Elizabeth Raley",
+      "published_at": "2022-09-01T13:36:29.119000Z",
+      "updated_at": "2022-09-01T13:36:33.778000Z",
+      "source_url": "https://medium.com/civicactions/introducing-the-kevin-walsh-impact-award-ff4b5835f4f3",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/introducing-the-kevin-walsh-impact-award-ff4b5835f4f3.html",
+      "tags": [
+        "Impact",
+        "In Memory",
+        "Remembering"
+      ],
+      "word_count": 462
+    },
+    {
+      "id": "bb1c401315cc",
+      "title": "One Drupal platform, multiple government products",
+      "subtitle": "How a product-oriented approach to content management helps VA get the right info to Veterans",
+      "author": "CivicActions",
+      "published_at": "2022-01-06T18:51:41.387000Z",
+      "updated_at": "2022-01-11T18:27:42.045000Z",
+      "source_url": "https://medium.com/civicactions/one-drupal-platform-multiple-government-products-bb1c401315cc",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/one-drupal-platform-multiple-government-products-bb1c401315cc.html",
+      "tags": [
+        "Drupal",
+        "Design And Tech",
+        "Digital Services",
+        "Government",
+        "Civicactions Talks"
+      ],
+      "word_count": 471
+    },
+    {
+      "id": "e10a0529960",
+      "title": "How Drupal helps us bake accessibility into every project",
+      "subtitle": "Learn key features of Drupal that help make your site useful to people of all abilities",
+      "author": "CivicActions",
+      "published_at": "2021-12-13T17:54:37.894000Z",
+      "updated_at": "2022-01-04T02:23:49.994000Z",
+      "source_url": "https://medium.com/civicactions/how-drupal-helps-us-bake-accessibility-into-every-project-e10a0529960",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/how-drupal-helps-us-bake-accessibility-into-every-project-e10a0529960.html",
+      "tags": [
+        "Drupal",
+        "Accessibility",
+        "Design And Tech",
+        "Digital Services",
+        "Talks"
+      ],
+      "word_count": 348
+    },
+    {
+      "id": "4ce3524203fb",
+      "title": "Designing a Veteran-first online experience for VA health centers",
+      "subtitle": "How we use content strategy and design to deliver consistent information to Veterans at scale",
+      "author": "CivicActions",
+      "published_at": "2021-11-22T14:51:09.174000Z",
+      "updated_at": "2022-01-04T08:39:54.230000Z",
+      "source_url": "https://medium.com/civicactions/designing-a-veteran-first-experience-for-va-gov-4ce3524203fb",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/designing-a-veteran-first-experience-for-va-gov-4ce3524203fb.html",
+      "tags": [
+        "Design And Tech",
+        "Digital Services",
+        "Va Modernization",
+        "Drupal",
+        "Civicactions Talks"
+      ],
+      "word_count": 377
+    },
+    {
+      "id": "3ac1b8cf4a8d",
+      "title": "Q&A with David Sumner: The “30-Minute Rule” and other engineering wins",
+      "subtitle": "How CivicActions engineers stay connected and accountable (while also having fun)",
+      "author": "Allison Carroll",
+      "published_at": "2021-07-22T20:24:05.405000Z",
+      "updated_at": "2022-01-06T05:10:30.424000Z",
+      "source_url": "https://medium.com/civicactions/q-a-with-david-sumner-the-30-minute-rule-and-other-engineering-wins-3ac1b8cf4a8d",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/q-a-with-david-sumner-the-30-minute-rule-and-other-engineering-wins-3ac1b8cf4a8d.html",
+      "tags": [
+        "People And Culture",
+        "Engineering",
+        "Government",
+        "Agile",
+        "Digital Services"
+      ],
+      "word_count": 1279
+    },
+    {
+      "id": "b0b085cd90d6",
+      "title": "Launching a community of practice for accessibility in government services",
+      "subtitle": "On Global Accessibility Awareness Day, we’re excited to be announcing the launch of our initiative to advance accessibility awareness.",
+      "author": "Nira Datta",
+      "published_at": "2021-05-20T19:26:50.085000Z",
+      "updated_at": "2025-02-25T22:25:22.355000Z",
+      "source_url": "https://medium.com/civicactions/launching-a-community-of-practice-for-accessibility-in-government-services-b0b085cd90d6",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/launching-a-community-of-practice-for-accessibility-in-government-services-b0b085cd90d6.html",
+      "tags": [
+        "Government Services",
+        "Accessibility",
+        "Design And Tech",
+        "People And Culture"
+      ],
+      "word_count": 989
+    },
+    {
+      "id": "339ff94f017f",
+      "title": "Q&A with Mike Gifford: Accessibility in civic tech",
+      "subtitle": "Accessibility is about more than compliance … it’s a human right.",
+      "author": "Allison Carroll",
+      "published_at": "2021-05-06T17:30:22.629000Z",
+      "updated_at": "2025-02-25T22:25:26.590000Z",
+      "source_url": "https://medium.com/civicactions/q-a-with-mike-gifford-accessibility-in-civic-tech-339ff94f017f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/q-a-with-mike-gifford-accessibility-in-civic-tech-339ff94f017f.html",
+      "tags": [
+        "Accessibility",
+        "Disability",
+        "Procurement",
+        "People And Culture",
+        "Design And Tech"
+      ],
+      "word_count": 1314
+    },
+    {
+      "id": "588a07088c65",
+      "title": "Government Accessibility and the CMS Problem",
+      "subtitle": "How an open source pilot project is empowering content authors to build a more inclusive world",
+      "author": "CivicActions",
+      "published_at": "2021-03-12T18:51:19.319000Z",
+      "updated_at": "2025-02-25T22:25:28.520000Z",
+      "source_url": "https://medium.com/civicactions/government-accessibility-and-the-cms-problem-588a07088c65",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/government-accessibility-and-the-cms-problem-588a07088c65.html",
+      "tags": [
+        "Accessibility",
+        "Open Source",
+        "Design And Tech",
+        "CMS",
+        "Civicactions Talks"
+      ],
+      "word_count": 454
+    },
+    {
+      "id": "232552fc080a",
+      "title": "What is data science, really?",
+      "subtitle": "It may be simpler than you think … and it holds power to transform public outcomes",
+      "author": "Jacob Rozran",
+      "published_at": "2021-03-08T21:03:20.101000Z",
+      "updated_at": "2022-01-07T18:39:14.129000Z",
+      "source_url": "https://medium.com/civicactions/what-is-data-science-really-232552fc080a",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/what-is-data-science-really-232552fc080a.html",
+      "tags": [
+        "Open Data",
+        "Data Science",
+        "Government Data",
+        "Public Data",
+        "Open Source Data"
+      ],
+      "word_count": 927
+    },
+    {
+      "id": "561df916fbc5",
+      "title": "Unit tests in Drupal",
+      "subtitle": "Tips on getting started with test-driven development for cleaner, faster code",
+      "author": "CivicActions",
+      "published_at": "2021-03-01T14:17:43.497000Z",
+      "updated_at": "2022-01-01T15:36:09.143000Z",
+      "source_url": "https://medium.com/civicactions/unit-tests-in-drupal-561df916fbc5",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/unit-tests-in-drupal-561df916fbc5.html",
+      "tags": [
+        "Test Driven Development",
+        "Design And Tech",
+        "Drupal",
+        "Civicactions Talks"
+      ],
+      "word_count": 386
+    },
+    {
+      "id": "524e3005fceb",
+      "title": "Policy recommendations for improving the ATO process through Compliance as Code",
+      "subtitle": "How federal agencies can remove barriers to better, faster security",
+      "author": "Fen Labalme",
+      "published_at": "2021-02-16T16:25:28.352000Z",
+      "updated_at": "2021-12-30T23:10:48.316000Z",
+      "source_url": "https://medium.com/civicactions/policy-recommendations-for-improving-the-ato-process-through-compliance-as-code-524e3005fceb",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/policy-recommendations-for-improving-the-ato-process-through-compliance-as-code-524e3005fceb.html",
+      "tags": [
+        "Compliance As Code",
+        "Design And Tech",
+        "Government Security",
+        "Ato",
+        "Security Compliance"
+      ],
+      "word_count": 636
+    },
+    {
+      "id": "5de37580209",
+      "title": "WhiteHouse.gov: Beginning an accessibility journey",
+      "subtitle": "Praise and recommendations for the accessibility statement published by the new administration",
+      "author": "Mike Gifford",
+      "published_at": "2021-02-02T16:19:20.724000Z",
+      "updated_at": "2021-12-29T10:09:18.201000Z",
+      "source_url": "https://medium.com/civicactions/whitehouse-gov-makes-an-accessibility-statement-5de37580209",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/whitehouse-gov-makes-an-accessibility-statement-5de37580209.html",
+      "tags": [
+        "Accessibility",
+        "Accessibility Statement",
+        "Biden Administration",
+        "Tech And Design"
+      ],
+      "word_count": 1351
+    },
+    {
+      "id": "17daee45fe0b",
+      "title": "Open source for open data: Why it matters",
+      "subtitle": "Government can better serve the public when data belongs to everyone",
+      "author": "Marlena Medford",
+      "published_at": "2021-01-28T16:03:31.376000Z",
+      "updated_at": "2021-12-28T21:09:17.229000Z",
+      "source_url": "https://medium.com/civicactions/open-source-for-open-data-why-it-matters-17daee45fe0b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/open-source-for-open-data-why-it-matters-17daee45fe0b.html",
+      "tags": [
+        "Open Data",
+        "Government Open Data",
+        "Data Sharing",
+        "Data Sovereignty"
+      ],
+      "word_count": 702
+    },
+    {
+      "id": "ec4282922d08",
+      "title": "The philosophy of government customer experience",
+      "subtitle": "Fundamental values and mindsets that drive CX",
+      "author": "Shira Kates",
+      "published_at": "2021-01-13T21:04:54.764000Z",
+      "updated_at": "2021-12-27T05:46:54.591000Z",
+      "source_url": "https://medium.com/civicactions/government-customer-experience-a-philosophical-guide-ec4282922d08",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/government-customer-experience-a-philosophical-guide-ec4282922d08.html",
+      "tags": [
+        "Cx",
+        "Govtech",
+        "Customer Experience",
+        "Tech And Design",
+        "Digital Services"
+      ],
+      "word_count": 1065
+    },
+    {
+      "id": "59b602815e3f",
+      "title": "Government customer experience: A practical guide",
+      "subtitle": "How to start bringing CX into the business of government",
+      "author": "Shira Kates",
+      "published_at": "2021-01-13T21:04:10.567000Z",
+      "updated_at": "2021-12-27T05:51:18.597000Z",
+      "source_url": "https://medium.com/civicactions/government-customer-experience-a-practical-guide-59b602815e3f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/government-customer-experience-a-practical-guide-59b602815e3f.html",
+      "tags": [
+        "Cx",
+        "Customer Experience",
+        "Govtech",
+        "Tech And Design",
+        "Digital Services"
+      ],
+      "word_count": 1317
+    },
+    {
+      "id": "7eacae879cf7",
+      "title": "Government customer experience: A primer",
+      "subtitle": "How CX is emerging in the public sector and how digital service teams can support it",
+      "author": "Shira Kates",
+      "published_at": "2021-01-13T20:03:58.683000Z",
+      "updated_at": "2021-12-27T05:47:02.757000Z",
+      "source_url": "https://medium.com/civicactions/government-customer-experience-a-primer-7eacae879cf7",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/government-customer-experience-a-primer-7eacae879cf7.html",
+      "tags": [
+        "Cx",
+        "Govtech",
+        "Customer Experience",
+        "Tech And Design",
+        "Digital Services"
+      ],
+      "word_count": 1191
+    },
+    {
+      "id": "2f6eb62b6f86",
+      "title": "In Brief: ACT-IAC CX Summit 2020",
+      "subtitle": "Why government agencies are doubling down on better customer experiences",
+      "author": "Ben Leffler",
+      "published_at": "2020-11-30T22:14:00.924000Z",
+      "updated_at": "2021-12-22T12:36:05.663000Z",
+      "source_url": "https://medium.com/civicactions/in-brief-act-iac-cx-summit-2020-2f6eb62b6f86",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/in-brief-act-iac-cx-summit-2020-2f6eb62b6f86.html",
+      "tags": [
+        "Cx",
+        "Customer Experience",
+        "Civictech",
+        "UX",
+        "Tech And Design"
+      ],
+      "word_count": 778
+    },
+    {
+      "id": "6bf1b13e900d",
+      "title": "What 20 Data Managers at Every Level of Government Had to Say About Their Work",
+      "subtitle": "In late September, a few members of the CivicActions Open Data Team presented at Drupal GovCon on The State of the Union(‘s Data).",
+      "author": "Kim Davidson",
+      "published_at": "2020-10-23T15:28:04.166000Z",
+      "updated_at": "2021-12-16T07:24:39.290000Z",
+      "source_url": "https://medium.com/civicactions/what-20-data-managers-at-every-level-of-government-had-to-say-about-their-work-6bf1b13e900d",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/what-20-data-managers-at-every-level-of-government-had-to-say-about-their-work-6bf1b13e900d.html",
+      "tags": [
+        "Open Data",
+        "Government Data",
+        "Dkan",
+        "Data Program Management"
+      ],
+      "word_count": 671
+    },
+    {
+      "id": "8e20fabc7281",
+      "title": "4 ways to improve government accessibility through open source",
+      "subtitle": "How agencies can adopt an open source strategy to make their services more usable by people of all abilities",
+      "author": "Mike Gifford",
+      "published_at": "2020-10-05T17:56:44.635000Z",
+      "updated_at": "2021-12-16T03:58:11.338000Z",
+      "source_url": "https://medium.com/civicactions/4-ways-to-improve-government-accessibility-through-open-source-8e20fabc7281",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/4-ways-to-improve-government-accessibility-through-open-source-8e20fabc7281.html",
+      "tags": [
+        "Accessibility",
+        "Open Source",
+        "Uswds",
+        "Drupal",
+        "Tech And Design"
+      ],
+      "word_count": 1446
+    },
+    {
+      "id": "cc6309df4103",
+      "title": "What we learned from training procurement officers to buy modern government IT",
+      "subtitle": "The DITAP program is a promising step to transforming gov procurement, but we still have work to do",
+      "author": "Victor",
+      "published_at": "2020-08-25T20:01:45.128000Z",
+      "updated_at": "2021-12-15T17:28:41.217000Z",
+      "source_url": "https://medium.com/civicactions/what-we-learned-from-training-procurement-officers-to-buy-modern-government-it-cc6309df4103",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/what-we-learned-from-training-procurement-officers-to-buy-modern-government-it-cc6309df4103.html",
+      "tags": [
+        "Civic Tech",
+        "Digital Acquisition",
+        "Federal Government",
+        "Digital Procurement",
+        "Digital Services"
+      ],
+      "word_count": 2613
+    },
+    {
+      "id": "dd1d3ed518af",
+      "title": "What “fierce openness” can do for government",
+      "subtitle": "How public service teams can embrace transparency to get more good work done",
+      "author": "Mary Lazzeri",
+      "published_at": "2020-07-17T22:00:18.311000Z",
+      "updated_at": "2021-12-15T05:49:58.587000Z",
+      "source_url": "https://medium.com/civicactions/what-fierce-openness-can-do-for-government-dd1d3ed518af",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/what-fierce-openness-can-do-for-government-dd1d3ed518af.html",
+      "tags": [
+        "Open Government",
+        "Open Culture",
+        "Collaboration",
+        "People And Culture"
+      ],
+      "word_count": 1427
+    },
+    {
+      "id": "54bd79b912c3",
+      "title": "Quickly Shifting to Distributed Teams in Government",
+      "subtitle": "How government teams can work effectively together while physically apart",
+      "author": "CivicActions",
+      "published_at": "2020-04-06T18:22:06.591000Z",
+      "updated_at": "2021-12-14T02:41:26.413000Z",
+      "source_url": "https://medium.com/civicactions/quickly-shifting-to-distributed-teams-in-government-54bd79b912c3",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/quickly-shifting-to-distributed-teams-in-government-54bd79b912c3.html",
+      "tags": [
+        "Remote Work",
+        "People And Culture",
+        "Telework",
+        "Distributed Teams",
+        "Civicactions Talks"
+      ],
+      "word_count": 439
+    },
+    {
+      "id": "1f376d478cfd",
+      "title": "The role of UX in an agile team",
+      "subtitle": "Examining the challenges and opportunities of bringing good user experience to government",
+      "author": "CivicActions",
+      "published_at": "2020-01-22T04:20:22.940000Z",
+      "updated_at": "2021-12-13T07:23:08.031000Z",
+      "source_url": "https://medium.com/civicactions/the-role-of-ux-in-an-agile-team-1f376d478cfd",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/the-role-of-ux-in-an-agile-team-1f376d478cfd.html",
+      "tags": [
+        "Government Ux",
+        "User Experience",
+        "Civicactions Talks",
+        "Tech And Design",
+        "Digital Services"
+      ],
+      "word_count": 370
+    },
+    {
+      "id": "704947e2f541",
+      "title": "Modular content strategy for Doctors Without Borders",
+      "subtitle": "Making life easier for website content authors with a component-driven approach in Drupal",
+      "author": "CivicActions",
+      "published_at": "2019-12-13T22:24:34.287000Z",
+      "updated_at": "2021-12-12T22:40:23.687000Z",
+      "source_url": "https://medium.com/civicactions/modular-content-strategy-for-doctors-without-borders-704947e2f541",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/modular-content-strategy-for-doctors-without-borders-704947e2f541.html",
+      "tags": [
+        "Drupal",
+        "Tech And Design",
+        "Content Strategy",
+        "Gov Digital Services",
+        "Civicactions Talks"
+      ],
+      "word_count": 356
+    },
+    {
+      "id": "1305f1e83617",
+      "title": "Migrating static content into Drupal 8",
+      "subtitle": "Strategies and tools for moving mountains of unstructured government content",
+      "author": "CivicActions",
+      "published_at": "2019-12-12T23:00:04.162000Z",
+      "updated_at": "2021-12-12T22:38:03.427000Z",
+      "source_url": "https://medium.com/civicactions/migrating-static-content-into-drupal-8-1305f1e83617",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/migrating-static-content-into-drupal-8-1305f1e83617.html",
+      "tags": [
+        "Drupal",
+        "Civicactions Talks",
+        "Tech And Design",
+        "Government Modernization"
+      ],
+      "word_count": 288
+    },
+    {
+      "id": "c68503192d26",
+      "title": "How our distributed team makes up for a year apart",
+      "subtitle": "The CivicActions team gathered in Portland at our annual Summit to share ideas, envision the future, and celebrate being present together.",
+      "author": "CivicActions",
+      "published_at": "2019-10-17T17:08:52.643000Z",
+      "updated_at": "2025-02-25T22:25:25.250000Z",
+      "source_url": "https://medium.com/civicactions/how-our-distributed-team-makes-up-for-a-year-apart-c68503192d26",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/how-our-distributed-team-makes-up-for-a-year-apart-c68503192d26.html",
+      "tags": [
+        "Remote Working",
+        "Distributed Teams",
+        "People And Culture",
+        "Government Innovation",
+        "Civictech"
+      ],
+      "word_count": 683
+    },
+    {
+      "id": "c2a590b96c5e",
+      "title": "A few of my favorite things",
+      "subtitle": "Useful Drupal extensions for government modernization projects",
+      "author": "CivicActions",
+      "published_at": "2019-08-19T18:00:48.419000Z",
+      "updated_at": "2021-12-11T09:51:34.947000Z",
+      "source_url": "https://medium.com/civicactions/a-few-of-my-favorite-things-c2a590b96c5e",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/a-few-of-my-favorite-things-c2a590b96c5e.html",
+      "tags": [
+        "Drupal",
+        "Civicactions Talks",
+        "Government Modernization",
+        "Tech And Design"
+      ],
+      "word_count": 305
+    },
+    {
+      "id": "cc5096b2fe61",
+      "title": "Single Sign On With Drupal",
+      "subtitle": "Building simple and secure user management",
+      "author": "CivicActions",
+      "published_at": "2019-08-19T17:44:31.421000Z",
+      "updated_at": "2021-12-11T09:51:10.993000Z",
+      "source_url": "https://medium.com/civicactions/single-sign-on-with-drupal-cc5096b2fe61",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/single-sign-on-with-drupal-cc5096b2fe61.html",
+      "tags": [
+        "Drupal",
+        "Civicactions Talks",
+        "Tech And Design",
+        "Government Modernization"
+      ],
+      "word_count": 299
+    },
+    {
+      "id": "6723d95eaad8",
+      "title": "Improving scrum team flow on digital service projects",
+      "subtitle": "How a 30-second ritual keeps our team empathetic and productive",
+      "author": "Henry Poole",
+      "published_at": "2019-08-15T19:19:04.874000Z",
+      "updated_at": "2021-12-11T07:09:20.837000Z",
+      "source_url": "https://medium.com/civicactions/improving-scrum-team-flow-on-digital-service-projects-6723d95eaad8",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/improving-scrum-team-flow-on-digital-service-projects-6723d95eaad8.html",
+      "tags": [
+        "Remote Working",
+        "People And Culture",
+        "Scrum",
+        "Work Life Balance"
+      ],
+      "word_count": 2453
+    },
+    {
+      "id": "e2f44654fb2b",
+      "title": "Pairing Drupal + USWDS v2 to build better government websites",
+      "subtitle": "How the Drupal community is working to integrate with the U.S. Web Design System, and what it means for government",
+      "author": "CivicActions",
+      "published_at": "2019-08-12T16:03:29.062000Z",
+      "updated_at": "2021-12-11T07:12:07.388000Z",
+      "source_url": "https://medium.com/civicactions/pairing-drupal-uswds-v2-to-build-better-government-websites-e2f44654fb2b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/pairing-drupal-uswds-v2-to-build-better-government-websites-e2f44654fb2b.html",
+      "tags": [
+        "Drupal",
+        "Tech And Design",
+        "Government Modernization",
+        "Civicactions Talks"
+      ],
+      "word_count": 324
+    },
+    {
+      "id": "7aab30d69c1c",
+      "title": "We hire people, not resumes (and other quirks to the CivicActions application process)",
+      "subtitle": "How our unique hiring practices help us connect with the humans who will work with us to improve government services + tips for how to…",
+      "author": "Grace McKinney",
+      "published_at": "2019-08-07T18:50:39.494000Z",
+      "updated_at": "2021-12-11T04:54:00.425000Z",
+      "source_url": "https://medium.com/civicactions/we-hire-people-not-resumes-and-other-quirks-to-the-civicactions-application-process-7aab30d69c1c",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/we-hire-people-not-resumes-and-other-quirks-to-the-civicactions-application-process-7aab30d69c1c.html",
+      "tags": [
+        "Hiring",
+        "People And Culture",
+        "Remote Work",
+        "Government Innovation",
+        "Civictech"
+      ],
+      "word_count": 890
+    },
+    {
+      "id": "81d34363e0be",
+      "title": "Are we _really_ transforming government? Aligning values and measuring impact",
+      "subtitle": "A panel of civic tech firms on how to build partnerships focused on delivering value to the public",
+      "author": "CivicActions",
+      "published_at": "2019-07-31T17:59:20.707000Z",
+      "updated_at": "2021-12-11T02:35:14.646000Z",
+      "source_url": "https://medium.com/civicactions/are-we-really-transforming-government-aligning-values-and-measuring-impact-81d34363e0be",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/are-we-really-transforming-government-aligning-values-and-measuring-impact-81d34363e0be.html",
+      "tags": [
+        "Agile Government",
+        "Civicactions Talks",
+        "Government Innovation",
+        "Digital Services",
+        "Civic Tech"
+      ],
+      "word_count": 359
+    },
+    {
+      "id": "4614f2acf2d2",
+      "title": "The joy of open, agile government security compliance",
+      "subtitle": "Using F/LOSS, agile, and DevSecOps to help make compliance more secure",
+      "author": "CivicActions",
+      "published_at": "2019-07-31T15:36:58.495000Z",
+      "updated_at": "2021-12-11T02:33:54.970000Z",
+      "source_url": "https://medium.com/civicactions/the-joy-of-open-agile-government-security-compliance-4614f2acf2d2",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/the-joy-of-open-agile-government-security-compliance-4614f2acf2d2.html",
+      "tags": [
+        "Cybersecurity",
+        "Government Modernization",
+        "Tech And Design",
+        "Civicactions Talks",
+        "Digital Services"
+      ],
+      "word_count": 343
+    },
+    {
+      "id": "7477a150a126",
+      "title": "How Drupal can (and is) powering government open data efforts",
+      "subtitle": "The DKAN open source open data platform helps agencies use data to improve lives",
+      "author": "CivicActions",
+      "published_at": "2019-07-30T19:31:46.984000Z",
+      "updated_at": "2021-12-11T02:30:31.050000Z",
+      "source_url": "https://medium.com/civicactions/how-drupal-can-and-is-powering-government-open-data-efforts-7477a150a126",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/how-drupal-can-and-is-powering-government-open-data-efforts-7477a150a126.html",
+      "tags": [
+        "Open Data",
+        "Dkan",
+        "Civicactions Talks",
+        "Tech And Design",
+        "Government Open Data"
+      ],
+      "word_count": 280
+    },
+    {
+      "id": "bbd63440b91",
+      "title": "Content cleanup during migration",
+      "subtitle": "In large government site migrations, keep the only good stuff and clean as you go",
+      "author": "CivicActions",
+      "published_at": "2019-07-23T16:08:41.478000Z",
+      "updated_at": "2021-12-11T00:15:34.533000Z",
+      "source_url": "https://medium.com/civicactions/content-cleanup-during-migration-bbd63440b91",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/content-cleanup-during-migration-bbd63440b91.html",
+      "tags": [
+        "Drupal",
+        "Tech And Design",
+        "Data Migration",
+        "Government Modernization",
+        "Civicactions Talks"
+      ],
+      "word_count": 290
+    },
+    {
+      "id": "f1075c4d803",
+      "title": "CivicActions at Drupal GovCon 2018",
+      "subtitle": "We are always thrilled to sponsor and participate at Drupal GovCon, and this year promises endless opportunities to connect, learn, and…",
+      "author": "Melinda Burgess",
+      "published_at": "2018-08-14T00:51:03.161000Z",
+      "updated_at": "2018-08-14T00:51:23.392000Z",
+      "source_url": "https://medium.com/civicactions/civicactions-at-drupal-govcon-2018-f1075c4d803",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/civicactions-at-drupal-govcon-2018-f1075c4d803.html",
+      "tags": [
+        "Open Data",
+        "Drupal",
+        "People And Culture",
+        "Drupal Govcon",
+        "Dkan"
+      ],
+      "word_count": 695
+    },
+    {
+      "id": "723016365468",
+      "title": "One platform, 18 organizations, 6 countries, and 9 launches",
+      "subtitle": "After a year and a half of work, we launched the first of 18 GlobalNET sites for the Department of Defense’s Defense Security Cooperation…",
+      "author": "Kim Davidson",
+      "published_at": "2018-08-13T20:08:05.158000Z",
+      "updated_at": "2019-01-31T22:34:51.112000Z",
+      "source_url": "https://medium.com/civicactions/one-platform-18-organizations-6-countries-and-9-launches-723016365468",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/one-platform-18-organizations-6-countries-and-9-launches-723016365468.html",
+      "tags": [
+        "Agile",
+        "Tech And Design",
+        "Government Innovation",
+        "Dsca",
+        "Digital Services"
+      ],
+      "word_count": 1012
+    },
+    {
+      "id": "d816f8584030",
+      "title": "Give government permission to speak freely",
+      "subtitle": "By Robert L. Read and Fen Labalme",
+      "author": "Fen Labalme",
+      "published_at": "2018-08-13T00:34:33.461000Z",
+      "updated_at": "2019-01-31T22:35:28.949000Z",
+      "source_url": "https://medium.com/civicactions/give-government-permission-to-speak-freely-d816f8584030",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/give-government-permission-to-speak-freely-d816f8584030.html",
+      "tags": [
+        "Government",
+        "Government Innovation",
+        "Open Government",
+        "People And Culture"
+      ],
+      "word_count": 693
+    },
+    {
+      "id": "796ef88813cd",
+      "title": "An open dialogue on work and life in a distributed team",
+      "subtitle": "A group of us at CivicActions recently sat down to hold a frank discussion about life as part of a distributed team (and by sit down, I…",
+      "author": "Steve Curtis",
+      "published_at": "2018-08-03T01:41:41.486000Z",
+      "updated_at": "2019-01-31T22:40:40.438000Z",
+      "source_url": "https://medium.com/civicactions/an-open-dialogue-on-work-and-life-in-a-distributed-team-796ef88813cd",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/an-open-dialogue-on-work-and-life-in-a-distributed-team-796ef88813cd.html",
+      "tags": [
+        "Remote Working",
+        "Communication",
+        "People And Culture",
+        "Remote Teams",
+        "Civic Technology"
+      ],
+      "word_count": 1545
+    },
+    {
+      "id": "383f72937666",
+      "title": "Joining the Data Coalition and expanding our commitment to open data",
+      "subtitle": "As maintainers of the DKAN open data platform, CivicActions is dedicated to helping governments adopt non-proprietary data standards and…",
+      "author": "Melinda Burgess",
+      "published_at": "2018-07-28T14:20:01.629000Z",
+      "updated_at": "2018-07-29T16:18:44.089000Z",
+      "source_url": "https://medium.com/civicactions/joining-the-data-coalition-and-expanding-our-commitment-to-open-data-383f72937666",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/joining-the-data-coalition-and-expanding-our-commitment-to-open-data-383f72937666.html",
+      "tags": [
+        "Open Data",
+        "People And Culture",
+        "Open Government",
+        "Dkan"
+      ],
+      "word_count": 175
+    },
+    {
+      "id": "f86f4870a38b",
+      "title": "Governments must adopt an agile mind-set towards security",
+      "subtitle": "A CISO and an engineer team up to explain the role of an agile process in highlighting and preventing security risks.",
+      "author": "Fen Labalme",
+      "published_at": "2018-07-19T23:04:06.218000Z",
+      "updated_at": "2018-07-28T15:00:52.415000Z",
+      "source_url": "https://medium.com/civicactions/governments-must-adopt-an-agile-mind-set-towards-security-f86f4870a38b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/governments-must-adopt-an-agile-mind-set-towards-security-f86f4870a38b.html",
+      "tags": [
+        "Agile",
+        "Security",
+        "Compliance",
+        "Government",
+        "Agile Government"
+      ],
+      "word_count": 821
+    },
+    {
+      "id": "f1e116821273",
+      "title": "An app the foster parent system really needs: What an agile rapid prototyping exercise taught us",
+      "subtitle": "A Product Owner, engineer, and volunteer foster parent share their learnings.",
+      "author": "Robert L. Read",
+      "published_at": "2018-07-11T15:29:38.859000Z",
+      "updated_at": "2019-01-31T22:44:16.130000Z",
+      "source_url": "https://medium.com/civicactions/an-app-the-foster-parent-system-really-needs-what-an-agile-rapid-prototyping-exercise-taught-us-f1e116821273",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/an-app-the-foster-parent-system-really-needs-what-an-agile-rapid-prototyping-exercise-taught-us-f1e116821273.html",
+      "tags": [
+        "Foster Care",
+        "Agile",
+        "User Interviews",
+        "Software Development",
+        "Agile Government"
+      ],
+      "word_count": 1294
+    },
+    {
+      "id": "7bf5940a19cd",
+      "title": "Silence is not an option: Helping doctors without borders speak up for vulnerable humans",
+      "subtitle": "As the global public turns its awareness to displaced people on World Refugee Day, we are once again humbled by the opportunity to work…",
+      "author": "Melinda Burgess",
+      "published_at": "2018-06-20T22:34:44.104000Z",
+      "updated_at": "2019-01-31T22:43:18.487000Z",
+      "source_url": "https://medium.com/civicactions/silence-is-not-an-option-helping-doctors-without-borders-speak-up-for-vulnerable-humans-7bf5940a19cd",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/silence-is-not-an-option-helping-doctors-without-borders-speak-up-for-vulnerable-humans-7bf5940a19cd.html",
+      "tags": [
+        "Refugees",
+        "Doctors Without Borders",
+        "Drupal",
+        "Civic Technology",
+        "Tech And Design"
+      ],
+      "word_count": 609
+    },
+    {
+      "id": "da0f69bc602b",
+      "title": "Meet Jeff Maher: Bringing culture change to the daily work of government",
+      "subtitle": "TL;DR: Jeff is passionate about improving systems and processes within government, and has some creative ideas about how to do it. He is…",
+      "author": "Melinda Burgess",
+      "published_at": "2018-06-07T18:40:37.870000Z",
+      "updated_at": "2019-01-31T22:36:02.701000Z",
+      "source_url": "https://medium.com/civicactions/meet-jeff-maher-bringing-cultural-change-to-the-daily-work-of-government-da0f69bc602b",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/meet-jeff-maher-bringing-cultural-change-to-the-daily-work-of-government-da0f69bc602b.html",
+      "tags": [
+        "DevOps",
+        "Government Innovation",
+        "People And Culture",
+        "Agile Government",
+        "Digital Services"
+      ],
+      "word_count": 1963
+    },
+    {
+      "id": "1af24b27467",
+      "title": "How remote working helps us live our dreams (and get more work done)",
+      "subtitle": "CivicActions was founded as a distributed company in 2004, before remote working was cool. Now the company’s engineers, project managers…",
+      "author": "Melinda Burgess",
+      "published_at": "2018-04-30T17:47:02.767000Z",
+      "updated_at": "2019-01-31T22:42:02.296000Z",
+      "source_url": "https://medium.com/civicactions/how-remote-working-helps-us-live-our-dreams-and-get-more-work-done-1af24b27467",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/how-remote-working-helps-us-live-our-dreams-and-get-more-work-done-1af24b27467.html",
+      "tags": [
+        "Remote Working",
+        "Civic Tech Jobs",
+        "Remote Work",
+        "Distributed Teams",
+        "People And Culture"
+      ],
+      "word_count": 2344
+    },
+    {
+      "id": "2363070f0c7f",
+      "title": "Meet Kim Davidson: CivicActions’ open data project manager and resident Tahitian dancer",
+      "subtitle": "Kim’s eagerness to tackle new things has led her through several unique projects at CivicActions. In this article, she shares her secrets…",
+      "author": "Melinda Burgess",
+      "published_at": "2018-04-09T15:56:15.129000Z",
+      "updated_at": "2019-01-31T22:39:39.259000Z",
+      "source_url": "https://medium.com/civicactions/meet-kim-davidson-civicactions-open-data-project-manager-and-resident-tahitian-dancer-2363070f0c7f",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/meet-kim-davidson-civicactions-open-data-project-manager-and-resident-tahitian-dancer-2363070f0c7f.html",
+      "tags": [
+        "Open Data",
+        "Agile Government",
+        "Civic Technology",
+        "Project Manager",
+        "People And Culture"
+      ],
+      "word_count": 1782
+    },
+    {
+      "id": "313b5350f8ab",
+      "title": "Meet Arpit Patil: What he loves about DevOps and working with government",
+      "subtitle": "Arpit is a DevOps Engineer with a knack for positivity who is part of CivicActions’ growth into onsite work with government agencies.",
+      "author": "Melinda Burgess",
+      "published_at": "2018-03-20T15:47:38.771000Z",
+      "updated_at": "2018-07-28T15:04:32.550000Z",
+      "source_url": "https://medium.com/civicactions/meet-arpit-patil-what-he-loves-about-devops-and-working-with-government-313b5350f8ab",
+      "publication_url": "https://medium.com/civicactions",
+      "file": "posts/meet-arpit-patil-what-he-loves-about-devops-and-working-with-government-313b5350f8ab.html",
+      "tags": [
+        "DevOps",
+        "Government Innovation",
+        "Civic Tech Jobs",
+        "People And Culture",
+        "Digital Services"
+      ],
+      "word_count": 1549
+    }
+  ],
+  "failures": [],
+  "notes": "HTML content reconstructed from Medium article data. 262 article images are saved locally. One unavailable video thumbnail was omitted; its video link remains.",
+  "assets": {
+    "images_found": 263,
+    "images_saved": 262,
+    "failed": [
+      {
+        "url": "https://i.ytimg.com/vi/uLpReul4aBA/hqdefault.jpg",
+        "error": "Source thumbnail returns HTTP 404; the video link remains in the article."
+      }
+    ]
+  }
+}

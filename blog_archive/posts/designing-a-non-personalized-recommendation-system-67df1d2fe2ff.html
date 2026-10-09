@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Designing a Non-Personalized Recommendation System — CivicActions</title><link rel="canonical" href="https://medium.com/civicactions/designing-a-non-personalized-recommendation-system-67df1d2fe2ff"><style>body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65;max-width:780px;margin:3rem auto;padding:0 1rem;color:#222}h1,h2,h3,h4{line-height:1.25}header{border-bottom:1px solid #ddd;margin-bottom:2rem;padding-bottom:1rem}.meta{color:#555}figure{margin:2rem 0}img{max-width:100%;height:auto}figcaption{color:#666;font-size:.9em}blockquote{border-left:4px solid #ddd;margin-left:0;padding-left:1.25rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f5f5;padding:1rem}a{color:#0756a6}.list-item{margin:.25rem 0 .25rem 1.25rem}.embed{background:#f5f5f5;padding:1rem}</style></head><body><header><h1>Designing a Non-Personalized Recommendation System</h1><p>An introduction towards why and how to design a recommendation system for the public good.</p><p class="meta">Nehal Dave Desai · 2024-05-20T15:06:04.248000Z</p><p><a href="https://medium.com/civicactions/designing-a-non-personalized-recommendation-system-67df1d2fe2ff">Original on Medium</a></p></header><article><p>An introduction towards why and how to design a recommendation system for the public good.</p>
+<p>I am presenting this article particularly for folks in the government to help them understand use cases for non-personalized recommendation systems and help demonstrate how to design a system for the public good. As a subject matter expert, I strongly believe that AI can benefit us more than we thought possible when used responsibly.</p>
+<h2>What is a Recommendation Engine?</h2>
+<p>A Recommendation Engine or System is a set of sophisticated algorithms that provide product/process relevant suggestions to users. It is also possible to make tailored recommendations based on user profile and behavior. In general the goal of these types of systems is to provide product listings sorted by relevance.</p>
+<p>How Recommendation Engines Work:</p>
+<ol>
+<li><strong>Data collection</strong> — Here the system starts gathering data by user interactions, behavior and preferences. It can also refer to off-line activity logs and anonymized collection of data.</li>
+<li><strong>Data Processing</strong> — In this phase, data is extracted for further insights and meaningful patterns.</li>
+<li><strong>Algorithm selection</strong> — During this phase, depending on the specific type of data and platform, an algorithm is selected to make recommendations.</li>
+<li><strong>User Profiling</strong> — Here, using historical data, user profiles are generated.</li>
+<li><strong>Item Profiling</strong> — In this stage, items or contents of the product are profiled based on keywords, product features, genres etc.</li>
+<li><strong>Recommendation Generation</strong> — At this point, the algorithm selected matches user profile to item profile.</li>
+<li><strong>Ranking and Presentation</strong> — Finally, recommended items are ranked and presented based on their relevance to users. Top ranked items are presented to the users through user based interface.</li>
+</ol>
+<h2>Types of Recommendation Engines</h2>
+<p>The recommendation system is broadly classified into two categories:</p>
+<ol>
+<li>Non-Personalized</li>
+<li>Personalized: Collaborative Filtering, Content based Filtering, Knowledge based filtering, Hybrid based</li>
+</ol>
+<h2>Non-Personalized Recommendation Engine</h2>
+<p>The non-personalized recommendation engine defines the top rated, top n-rated, most popular, trending and new products without taking into consideration any user profile history.</p>
+<figure><img src="../assets/d5499808f07219238d49.png" alt="Non-Personalized Recommender showing different types, ‘Best-seller’, ‘Most popular’, ‘Trending Hot’, ‘Best-liked’, and ‘People who X also Y’." loading="lazy"><figcaption>Image Credit — <a href="https://www.researchgate.net/figure/A-non-personalized-system-Source_fig1_323726564">ResearchGate</a></figcaption></figure>
+<p><strong>Pros</strong>:</p>
+<ol>
+<li>The need to not store the user profile history is particularly helpful when there are privacy and security concerns associated with collecting user centric data.</li>
+<li>Used when there are new users and not many ratings available for the product or catalog</li>
+<li>Used when computation speed and scalability efficiency is a requirement</li>
+<li>Helps overcoming user diversity by providing universal appeal to the users rather than individualized/personalized needs</li>
+<li>Applicable when personalized recommendation system isn’t a viable option</li>
+<li>Helps broaden reach by providing universal appeal of products to its users</li>
+</ol>
+<p><strong>Cons</strong>: It cannot make personalized recommendations as there doesn’t exist any user history profile.</p>
+<h2>Use-Cases of Non-Personalized Recommendation System in Public Domain</h2>
+<p>Following are a few use cases identified for this type of recommendation engine that could be used in public domain by the U.S. Government.</p>
+<ol>
+<li>Funding opportunities for the National Science Foundation can leverage this type of system.</li>
+<li>A recommendation (non-personalized) could also be applied to the lincs.ed.gov to recommend Adult Education Articles and Resources on the site.</li>
+<li>The Internal Revenue Service (<a href="http://www.irs.gov">www.irs.gov</a>) can also leverage this type of recommendation on its internal search engine for recommending forms/instructions for users of the site.</li>
+<li>On <a href="http://data.cms.gov">data.cms.gov</a> site, this recommendation could be leveraged to make recommended data sets for its users.</li>
+<li>A state or local government agency could show recommended services to leverage this type of system.</li>
+<li>This can also be utilized by the Library of Congress to showcase most viewed articles for the site.</li>
+</ol>
+<h2>Designing Non-Personalized Recommendation Engines</h2>
+<p>The code snippets below are used for demonstration purposes only, to solve the problem of applying a recommendation to a Government website for greater good. Here, sample data is used to generate recommendations for the users based on randomized ratings for the purpose of proof of concept development.</p>
+<p>The following are the steps along with code for example purpose -</p>
+<p><strong>Data Gathering and Processing </strong>— Below is the sample of data with randomized ratings (for the purpose of proof of concept development). In order to make the recommendation engine based off of title field, other columns are removed and randomized ratings are added to avoid cold-start issue which is a common problem in Recommendation Engine.</p>
+<figure><img src="../assets/03ed3e1df0790d8b7a3e.png" alt="Dataset Image for Non-Personalized Recommendation Engine" loading="lazy"><figcaption>Image/Data Credit — Author</figcaption></figure>
+<p><strong>Algorithm Selection</strong> — In this example, we are using a mean based algorithm where the number of ratings are averaged out of total and then recommended to the user.</p>
+<pre><code>ratings_counts = csv[&#x27;Ratings&#x27;].value_counts()
+ratings = csv[(csv[&#x27;Ratings&#x27;].isin(ratings_counts[ratings_counts&gt;=3].index))]
+
+ratings_matrix = ratings.pivot(index= &#x27;id&#x27;, columns=(&#x27;Title&#x27;), values = &#x27;Ratings&#x27;)
+ratings_matrix</code></pre>
+<p><strong>User Profiling</strong> — This step is not applicable in a non-personalized recommender system.</p>
+<p><strong>Item Profiling</strong> — In the above code, the ratings are counted for each funding opportunity and then ratings &gt;= 3 are kept in the matrix, remaining values will be NaN (not a number).</p>
+<p><strong>Recommendation Generation and Ranking </strong>— In the below sample code, the mean is applied across rows and the top 5 (k) items sorted in descending order are displayed with highest mean across all rows.</p>
+<pre><code>ratings_matrix.mean(axis=0).sort_values(ascending=False).head(5)</code></pre>
+<p><strong>Presentation</strong> — The last step is to present the above recommendations on User Interface.</p>
+<p>There are many evaluation criteria that can be applied to measure the correctness of recommendation engines, such as Mean Absolute Error (MAE), Mean Absolute Precision (MAP) and so on which are out of scope of this article but are listed in references for further reading.</p>
+<h2>Key Takeaways 🔑</h2>
+<ol>
+<li>Recommendation Systems provide a list of products sorted based on relevance.</li>
+<li>Two major types of Recommendation Engines — Personalized and Non-personalized.</li>
+<li>The major steps in building a recommendation engine are as follows: Data Collection and processing, Algorithm Selection, User and Item profiling, Recommendation generation, Ranking and evaluation, Presentation</li>
+<li>Cold start is a problem where there are very little or no ratings available for a product catalog from the user. It is a very common issue in recommendation engines.</li>
+<li>In the above demonstration only code, mean rating is used for selecting and ranking recommendations. There are various other algorithms available that are listed in references and can be used based on context applicable.</li>
+</ol>
+<h2>References</h2>
+<ol>
+<li>[<a href="https://www.nvidia.com/en-us/glossary/recommendation-system/">nVidia</a>] — What is a Recommendation System?</li>
+<li><a href="https://thingsolver.com/blog/introduction-to-recommender-systems/#Non-personalized_recommender_systems">[ThingSolver]</a> — Types of Recommendation Engine</li>
+<li>[<a href="https://www.goodreads.com/work/quotes/76117487-recommendation-engines-the-mit-press-essential-knowledge-series">GoodReads</a>] — Recommendation Engine Quote</li>
+<li>[<a href="https://www.linkedin.com/advice/0/what-challenges-opportunities-using-collaborative">LinkedIn</a>] — Issues while Recommending</li>
+<li>[<a href="https://analyticsindiamag.com/cold-start-problem-in-recommender-systems-and-its-mitigation-techniques/">AnalyticsIndiaMag</a>] — Types of Cold start problems and its mitigation</li>
+<li>[<a href="https://www.evidentlyai.com/ranking-metrics/evaluating-recommender-systems">EvidentlyAI</a>, <a href="https://towardsdatascience.com/evaluation-metrics-for-recommender-systems-df56c6611093">TowardsDataScience</a>, <a href="https://neptune.ai/blog/recommender-systems-metrics">Neptune.AI</a>] — Evaluation Metrics for Recommendation Systems</li>
+</ol></article></body></html>
