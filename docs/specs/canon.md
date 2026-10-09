@@ -40,7 +40,7 @@ Canvas requires useful, non-empty defaults and examples for required and structu
 
 ## Design tokens and visual language
 
-The current theme exposes brand and layout values as CSS custom properties in `web/themes/omnichannel/css/global.css`. Component CSS uses these properties instead of hand-coded values wherever a token matches exactly, written as `var(--token, fallback)`. A value with no matching token may be hard-coded; do not round it to a nearby token without recording the difference. These values are the implementation surface today:
+The current theme exposes brand and layout values as CSS custom properties in [web/themes/omnichannel/css/global.css](../../web/themes/omnichannel/css/global.css). Component CSS uses these properties instead of hand-coded values wherever a token matches exactly, written as `var(--token, fallback)`. A value with no matching token may be hard-coded; do not round it to a nearby token without recording the difference. For the complete token inventory, see [design-tokens.md](design-tokens.md). These values are the implementation surface today:
 
 - Primary red: `#D83933`
 - Primary blue: `#162E51`
