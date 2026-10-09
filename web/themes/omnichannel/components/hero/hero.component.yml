@@ -11,21 +11,21 @@ props:
     title:
       type: string
       title: Title
-      default: "Government services that build public trust"
+      default: 'Government services that build public trust'
       examples:
-        - "Government services that build public trust"
+        - 'Government services that build public trust'
     eyebrow:
       type: string
       title: Eyebrow
-      default: "CivicActions"
+      default: 'CivicActions'
       examples:
-        - "CivicActions"
+        - 'CivicActions'
     summary:
       type: string
       title: Summary
-      default: "We help government deliver trusted public services through open technology and design."
+      default: 'We help government deliver trusted public services through open technology and design.'
       examples:
-        - "We help government deliver trusted public services through open technology and design."
+        - 'We help government deliver trusted public services through open technology and design.'
     variant:
       type: string
       title: Style variant
@@ -42,7 +42,7 @@ props:
       $ref: json-schema-definitions://canvas.module/image
       type: object
       title: Hero image
-      description: Optional Media Library image. Hidden below 768px; fills the right 40% column in a centered 411:378 crop on larger screens. Keep essential information in the text. Remove the image for a text-only hero.
+      description: Optional hero image. Hidden below 768px.
       default:
         src: '/themes/omnichannel/images/canvas-assets/editorial-teaser-img.jpg'
         alt: 'Traffic light against the sky'
@@ -56,26 +56,26 @@ props:
     primary_button_text:
       type: string
       title: Primary button text
-      default: "See our work"
+      default: 'See our work'
       examples:
-        - "See our work"
+        - 'See our work'
     primary_button_url:
       type: string
       title: Primary button link
       format: uri-reference
-      default: "/case-studies"
+      default: '/case-studies'
       examples:
-        - "/case-studies"
+        - '/case-studies'
     secondary_button_text:
       type: string
       title: Secondary button text
-      default: "Contact us"
+      default: 'Contact us'
       examples:
-        - "Contact us"
+        - 'Contact us'
     secondary_button_url:
       type: string
       title: Secondary button link
       format: uri-reference
-      default: "/contact"
+      default: '/contact'
       examples:
-        - "/contact"
+        - '/contact'
