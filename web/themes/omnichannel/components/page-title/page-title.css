@@ -29,7 +29,7 @@
   margin: var(--size-4, 1rem) 0 0;
   color: var(--gray-50, #757575);
   font-family: var(--font-heading, "Merriweather", Georgia, serif);
-  font-size: 24px;
+  font-size: var(--size-6, 1.5rem);
   font-style: italic;
   line-height: var(--line-height-base, 1.15);
 }
@@ -59,7 +59,7 @@
     margin: var(--size-4, 1rem) 0 0;
     color: var(--gray-50, #757575);
     font-family: var(--font-heading, "Merriweather", Georgia, serif);
-    font-size: 24px;
+    font-size: var(--size-6, 1.5rem);
     font-style: italic;
     line-height: var(--line-height-base, 1.15);
   }

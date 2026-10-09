@@ -83,7 +83,7 @@ props:
       type: string
       title: Section anchor ID
       description: Optional anchor target used by in-page links.
-      default: services
+      default: ''
       examples:
         - services
     title:

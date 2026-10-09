@@ -27,7 +27,6 @@ props:
       description: HTTPS iframe embed URL from a supported video provider, such as YouTube or Vimeo.
       format: uri-reference
       x-allowed-schemes:
-        - http
         - https
       examples:
         - 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ'
