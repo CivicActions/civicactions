@@ -2,7 +2,7 @@
 
 Status: Active shared implementation plan
 Audience: Contributors working on the CivicActions homesite rebuild
-Target Launch: November 1, 2026 (NASA SEWP alignment)
+Target end date: November 1, 2026
 Last reviewed: 2026-10-08
 
 This plan records the complete component migration strategy from the legacy Strapi/Gatsby homesite to Drupal 11 and Drupal CMS 2.0. It coordinates the delivery of Twig Single Directory Components (SDCs), Drupal Canvas visual authoring integration, and structured Drupal Views listings.
