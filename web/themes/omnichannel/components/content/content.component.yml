@@ -1,0 +1,26 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Content
+description: Rich text content with scoped typography for Canvas pages.
+group: Content
+status: stable
+props:
+  type: object
+  required:
+    - body
+  properties:
+    body:
+      type: string
+      title: Body content
+      description: Formatted block content for the page.
+      contentMediaType: text/html
+      x-formatting-context: block
+      default: '<p>CivicActions delivers accessible, humane digital services for the public good.</p>'
+      examples:
+        - '<p>CivicActions delivers accessible, humane digital services for the public good.</p>'
+    narrow:
+      type: boolean
+      title: Narrow reading column
+      description: Constrain the content to a readable line length.
+      default: false
+      examples:
+        - false

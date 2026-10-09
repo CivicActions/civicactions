@@ -12,12 +12,14 @@ props:
       type: string
       title: Column layout
       enum:
+        - one
         - two-equal
         - three-equal
         - two-one
         - one-two
         - four-equal
       meta:enum:
+        one: One column
         two-equal: Two columns (50/50)
         three-equal: Three columns (equal)
         two-one: Two columns (25/75)
@@ -77,6 +79,31 @@ props:
       meta:enum:
         full: Full width
         constrained: Constrained width
+    section_id:
+      type: string
+      title: Section anchor ID
+      description: Optional anchor target used by in-page links.
+      default: services
+      examples:
+        - services
+    title:
+      type: string
+      title: Section title
+      description: Optional heading displayed above the section columns.
+      default: Services
+      examples:
+        - Services
+    heading_level:
+      type: integer
+      title: Section title heading level
+      description: Heading level for the optional section title.
+      enum:
+        - 2
+        - 3
+        - 4
+      default: 2
+      examples:
+        - 2
 slots:
   column_one:
     title: First column

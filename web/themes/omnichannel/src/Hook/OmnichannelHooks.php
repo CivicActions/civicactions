@@ -49,7 +49,7 @@ class OmnichannelHooks {
    */
   #[TrustedCallback]
   public static function sanitizeComponentUrls(array $props): array {
-    foreach (['src', 'link', 'icon', 'primary_button_url', 'secondary_button_url', 'teaserlink', 'fullstorylink'] as $property) {
+    foreach (['src', 'link', 'icon', 'primary_button_url', 'secondary_button_url', 'teaserlink', 'fullstorylink', 'video_url', 'transcript_url'] as $property) {
       if (isset($props[$property]) && is_string($props[$property])) {
         $props[$property] = UrlHelper::stripDangerousProtocols($props[$property]);
       }

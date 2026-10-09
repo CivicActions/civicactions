@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Content component.
+ *
+ * Available props:
+ * - body: Filtered block HTML from Canvas.
+ * - narrow: Whether to constrain the reading column.
+ */
+#}
+{% set content_attributes = attributes|default(create_attribute()) %}
+{% set content_classes = ['ca-content'] %}
+{% if narrow %}
+  {% set content_classes = content_classes|merge(['ca-content--narrow']) %}
+{% endif %}
+
+<div {{ content_attributes.addClass(content_classes) }}>
+  {{ body }}
+</div>

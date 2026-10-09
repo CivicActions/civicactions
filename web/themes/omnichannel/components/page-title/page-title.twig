@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Page Title component.
+ *
+ * Available props:
+ * - title: The page heading.
+ * - subtitle: Optional supporting text.
+ * - heading_level: The semantic heading level.
+ * - alignment: Horizontal text alignment.
+ */
+#}
+{% set page_title_attributes = attributes|default(create_attribute()) %}
+{% set page_title_heading_tags = {1: 'h1', 2: 'h2'} %}
+{% set page_title_heading_tag = page_title_heading_tags[heading_level|default(1)]|default('h1') %}
+{% set page_title_classes = [
+  'ca-page-title',
+  'ca-page-title--' ~ alignment|default('left'),
+] %}
+
+<header {{ page_title_attributes.addClass(page_title_classes) }}>
+  <{{ page_title_heading_tag }} class="ca-page-title__title">{{ title }}</{{ page_title_heading_tag }}>
+  {% if subtitle %}
+    <p class="ca-page-title__subtitle">{{ subtitle }}</p>
+  {% endif %}
+</header>
