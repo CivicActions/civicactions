@@ -1,0 +1,69 @@
+uuid: ac824d30-ab56-448b-b5d2-e8e4806c2123
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node
+target_entity_type_id: node
+multiple: true
+label_prefix: ''
+id_prefix: ''
+recommended_schema_types:
+  civicactions:
+    label: CivicActions
+    types:
+      - Person
+      - Organization
+      - Report
+      - Service
+      - Intangible
+      - Article
+      - Event
+default_schema_types: {  }
+default_schema_type_properties: {  }
+default_schema_type_view_displays:
+  teaser:
+    Thing:
+      - description
+    Event:
+      - eventSchedule
+      - startDate
+      - endDate
+    Person:
+      - image
+    Place:
+      - image
+      - address
+    LocalBusiness:
+      - openingHours
+    Episode:
+      - duration
+      - episodeNumber
+    Hospital:
+      - availableService
+    MedicalOrganization:
+      - medicalSpecialty
+    MedicalClinic:
+      - availableService
+    Physician:
+      - availableService
+      - medicalSpecialty
+    JobPosting:
+      - datePosted
+    CreativeWork:
+      - text
+    Recipe:
+      - image
+      - cookTime
+default_base_fields:
+  langcode:
+    - inLanguage
+  title:
+    - headline
+    - name
+  body:
+    - articleBody
+    - text
+default_component_weights: {  }
+default_component_weights_update: false

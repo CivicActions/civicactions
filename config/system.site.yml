@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: HlN7eAN2N4JIHsYv56V4E7sqC9bS609KwvGFjyD_mgk
+langcode: en
+uuid: 04ebdd82-eefe-495c-9761-919c705f44c9
+name: CivicActions
+mail: owen.barton@civicactions.com
+slogan: ''
+page:
+  403: /user/login
+  404: ''
+  front: /page/1
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

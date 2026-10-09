@@ -1,0 +1,18 @@
+uuid: d6715e8e-d31b-4037-bf27-73863d511485
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.department.schema_identifier
+    - taxonomy.vocabulary.department
+  module:
+    - taxonomy
+id: taxonomy_term.department
+target_entity_type_id: taxonomy_term
+target_bundle: department
+schema_type: Organization
+schema_properties:
+  description: description
+  schema_identifier: identifier
+  name: name
+additional_mappings: {  }

@@ -1,0 +1,8 @@
+_core:
+  default_config_hash: BSJLg9kInpD-V-m1FWWyn_9JzNSCgeKkYMSCMNEiZ38
+path_json: {  }
+default_schema_type_json: {  }
+default_schema_mapping_json:
+  node: '{"@id": "[site:url]node/[node:nid]#entity"}'
+  node--WebPage: '{"@id": "[site:url]node/[node:nid]#webpage", "url": "[node:url]"}'
+  node--ProfilePage: '{"@id": "[site:url]node/[node:nid]#webpage", "url": "[node:url]"}'

@@ -1,0 +1,19 @@
+uuid: be7dee9e-187f-4304-9bc1-41b85bdfa155
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.schema_identifier
+    - taxonomy.vocabulary.department
+id: taxonomy_term.department.schema_identifier
+field_name: schema_identifier
+entity_type: taxonomy_term
+bundle: department
+label: Code
+description: 'The 2 character code representing this department - see https://docs.google.com/spreadsheets/d/1xArUHLGu-6v3D6x0LLjdYwbhGwWKGiE5wY73tJrAgNo/edit?gid=259684162#gid=259684162'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

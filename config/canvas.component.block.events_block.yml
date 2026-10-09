@@ -1,0 +1,22 @@
+uuid: d0c1a7c3-c0eb-4efe-87f6-0e482ef3e055
+langcode: en
+status: false
+dependencies:
+  module:
+    - drupical
+active_version: 7f0d7c64a7196c20
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: events_block
+        label: 'Events Feed'
+        label_display: '0'
+        provider: drupical
+    fallback_metadata:
+      slot_definitions: null
+label: 'Events Feed'
+id: block.events_block
+provider: drupical
+source: block
+source_local_id: events_block

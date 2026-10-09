@@ -1,0 +1,69 @@
+_core:
+  default_config_hash: HCemtZWb1jUXagp8k8M_ATPHrOFr_uw6schCueO7ouo
+langcode: en
+schema_type_default_values: {  }
+schema_type_main_properties:
+  Duration: null
+  ImageObject: null
+  VideoObject: null
+schema_property_order:
+  - url
+  - identifier
+  - mainEntity
+  - name
+  - alternateName
+  - headline
+  - slogan
+  - description
+  - abstract
+  - articleBody
+  - text
+  - author
+  - provider
+  - image
+  - logo
+  - video
+  - contentUrl
+  - transcript
+  - duration
+  - dateCreated
+  - datePublished
+  - startDate
+  - endDate
+  - location
+  - category
+  - audience
+  - about
+  - keywords
+  - knowsAbout
+  - jobTitle
+  - memberOf
+  - parentOrganization
+  - sameAs
+  - additionalType
+  - encoding
+  - citation
+  - isBasedOn
+  - hasPart
+  - mentions
+  - subjectOf
+  - isRelatedTo
+  - spokenByCharacter
+  - recordedIn
+  - workFeatured
+  - genre
+  - version
+schema_property_image_styles: {  }
+schema_type_entity_references_display:
+  node: entity
+  media: entity
+  taxonomy_term: entity
+  paragraph: none
+  node--editorial_content--schema_additional_type: label
+exclude_url:
+  - node
+  - block_content
+  - media
+  - paragraph
+  - taxonomy_term
+  - PronounceableText
