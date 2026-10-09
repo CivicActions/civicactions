@@ -1,0 +1,1076 @@
+{
+  "source": "CivicActions team page and Gatsby static query data",
+  "source_url": "https://civicactions.com/team/",
+  "retrieved_at": "2026-10-09T01:09:15.977746+00:00",
+  "people_count": 115,
+  "expected_categories": [
+    "Leadership",
+    "Growth & Strategy",
+    "People & Operations",
+    "Product & Design",
+    "Engineering",
+    "Client Services"
+  ],
+  "missing_image_count": 0,
+  "people": [
+    {
+      "name": "Aaron Pava",
+      "job_title": "Chief Experience Officer",
+      "image": "assets/aaron-pava.jpg",
+      "source_image_url": "https://civicactions.com/static/80d0b9045795938a5dc850af48f4189c/a1641/Aaron_in_Blue_7fcc17dffc.jpg",
+      "team_page_categories": [
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Adrian Cooke",
+      "job_title": "Content Designer",
+      "image": "assets/adrian-cooke.jpg",
+      "source_image_url": "https://civicactions.com/static/86e6d93c465ec2787c4fb14bcb500454/a1641/Adrian_Cooke_e76731edd6.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Alaine Karoleff",
+      "job_title": "Director of Digital Services",
+      "image": "assets/alaine-karoleff.jpg",
+      "source_image_url": "https://civicactions.com/static/bf8e2d2d12d05f18d4a7014c96758cef/a1641/alaine_karoleff_8afa599ce5.jpg",
+      "team_page_categories": [
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Alanna Blinn",
+      "job_title": "Technical Writer",
+      "image": "assets/alanna-blinn.jpg",
+      "source_image_url": "https://civicactions.com/static/91adf1f0212486dbc1b027dac3c46cd9/a1641/alanna_casey_20d3c7af80_cee2c30a9a.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Alex Kerr",
+      "job_title": "Front End Engineer",
+      "image": "assets/alex-kerr.jpg",
+      "source_image_url": "https://civicactions.com/static/8d0099d849fcd1ae7f28d6b7af1ab61e/a1641/alex_2018_thanksgiving_29b537659d.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Allison Conley",
+      "job_title": "In-house Counsel",
+      "image": "assets/allison-conley.png",
+      "source_image_url": "https://civicactions.com/static/8678857845bd34876ed716fcf26163e7/b5225/Allison_Conley_6a5c6ad266.png",
+      "team_page_categories": [
+        "People & Operations"
+      ]
+    },
+    {
+      "name": "Amir Abdullaev",
+      "job_title": "QA Engineer",
+      "image": "assets/amir-abdullaev.jpg",
+      "source_image_url": "https://civicactions.com/static/02360d58f291fdd805d2284e4d86c27d/a1641/Amir_Abdullaev_e220fc63a6.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Andrew Croftcheck",
+      "job_title": "Project Manager",
+      "image": "assets/andrew-croftcheck.jpg",
+      "source_image_url": "https://civicactions.com/static/8d9dc0a8143cc1bc00daa8fd38cf0c26/a1641/IMG_8854_c1cf0171e0.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Andy Hawks",
+      "job_title": "Director of Drupal",
+      "image": "assets/andy-hawks.jpg",
+      "source_image_url": "https://civicactions.com/static/9570d90eee3ed256bde17342d26e4bd4/a1641/andy_hawks_00e91eff8d_87fb0bf23c.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Anne Maupin",
+      "job_title": "Product Manager",
+      "image": "assets/anne-maupin.jpg",
+      "source_image_url": "https://civicactions.com/static/a4ba6409da705ca38865db67c54a3d76/a1641/Anne_Maupin_7be2a7cf5e.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "April Cruz",
+      "job_title": "Project Manager",
+      "image": "assets/april-cruz.jpg",
+      "source_image_url": "https://civicactions.com/static/7b80772bb1c5a93c9303cf511afa288f/a1641/Professional_Photo_April_Cruz_f07346fa0e.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Arielle LaBrecque",
+      "job_title": "Digital Services Manager",
+      "image": "assets/arielle-labrecque.jpg",
+      "source_image_url": "https://civicactions.com/static/b911a3cd798c76070a55fa8f8cc2a2e0/a1641/arielle_labrecque_28e10d868b.jpg",
+      "team_page_categories": [
+        "Growth & Strategy"
+      ]
+    },
+    {
+      "name": "Ashish Kumar",
+      "job_title": "IT Support Specialist",
+      "image": "assets/ashish-kumar.jpg",
+      "source_image_url": "https://civicactions.com/static/2c3110b30a0267828e9ae8280644dee4/a1641/ashish_kumar_1250bf49fd_82653ee832.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Bentley Hensel",
+      "job_title": "Data and DevOps Engineer",
+      "image": "assets/bentley-hensel.jpg",
+      "source_image_url": "https://civicactions.com/static/bc8afa26cd8dea6b5d2f90d19975dd24/a1641/Bentley_Hensel_5fba6a2e64.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Beth Jacobsen",
+      "job_title": "Back End Engineer",
+      "image": "assets/beth-jacobsen.jpg",
+      "source_image_url": "https://civicactions.com/static/b93c089958c243eae877833c28be91a7/a1641/Beth_Jacobson_b51a9c0960.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Bethany Dunfield",
+      "job_title": "Front End Engineer",
+      "image": "assets/bethany-dunfield.png",
+      "source_image_url": "https://civicactions.com/static/f03eff647e121cc3a3b385f422701253/b5225/Bethany_Dunfield_5b38c835e9.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Bill Ogilvie",
+      "job_title": "VP of Public Sector",
+      "image": "assets/bill-ogilvie.png",
+      "source_image_url": "https://civicactions.com/static/acc159219048166ef899ee4b5fa3b8b8/b5225/Bill_Ogilvie_7ad997d6cc.png",
+      "team_page_categories": [
+        "Growth & Strategy",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Blake Organ",
+      "job_title": "Product Designer",
+      "image": "assets/blake-organ.jpg",
+      "source_image_url": "https://civicactions.com/static/eb2ad9ee7955da08d467a2a7f3537705/a1641/Blake_Organ_a8a29d13bd.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Bob Schmitt",
+      "job_title": "Product Manager",
+      "image": "assets/bob-schmitt.jpg",
+      "source_image_url": "https://civicactions.com/static/35fa501f39b36acd2242f2b7c2c602dd/a1641/Bob_Schmitt_07e43e0893.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Brenton Kelly",
+      "job_title": "Front End Engineer",
+      "image": "assets/brenton-kelly.jpg",
+      "source_image_url": "https://civicactions.com/static/14f55cfba3d3139085af89710006811f/a1641/brenton_0cb1a37a89.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Brian Seek",
+      "job_title": "Front End Engineer",
+      "image": "assets/brian-seek.jpg",
+      "source_image_url": "https://civicactions.com/static/2ef6528c46552c2ddd7a5fa72dec8bad/a1641/Brian_Seek_861b1f5f57.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Bridgette Golson",
+      "job_title": "QA Engineer",
+      "image": "assets/bridgette-golson.jpg",
+      "source_image_url": "https://civicactions.com/static/614f46af4ad060d0778e549ed0fdb7d3/a1641/Bridgette_Golson_9e6f111988.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Cameron Prince",
+      "job_title": "Back End Engineer",
+      "image": "assets/cameron-prince.png",
+      "source_image_url": "https://civicactions.com/static/eed68d60a9bb8c6d7973f9441b25c21d/b5225/Cameron_Prince_828f938129.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Chianti Lomax",
+      "job_title": "Workforce Development Lead",
+      "image": "assets/chianti-lomax.png",
+      "source_image_url": "https://civicactions.com/static/8fe057f0817be8c6749ec76cea36b2f4/b5225/Chianti_Lomax_9932f1c889.png",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Chris Bauer",
+      "job_title": "Front End Engineer",
+      "image": "assets/chris-bauer.png",
+      "source_image_url": "https://civicactions.com/static/485c7a4fe517bcac7303366aeca2d5fd/b5225/Chris_Bauer_7adf13d533.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Christia Troyer",
+      "job_title": "Back End Engineer",
+      "image": "assets/christia-troyer.jpg",
+      "source_image_url": "https://civicactions.com/static/4bc8f59c1e612bba4737078612505007/a1641/Christia_Troyer_de36446fa4.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Christian Anderson",
+      "job_title": "Project Manager",
+      "image": "assets/christian-anderson.jpg",
+      "source_image_url": "https://civicactions.com/static/96d4798855e51b6c04b850a9f5ecfacb/a1641/Christian_Anderson_Headshot_b68ec3dd6c.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Christian Burk",
+      "job_title": "Back End Engineer",
+      "image": "assets/christian-burk.jpg",
+      "source_image_url": "https://civicactions.com/static/7f6067e53943d6822a8d3e2bfa35ad47/a1641/cburk_headshot_porch_no_beard_8cf2cbb0f7.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Curtis Hayes",
+      "job_title": "Back End Engineer",
+      "image": "assets/curtis-hayes.jpg",
+      "source_image_url": "https://civicactions.com/static/e49d4d1bf7e532a8d7e0cab98b4f675b/a1641/Curtis_Hayes_f277fd3361.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Dan Feder",
+      "job_title": "Back End Engineer",
+      "image": "assets/dan-feder.jpg",
+      "source_image_url": "https://civicactions.com/static/47b87f2d392d4bd9abf73ca43574036c/a1641/Dan_Feder_b84877980e.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Dan Goodwin",
+      "job_title": "Front End Engineer",
+      "image": "assets/dan-goodwin.jpg",
+      "source_image_url": "https://civicactions.com/static/d5157f3d1a23c8f3806e9e14808e9058/a1641/dan_goodwin_1626bcd682.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Dan Lobelle",
+      "job_title": "Back End Engineer",
+      "image": "assets/dan-lobelle.jpg",
+      "source_image_url": "https://civicactions.com/static/34b8e417bfc02643dc5a2c992b6bb9ac/a1641/Dan_Lobelle_5a16ee0515.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Daniel Gading",
+      "job_title": "Full Stack Engineer",
+      "image": "assets/daniel-gading.jpg",
+      "source_image_url": "https://civicactions.com/static/23756eadab353775837852054690ba7c/a1641/daniel_gading_58898e2089.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Daniel Mundra",
+      "job_title": "Associate Director of Drupal",
+      "image": "assets/daniel-mundra.jpg",
+      "source_image_url": "https://civicactions.com/static/0e3b7638e4bb16d8d39e4557465358d2/a1641/cas_profile_5203_8aa2e2946c.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Daniel Schiavone",
+      "job_title": "Back End Engineer",
+      "image": "assets/daniel-schiavone.png",
+      "source_image_url": "https://civicactions.com/static/38e291de965c84361a1357909682fafd/b5225/Dan_Schiavone_1b7da96d08.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Dave Pickett",
+      "job_title": "Associate Director of Design",
+      "image": "assets/dave-pickett.jpg",
+      "source_image_url": "https://civicactions.com/static/37457076287704af12d96f6a2eca198e/a1641/dave_pickett_2021_ccbcb49684.jpg",
+      "team_page_categories": [
+        "Product & Design",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "David Diaz",
+      "job_title": "Front End Engineer",
+      "image": "assets/david-diaz.jpg",
+      "source_image_url": "https://civicactions.com/static/dea4dfc2b98dce3e3fb0d18806fd50b9/a1641/David_Diaz_c165802454.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "David Sumner",
+      "job_title": "Associate Director of DevSecOps",
+      "image": "assets/david-sumner.jpg",
+      "source_image_url": "https://civicactions.com/static/be73c25d04c7deef5cf382887d90a138/a1641/david_sumner_3dc2e31bca.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Donna Hanlon",
+      "job_title": "Project Manager",
+      "image": "assets/donna-hanlon.jpg",
+      "source_image_url": "https://civicactions.com/static/568b675ba0162eaaf9882dae4a459077/a1641/IMG_2862_1_df9466d572.jpg",
+      "team_page_categories": []
+    },
+    {
+      "name": "Elizabeth Raley",
+      "job_title": "Chief Operating Officer",
+      "image": "assets/elizabeth-raley.jpg",
+      "source_image_url": "https://civicactions.com/static/241e5b0ee12cf54860b36bf59e91dc2c/a1641/Elizabeth_Raley_d142906284.jpg",
+      "team_page_categories": [
+        "Leadership",
+        "People & Operations"
+      ]
+    },
+    {
+      "name": "Eric Huffman",
+      "job_title": "Associate Director of Front End Engineering",
+      "image": "assets/eric-huffman.jpg",
+      "source_image_url": "https://civicactions.com/static/91a2145898a7a3230a84cd763e08b295/a1641/eric_huffman_dfd3c7f4bc.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Eric Napier",
+      "job_title": "Associate Director of Drupal",
+      "image": "assets/eric-napier.jpg",
+      "source_image_url": "https://civicactions.com/static/4472355f627a552f591b2156557f62ec/a1641/eric_napier_ade0581d7b.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Farooq Zakhilwal",
+      "job_title": "DITAP Program Manager, Associate Director",
+      "image": "assets/farooq-zakhilwal.png",
+      "source_image_url": "https://civicactions.com/static/08e7de12c80a673f50dde6d279090e20/b5225/farooq_zakhilwal_jpg_46a5b63787.png",
+      "team_page_categories": [
+        "Client Services",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Fen Labalme",
+      "job_title": "Chief Information Security Officer",
+      "image": "assets/fen-labalme.png",
+      "source_image_url": "https://civicactions.com/static/a2feba1ab5ba6cf8fab97c8e7192e3f7/b5225/Fen_Labalme_d138335214.png",
+      "team_page_categories": [
+        "Client Services",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Henry Poole",
+      "job_title": "Chief Executive Officer",
+      "image": "assets/henry-poole.jpg",
+      "source_image_url": "https://civicactions.com/static/0b3a7123a8351ae8e0d88cfcc3f17da4/a1641/henry_poole_7f379a5333.jpg",
+      "team_page_categories": [
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Innocent Igwegbe",
+      "job_title": "Sr. DevOps Engineer",
+      "image": "assets/innocent-igwegbe.jpg",
+      "source_image_url": "https://civicactions.com/static/6f8bd9e6cfb68af0536802ebea792ece/a1641/innocent_igwegbe_07dcbc2273.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Iris Ibekwe",
+      "job_title": "Associate Director of Front End Development",
+      "image": "assets/iris-ibekwe.png",
+      "source_image_url": "https://civicactions.com/static/000566e26d12bcfd4ca9b45356306de9/b5225/Iris_Ibekwe_5e4fa271c9.png",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Iv\u00e1n Latorre",
+      "job_title": "Front End Engineer",
+      "image": "assets/iv\u00e1n-latorre.jpg",
+      "source_image_url": "https://civicactions.com/static/9af300c5e3959d8577236b7a715204e3/a1641/ivan_latorre_0f0ff1d99b.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Jack Haas",
+      "job_title": "Front End Engineer",
+      "image": "assets/jack-haas.jpg",
+      "source_image_url": "https://civicactions.com/static/f5ab38a9fa7dcc2836bbdeaf79667e5b/a1641/jack_haas_406b43bb83.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Jacqueline Quintanilla",
+      "job_title": "Front End Engineer",
+      "image": "assets/jacqueline-quintanilla.jpg",
+      "source_image_url": "https://civicactions.com/static/afce1faa798eebfeac0ee4e6641aa94d/a1641/Jacqueline_Quintanilla_a31ea614bb.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Janette Day",
+      "job_title": "Back End Engineer",
+      "image": "assets/janette-day.png",
+      "source_image_url": "https://civicactions.com/static/43d5855f6d9a0e933e31efc6a9b0c87a/b5225/Janette_Day_8d7d119823.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Jason Gose",
+      "job_title": "Back End Engineer",
+      "image": "assets/jason-gose.jpg",
+      "source_image_url": "https://civicactions.com/static/371b0d3ffd789e5bfe93be7207c5fba0/a1641/jason_gose_720_8db7a2fb7c.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Jeff Schmidt",
+      "job_title": "DevOps Engineer",
+      "image": "assets/jeff-schmidt.jpg",
+      "source_image_url": "https://civicactions.com/static/0f17e20123873d44e449b6b7a975239a/a1641/Jeff_Schmidt_57ddc970e5.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Jenna Waszak",
+      "job_title": "Director of Design",
+      "image": "assets/jenna-waszak.jpg",
+      "source_image_url": "https://civicactions.com/static/7f20eba960cad73bf31ada5b2f83ecb9/a1641/jenna_waszak_75868e082e.jpg",
+      "team_page_categories": [
+        "Product & Design",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Jess Straatmann",
+      "job_title": "Back End Engineer",
+      "image": "assets/jess-straatmann.jpg",
+      "source_image_url": "https://civicactions.com/static/7cf50e9d7e41fcf7e46a29810cba9744/a1641/jess_e500ba1f34.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "John O'Duinn",
+      "job_title": "Consultant",
+      "image": "assets/john-o-duinn.jpg",
+      "source_image_url": "https://civicactions.com/static/8838f3d22d405e2713d5464675e1b2dc/a1641/John_Oduinn_4c85fe3eb5.jpg",
+      "team_page_categories": [
+        "Growth & Strategy",
+        "Client Services"
+      ]
+    },
+    {
+      "name": "John Woolschlager",
+      "job_title": "Full Stack Engineer",
+      "image": "assets/john-woolschlager.png",
+      "source_image_url": "https://civicactions.com/static/f7dddece92490e5a3276da0ed883a383/b5225/John_Woolschlager_7598e6975a.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Jonathan Bourland",
+      "job_title": "Associate Director of Drupal",
+      "image": "assets/jonathan-bourland.jpg",
+      "source_image_url": "https://civicactions.com/static/c1e905acb5c2674dbc30842c8616fad9/a1641/jonathan_bourland_291977bfbb.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Jordan Wood",
+      "job_title": "Product Designer",
+      "image": "assets/jordan-wood.jpg",
+      "source_image_url": "https://civicactions.com/static/fd987940694a2eec0647fb6ca4f55200/a1641/Jordan_Wood_758a5def83.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Josh Fremer",
+      "job_title": "Back End Engineer",
+      "image": "assets/josh-fremer.jpg",
+      "source_image_url": "https://civicactions.com/static/a43966ff798469e0a5b44665d228988d/a1641/Josh_Fremer_b4bc7d3c43.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Josh Minarick",
+      "job_title": "Back End Engineer",
+      "image": "assets/josh-minarick.jpg",
+      "source_image_url": "https://civicactions.com/static/12d7dd56450c543007cb913ee73cc36c/a1641/jminarick_pfp_e12d60db0b.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Judy Raiten",
+      "job_title": "In Memoriam",
+      "image": "assets/judy-raiten.png",
+      "source_image_url": "https://civicactions.com/static/42b5ed59024ad6e324786ee48603f248/b5225/Judy_Raiten_758db0b35d.png",
+      "team_page_categories": [
+        "People & Operations"
+      ]
+    },
+    {
+      "name": "Kandie Oriade",
+      "job_title": "Accounting Manager",
+      "image": "assets/kandie-oriade.jpg",
+      "source_image_url": "https://civicactions.com/static/7ac476dd2043d11966bdc32f72f1d16c/a1641/Kandie_132d04056c.jpg",
+      "team_page_categories": [
+        "People & Operations"
+      ]
+    },
+    {
+      "name": "Keith Kawasaki",
+      "job_title": "Director of Growth & Partnerships",
+      "image": "assets/keith-kawasaki.jpg",
+      "source_image_url": "https://civicactions.com/static/c4e1886e99fe1d34147ccb38206979f9/a1641/Keith_Kawasaki_cc0dce06a4.jpg",
+      "team_page_categories": [
+        "Growth & Strategy",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Kelly Smith",
+      "job_title": "Content Designer",
+      "image": "assets/kelly-smith.jpg",
+      "source_image_url": "https://civicactions.com/static/419449388d91f0274c822fd2a5ad9d44/a1641/kelly_smith_9c11a5eddb.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Kevin Moylan",
+      "job_title": "Back End Engineer",
+      "image": "assets/kevin-moylan.jpg",
+      "source_image_url": "https://civicactions.com/static/85c28ca5c842701802f7b7278fde6792/a1641/Me_Headshot_JPG_08f5d7a383.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Kevin Walsh",
+      "job_title": "In Memoriam",
+      "image": "assets/kevin-walsh.png",
+      "source_image_url": "https://civicactions.com/static/a9fdcf6da981c0ff0b92fdc73f2380c4/b5225/kevin_walsh_eac7b94dd7.png",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Kit Lykos",
+      "job_title": "DevOps Engineer",
+      "image": "assets/kit-lykos.jpg",
+      "source_image_url": "https://civicactions.com/static/8b726cc584ce6d37bcab0591ac115264/a1641/307963228_10222083675505254_7164403605425884600_n_c608d2df99.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Kristen Jernigan",
+      "job_title": "Learning Experience Designer",
+      "image": "assets/kristen-jernigan.png",
+      "source_image_url": "https://civicactions.com/static/9a387b6e3979e3a9fc12ccc96957ce1c/b5225/kristen_jernigan_profile_civicactions_b2b2d6bc12.png",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Kristian Ducharme",
+      "job_title": "Associate Director of Drupal",
+      "image": "assets/kristian-ducharme.jpg",
+      "source_image_url": "https://civicactions.com/static/db877e62a4bdc4da91635f6fec284f76/a1641/kristian_ducharme_d98c359237.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Laura Flannery",
+      "job_title": "In Memoriam",
+      "image": "assets/laura-flannery.jpg",
+      "source_image_url": "https://civicactions.com/static/8119194b3557760901958a3b0e7db27b/a1641/lflannery_6dd24036e9.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Laura Lanford",
+      "job_title": "Director of Engineering",
+      "image": "assets/laura-lanford.jpg",
+      "source_image_url": "https://civicactions.com/static/31518041ae7970c9d97a9fb3c4ba1917/a1641/Laura_Lanford_98d5f91aae.jpg",
+      "team_page_categories": [
+        "Leadership",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Liz Tupper",
+      "job_title": "Director of Product",
+      "image": "assets/liz-tupper.jpg",
+      "source_image_url": "https://civicactions.com/static/30b9a70d9afccdf96ca012f9a4dad43c/a1641/Liz_Tupper_87bfeab4bb.jpg",
+      "team_page_categories": [
+        "Leadership",
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Maggie Wachs",
+      "job_title": "Associate Director of Front End",
+      "image": "assets/maggie-wachs.jpg",
+      "source_image_url": "https://civicactions.com/static/010bd0fe2b1cadc5b787d0e17b7f9282/a1641/Maggie_Wachs_979a1bf2e7.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Maria Giudice",
+      "job_title": "Board Member",
+      "image": "assets/maria-giudice.png",
+      "source_image_url": "https://civicactions.com/static/7a5affb4766c269bdfb4a4da20f0163d/b5225/Maria_Giudice_82cc8129be.png",
+      "team_page_categories": [
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Matt Smith",
+      "job_title": "Product Manager",
+      "image": "assets/matt-smith.jpg",
+      "source_image_url": "https://civicactions.com/static/c90611a864347f6019894070ee988f1c/a1641/0_4c8cd591a3.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Meagan Hicks",
+      "job_title": "Program Manager",
+      "image": "assets/meagan-hicks.jpg",
+      "source_image_url": "https://civicactions.com/static/cc7b43118717e91c9e66caa48159b8af/a1641/Meagan_Hicks_5777696e7b.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Melinda Burgess",
+      "job_title": "Content Designer",
+      "image": "assets/melinda-burgess.jpg",
+      "source_image_url": "https://civicactions.com/static/36d44e2c336e64de7db3296c92befcbe/a1641/profile_pic_a54408a347.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Mike Gifford",
+      "job_title": "Open Standards & Practices Lead",
+      "image": "assets/mike-gifford.png",
+      "source_image_url": "https://civicactions.com/static/7418e15b508fccba9cc0b0b28607d869/b5225/mike_gifford_dba6ced900.png",
+      "team_page_categories": [
+        "Growth & Strategy"
+      ]
+    },
+    {
+      "name": "Mike Kinnunen",
+      "job_title": "Back End Engineer",
+      "image": "assets/mike-kinnunen.jpg",
+      "source_image_url": "https://civicactions.com/static/2e595c652d381aa2b86909258921cfd2/a1641/Mike_Kinnunen_7625b05855.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Mike Marsello",
+      "job_title": "Front End Developer",
+      "image": "assets/mike-marsello.png",
+      "source_image_url": "https://civicactions.com/static/90d21ab9df16a69934ea0a67e9811170/b5225/Mike_Marsello_3a145b0eaa.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Mina Mbah",
+      "job_title": "Security & Compliance Analyst",
+      "image": "assets/mina-mbah.jpg",
+      "source_image_url": "https://civicactions.com/static/07e38c4577151f3324497e997d41dd9e/a1641/Philomina_Mbah_0e04480c5c.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Montana Singer",
+      "job_title": "Controller",
+      "image": "assets/montana-singer.jpg",
+      "source_image_url": "https://civicactions.com/static/ab6b6fbf3294a60e148410c419ec8b11/a1641/Montana_9_8c1c55a980.jpg",
+      "team_page_categories": [
+        "Growth & Strategy",
+        "People & Operations"
+      ]
+    },
+    {
+      "name": "Nana Poku",
+      "job_title": "Front End Engineer",
+      "image": "assets/nana-poku.png",
+      "source_image_url": "https://civicactions.com/static/fdccc84ecda6c9780df324f0361a648f/b5225/nana_poku_portrait_2_f3f52cb98a.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Nehal Desai",
+      "job_title": "QA Engineer",
+      "image": "assets/nehal-desai.jpg",
+      "source_image_url": "https://civicactions.com/static/474eae0511b4c2a51d05b805d654f310/a1641/Nehal_Desai_c30382035a.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Nicole Miles",
+      "job_title": "Director of People Operations",
+      "image": "assets/nicole-miles.jpg",
+      "source_image_url": "https://civicactions.com/static/703c4c7081b3be2ca0f8b0a423a8c5a3/a1641/Nicole_Miles_6ee24e7b8a.jpg",
+      "team_page_categories": [
+        "People & Operations",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Owen Barton",
+      "job_title": "Chief Technology Officer",
+      "image": "assets/owen-barton.png",
+      "source_image_url": "https://civicactions.com/static/e116062c022204dc9c934d31f35694ee/b5225/owen_barton_a7f5eddfb8.png",
+      "team_page_categories": [
+        "Leadership",
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Patrick Koroma",
+      "job_title": "Associate Director of Drupal",
+      "image": "assets/patrick-koroma.jpg",
+      "source_image_url": "https://civicactions.com/static/da5cb36f7ef73f9f5a5767ee390331a6/a1641/Patrick_Koroma_7f363c7fad.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Paul Mitchum",
+      "job_title": "Back End Engineer",
+      "image": "assets/paul-mitchum.jpg",
+      "source_image_url": "https://civicactions.com/static/0cf73f3e861e247472f4e64458b8bcaf/a1641/Paul_Mitchum_0d3cccee5e.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Paul Walker",
+      "job_title": "Full Stack Engineer",
+      "image": "assets/paul-walker.jpg",
+      "source_image_url": "https://civicactions.com/static/9845120f0daffe1748ef363d084b1a40/a1641/Paul_Walker_c1af89f6ff.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Pete Ketcham",
+      "job_title": "DevOps Engineer",
+      "image": "assets/pete-ketcham.jpg",
+      "source_image_url": "https://civicactions.com/static/1209cc3723c4e77edc970afc142d52cf/a1641/pete_ketcham_sq_83ba17bdd7.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Rachael Adams",
+      "job_title": "Resource Planning Analyst",
+      "image": "assets/rachael-adams.jpg",
+      "source_image_url": "https://civicactions.com/static/9ed9ce092c388c0472aa5851fc068e57/a1641/rachael_adams_9bfd784b48.jpg",
+      "team_page_categories": [
+        "People & Operations"
+      ]
+    },
+    {
+      "name": "Rey Echevarria",
+      "job_title": "Director of Project Management",
+      "image": "assets/rey-echevarria.png",
+      "source_image_url": "https://civicactions.com/static/1fa1d8e8fd95d73b23bbc0a471d36339/b5225/Rey_Echevarria_2f35ea44b8.png",
+      "team_page_categories": [
+        "Client Services",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Robert Casey",
+      "job_title": "Back End Engineer",
+      "image": "assets/robert-casey.jpg",
+      "source_image_url": "https://civicactions.com/static/fde07ea39ef37743cdba51b12f1372f9/a1641/Robert_Casey_5bff939c83.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Ryan Draeger",
+      "job_title": "Agile Program Support Specialist",
+      "image": "assets/ryan-draeger.jpg",
+      "source_image_url": "https://civicactions.com/static/3c19b2618885a6418cdd40b3809e85db/a1641/ryan_draeger_97c2fc52ca.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Sam Lerner",
+      "job_title": "Back End Engineer",
+      "image": "assets/sam-lerner.jpg",
+      "source_image_url": "https://civicactions.com/static/ee58750c03cf52546ee29f673b372490/a1641/sam_lerner_b5042f0d7b.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Sammy De La O",
+      "job_title": "Compliance Analyst",
+      "image": "assets/sammy-delao.jpg",
+      "source_image_url": "https://civicactions.com/static/cdd4659653f91fda9e5de8627f52f323/a1641/Profile_Pic_SD_b87391d513.jpg",
+      "team_page_categories": [
+        "Growth & Strategy"
+      ]
+    },
+    {
+      "name": "Scott McGee",
+      "job_title": "DevSecOps Engineer",
+      "image": "assets/scott-mcgee.jpg",
+      "source_image_url": "https://civicactions.com/static/4883bd2875c5cbcdb95fc3683440dc32/a1641/scott_mcgee_d9bde0d337.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Sharjeel Aziz",
+      "job_title": "Associate Director of DevSecOps",
+      "image": "assets/sharjeel-aziz.jpg",
+      "source_image_url": "https://civicactions.com/static/61f29cf8bea8e3991bb08d3f006e5a4c/a1641/Sharjeel_Aziz_ec806ab1c4.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Sheryl Han",
+      "job_title": "DevOps Engineer",
+      "image": "assets/sheryl-han.jpg",
+      "source_image_url": "https://civicactions.com/static/bb2341d974177c66c70400744a8e7f1c/a1641/Sheryl_Han_8ebc93584c.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Stephanie Schultz",
+      "job_title": "Product Manager",
+      "image": "assets/stephanie-schultz.jpg",
+      "source_image_url": "https://civicactions.com/static/b1ba7b2fa6b9dc3979f38ff37cce230d/a1641/stephanie_shultz_a955c9b89a.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Steve Curtis",
+      "job_title": "Project Manager",
+      "image": "assets/steve-curtis.jpg",
+      "source_image_url": "https://civicactions.com/static/7e445854df6de8a8d8eb8112c30c85b9/a1641/IMG_20191003_164659_crop_7b430e9aec.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Steve Wirt",
+      "job_title": "Back End Engineer",
+      "image": "assets/steve-wirt.jpg",
+      "source_image_url": "https://civicactions.com/static/f94ee228f647ac95e8029c2bf1da89ed/a1641/steve_wirt_be5f33cc71.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Suzanne Gray",
+      "job_title": "Content Designer",
+      "image": "assets/suzanne-gray.jpg",
+      "source_image_url": "https://civicactions.com/static/f16921d114afe142064b407875a9c287/a1641/suzanne_gray_15867fd220.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Tamara Maniscalco",
+      "job_title": "Project Manager",
+      "image": "assets/tamara-maniscalco.jpg",
+      "source_image_url": "https://civicactions.com/static/55793fd67a6e00c7ee0eaa734c1fc84b/d33af/Tamara_Work_b89718d0c4.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    },
+    {
+      "name": "Tiffney Bare",
+      "job_title": "Back End Engineer",
+      "image": "assets/tiffney-bare.png",
+      "source_image_url": "https://civicactions.com/static/3c50c726ceaf07bd56f7a704e2914c77/b5225/TIFFNEY_4b7a280cb8.png",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Tim Shundo",
+      "job_title": "Product Designer",
+      "image": "assets/tim-shundo.jpg",
+      "source_image_url": "https://civicactions.com/static/e3da2ef2f8edc796ce7199d4f610d900/a1641/TIM_02513_Z_Resized_Sq_874c08e939.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Timo Zura",
+      "job_title": "Back End Engineer",
+      "image": "assets/timo-zura.jpg",
+      "source_image_url": "https://civicactions.com/static/9b67d5a18301f46d7797a585200c04f8/a1641/timo_zura_473ca51a46.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Toks Oriola",
+      "job_title": "Product Manager",
+      "image": "assets/toks-oriola.jpg",
+      "source_image_url": "https://civicactions.com/static/f1ba18ae00b89130280ba27143285fa0/a1641/professional_headshot_toksoriola_d22747c328.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Tolase Akinwale",
+      "job_title": "DevOps Engineer",
+      "image": "assets/tolase-akinwale.jpg",
+      "source_image_url": "https://civicactions.com/static/5849a16dd6ca2f1b5c114af539b7e684/a1641/tolase_2023_05_08_16_20_26_8707f48fe0.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Tom Camp",
+      "job_title": "Senior Solutions Architect",
+      "image": "assets/tom-camp.jpg",
+      "source_image_url": "https://civicactions.com/static/75675f069f0fab34c02444bc25225f69/a1641/Tom_Camp_f4d1851e0e.jpg",
+      "team_page_categories": [
+        "Engineering",
+        "Growth & Strategy"
+      ]
+    },
+    {
+      "name": "Tony Cooper",
+      "job_title": "Board Member",
+      "image": "assets/tony-cooper.jpg",
+      "source_image_url": "https://civicactions.com/static/febf2b966a3bd4a2545bd133e69ca73d/a1641/tony_cooper_6db49fd0c7.jpg",
+      "team_page_categories": [
+        "Leadership"
+      ]
+    },
+    {
+      "name": "Will Estrada",
+      "job_title": "Back End Engineer",
+      "image": "assets/will-estrada.jpg",
+      "source_image_url": "https://civicactions.com/static/aa875f82b1e5519391b30d3b1b209caf/a1641/Will_Estrada_7af52d7362.jpg",
+      "team_page_categories": [
+        "Engineering"
+      ]
+    },
+    {
+      "name": "Ya-Ching Tsao",
+      "job_title": "Product Designer",
+      "image": "assets/ya-ching-tsao.jpg",
+      "source_image_url": "https://civicactions.com/static/971b433d4fa83830dd575b6890094161/a1641/ya_ching_tsao_1963da9b63.jpg",
+      "team_page_categories": [
+        "Product & Design"
+      ]
+    },
+    {
+      "name": "Zach Edmonds",
+      "job_title": "Data Analyst",
+      "image": "assets/zach-edmonds.jpg",
+      "source_image_url": "https://civicactions.com/static/35ff6b07ecf7c8792c72802ecf8b04e9/a1641/Zach_Edmonds_91ec59f8a7.jpg",
+      "team_page_categories": [
+        "Client Services"
+      ]
+    }
+  ]
+}
