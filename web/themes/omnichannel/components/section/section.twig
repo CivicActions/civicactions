@@ -4,7 +4,10 @@
  * Template for the CivicActions Section component.
  *
  * Available props:
- * - layout: Column configuration: two-equal, three-equal, two-one, one-two, or four-equal.
+ * - layout: Column configuration: one, two-equal, three-equal, two-one, one-two, or four-equal.
+ * - section_id: Optional in-page anchor ID.
+ * - title: Optional section heading.
+ * - heading_level: Heading level for the optional section title.
  *
  * Available slots:
  * - column_one: First column content.
@@ -19,6 +22,11 @@
 {% set alignment = alignment|default('top') %}
 {% set width = width|default('full') %}
 {% set section_attributes = attributes|default(create_attribute()) %}
+{% set section_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4'} %}
+{% set section_heading_tag = section_heading_tags[heading_level|default(2)]|default('h2') %}
+{% if section_id %}
+  {% set section_attributes = section_attributes.setAttribute('id', section_id|clean_id) %}
+{% endif %}
 {% set section_inner_classes = [
   'ca-section__inner',
   'ca-section--' ~ column_layout,
@@ -32,13 +40,21 @@
   'ca-section--' ~ background_color,
 ]) }}>
   <div class="{{ section_inner_classes|join(' ') }}">
+    {% if title %}
+      <header class="ca-section__header">
+        <{{ section_heading_tag }} class="ca-section__title">{{ title }}</{{ section_heading_tag }}>
+      </header>
+    {% endif %}
+
     <div class="ca-section__column ca-section__column--one">
       {% block column_one %}{% endblock %}
     </div>
 
-    <div class="ca-section__column ca-section__column--two">
-      {% block column_two %}{% endblock %}
-    </div>
+    {% if column_layout != 'one' %}
+      <div class="ca-section__column ca-section__column--two">
+        {% block column_two %}{% endblock %}
+      </div>
+    {% endif %}
 
     {% if column_layout in ['three-equal', 'four-equal'] %}
       <div class="ca-section__column ca-section__column--three">

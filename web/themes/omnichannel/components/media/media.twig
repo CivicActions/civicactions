@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Media component.
+ *
+ * Available props:
+ * - image: Image selected from the Media Library.
+ * - video_url: HTTPS iframe embed URL for a remote video.
+ * - video_title: Accessible name for the video iframe.
+ * - caption: Optional image or video caption.
+ * - transcript_url: Optional transcript destination.
+ */
+#}
+{% set media_attributes = attributes|default(create_attribute()) %}
+{% set media_has_image = image and image.src %}
+{% set media_has_video = video_url %}
+{% set media_srcset = media_has_image ? image.src|toSrcSet(image.width) : '' %}
+
+{% if media_has_image or media_has_video %}
+  <figure {{ media_attributes.addClass('ca-media') }}>
+    {% if media_has_video %}
+      <div class="ca-media__video">
+        <iframe
+          class="ca-media__iframe"
+          src="{{ video_url|e('html_attr') }}"
+          title="{{ video_title|default('Embedded video')|e('html_attr') }}"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+    {% else %}
+      <img
+        class="ca-media__image"
+        src="{{ file_url(image.src)|e('html_attr') }}"
+        {% if media_srcset %}
+          srcset="{{ media_srcset|e('html_attr') }}"
+          sizes="100vw"
+        {% endif %}
+        alt="{{ image.alt|default('')|e('html_attr') }}"
+        width="{{ image.width|e('html_attr') }}"
+        height="{{ image.height|e('html_attr') }}"
+        loading="lazy"
+      >
+    {% endif %}
+
+    {% if caption or transcript_url %}
+      <figcaption class="ca-media__caption">
+        {% if caption %}
+          <span class="ca-media__caption-text">{{ caption }}</span>
+        {% endif %}
+        {% if transcript_url %}
+          <a class="ca-media__transcript" href="{{ transcript_url|e('html_attr') }}">Read the transcript</a>
+        {% endif %}
+      </figcaption>
+    {% endif %}
+  </figure>
+{% endif %}
