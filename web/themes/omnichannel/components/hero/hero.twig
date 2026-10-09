@@ -8,7 +8,7 @@
  * - eyebrow: Optional client, category, or section label.
  * - summary: Optional introductory copy.
  * - variant: Presentation variant ('card' or 'flush').
- * - image: Optional Media Library image, hidden on mobile.
+ * - image: Optional Media Library image, requested only above the mobile breakpoint.
  * - primary_button_text: Primary call-to-action label.
  * - primary_button_url: Primary call-to-action destination.
  * - secondary_button_text: Secondary call-to-action label.
@@ -58,18 +58,22 @@
     </div>
     {% if hero_has_image %}
       <div class="ca-hero__media">
-        <img
-          class="ca-hero__image"
-          src="{{ file_url(image.src)|e('html_attr') }}"
-          {% if hero_srcset %}
-            srcset="{{ hero_srcset|e('html_attr') }}"
-            sizes="(min-width: 1200px) calc(480px - 3.2rem), (min-width: 768px) calc(40vw - 3.2rem), 0px"
-          {% endif %}
-          alt="{{ image.alt|default('')|e('html_attr') }}"
-          width="{{ image.width|e('html_attr') }}"
-          height="{{ image.height|e('html_attr') }}"
-          loading="eager"
-        >
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="{{ (hero_srcset ?: file_url(image.src))|e('html_attr') }}"
+            sizes="(min-width: 1200px) calc(480px - 3.2rem), calc(40vw - 3.2rem)"
+          >
+          {# The inline fallback avoids downloading hidden hero imagery on mobile. #}
+          <img
+            class="ca-hero__image"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="{{ image.alt|default('')|e('html_attr') }}"
+            width="{{ image.width|e('html_attr') }}"
+            height="{{ image.height|e('html_attr') }}"
+            loading="eager"
+          >
+        </picture>
       </div>
     {% endif %}
   </div>
