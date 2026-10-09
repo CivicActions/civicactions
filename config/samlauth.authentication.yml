@@ -1,0 +1,69 @@
+_core:
+  default_config_hash: U_osGwFmSBlCxLj13jTNB0qVtGbS876-wUPqWc74K6A
+login_menu_item_title: 'Log in with CivicActions Google Account'
+logout_menu_item_title: ''
+login_link_title: 'Log in with CivicActions Google Account'
+login_auto_redirect: false
+login_redirect_url: ''
+logout_redirect_url: ''
+error_redirect_url: ''
+error_throw: false
+login_error_keep_session: true
+local_login_saml_error: false
+logout_drupal_idp: false
+logout_different_user: true
+drupal_login_roles:
+  authenticated: authenticated
+  content_editor: content_editor
+  administrator: administrator
+sp_entity_id: '[site:base-url]'
+sp_name_id_format: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress'
+sp_x509_certificate: ''
+sp_new_certificate: ''
+sp_private_key: ''
+metadata_valid_secs: 60
+metadata_cache_http: false
+idp_entity_id: 'https://accounts.google.com/o/saml2?idpid=C02bunuk3'
+idp_single_sign_on_service: 'https://accounts.google.com/o/saml2/idp?idpid=C02bunuk3'
+idp_single_log_out_service: ''
+idp_change_password_service: ''
+idp_certs:
+  - MIIDdjCCAl6gAwIBAgIGAZyQ9MCiMA0GCSqGSIb3DQEBCwUAMHwxFDASBgNVBAoTC0dvb2dsZSBJbmMuMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MQ8wDQYDVQQDEwZHb29nbGUxGTAXBgNVBAsTEEdvb2dsZSBXb3Jrc3BhY2UxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMB4XDTI2MDIyNDE4NDEyNFoXDTMxMDIyMzE4NDEyNFowfDEUMBIGA1UEChMLR29vZ2xlIEluYy4xFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxDzANBgNVBAMTBkdvb2dsZTEZMBcGA1UECxMQR29vZ2xlIFdvcmtzcGFjZTELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0fVucjO6lZzoCNxEsi9G4Wm0tFGhIAiOvZVRGKUen1OIKkucg3R7q18M/TaHaPbXFakOPjR/9dkTcHgU/lJCGHn4yDngUmZrS0+7tGu9G3scol/nIqclI7xKqMiu6DSx5g9RaCxd+3qGCiMjS7LhJQ3rVrBwGWA/n966+5BcNz62wcZldphEeDSpWA64VGK165UYcVHFbfvte8xlukOCY1MXbvaIX0kcSpa06Y5dWQlF85s9nCdU6RygXFMsgsWgyjby6VowVTyrICUMm/oikOX4lO3RMv2eMjKSOT8DcbusFG/2yvtoxg93HDgMq9DtYc0m1RktyCcWKfYWthV1fAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAA4HymTz17Akpaxgt8Qf6E2gDgROruwO9LRl6qnVVvg5aUf/1qK516/Fwt7sCY4WDeIFS92/sG7s7R5QBHyOQ3MwXYfJdt/e023YopDNGQGJcRq49o0FYIN0RGhor4YcunlQaxjZUNgkw9Qzpt9teIRR4ObgNDGKyVwW9jxJ/7DKSelfoPy6myoDd6i6OVfitYKSoE37MW90+KpdDdrt77hIOYgX2QgL6EPDHah9FwEd8J4Du6F7p+a4KBL2sqn7o8pWLIgaVEfDLg/j7g0CR5NxRFQrFcAG/gnLPfZSVnQmKtJE/Uf+csGmlM4JtkzsuXgjxBghmoAj/cQg0k1UsB4=
+idp_cert_encryption: ''
+unique_id_attribute: '!nameid'
+map_users: false
+map_users_name: false
+map_users_mail: true
+map_users_roles:
+  - anonymous
+create_users: true
+sync_name: false
+sync_mail: true
+user_name_attribute: email
+user_mail_attribute: email
+request_set_name_id_policy: true
+strict: true
+security_metadata_sign: false
+security_authn_requests_sign: false
+security_logout_requests_sign: false
+security_logout_responses_sign: false
+security_nameid_encrypt: false
+security_signature_algorithm: ''
+security_encryption_algorithm: ''
+security_messages_sign: false
+security_assertions_signed: true
+security_assertions_encrypt: false
+security_nameid_encrypted: false
+security_want_name_id: true
+security_request_authn_context: false
+security_lowercase_url_encoding: false
+security_logout_reuse_sigs: false
+security_allow_repeat_attribute_name: false
+debug_display_error_details: false
+debug_log_in: false
+debug_log_saml_in: false
+debug_log_saml_out: false
+debug_phpsaml: false
+use_proxy_headers: false
+use_base_url: true
+bypass_relay_state_check: false

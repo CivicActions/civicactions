@@ -1,0 +1,9 @@
+uuid: 07f39566-5a1b-4cca-91a5-d8143104d727
+langcode: en
+status: true
+dependencies: {  }
+name: 'Editorial Type'
+vid: editorial_type
+description: 'For Editorial Content Types - is it news, a highlight, whitepaper, article, or what.'
+weight: 0
+new_revision: false

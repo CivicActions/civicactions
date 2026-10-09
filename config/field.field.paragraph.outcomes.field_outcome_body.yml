@@ -1,0 +1,26 @@
+uuid: f47e8ae7-e469-4320-997b-f67bf4ba085b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_outcome_body
+    - filter.format.content_format
+    - filter.format.plain_text
+    - paragraphs.paragraphs_type.outcomes
+  module:
+    - text
+id: paragraph.outcomes.field_outcome_body
+field_name: field_outcome_body
+entity_type: paragraph
+bundle: outcomes
+label: 'Outcome Body'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - content_format
+    - plain_text
+field_type: text_long

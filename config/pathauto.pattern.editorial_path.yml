@@ -1,0 +1,23 @@
+uuid: 1840325d-98c9-4aeb-867d-b2c8c0800653
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.editorial
+  module:
+    - node
+id: editorial_path
+label: 'Editorial Path'
+type: 'canonical_entities:node'
+pattern: '/[node:field_editorial_type:entity:field_url_prefix]/[node:title]'
+selection_criteria:
+  cb435983-47ec-44dd-adbf-2546ba89e7a0:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      editorial: editorial
+selection_logic: and
+weight: -5
+relationships: {  }

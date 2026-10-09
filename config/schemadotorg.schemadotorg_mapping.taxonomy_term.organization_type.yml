@@ -1,0 +1,16 @@
+uuid: 9d7b2e8e-9aa8-4085-9f75-0f2c76214957
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.organization_type
+  module:
+    - taxonomy
+id: taxonomy_term.organization_type
+target_entity_type_id: taxonomy_term
+target_bundle: organization_type
+schema_type: DefinedTerm
+schema_properties:
+  description: description
+  name: name
+additional_mappings: {  }

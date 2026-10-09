@@ -1,0 +1,20 @@
+uuid: 1276c18c-0daf-4066-80e1-5c7219368fa3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_funnel_stage
+field_name: field_funnel_stage
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

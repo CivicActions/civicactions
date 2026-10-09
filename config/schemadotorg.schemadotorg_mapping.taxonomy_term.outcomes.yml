@@ -1,0 +1,15 @@
+uuid: 4a50f3f5-3a40-46fb-8696-a2ad69e85cc4
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.outcomes
+  module:
+    - taxonomy
+id: taxonomy_term.outcomes
+target_entity_type_id: taxonomy_term
+target_bundle: outcomes
+schema_type: DefinedTerm
+schema_properties:
+  name: name
+additional_mappings: {  }

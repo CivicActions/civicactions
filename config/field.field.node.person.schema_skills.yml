@@ -1,0 +1,41 @@
+uuid: cf600cf5-7e14-430d-9111-24867916c918
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_skills
+    - node.type.person
+    - taxonomy.vocabulary.editorial_type
+    - taxonomy.vocabulary.expertise
+    - taxonomy.vocabulary.mission_area
+    - taxonomy.vocabulary.organization_type
+    - taxonomy.vocabulary.outcomes
+    - taxonomy.vocabulary.tool
+    - taxonomy.vocabulary.topic
+id: node.person.schema_skills
+field_name: schema_skills
+entity_type: node
+bundle: person
+label: Skills
+description: 'A statement of knowledge, skill, ability, task or any other assertion expressing a competency that is either claimed by a person, an organization or desired or required to fulfill a role or to work in an occupation.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'schemadotorg:taxonomy_term'
+  handler_settings:
+    target_type: taxonomy_term
+    schema_types:
+      DefinedTerm: DefinedTerm
+    excluded_schema_types: {  }
+    ignore_additional_mappings: false
+    target_bundles:
+      editorial_type: editorial_type
+      expertise: expertise
+      mission_area: mission_area
+      organization_type: organization_type
+      outcomes: outcomes
+      tool: tool
+      topic: topic
+field_type: entity_reference

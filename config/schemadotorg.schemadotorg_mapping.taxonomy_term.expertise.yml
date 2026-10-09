@@ -1,0 +1,15 @@
+uuid: 56fdc8e2-82f4-4e38-8107-2bb8a612d0cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.expertise
+  module:
+    - taxonomy
+id: taxonomy_term.expertise
+target_entity_type_id: taxonomy_term
+target_bundle: expertise
+schema_type: DefinedTerm
+schema_properties:
+  name: name
+additional_mappings: {  }

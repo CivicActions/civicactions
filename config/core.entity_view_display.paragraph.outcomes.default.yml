@@ -1,0 +1,32 @@
+uuid: 73769aec-9721-4d4b-a515-6b8e8cd0beae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.outcomes.field_outcome_body
+    - field.field.paragraph.outcomes.field_outcome_heading
+    - paragraphs.paragraphs_type.outcomes
+  module:
+    - text
+id: paragraph.outcomes.default
+targetEntityType: paragraph
+bundle: outcomes
+mode: default
+content:
+  field_outcome_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_outcome_heading:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

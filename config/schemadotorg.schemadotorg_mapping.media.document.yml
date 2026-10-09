@@ -1,0 +1,18 @@
+uuid: 68146a19-e1dd-4740-8428-853e1bd55d3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.document.field_media_document
+    - media.type.document
+  module:
+    - media
+id: media.document
+target_entity_type_id: media
+target_bundle: document
+schema_type: MediaObject
+schema_properties:
+  field_media_document: contentUrl
+  name: name
+  thumbnail: thumbnail
+additional_mappings: {  }

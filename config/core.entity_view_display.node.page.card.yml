@@ -1,0 +1,25 @@
+uuid: 997c8e13-4981-4a16-8f5a-ee2fed0a063f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.card
+    - field.field.node.page.field_content
+    - field.field.node.page.schema_image
+    - field.field.node.page.schema_short_description
+    - node.type.page
+  module:
+    - user
+_core:
+  default_config_hash: HDUzgmks4qvAN4PJRHQOFi3_sUcLg_zivOOMnCb1ER4
+id: node.page.card
+targetEntityType: node
+bundle: page
+mode: card
+content: {  }
+hidden:
+  content_moderation_control: true
+  field_content: true
+  links: true
+  schema_image: true
+  schema_short_description: true

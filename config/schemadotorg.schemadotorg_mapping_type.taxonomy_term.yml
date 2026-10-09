@@ -1,0 +1,45 @@
+uuid: 4bc0c9ae-550b-4cc0-ace0-ae098639b837
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: lO_sPjMbjBoWl-6ZbpVhZwHkEij9cF0seg5XQ_Bk-kQ
+id: taxonomy_term
+target_entity_type_id: taxonomy_term
+multiple: true
+label_prefix: ''
+id_prefix: ''
+recommended_schema_types:
+  civicactions:
+    label: CivicActions
+    types:
+      - DefinedTerm
+      - Audience
+      - Organization
+default_schema_types:
+  department: Organization
+  topic: DefinedTerm
+  capability: DefinedTerm
+  outcome_area: DefinedTerm
+  people_served: DefinedTerm
+  life_events: DefinedTerm
+  tools: DefinedTerm
+  techniques: DefinedTerm
+  organization_type: DefinedTerm
+  contract_vehicle_type: DefinedTerm
+  eligible_buyers: DefinedTerm
+  vehicle_categories: DefinedTerm
+  compliance_category: DefinedTerm
+  content_kind: DefinedTerm
+  event_type: DefinedTerm
+default_schema_type_properties: {  }
+default_schema_type_view_displays: {  }
+default_base_fields:
+  name:
+    - name
+  description:
+    - description
+default_component_weights: {  }
+default_component_weights_update: false

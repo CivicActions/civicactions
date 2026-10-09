@@ -1,0 +1,29 @@
+uuid: 82d66c3e-1b45-49d6-8b4d-2aab0eba3478
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_client
+    - node.type.case_study
+    - node.type.organization
+id: node.case_study.schema_client
+field_name: schema_client
+entity_type: node
+bundle: case_study
+label: Client
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      organization: organization
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

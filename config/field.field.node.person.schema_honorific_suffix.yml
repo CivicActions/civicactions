@@ -1,0 +1,19 @@
+uuid: b71a7fd2-7121-44dc-a9ff-c658e3bd7bb5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_honorific_suffix
+    - node.type.person
+id: node.person.schema_honorific_suffix
+field_name: schema_honorific_suffix
+entity_type: node
+bundle: person
+label: 'Honorific suffix'
+description: "An honorific suffix following a Person's name such as M.D./PhD/MSCSW."
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

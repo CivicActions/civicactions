@@ -1,0 +1,24 @@
+uuid: a00aaebc-c2f1-4d39-a689-8912bc072a2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_description
+    - filter.format.inline_content
+    - paragraphs.paragraphs_type.proof_point
+  module:
+    - text
+id: paragraph.proof_point.field_description
+field_name: field_description
+entity_type: paragraph
+bundle: proof_point
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - inline_content
+field_type: text

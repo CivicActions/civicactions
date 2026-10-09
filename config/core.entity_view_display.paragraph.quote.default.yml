@@ -1,0 +1,74 @@
+uuid: 05ad5304-7aab-4e76-8f57-ef0c6528b956
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quote.schema_author
+    - field.field.paragraph.quote.schema_date_created
+    - field.field.paragraph.quote.schema_description
+    - field.field.paragraph.quote.schema_is_based_on_link
+    - field.field.paragraph.quote.schema_keywords
+    - field.field.paragraph.quote.schema_text
+    - paragraphs.paragraphs_type.quote
+  module:
+    - datetime
+    - link
+    - text
+id: paragraph.quote.default
+targetEntityType: paragraph
+bundle: quote
+mode: default
+content:
+  schema_author:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 50
+    region: content
+  schema_date_created:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  schema_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  schema_is_based_on_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 41
+    region: content
+  schema_keywords:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  schema_text:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden: {  }

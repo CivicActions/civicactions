@@ -1,0 +1,9 @@
+uuid: f5aa69a7-221a-4cb6-b9f0-1f4516202dc7
+langcode: en
+status: true
+dependencies: {  }
+name: 'Mission Area'
+vid: mission_area
+description: 'Sector of mission impact.'
+weight: 0
+new_revision: false

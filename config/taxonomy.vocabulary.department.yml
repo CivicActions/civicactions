@@ -1,0 +1,9 @@
+uuid: f0a6b43a-16e8-4dee-96ca-759eb58cc262
+langcode: en
+status: true
+dependencies: {  }
+name: Department
+vid: department
+description: 'An organization such as a school, NGO, corporation, club, etc.'
+weight: 0
+new_revision: false

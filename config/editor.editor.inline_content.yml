@@ -1,0 +1,21 @@
+uuid: 78ae2ecb-ff9f-418f-9ada-5d2fee27c64f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.inline_content
+  module:
+    - ckeditor5
+format: inline_content
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - bold
+      - italic
+      - link
+  plugins:
+    linkit_extension:
+      linkit_enabled: false
+image_upload:
+  status: false

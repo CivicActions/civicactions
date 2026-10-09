@@ -1,0 +1,50 @@
+uuid: abfdde7a-75b5-4e4a-b57d-a316b0db9c3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.editorial.field_content_job
+    - field.field.node.editorial.field_editorial_type
+    - field.field.node.editorial.field_file_download
+    - field.field.node.editorial.field_funnel_stage
+    - field.field.node.editorial.schema_article_body
+    - field.field.node.editorial.schema_audience
+    - field.field.node.editorial.schema_author
+    - field.field.node.editorial.schema_contributor
+    - field.field.node.editorial.schema_image
+    - field.field.node.editorial.schema_keywords
+    - field.field.node.editorial.schema_short_description
+    - node.type.editorial
+  module:
+    - user
+id: node.editorial.teaser
+targetEntityType: node
+bundle: editorial
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_short_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  field_content_job: true
+  field_editorial_type: true
+  field_file_download: true
+  field_funnel_stage: true
+  schema_article_body: true
+  schema_audience: true
+  schema_author: true
+  schema_contributor: true
+  schema_image: true
+  schema_keywords: true

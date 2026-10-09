@@ -1,0 +1,21 @@
+uuid: 41ae75dd-51c4-4df6-99aa-b32655cff7b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.audience
+  module:
+    - text
+id: taxonomy_term.audience.default
+targetEntityType: taxonomy_term
+bundle: audience
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

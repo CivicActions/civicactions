@@ -1,0 +1,29 @@
+uuid: e2be7741-2e06-447b-8209-09e9e96e346f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content_job
+    - node.type.editorial
+    - taxonomy.vocabulary.content_job
+id: node.editorial.field_content_job
+field_name: field_content_job
+entity_type: node
+bundle: editorial
+label: 'Content purpose'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      content_job: content_job
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

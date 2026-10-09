@@ -1,0 +1,10 @@
+_core:
+  default_config_hash: O8lwk2Pmr2jDmXGPegRnoWQBf9ToYm_8gsR6OgzDygo
+default_sources:
+  ImageObject: image
+  VideoObject: 'oembed:video'
+  MediaObject: file
+source_field_mappings:
+  field_media_image: contentUrl
+  field_media_oembed_video: url
+  field_media_file: contentUrl

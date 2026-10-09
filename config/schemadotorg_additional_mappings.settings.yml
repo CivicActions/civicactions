@@ -1,0 +1,27 @@
+_core:
+  default_config_hash: jUi3HVZSOqRpP11crgJwyvRWdo8bclCsrqDQl5U38Tg
+default_additional_mappings:
+  node--person:
+    - ProfilePage
+  node--service:
+    - WebPage
+  node--offering:
+    - WebPage
+  node--contract_vehicle:
+    - WebPage
+  node--case_study:
+    - WebPage
+  node--editorial_content:
+    - WebPage
+default_properties:
+  WebPage:
+    - text
+    - abstract
+    - about
+    - keywords
+    - hasPart
+    - citation
+    - mentions
+    - image
+  ProfilePage:
+    - text

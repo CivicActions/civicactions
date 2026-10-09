@@ -1,0 +1,29 @@
+uuid: a31b7aa8-d59e-4c19-b231-b60175178921
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_expertise
+    - node.type.case_study
+    - taxonomy.vocabulary.expertise
+id: node.case_study.field_expertise
+field_name: field_expertise
+entity_type: node
+bundle: case_study
+label: Expertise
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      expertise: expertise
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,43 @@
+uuid: 034a4589-b6e7-4e30-b56e-00dc7a4f89e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_related
+    - paragraphs.paragraphs_type.proof_point
+    - taxonomy.vocabulary.expertise
+    - taxonomy.vocabulary.funnel_stage
+    - taxonomy.vocabulary.life_events
+    - taxonomy.vocabulary.mission_area
+    - taxonomy.vocabulary.organization_type
+    - taxonomy.vocabulary.outcomes
+    - taxonomy.vocabulary.tool
+    - taxonomy.vocabulary.topic
+id: paragraph.proof_point.field_related
+field_name: field_related
+entity_type: paragraph
+bundle: proof_point
+label: Tags
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      expertise: expertise
+      funnel_stage: funnel_stage
+      life_events: life_events
+      mission_area: mission_area
+      organization_type: organization_type
+      outcomes: outcomes
+      tool: tool
+      topic: topic
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: tool
+field_type: entity_reference

@@ -1,0 +1,26 @@
+uuid: 00944faa-132b-469e-8a43-9d47f7f9b0ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_article_body
+    - node.type.editorial
+  module:
+    - entity_reference_revisions
+id: node.editorial.schema_article_body
+field_name: schema_article_body
+entity_type: node
+bundle: editorial
+label: Content
+description: 'The actual body of the article.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles: {  }
+    negate: 0
+    target_bundles_drag_drop: {  }
+field_type: entity_reference_revisions

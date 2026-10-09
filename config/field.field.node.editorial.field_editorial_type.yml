@@ -1,0 +1,29 @@
+uuid: 102a6273-a722-4cd8-b837-3edb0b3c2ef6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_editorial_type
+    - node.type.editorial
+    - taxonomy.vocabulary.editorial_type
+id: node.editorial.field_editorial_type
+field_name: field_editorial_type
+entity_type: node
+bundle: editorial
+label: 'Editorial Type'
+description: 'Use Article for a blog-style post. Use News for a timely announcement/press sort of release. Use Highlight for something timely and noteworthy. Use Whitepaper for whitepapers.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      editorial_type: editorial_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

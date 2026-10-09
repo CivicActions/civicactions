@@ -1,0 +1,21 @@
+uuid: ee047563-83c6-4754-a1dd-3009ff9018dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.outcomes
+  module:
+    - text
+id: taxonomy_term.outcomes.default
+targetEntityType: taxonomy_term
+bundle: outcomes
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

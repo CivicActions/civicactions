@@ -1,0 +1,20 @@
+uuid: 4b23da98-7203-4981-b8a1-cdfaf8fdb4d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - text
+id: paragraph.schema_author
+field_name: schema_author
+entity_type: paragraph
+type: text
+settings:
+  max_length: 255
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

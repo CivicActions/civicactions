@@ -1,0 +1,15 @@
+uuid: cb4ffb4c-82f1-4956-8276-b3fd47a07f3c
+langcode: en
+status: true
+dependencies:
+  config:
+    - canvas.component.sdc.omnichannel.case-study-teaser
+    - canvas.component.sdc.omnichannel.editorial-teaser
+    - canvas.component.sdc.omnichannel.person-teaser
+name: Teasers
+configEntityTypeId: component
+weight: 0
+items:
+  - sdc.omnichannel.case-study-teaser
+  - sdc.omnichannel.editorial-teaser
+  - sdc.omnichannel.person-teaser

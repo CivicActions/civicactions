@@ -1,0 +1,29 @@
+uuid: 08151ca5-fd6d-45cc-8598-f6fdb1dbbd67
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_member_of
+    - node.type.person
+    - taxonomy.vocabulary.team_page_category
+id: node.person.schema_member_of
+field_name: schema_member_of
+entity_type: node
+bundle: person
+label: 'Team page category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      team_page_category: team_page_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

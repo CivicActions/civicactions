@@ -1,0 +1,64 @@
+uuid: 8e05e23c-8e8c-4b93-aab8-dac3853df0a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.person.field_profile_category
+    - field.field.node.person.field_profile_status
+    - field.field.node.person.schema_about
+    - field.field.node.person.schema_has_certification
+    - field.field.node.person.schema_has_credential
+    - field.field.node.person.schema_honorific_suffix
+    - field.field.node.person.schema_image
+    - field.field.node.person.schema_job_title
+    - field.field.node.person.schema_knows_about
+    - field.field.node.person.schema_member_of
+    - field.field.node.person.schema_pronouns
+    - field.field.node.person.schema_skills
+    - field.field.node.person.schema_urls
+    - field.field.node.person.schema_works_for
+    - node.type.person
+  module:
+    - text
+    - user
+id: node.person.teaser
+targetEntityType: node
+bundle: person
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_about:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 65
+    region: content
+hidden:
+  field_profile_category: true
+  field_profile_status: true
+  schema_has_certification: true
+  schema_has_credential: true
+  schema_honorific_suffix: true
+  schema_job_title: true
+  schema_knows_about: true
+  schema_member_of: true
+  schema_pronouns: true
+  schema_skills: true
+  schema_urls: true
+  schema_works_for: true

@@ -1,0 +1,65 @@
+uuid: eaf78c33-47fa-436c-9599-384b43a9efb8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.proof_point.field_client
+    - field.field.paragraph.proof_point.field_description
+    - field.field.paragraph.proof_point.field_related
+    - field.field.paragraph.proof_point.field_value
+    - paragraphs.paragraphs_type.proof_point
+  module:
+    - tagify
+    - text
+id: paragraph.proof_point.default
+targetEntityType: paragraph
+bundle: proof_point
+mode: default
+content:
+  field_client:
+    type: tagify_entity_reference_autocomplete_widget
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      placeholder: ''
+      suggestions_dropdown: 1
+      show_entity_id: 0
+      show_info_label: 0
+      info_label: ''
+      parent_selection: 1
+    third_party_settings: {  }
+  field_description:
+    type: text_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_related:
+    type: tagify_entity_reference_autocomplete_widget
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      placeholder: ''
+      suggestions_dropdown: 1
+      show_entity_id: 0
+      show_info_label: 0
+      info_label: ''
+      parent_selection: 1
+    third_party_settings: {  }
+  field_value:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

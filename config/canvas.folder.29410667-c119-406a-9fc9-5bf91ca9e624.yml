@@ -1,0 +1,11 @@
+uuid: 29410667-c119-406a-9fc9-5bf91ca9e624
+langcode: en
+status: true
+dependencies:
+  config:
+    - canvas.component.sdc.omnichannel.primary-page-cta
+name: 'Call to Action'
+configEntityTypeId: component
+weight: 0
+items:
+  - sdc.omnichannel.primary-page-cta

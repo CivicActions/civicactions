@@ -1,0 +1,34 @@
+uuid: bbdadc82-be7e-4ad0-bfc4-7574c4cf3241
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.outcomes.field_outcome_body
+    - field.field.paragraph.outcomes.field_outcome_heading
+    - paragraphs.paragraphs_type.outcomes
+  module:
+    - text
+id: paragraph.outcomes.default
+targetEntityType: paragraph
+bundle: outcomes
+mode: default
+content:
+  field_outcome_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_outcome_heading:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

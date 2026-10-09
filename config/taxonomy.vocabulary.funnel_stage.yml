@@ -1,0 +1,25 @@
+uuid: 2666c163-a1d7-4e03-b5e2-1cd659484e91
+langcode: en
+status: true
+dependencies:
+  module:
+    - scheduler
+third_party_settings:
+  scheduler:
+    expand_fieldset: when_required
+    fields_display_mode: vertical_tab
+    publish_enable: false
+    publish_past_date: error
+    publish_past_date_created: false
+    publish_required: false
+    publish_revision: false
+    publish_touch: false
+    show_message_after_update: true
+    unpublish_enable: false
+    unpublish_required: false
+    unpublish_revision: false
+name: 'Funnel Stage'
+vid: funnel_stage
+description: 'Where someone is in the decision journey with CivicActions or a specific offering/content path.'
+weight: 0
+new_revision: false

@@ -1,0 +1,9 @@
+uuid: 822e59be-aff0-4a03-934e-e65359221e18
+langcode: en
+status: true
+dependencies: {  }
+name: Topic
+vid: topic
+description: 'A topic is the subject or domain a piece of content addresses, used to connect related content across content types regardless of service, offering, audience, or format.'
+weight: 0
+new_revision: false

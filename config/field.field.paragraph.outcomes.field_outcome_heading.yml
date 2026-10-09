@@ -1,0 +1,19 @@
+uuid: 90d7d9aa-6730-4bc1-aa5e-0cfe38e45e40
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_outcome_heading
+    - paragraphs.paragraphs_type.outcomes
+id: paragraph.outcomes.field_outcome_heading
+field_name: field_outcome_heading
+entity_type: paragraph
+bundle: outcomes
+label: 'Outcome Heading'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

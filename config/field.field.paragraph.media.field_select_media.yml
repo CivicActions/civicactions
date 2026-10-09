@@ -1,0 +1,33 @@
+uuid: 274a9197-2515-415c-ae60-5e372601b444
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_select_media
+    - media.type.image
+    - media.type.remote_video
+    - media.type.svg_image
+    - paragraphs.paragraphs_type.media
+id: paragraph.media.field_select_media
+field_name: field_select_media
+entity_type: paragraph
+bundle: media
+label: 'Image or Video'
+description: 'Select an image or video from the media library.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+      remote_video: remote_video
+      svg_image: svg_image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: image
+field_type: entity_reference

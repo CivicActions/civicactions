@@ -1,0 +1,9 @@
+uuid: e97c6d00-8149-4fee-a027-7f93a934c2f2
+langcode: en
+status: true
+dependencies: {  }
+name: Outcomes
+vid: outcomes
+description: 'Outcomes and impact achieved by an initiative, project, or team.'
+weight: 0
+new_revision: false

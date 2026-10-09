@@ -1,0 +1,15 @@
+uuid: 3457757f-8efc-4d81-953f-99b8479d5124
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs_library
+third_party_settings:
+  paragraphs_library:
+    allow_library_conversion: true
+id: quote
+label: Quote
+icon_uuid: null
+icon_default: null
+description: 'A quotation.'
+behavior_plugins: {  }

@@ -1,0 +1,19 @@
+uuid: 5a0cbb6e-d3d4-4739-8857-efa352d4f04f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_url_prefix_person
+    - taxonomy.vocabulary.profile_category
+id: taxonomy_term.profile_category.field_url_prefix_person
+field_name: field_url_prefix_person
+entity_type: taxonomy_term
+bundle: profile_category
+label: 'URL Prefix'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

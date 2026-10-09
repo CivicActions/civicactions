@@ -1,0 +1,19 @@
+uuid: 56c872cb-54c3-4321-bec9-e28a2fd93dcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.schema_text
+    - paragraphs.paragraphs_type.quote
+id: paragraph.quote.schema_text
+field_name: schema_text
+entity_type: paragraph
+bundle: quote
+label: 'Quote text'
+description: 'The text of the quote.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,46 @@
+uuid: 826a9e3b-f447-42f4-a211-1abd18308bc0
+langcode: en
+status: true
+dependencies:
+  theme:
+    - omnichannel
+active_version: e5966e27497c4af3
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions:
+        heading_id:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value: null
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+    fallback_metadata:
+      slot_definitions:
+        branding:
+          title: Branding
+          description: 'Footer logo, typically linked to the front page.'
+        about:
+          title: 'About text'
+          description: 'Short description of the organization.'
+        contact:
+          title: 'Contact details'
+          description: 'Mailing address, phone number, and email address.'
+        menu:
+          title: 'Footer menu'
+          description: 'Primary footer navigation links.'
+        social:
+          title: 'Social links'
+          description: 'Social media icon links.'
+        bottom_links:
+          title: 'Bottom links'
+          description: 'Legal and policy links displayed in the bottom bar.'
+label: 'Site Footer'
+id: sdc.omnichannel.site-footer
+provider: omnichannel
+source: sdc
+source_local_id: 'omnichannel:site-footer'

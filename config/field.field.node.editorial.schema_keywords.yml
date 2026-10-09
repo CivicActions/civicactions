@@ -1,0 +1,41 @@
+uuid: 07c4425c-1cc2-4618-ab9b-0da1c03b78d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_keywords
+    - node.type.editorial
+    - taxonomy.vocabulary.expertise
+    - taxonomy.vocabulary.gov_level
+    - taxonomy.vocabulary.life_events
+    - taxonomy.vocabulary.mission_area
+    - taxonomy.vocabulary.outcomes
+    - taxonomy.vocabulary.tool
+    - taxonomy.vocabulary.topic
+id: node.editorial.schema_keywords
+field_name: schema_keywords
+entity_type: node
+bundle: editorial
+label: Keywords
+description: 'Keywords pull from the expertise, tools, topics, mission area, and outcomes taxonomies right now.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      expertise: expertise
+      gov_level: gov_level
+      life_events: life_events
+      mission_area: mission_area
+      outcomes: outcomes
+      tool: tool
+      topic: topic
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: life_events
+field_type: entity_reference
