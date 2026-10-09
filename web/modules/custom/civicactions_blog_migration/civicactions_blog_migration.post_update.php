@@ -154,3 +154,62 @@ function civicactions_blog_migration_post_update_full_content_format(&$sandbox =
 
   return 'Created full_content text format and made it default for article body.';
 }
+
+/**
+ * Ensures Editorial field_content allows the Body content paragraph bundle.
+ */
+function civicactions_blog_migration_post_update_editorial_content_paragraph_bundle(&$sandbox = NULL): string {
+  $field = FieldConfig::loadByName('node', 'editorial', 'field_content');
+  if (!$field) {
+    return 'Skipped: Editorial field_content does not exist.';
+  }
+
+  if ($field->getType() !== 'entity_reference_revisions') {
+    return 'Skipped: Editorial field_content is not an entity reference revisions field.';
+  }
+
+  $settings = $field->getSettings();
+  $handler_settings = $settings['handler_settings'] ?? [];
+  $target_bundles = $handler_settings['target_bundles'] ?? [];
+
+  $paragraph_type_storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  $body_content_bundle = NULL;
+
+  if ($paragraph_type_storage->load('body_content')) {
+    $body_content_bundle = 'body_content';
+  }
+  else {
+    foreach ($paragraph_type_storage->loadMultiple() as $bundle_id => $paragraph_type) {
+      if (mb_strtolower((string) $paragraph_type->label()) === 'body content') {
+        $body_content_bundle = (string) $bundle_id;
+        break;
+      }
+    }
+  }
+
+  if ($body_content_bundle === NULL) {
+    return 'Skipped: Body content paragraph bundle was not found.';
+  }
+
+  $target_bundles[$body_content_bundle] = $body_content_bundle;
+  $handler_settings['target_bundles'] = $target_bundles;
+
+  if (!isset($handler_settings['target_bundles_drag_drop'])) {
+    $handler_settings['target_bundles_drag_drop'] = [];
+  }
+  if (!isset($handler_settings['target_bundles_drag_drop'][$body_content_bundle])) {
+    $handler_settings['target_bundles_drag_drop'][$body_content_bundle] = [
+      'weight' => 0,
+      'enabled' => TRUE,
+    ];
+  }
+  else {
+    $handler_settings['target_bundles_drag_drop'][$body_content_bundle]['enabled'] = TRUE;
+  }
+
+  $settings['handler_settings'] = $handler_settings;
+  $field->set('settings', $settings);
+  $field->save();
+
+  return 'Editorial field_content now allows the Body content paragraph bundle.';
+}

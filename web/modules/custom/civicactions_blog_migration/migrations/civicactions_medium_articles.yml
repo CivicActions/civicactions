@@ -9,12 +9,24 @@ process:
   title:
     plugin: get
     source: title
-  schema_article_body/value:
+  field_editorial_type/target_id:
     plugin: get
-    source: body_html
-  schema_article_body/format:
-    plugin: default_value
-    default_value: full_content
+    source: editorial_type_target_id
+  schema_author:
+    plugin: get
+    source: author
+  schema_short_description:
+    plugin: get
+    source: subtitle
+  schema_image/target_id:
+    plugin: get
+    source: schema_image_target_id
+  schema_article_body:
+    plugin: sub_process
+    source: field_content_items
+    process:
+      target_id: target_id
+      target_revision_id: target_revision_id
   created:
     plugin: format_date
     from_format: 'Y-m-d\TH:i:s.u\Z'
@@ -34,4 +46,4 @@ process:
     default_value: en
 destination:
   plugin: 'entity:node'
-  default_bundle: article
+  default_bundle: editorial

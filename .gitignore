@@ -9,6 +9,10 @@
 !/web/sites/*/services.pantheon.*.yml
 !/web/sites/*/services.yml
 
+# Ignore Drupal core default templates generated locally
+/web/sites/default/default.settings.php
+/web/sites/default/default.services.yml
+
 # Ignore paths that contain user-generated content.
 /web/sites/*/files
 /web/sites/*/private
@@ -87,6 +91,15 @@
 # already ignored. We must also ignore these generated files.
 /web/**/.gitignore
 
+# Local-only PHPStan override
+/phpstan.neon
+
+# VS Code: ignore all by default, allow selected shared workspace files
+/.vscode/*
+#!/.vscode/settings.json
+#!/.vscode/extensions.json
+#!/.vscode/tasks.json
+#!/.vscode/launch.json
 
 # Other common rules
 # ------------------
