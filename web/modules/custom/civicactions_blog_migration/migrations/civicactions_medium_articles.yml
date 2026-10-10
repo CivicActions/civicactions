@@ -32,6 +32,12 @@ process:
   langcode:
     plugin: default_value
     default_value: en
+  field_editorial_type/target_id:
+    plugin: default_value
+    default_value: 279
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
 destination:
   plugin: 'entity:node'
-  default_bundle: article
+  default_bundle: editorial
