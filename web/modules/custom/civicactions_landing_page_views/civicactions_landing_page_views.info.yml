@@ -1,0 +1,10 @@
+name: 'CivicActions Landing Page Views'
+type: module
+description: 'Provides landing page listing views for articles, team, publications, case studies, and news.'
+core_version_requirement: ^10 || ^11
+package: CivicActions
+dependencies:
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:user
+  - drupal:views
