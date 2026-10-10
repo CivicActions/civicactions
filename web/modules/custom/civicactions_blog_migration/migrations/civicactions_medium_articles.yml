@@ -12,9 +12,11 @@ process:
   field_editorial_type/target_id:
     plugin: default_value
     default_value: 279
-  schema_author/target_id:
-    plugin: get
-    source: schema_author_target_id
+  schema_author:
+    plugin: sub_process
+    source: schema_author_items
+    process:
+      target_id: target_id
   schema_short_description:
     plugin: get
     source: subtitle
