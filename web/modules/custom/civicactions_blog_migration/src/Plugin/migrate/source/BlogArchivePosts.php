@@ -11,6 +11,7 @@ use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Plugin\migrate\source\SourcePluginBase;
+use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -53,6 +54,11 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
    * Cached Person node ids keyed by normalized title.
    */
   protected ?array $personNodeIdsByTitle = NULL;
+
+  /**
+   * Cached organization node id for CivicActions author mapping.
+   */
+  protected ?int $organizationAuthorNodeId = NULL;
 
   /**
    * BlogArchivePosts constructor.
@@ -104,8 +110,8 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       'body_html' => $this->t('Article body HTML with localized image URLs.'),
       'published_at' => $this->t('Published datetime in ISO format.'),
       'source_url' => $this->t('Original source URL.'),
-      'author' => $this->t('Author name.'),
-      'schema_author_target_id' => $this->t('Person node id matching the author name.'),
+      'author' => $this->t('Author name or names.'),
+      'schema_author_items' => $this->t('Author reference items for schema_author field.'),
       'editorial_type_target_id' => $this->t('Editorial type term id for Article.'),
       'schema_image_target_id' => $this->t('Media image entity id associated with article image.'),
       'field_content_items' => $this->t('Body content paragraph reference-revision items for field_content.'),
@@ -161,7 +167,7 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
             'subtitle' => (string) ($post['subtitle'] ?? ''),
             'published_at' => (string) ($post['published_at'] ?? ''),
             'source_url' => (string) ($post['source_url'] ?? ''),
-            'author' => (string) ($post['author'] ?? ''),
+            'author' => $post['author'] ?? '',
             'relative_html_file' => (string) ($post['file'] ?? ''),
           ];
         }
@@ -176,7 +182,7 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
             'subtitle' => (string) ($article['subtitle'] ?? ''),
             'published_at' => (string) ($article['published_at'] ?? ''),
             'source_url' => (string) ($article['url'] ?? ''),
-            'author' => (string) ($article['author_name'] ?? ''),
+            'author' => $article['author_name'] ?? '',
             'relative_html_file' => (string) ($article['html_file'] ?? ''),
           ];
         }
@@ -211,6 +217,8 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       }
 
       $paragraph_reference = $this->ensureBodyContentParagraph($article_markup);
+      $author_names = $this->normalizeAuthorNames($entry['author'] ?? '');
+      $schema_author_items = $this->resolveSchemaAuthorItems($author_names);
 
       $rows[] = [
         'id' => $entry['id'] !== '' ? $entry['id'] : $relative_html_file,
@@ -219,8 +227,8 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
         'body_html' => $article_markup,
         'published_at' => $this->normalizePublishedAt((string) $entry['published_at']),
         'source_url' => $entry['source_url'],
-        'author' => $entry['author'],
-        'schema_author_target_id' => $this->resolveSchemaAuthorTargetId((string) $entry['author']),
+        'author' => implode(', ', $author_names),
+        'schema_author_items' => $schema_author_items,
         'editorial_type_target_id' => $this->resolveEditorialTypeTermId(),
         'schema_image_target_id' => $schema_image_target_id,
         'field_content_items' => !empty($paragraph_reference) ? [$paragraph_reference] : [],
@@ -348,9 +356,9 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       return NULL;
     }
 
-    // Skip organization bylines like "CivicActions".
+    // Map organization bylines to the organization node when available.
     if (preg_match('/^civic\s*actions$/i', $author)) {
-      return NULL;
+      return $this->resolveOrganizationAuthorTargetId('CivicActions');
     }
 
     if ($this->personNodeIdsByTitle === NULL) {
@@ -367,7 +375,111 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
     }
 
     $normalized_author = mb_strtolower($author);
-    return $this->personNodeIdsByTitle[$normalized_author] ?? NULL;
+    if (isset($this->personNodeIdsByTitle[$normalized_author])) {
+      return $this->personNodeIdsByTitle[$normalized_author];
+    }
+
+    // Ensure bylines remain populated even when people profiles were not
+    // migrated yet by creating a minimal Person node on demand.
+    $person = Node::create([
+      'type' => 'person',
+      'title' => $author,
+      'status' => 1,
+    ]);
+    $person->save();
+
+    $person_id = (int) $person->id();
+    $this->personNodeIdsByTitle[$normalized_author] = $person_id;
+    return $person_id;
+  }
+
+  /**
+   * Normalizes author source values to a clean list of author names.
+   *
+   * @param mixed $author_value
+   *   Author value from metadata, either string or array.
+   *
+   * @return string[]
+   *   Normalized author names.
+   */
+  protected function normalizeAuthorNames(mixed $author_value): array {
+    if (is_array($author_value)) {
+      $authors = [];
+      foreach ($author_value as $value) {
+        if (!is_scalar($value)) {
+          continue;
+        }
+        $name = trim((string) $value);
+        if ($name !== '') {
+          $authors[] = $name;
+        }
+      }
+      return array_values(array_unique($authors));
+    }
+
+    if (!is_scalar($author_value)) {
+      return [];
+    }
+
+    $name = trim((string) $author_value);
+    return $name === '' ? [] : [$name];
+  }
+
+  /**
+   * Resolves author names to schema_author reference items.
+   *
+   * @param string[] $author_names
+   *   Author names.
+   *
+   * @return array<int, array{target_id:int}>
+   *   Entity reference items suitable for schema_author.
+   */
+  protected function resolveSchemaAuthorItems(array $author_names): array {
+    $items = [];
+    foreach ($author_names as $author_name) {
+      $target_id = $this->resolveSchemaAuthorTargetId($author_name);
+      if ($target_id !== NULL) {
+        $items[] = ['target_id' => $target_id];
+      }
+    }
+    return $items;
+  }
+
+  /**
+   * Resolves organization name to an Organization node id for schema_author.
+   */
+  protected function resolveOrganizationAuthorTargetId(string $organization_name): ?int {
+    if ($this->organizationAuthorNodeId !== NULL) {
+      return $this->organizationAuthorNodeId;
+    }
+
+    $organization_name = trim($organization_name);
+    if ($organization_name === '') {
+      return NULL;
+    }
+
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    $existing = $node_storage->loadByProperties([
+      'type' => 'organization',
+      'title' => $organization_name,
+    ]);
+    $organization = $existing ? reset($existing) : NULL;
+
+    if ($organization) {
+      $this->organizationAuthorNodeId = (int) $organization->id();
+      return $this->organizationAuthorNodeId;
+    }
+
+    // Keep author references populated by creating the org if missing.
+    $organization = Node::create([
+      'type' => 'organization',
+      'title' => $organization_name,
+      'status' => 1,
+    ]);
+    $organization->save();
+
+    $this->organizationAuthorNodeId = (int) $organization->id();
+    return $this->organizationAuthorNodeId;
   }
 
   /**
@@ -456,10 +568,21 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
     $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
     $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'editorial');
 
+    // Prefer the known bundle used by this site for "Body content".
+    $rich_text_type = $storage->load('rich_text');
+    if ($rich_text_type && mb_strtolower((string) $rich_text_type->label()) === 'body content') {
+      return 'rich_text';
+    }
+
     $target_bundles = [];
 
-    // Prefer field_content when it exists.
-    if (isset($field_definitions['field_content']) && $field_definitions['field_content']->getType() === 'entity_reference_revisions') {
+    // Prefer the editorial content field on this site.
+    if (isset($field_definitions['schema_article_body']) && $field_definitions['schema_article_body']->getType() === 'entity_reference_revisions') {
+      $target_bundles = $this->extractTargetParagraphBundles($field_definitions['schema_article_body']->getSettings());
+    }
+
+    // Fallback for older/local variants that used field_content.
+    if (empty($target_bundles) && isset($field_definitions['field_content']) && $field_definitions['field_content']->getType() === 'entity_reference_revisions') {
       $target_bundles = $this->extractTargetParagraphBundles($field_definitions['field_content']->getSettings());
     }
 
@@ -470,16 +593,17 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
           continue;
         }
         $settings = $field_definition->getSettings();
-        if (($settings['target_type'] ?? '') !== 'paragraph') {
-          continue;
-        }
-
         $bundles = $this->extractTargetParagraphBundles($settings);
         if (!empty($bundles)) {
           $target_bundles = $bundles;
           break;
         }
       }
+    }
+
+    // If no constraints are configured, fall back to a conventional bundle id.
+    if (empty($target_bundles) && $storage->load('rich_text')) {
+      return 'rich_text';
     }
 
     if (empty($target_bundles)) {

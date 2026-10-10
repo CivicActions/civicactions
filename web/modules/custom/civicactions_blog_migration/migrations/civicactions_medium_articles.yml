@@ -10,11 +10,13 @@ process:
     plugin: get
     source: title
   field_editorial_type/target_id:
-    plugin: get
-    source: editorial_type_target_id
-  schema_author/target_id:
-    plugin: get
-    source: schema_author_target_id
+    plugin: default_value
+    default_value: 279
+  schema_author:
+    plugin: sub_process
+    source: schema_author_items
+    process:
+      target_id: target_id
   schema_short_description:
     plugin: get
     source: subtitle
@@ -44,6 +46,9 @@ process:
   langcode:
     plugin: default_value
     default_value: en
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
 destination:
   plugin: 'entity:node'
   default_bundle: editorial
