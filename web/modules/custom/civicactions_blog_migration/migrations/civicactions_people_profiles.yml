@@ -23,6 +23,9 @@ process:
   schema_works_for/target_id:
     plugin: get
     source: schema_works_for_target_id
+  field_profile_category/target_id:
+    plugin: default_value
+    default_value: 293
   status:
     plugin: default_value
     default_value: 1
@@ -35,6 +38,9 @@ process:
   langcode:
     plugin: default_value
     default_value: en
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
 destination:
   plugin: 'entity:node'
   default_bundle: person
