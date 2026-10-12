@@ -61,6 +61,18 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
   protected ?int $organizationAuthorNodeId = NULL;
 
   /**
+   * Cached topic vocabulary ID used for keyword term creation.
+   */
+  protected ?string $topicVocabularyId = NULL;
+
+  /**
+   * Cached topic term ids keyed by normalized name.
+   *
+   * @var array<string, int>|null
+   */
+  protected ?array $topicTermIdsByName = NULL;
+
+  /**
    * BlogArchivePosts constructor.
    */
   public function __construct(
@@ -109,9 +121,11 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       'subtitle' => $this->t('Article subtitle.'),
       'body_html' => $this->t('Article body HTML with localized image URLs.'),
       'published_at' => $this->t('Published datetime in ISO format.'),
+      'updated_at' => $this->t('Updated datetime in ISO format.'),
       'source_url' => $this->t('Original source URL.'),
       'author' => $this->t('Author name or names.'),
       'schema_author_items' => $this->t('Author reference items for schema_author field.'),
+      'schema_keyword_items' => $this->t('Topic taxonomy reference items for schema_keywords field.'),
       'editorial_type_target_id' => $this->t('Editorial type term id for Article.'),
       'schema_image_target_id' => $this->t('Media image entity id associated with article image.'),
       'field_content_items' => $this->t('Body content paragraph reference-revision items for field_content.'),
@@ -166,8 +180,10 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
             'title' => (string) ($post['title'] ?? ''),
             'subtitle' => (string) ($post['subtitle'] ?? ''),
             'published_at' => (string) ($post['published_at'] ?? ''),
+            'updated_at' => (string) ($post['updated_at'] ?? ''),
             'source_url' => (string) ($post['source_url'] ?? ''),
             'author' => $post['author'] ?? '',
+            'tags' => $post['tags'] ?? [],
             'relative_html_file' => (string) ($post['file'] ?? ''),
           ];
         }
@@ -181,8 +197,10 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
             'title' => (string) ($article['title'] ?? ''),
             'subtitle' => (string) ($article['subtitle'] ?? ''),
             'published_at' => (string) ($article['published_at'] ?? ''),
+            'updated_at' => (string) ($article['updated_at'] ?? ''),
             'source_url' => (string) ($article['url'] ?? ''),
             'author' => $article['author_name'] ?? '',
+            'tags' => $article['tags'] ?? [],
             'relative_html_file' => (string) ($article['html_file'] ?? ''),
           ];
         }
@@ -219,16 +237,23 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       $paragraph_reference = $this->ensureBodyContentParagraph($article_markup);
       $author_names = $this->normalizeAuthorNames($entry['author'] ?? '');
       $schema_author_items = $this->resolveSchemaAuthorItems($author_names);
+      $tag_names = $this->normalizeTagNames($entry['tags'] ?? []);
+      $schema_keyword_items = $this->resolveSchemaKeywordItems($tag_names);
+
+      $published_at = $this->normalizePublishedAt((string) ($entry['published_at'] ?? ''));
+      $updated_at = $this->normalizeArchiveDatetime((string) ($entry['updated_at'] ?? '')) ?? $published_at;
 
       $rows[] = [
         'id' => $entry['id'] !== '' ? $entry['id'] : $relative_html_file,
         'title' => $entry['title'] !== '' ? $entry['title'] : $this->guessTitleFromHtml($html_path),
         'subtitle' => (string) ($entry['subtitle'] ?? ''),
         'body_html' => $article_markup,
-        'published_at' => $this->normalizePublishedAt((string) $entry['published_at']),
+        'published_at' => $published_at,
+        'updated_at' => $updated_at,
         'source_url' => $entry['source_url'],
         'author' => implode(', ', $author_names),
         'schema_author_items' => $schema_author_items,
+        'schema_keyword_items' => $schema_keyword_items,
         'editorial_type_target_id' => $this->resolveEditorialTypeTermId(),
         'schema_image_target_id' => $schema_image_target_id,
         'field_content_items' => !empty($paragraph_reference) ? [$paragraph_reference] : [],
@@ -443,6 +468,139 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
       }
     }
     return $items;
+  }
+
+  /**
+   * Normalizes tag source values to a clean list of topic term names.
+   *
+   * @param mixed $tags_value
+   *   Tags value from metadata, usually an array of strings.
+   *
+   * @return string[]
+   *   Normalized tag names.
+   */
+  protected function normalizeTagNames(mixed $tags_value): array {
+    if (is_array($tags_value)) {
+      $tags = [];
+      foreach ($tags_value as $value) {
+        if (!is_scalar($value)) {
+          continue;
+        }
+        $name = trim((string) $value);
+        if ($name !== '') {
+          $tags[] = $name;
+        }
+      }
+      return array_values(array_unique($tags));
+    }
+
+    if (!is_scalar($tags_value)) {
+      return [];
+    }
+
+    $raw = trim((string) $tags_value);
+    if ($raw === '') {
+      return [];
+    }
+
+    $parts = preg_split('/\s*,\s*/', $raw) ?: [];
+    $parts = array_filter(array_map(static fn($v) => trim((string) $v), $parts));
+    return array_values(array_unique($parts));
+  }
+
+  /**
+   * Resolves tag names to schema_keywords reference items.
+   *
+   * @param string[] $tag_names
+   *   Tag names from metadata.
+   *
+   * @return array<int, array{target_id:int}>
+   *   Entity reference items suitable for schema_keywords.
+   */
+  protected function resolveSchemaKeywordItems(array $tag_names): array {
+    $items = [];
+    foreach ($tag_names as $tag_name) {
+      $target_id = $this->resolveTopicTermId($tag_name);
+      if ($target_id !== NULL) {
+        $items[] = ['target_id' => $target_id];
+      }
+    }
+    return $items;
+  }
+
+  /**
+   * Resolves topic term ID by name, creating missing terms as needed.
+   */
+  protected function resolveTopicTermId(string $term_name): ?int {
+    $term_name = trim($term_name);
+    if ($term_name === '') {
+      return NULL;
+    }
+
+    $topic_vid = $this->resolveTopicVocabularyId();
+    if ($topic_vid === NULL) {
+      return NULL;
+    }
+
+    if ($this->topicTermIdsByName === NULL) {
+      $this->topicTermIdsByName = [];
+      $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+      $terms = $term_storage->loadByProperties(['vid' => $topic_vid]);
+      foreach ($terms as $term) {
+        if (!$term instanceof Term) {
+          continue;
+        }
+        $name = trim((string) $term->label());
+        if ($name !== '') {
+          $this->topicTermIdsByName[mb_strtolower($name)] = (int) $term->id();
+        }
+      }
+    }
+
+    $normalized = mb_strtolower($term_name);
+    if (isset($this->topicTermIdsByName[$normalized])) {
+      return $this->topicTermIdsByName[$normalized];
+    }
+
+    $term = Term::create([
+      'vid' => $topic_vid,
+      'name' => $term_name,
+    ]);
+    $term->save();
+
+    $term_id = (int) $term->id();
+    $this->topicTermIdsByName[$normalized] = $term_id;
+    return $term_id;
+  }
+
+  /**
+   * Resolves the topic vocabulary machine name used by schema_keywords.
+   */
+  protected function resolveTopicVocabularyId(): ?string {
+    if ($this->topicVocabularyId !== NULL) {
+      return $this->topicVocabularyId;
+    }
+
+    $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'editorial');
+    if (!isset($field_definitions['schema_keywords'])) {
+      return NULL;
+    }
+
+    $settings = $field_definitions['schema_keywords']->getSettings();
+    $target_bundles = array_keys($settings['handler_settings']['target_bundles'] ?? []);
+
+    if (in_array('topic', $target_bundles, TRUE)) {
+      $this->topicVocabularyId = 'topic';
+      return $this->topicVocabularyId;
+    }
+
+    // Fallback to the first configured vocabulary if topic is not available.
+    if (!empty($target_bundles)) {
+      $this->topicVocabularyId = (string) reset($target_bundles);
+      return $this->topicVocabularyId;
+    }
+
+    return NULL;
   }
 
   /**
@@ -734,20 +892,29 @@ final class BlogArchivePosts extends SourcePluginBase implements ContainerFactor
   }
 
   /**
+   * Normalizes an archive datetime and returns NULL when invalid.
+   */
+  protected function normalizeArchiveDatetime(string $value): ?string {
+    $value = trim($value);
+    if ($value === '') {
+      return NULL;
+    }
+
+    $timestamp = strtotime($value);
+    if ($timestamp === FALSE) {
+      return NULL;
+    }
+
+    return gmdate('Y-m-d\\TH:i:s.000000\\Z', $timestamp);
+  }
+
+  /**
    * Normalizes publication datetime for format_date process plugin.
    */
   protected function normalizePublishedAt(string $published_at): string {
     $published_at = trim($published_at);
-    if ($published_at === '') {
-      return gmdate('Y-m-d\\TH:i:s.000000\\Z');
-    }
-
-    $timestamp = strtotime($published_at);
-    if ($timestamp === FALSE) {
-      return gmdate('Y-m-d\\TH:i:s.000000\\Z');
-    }
-
-    return gmdate('Y-m-d\\TH:i:s.000000\\Z', $timestamp);
+    $normalized = $this->normalizeArchiveDatetime($published_at);
+    return $normalized ?? gmdate('Y-m-d\\TH:i:s.000000\\Z');
   }
 
   /**
