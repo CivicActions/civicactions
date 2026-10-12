@@ -47,6 +47,13 @@
   height: auto;
 }
 
+.ca-card__icon--symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+}
+
 .ca-card__content {
   min-width: 0;
 }
@@ -124,6 +131,13 @@
     flex: 0 0 auto;
     width: 64px;
     height: auto;
+  }
+
+  .ca-card__icon--symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
   }
 
   .ca-card__content {

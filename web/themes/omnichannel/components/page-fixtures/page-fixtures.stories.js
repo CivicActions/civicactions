@@ -1,4 +1,6 @@
 import '../../css/layout.css';
+import accordion from '../accordion/accordion.twig';
+import '../accordion/accordion.css';
 import card from '../card/card.twig';
 import '../card/card.css';
 import content from '../content/content.twig';
@@ -7,6 +9,7 @@ import editorialTeaser from '../editorial-teaser/editorial-teaser.twig';
 import '../editorial-teaser/editorial-teaser.css';
 import hero from '../hero/hero.twig';
 import '../hero/hero.css';
+import '../icon/icon.css';
 import linkButton from '../link-button/link-button.twig';
 import '../link-button/link-button.css';
 import media from '../media/media.twig';
@@ -19,6 +22,8 @@ import caseStudyTeaser from '../case-study-teaser/case-study-teaser.twig';
 import '../case-study-teaser/case-study-teaser.css';
 import primaryPageCta from '../primary-page-cta/primary-page-cta.twig';
 import '../primary-page-cta/primary-page-cta.css';
+import proofpoints from '../proofpoints/proofpoints.twig';
+import '../proofpoints/proofpoints.css';
 import quote from '../quote/quote.twig';
 import '../quote/quote.css';
 import '../section/section.css';
@@ -133,11 +138,6 @@ const agencyDecision =
 const todoDetails = {
   heroMedia:
     'Legacy pages use prominent hero media. Hero media support is a separate follow-up ticket.',
-  proofpoints:
-    'The planned Proofpoints SDC will own this 1 to 3 item metric pattern.',
-  icon: 'Legacy DITAP feature cards use simple visual markers. The reusable Icon SDC belongs to MAHOM-1184.',
-  accordion:
-    'The legacy DITAP page uses expandable FAQs. The accessible Accordion SDC belongs to MAHOM-1184.',
 };
 
 const header = `
@@ -196,12 +196,13 @@ const todo = (label, detail) => `
   </aside>
 `;
 
-const renderServiceCard = ([title, body, link]) =>
+const renderServiceCard = ([title, body, link, iconName]) =>
   card({
     heading_level: 3,
     title,
     link,
-    icon: placeholderIcon,
+    icon: iconName ? '' : placeholderIcon,
+    icon_name: iconName || '',
     icon_alt: 'Service category icon',
     body,
   });
@@ -221,21 +222,10 @@ const renderAgencyList = (agencies = agencyNames) => `
   </ul>
 `;
 
-const renderProofpointPreview = (items) => `
-  ${todo('Proofpoints SDC', todoDetails.proofpoints)}
-  <ul class="ca-grid ca-grid--3-col">
-    ${items
-      .map(
-        ([stat, label]) => `
-          <li>
-            <strong>${stat}</strong>
-            <span>${label}</span>
-          </li>
-        `,
-      )
-      .join('')}
-  </ul>
-`;
+const renderProofpointPreview = (items) =>
+  proofpoints({
+    items: items.map(([stat, label]) => ({ stat, label })),
+  });
 
 const serviceBlock = ({ id, title, body, cards, cta }) => `
   ${sectionFixture({
@@ -296,31 +286,37 @@ const homepage = () =>
             'Web & CMS',
             'Accessible and secure government websites at scale.',
             '/services/#web-cms',
+            'document',
           ],
           [
             'IT & Service Modernization',
             'Modernization of legacy government systems and services.',
             '/services/#service-modernization',
+            'certificate',
           ],
           [
             'Product & Design',
             'Human-centered problem solving and strategy.',
             '/services/#product-design',
+            'users',
           ],
           [
             'Security & Compliance',
             'Modern security practices for continuous compliance and reliability.',
             '/services/#security-compliance',
+            'check',
           ],
           [
             'Data Services',
             'Open data sharing to drive evidence-based decisions.',
             '/services/#data-services',
+            'document',
           ],
           [
             'Workforce Development',
             'Modern skills for an adaptable government workforce.',
             '/services/#workforce-development',
+            'star',
           ],
         ]
           .map(renderServiceCard)
@@ -656,26 +652,31 @@ const ditap = () =>
             'Start where you are',
             'Build a clear grasp of agile and human-centered design before diving into DITAP course content.',
             '/services/ditap/#learn',
+            'star',
           ],
           [
             'On your own time',
             'Complete some coursework asynchronously with flexible scheduling for your procurement season.',
             '/services/ditap/#learn',
+            'calendar',
           ],
           [
             'Real-world practice',
             'Practice the techniques through interviewing and shadowing assignments.',
             '/services/ditap/#learn',
+            'certificate',
           ],
           [
             'Expert, invested coaches',
             'Our facilitators bring years of experience leading procurement modernization and organizational transformation in government. They provide personalized support throughout your DITAP journey.',
             '/services/ditap/#learn',
+            'users',
           ],
           [
             'Ongoing community network',
             'Your colleagues from DITAP class become your future collaboration network through participation in CivicActions-supported DITAP alumni community activities.',
             '/services/ditap/#learn',
+            'users',
           ],
         ]
           .map(renderServiceCard)
@@ -686,7 +687,30 @@ const ditap = () =>
         text: 'Request training',
         src: '/services/ditap/register/',
       })}</p>
-      ${todo('Icon SDC', todoDetails.icon)}
+      <div class="ca-grid ca-grid--3-col">
+        ${[
+          [
+            'Certified Credential',
+            'Earn the official FAC-C (Core-Plus) DITAP specialization recognized across government.',
+            '/services/ditap/register/',
+            'certificate',
+          ],
+          [
+            'Flexible Schedule',
+            'Structured cohort sessions designed to fit alongside active agency procurement cycles.',
+            '/services/ditap/register/',
+            'calendar',
+          ],
+          [
+            'Alumni Network',
+            'Join hundreds of federal acquisition champions sharing ongoing best practices and templates.',
+            '/services/ditap/register/',
+            'users',
+          ],
+        ]
+          .map(renderServiceCard)
+          .join('')}
+      </div>
     </section>
 
     <div class="ca-section ca-section--medium ca-section--gray">
@@ -722,30 +746,59 @@ const ditap = () =>
     </section>
 
     <section id="faq" class="ca-container ca-section ca-section--medium">
-      <h2>Frequently asked questions</h2>
-      ${todo('Accordion SDC', todoDetails.accordion)}
-      <div class="ca-grid">
-        ${[
-          'What is the class size?',
-          'Is the training customizable?',
-          'How much does DITAP cost, and how do I pay?',
-          'How was DITAP created?',
-          'Is this training required?',
-          'When does the next DITAP training begin?',
-          'What is the application process?',
-          'Terms of Service',
-          "What if I don't have a full-cohort? What if I am an individual inquiring for a few colleagues at my agency?",
-        ]
-          .map(
-            (question) => `
-              <details>
-                <summary>${question}</summary>
-                <p>Contact the DITAP team for the current answer and enrollment details.</p>
-              </details>
-            `,
-          )
-          .join('')}
-      </div>
+      ${accordion({
+        title: 'Frequently asked questions',
+        heading_level: 2,
+        allow_multiple: false,
+        items: [
+          {
+            title: 'What is the class size?',
+            content:
+              '<p>Cohorts are typically capped at 25 participants to ensure personalized coaching and collaborative breakout sessions.</p>',
+          },
+          {
+            title: 'Is the training customizable?',
+            content:
+              '<p>Yes. While covering standard FAC-C curriculum, CivicActions tailors casework and exercises to agency-specific acquisition priorities.</p>',
+          },
+          {
+            title: 'How much does DITAP cost, and how do I pay?',
+            content:
+              '<p>Tuition details and government purchase card or interagency agreement payment options are available upon request.</p>',
+          },
+          {
+            title: 'How was DITAP created?',
+            content:
+              '<p>The Digital IT Acquisition Program was designed by the U.S. Digital Service and the Federal Acquisition Institute to empower federal contracting officers with modern agile procurement practices.</p>',
+          },
+          {
+            title: 'Is this training required?',
+            content:
+              '<p>Federal contracting professionals managing major digital service investments above designated thresholds are required by OMB/OFPP guidance to hold the DITAP certification.</p>',
+          },
+          {
+            title: 'When does the next DITAP training begin?',
+            content:
+              '<p>Cohorts launch quarterly throughout the fiscal year. Contact the DITAP team for current enrollment windows and scheduling options.</p>',
+          },
+          {
+            title: 'What is the application process?',
+            content:
+              '<p>Applicants submit supervisory endorsement and warrant details through the online registration form.</p>',
+          },
+          {
+            title: 'Terms of Service',
+            content:
+              '<p>Standard course participation policies and cohort completion requirements apply to all enrolled learners.</p>',
+          },
+          {
+            title:
+              "What if I don't have a full-cohort? What if I am an individual inquiring for a few colleagues at my agency?",
+            content:
+              '<p>CivicActions welcomes individual participants and small agency teams into open-enrollment multi-agency cohorts.</p>',
+          },
+        ],
+      })}
     </section>
 
     <section class="ca-container ca-section ca-section--medium ca-section--gray">
