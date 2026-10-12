@@ -2,6 +2,9 @@ uuid: 1632e96c-2fb4-4095-8749-b402902b9812
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.editorial_type
+    - taxonomy.vocabulary.topic
   module:
     - node
     - taxonomy
@@ -169,12 +172,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Editorial type: Article'
-          plugin_id: numeric
-          operator: '='
+          plugin_id: taxonomy_index_tid
+          operator: or
           value:
-            value: '279'
-            min: ''
-            max: ''
+            279: 279
           group: 1
           exposed: false
           expose:
@@ -192,18 +193,12 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+          reduce_duplicates: false
+          vid: editorial_type
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         topic_tid:
           id: schema_keywords_target_id
           table: node__schema_keywords
@@ -211,12 +206,9 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Topic keyword filter'
-          plugin_id: numeric
-          operator: '='
-          value:
-            value: ''
-            min: ''
-            max: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -246,6 +238,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: true
+          vid: topic
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       sorts:
         created:
           id: created

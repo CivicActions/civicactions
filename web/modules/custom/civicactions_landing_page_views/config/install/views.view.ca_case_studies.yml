@@ -2,6 +2,8 @@ uuid: bc9e13f7-9f92-45ae-a697-3246c242814e
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.topic
   module:
     - node
     - taxonomy
@@ -152,18 +154,15 @@ display:
             default_group_multiple: {  }
             group_items: {  }
         topic_tid:
-          id: schema_keywords_target_id
-          table: node__schema_keywords
-          field: schema_keywords_target_id
+          id: tid
+          table: taxonomy_index
+          field: tid
           relationship: none
           group_type: group
           admin_label: 'Keyword filter'
-          plugin_id: numeric
-          operator: '='
-          value:
-            value: ''
-            min: ''
-            max: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -171,7 +170,7 @@ display:
             label: Keyword
             description: ''
             use_operator: false
-            operator: topic_tid_op
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
             identifier: topic_tid
@@ -193,6 +192,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: true
+          vid: topic
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       sorts:
         created:
           id: created

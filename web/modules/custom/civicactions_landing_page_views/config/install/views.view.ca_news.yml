@@ -2,6 +2,8 @@ uuid: b8789a9c-3624-4195-a1e4-4c58ec761df0
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.editorial_type
   module:
     - node
     - taxonomy
@@ -281,12 +283,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Editorial type: News'
-          plugin_id: numeric
-          operator: '='
+          plugin_id: taxonomy_index_tid
+          operator: or
           value:
-            value: '280'
-            min: ''
-            max: ''
+            280: 280
           group: 1
           exposed: false
           expose:
@@ -304,18 +304,12 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+          reduce_duplicates: false
+          vid: editorial_type
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       sorts:
         created:
           id: created
