@@ -1,0 +1,21 @@
+uuid: 22159c89-e5dc-4896-a1e2-2859c09cd095
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.schema_date_created
+    - paragraphs.paragraphs_type.quote
+  module:
+    - datetime
+id: paragraph.quote.schema_date_created
+field_name: schema_date_created
+entity_type: paragraph
+bundle: quote
+label: 'Quote date'
+description: 'The date on which the quote was shared with us.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,156 @@
+uuid: 58543ea2-d5a3-472a-bf75-02ec9373c630
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.person.field_profile_category
+    - field.field.node.person.field_profile_status
+    - field.field.node.person.schema_about
+    - field.field.node.person.schema_has_certification
+    - field.field.node.person.schema_has_credential
+    - field.field.node.person.schema_honorific_suffix
+    - field.field.node.person.schema_image
+    - field.field.node.person.schema_job_title
+    - field.field.node.person.schema_knows_about
+    - field.field.node.person.schema_member_of
+    - field.field.node.person.schema_pronouns
+    - field.field.node.person.schema_skills
+    - field.field.node.person.schema_urls
+    - field.field.node.person.schema_works_for
+    - node.type.person
+  module:
+    - link
+    - options
+    - text
+    - user
+id: node.person.default
+targetEntityType: node
+bundle: person
+mode: default
+content:
+  field_profile_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_profile_status:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_about:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  schema_has_certification:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  schema_has_credential:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  schema_honorific_suffix:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  schema_job_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  schema_knows_about:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  schema_member_of:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  schema_pronouns:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  schema_skills:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  schema_urls:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 46
+    region: content
+  schema_works_for:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+hidden: {  }

@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: pRXARmj-f75mXfXDPRVw8IgnJVaIuvaBVhFHBgAty20
+default_types: {  }
+required_types: {  }
+ignored_types:
+  - Default
+  - default
+  - Other
+  - other
+create_base_fields: {  }
+use_snake_case: false
+default_allowed_values: {  }
+default_field_values: {  }
+field_access: {  }
+jsonld_values: {  }

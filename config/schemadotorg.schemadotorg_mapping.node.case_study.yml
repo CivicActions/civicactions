@@ -1,0 +1,26 @@
+uuid: fddaea42-e32b-4768-9f44-768e86e3b727
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.case_study.schema_client
+    - field.field.node.case_study.schema_description
+    - field.field.node.case_study.schema_image
+    - field.field.node.case_study.schema_keywords
+    - node.type.case_study
+  module:
+    - node
+    - schemadotorg_jsonld_custom
+third_party_settings:
+  schemadotorg_jsonld_custom:
+    json: "{\r\n    \"@id\": \"[site:url]node/[node:nid]#entity\"\r\n}"
+id: node.case_study
+target_entity_type_id: node
+target_bundle: case_study
+schema_type: Article
+schema_properties:
+  schema_description: description
+  schema_image: image
+  schema_keywords: keywords
+  schema_client: owner
+additional_mappings: {  }

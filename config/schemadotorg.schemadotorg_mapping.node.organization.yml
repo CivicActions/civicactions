@@ -1,0 +1,31 @@
+uuid: f45bb614-1597-420a-ad31-8c4c1c734d1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.organization.schema_alternate_name
+    - field.field.node.organization.schema_description
+    - field.field.node.organization.schema_logo
+    - field.field.node.organization.schema_parent_organization
+    - field.field.node.organization.schema_same_as
+    - field.field.node.organization.schema_url
+    - node.type.organization
+  module:
+    - node
+    - schemadotorg_jsonld_custom
+third_party_settings:
+  schemadotorg_jsonld_custom:
+    json: "{\r\n    \"@id\": \"[site:url]node/[node:nid]#entity\"\r\n}"
+id: node.organization
+target_entity_type_id: node
+target_bundle: organization
+schema_type: Organization
+schema_properties:
+  schema_alternate_name: alternateName
+  schema_description: description
+  schema_logo: logo
+  title: name
+  schema_parent_organization: parentOrganization
+  schema_same_as: sameAs
+  schema_url: url
+additional_mappings: {  }

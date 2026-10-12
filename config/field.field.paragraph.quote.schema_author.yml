@@ -1,0 +1,24 @@
+uuid: 2b051462-2631-42c2-b7ed-28ee440e42f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.schema_author
+    - filter.format.inline_content
+    - paragraphs.paragraphs_type.quote
+  module:
+    - text
+id: paragraph.quote.schema_author
+field_name: schema_author
+entity_type: paragraph
+bundle: quote
+label: 'Quote by'
+description: 'The person who said this quote.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - inline_content
+field_type: text

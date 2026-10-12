@@ -1,0 +1,21 @@
+uuid: e00c3965-965a-48b9-ad48-c161890b8c39
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.schema_honorific_suffix
+field_name: schema_honorific_suffix
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

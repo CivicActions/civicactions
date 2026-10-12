@@ -1,0 +1,21 @@
+uuid: f107d349-1036-4580-a82a-370248e1537f
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.expertise
+  module:
+    - text
+id: taxonomy_term.expertise.default
+targetEntityType: taxonomy_term
+bundle: expertise
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

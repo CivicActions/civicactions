@@ -1,0 +1,26 @@
+uuid: e0157bd0-57f6-4ae4-b3df-1028d2830570
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quote.schema_author
+    - field.field.paragraph.quote.schema_date_created
+    - field.field.paragraph.quote.schema_description
+    - field.field.paragraph.quote.schema_is_based_on_link
+    - field.field.paragraph.quote.schema_keywords
+    - field.field.paragraph.quote.schema_text
+    - paragraphs.paragraphs_type.quote
+  module:
+    - paragraphs
+id: paragraph.quote
+target_entity_type_id: paragraph
+target_bundle: quote
+schema_type: Quotation
+schema_properties:
+  schema_author: author
+  schema_date_created: dateCreated
+  schema_description: description
+  schema_is_based_on_link: isBasedOn
+  schema_keywords: keywords
+  schema_text: text
+additional_mappings: {  }

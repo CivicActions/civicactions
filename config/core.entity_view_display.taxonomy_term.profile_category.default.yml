@@ -1,0 +1,31 @@
+uuid: b08fc5c0-0272-4285-9bee-fb8e6d80220c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.profile_category.field_url_prefix_person
+    - taxonomy.vocabulary.profile_category
+  module:
+    - text
+id: taxonomy_term.profile_category.default
+targetEntityType: taxonomy_term
+bundle: profile_category
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_url_prefix_person:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

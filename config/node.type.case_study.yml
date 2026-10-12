@@ -1,0 +1,11 @@
+uuid: cc5b6eb3-d24a-495f-9e4e-98df21397a93
+langcode: en
+status: true
+dependencies: {  }
+name: 'Case Study'
+type: case_study
+description: 'Case studies of client work and other initiatives.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

@@ -1,0 +1,33 @@
+uuid: e258ce36-e74e-4e72-8b08-b30185e59493
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.editorial.schema_article_body
+    - field.field.node.editorial.schema_audience
+    - field.field.node.editorial.schema_author
+    - field.field.node.editorial.schema_contributor
+    - field.field.node.editorial.schema_image
+    - field.field.node.editorial.schema_keywords
+    - field.field.node.editorial.schema_short_description
+    - node.type.editorial
+  module:
+    - node
+    - schemadotorg_jsonld_custom
+third_party_settings:
+  schemadotorg_jsonld_custom:
+    json: "{\r\n    \"@id\": \"[site:url]node/[node:nid]#entity\"\r\n}"
+id: node.editorial
+target_entity_type_id: node
+target_bundle: editorial
+schema_type: Article
+schema_properties:
+  schema_article_body: articleBody
+  schema_audience: audience
+  schema_author: author
+  schema_contributor: contributor
+  schema_short_description: description
+  schema_image: image
+  langcode: inLanguage
+  schema_keywords: keywords
+additional_mappings: {  }

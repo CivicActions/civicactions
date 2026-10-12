@@ -1,0 +1,19 @@
+uuid: 5a3af2f2-0756-4d8f-bc31-7676dc0a7ff1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_url_prefix
+    - taxonomy.vocabulary.editorial_type
+id: taxonomy_term.editorial_type.field_url_prefix
+field_name: field_url_prefix
+entity_type: taxonomy_term
+bundle: editorial_type
+label: url_prefix
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

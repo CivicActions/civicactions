@@ -1,0 +1,17 @@
+uuid: 3dff4a6f-01e1-4c77-8611-1ef202a7cad9
+langcode: en
+status: true
+dependencies:
+  config:
+    - canvas.component.sdc.omnichannel.main-menu
+    - canvas.component.sdc.omnichannel.section
+    - canvas.component.sdc.omnichannel.site-footer
+    - canvas.component.sdc.omnichannel.site-header
+name: Layout
+configEntityTypeId: component
+weight: 0
+items:
+  - sdc.omnichannel.main-menu
+  - sdc.omnichannel.section
+  - sdc.omnichannel.site-footer
+  - sdc.omnichannel.site-header

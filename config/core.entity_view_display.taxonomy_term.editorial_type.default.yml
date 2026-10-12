@@ -1,0 +1,31 @@
+uuid: 4ea75dec-aa05-4cb9-94ad-4f89ce501e98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.editorial_type.field_url_prefix
+    - taxonomy.vocabulary.editorial_type
+  module:
+    - text
+id: taxonomy_term.editorial_type.default
+targetEntityType: taxonomy_term
+bundle: editorial_type
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_url_prefix:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

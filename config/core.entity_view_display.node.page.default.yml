@@ -1,0 +1,51 @@
+uuid: 20e4f262-799e-4aeb-9024-c110df878cbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.page.field_content
+    - field.field.node.page.schema_image
+    - field.field.node.page.schema_short_description
+    - node.type.page
+  module:
+    - text
+    - user
+_core:
+  default_config_hash: stHuhj330ogyKpVP4kAsDgD-6FfCHHY2ufojQ4oT3gM
+id: node.page.default
+targetEntityType: node
+bundle: page
+mode: default
+content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_content:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 65
+    region: content
+  schema_short_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  links: true

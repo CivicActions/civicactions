@@ -1,0 +1,42 @@
+uuid: ae1c31ec-c22e-451a-b73d-66667591d0e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.organization.field_organization_type
+    - field.field.node.organization.schema_alternate_name
+    - field.field.node.organization.schema_description
+    - field.field.node.organization.schema_logo
+    - field.field.node.organization.schema_parent_organization
+    - field.field.node.organization.schema_same_as
+    - field.field.node.organization.schema_url
+    - node.type.organization
+  module:
+    - user
+id: node.organization.teaser
+targetEntityType: node
+bundle: organization
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  field_organization_type: true
+  schema_alternate_name: true
+  schema_logo: true
+  schema_parent_organization: true
+  schema_same_as: true
+  schema_url: true

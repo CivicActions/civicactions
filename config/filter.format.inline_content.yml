@@ -1,0 +1,33 @@
+uuid: 075d9a9f-d211-41a1-b676-335df8f71823
+langcode: en
+status: true
+dependencies:
+  module:
+    - linkit
+name: 'Inline content'
+format: inline_content
+weight: 0
+filters:
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<br> <p> <strong> <em> <a href>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+      media_substitution: metadata

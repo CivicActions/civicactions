@@ -1,0 +1,21 @@
+uuid: a6937547-20a0-4d6b-b63d-59e3bbce5fd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.mission_area
+  module:
+    - text
+id: taxonomy_term.mission_area.default
+targetEntityType: taxonomy_term
+bundle: mission_area
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

@@ -1,0 +1,20 @@
+uuid: d030ab13-6516-40cd-b25c-3040b7197582
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.schema_knows_about
+field_name: schema_knows_about
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

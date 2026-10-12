@@ -1,0 +1,29 @@
+uuid: bcc73203-e09b-4edd-bbaa-d92c0a61c90c
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+_core:
+  default_config_hash: 3FkPLrx3Rv0gWeaUCLd3DEJ_J7BtZ5nE4qckmDF6YJc
+id: paragraph
+target_entity_type_id: paragraph
+multiple: false
+label_prefix: ''
+id_prefix: ''
+recommended_schema_types:
+  civicactions:
+    label: CivicActions
+    types:
+      - Claim
+      - Quotation
+      - CreativeWork
+default_schema_types:
+  proof_point: Claim
+  quote: Quotation
+  compliance_requirement: CreativeWork
+default_schema_type_properties: {  }
+default_schema_type_view_displays: {  }
+default_base_fields: {  }
+default_component_weights: {  }
+default_component_weights_update: false

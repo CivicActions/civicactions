@@ -1,0 +1,48 @@
+uuid: 43a8ebec-0eca-41e0-937f-86a4238f8d78
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.funnel_stage
+  module:
+    - path
+    - text
+id: taxonomy_term.funnel_stage.default
+targetEntityType: taxonomy_term
+bundle: funnel_stage
+mode: default
+content:
+  description:
+    type: text_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 100
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  publish_on: true
+  publish_state: true
+  unpublish_on: true
+  unpublish_state: true

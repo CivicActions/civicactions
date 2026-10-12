@@ -1,0 +1,9 @@
+uuid: 9f684fe3-280e-4ae2-a2ba-a828b5d80292
+langcode: en
+status: true
+dependencies: {  }
+name: Tool
+vid: tool
+description: 'Tools and/or technology used to deliver work.'
+weight: 0
+new_revision: false

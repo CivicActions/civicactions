@@ -1,0 +1,10 @@
+uuid: 105fac52-c8e8-4e23-87de-92498071eb5d
+langcode: en
+status: true
+dependencies: {  }
+id: employee_relationship
+label: 'Employee Relationship'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

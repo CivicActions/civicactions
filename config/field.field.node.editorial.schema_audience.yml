@@ -1,0 +1,29 @@
+uuid: 9f82c55d-c367-4623-928f-88d8efe577b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_audience
+    - node.type.editorial
+    - taxonomy.vocabulary.audience
+id: node.editorial.schema_audience
+field_name: schema_audience
+entity_type: node
+bundle: editorial
+label: 'Target audience'
+description: 'The target audiences this piece is written for. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      audience: audience
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

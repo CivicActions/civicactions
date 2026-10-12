@@ -1,0 +1,33 @@
+uuid: 5a54c261-91b1-4d4d-a912-57c07e2a6b7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_knows_about
+    - node.type.person
+    - taxonomy.vocabulary.expertise
+    - taxonomy.vocabulary.tool
+    - taxonomy.vocabulary.topic
+id: node.person.schema_knows_about
+field_name: schema_knows_about
+entity_type: node
+bundle: person
+label: Expertise
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      expertise: expertise
+      tool: tool
+      topic: topic
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: tool
+field_type: entity_reference

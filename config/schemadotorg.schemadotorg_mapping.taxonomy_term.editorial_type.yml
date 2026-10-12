@@ -1,0 +1,15 @@
+uuid: c503f0a1-045c-4fbc-83f7-816d5ac6f9eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.editorial_type
+  module:
+    - taxonomy
+id: taxonomy_term.editorial_type
+target_entity_type_id: taxonomy_term
+target_bundle: editorial_type
+schema_type: DefinedTerm
+schema_properties:
+  name: name
+additional_mappings: {  }

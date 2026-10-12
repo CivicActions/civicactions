@@ -1,0 +1,84 @@
+uuid: f1bb07d5-aa37-460b-befc-b08238e57351
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+  theme:
+    - omnichannel
+active_version: a7ced7ce44989f42
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions:
+        vimeo_url:
+          required: true
+          field_type: link
+          field_storage_settings: {  }
+          field_instance_settings:
+            title: 0
+            link_type: 16
+          field_widget: link_default
+          default_value:
+            -
+              uri: 'https://vimeo.com/civicactions'
+              options: {  }
+          expression: ℹ︎link␟url
+          derived_schema_metadata:
+            string_shape:
+              format: uri
+        bluesky_url:
+          required: true
+          field_type: link
+          field_storage_settings: {  }
+          field_instance_settings:
+            title: 0
+            link_type: 16
+          field_widget: link_default
+          default_value:
+            -
+              uri: 'https://bsky.app/profile/civicactions.com'
+              options: {  }
+          expression: ℹ︎link␟url
+          derived_schema_metadata:
+            string_shape:
+              format: uri
+        x_url:
+          required: true
+          field_type: link
+          field_storage_settings: {  }
+          field_instance_settings:
+            title: 0
+            link_type: 16
+          field_widget: link_default
+          default_value:
+            -
+              uri: 'https://twitter.com/civicactions?lang=en'
+              options: {  }
+          expression: ℹ︎link␟url
+          derived_schema_metadata:
+            string_shape:
+              format: uri
+        linkedin_url:
+          required: true
+          field_type: link
+          field_storage_settings: {  }
+          field_instance_settings:
+            title: 0
+            link_type: 16
+          field_widget: link_default
+          default_value:
+            -
+              uri: 'https://www.linkedin.com/company/civicactions/mycompany/'
+              options: {  }
+          expression: ℹ︎link␟url
+          derived_schema_metadata:
+            string_shape:
+              format: uri
+    fallback_metadata:
+      slot_definitions: {  }
+label: 'Social Links'
+id: sdc.omnichannel.social-links
+provider: omnichannel
+source: sdc
+source_local_id: 'omnichannel:social-links'

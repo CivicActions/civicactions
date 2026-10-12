@@ -1,0 +1,15 @@
+uuid: aca2f6c1-a772-4cbe-80b1-aae4248aa420
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.mission_area
+  module:
+    - taxonomy
+id: taxonomy_term.mission_area
+target_entity_type_id: taxonomy_term
+target_bundle: mission_area
+schema_type: DefinedTerm
+schema_properties:
+  name: name
+additional_mappings: {  }

@@ -1,0 +1,23 @@
+uuid: d3c3e912-3d05-486b-98cf-e847203c776c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.person
+  module:
+    - node
+id: person_paths
+label: 'Person paths'
+type: 'canonical_entities:node'
+pattern: '/[node:field_profile_category:entity:field_url_prefix_person]/[node:title]'
+selection_criteria:
+  fc482b97-2fd7-40a9-886f-0c41d8a51261:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      person: person
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,38 @@
+uuid: 2c6ec5a4-ecb1-4b31-b732-fd9648e43be9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.person.schema_about
+    - field.field.node.person.schema_has_certification
+    - field.field.node.person.schema_has_credential
+    - field.field.node.person.schema_honorific_suffix
+    - field.field.node.person.schema_image
+    - field.field.node.person.schema_job_title
+    - field.field.node.person.schema_pronouns
+    - field.field.node.person.schema_skills
+    - field.field.node.person.schema_urls
+    - field.field.node.person.schema_works_for
+    - node.type.person
+  module:
+    - node
+    - schemadotorg_jsonld_custom
+third_party_settings:
+  schemadotorg_jsonld_custom:
+    json: "{\r\n    \"@id\": \"[site:url]node/[node:nid]#entity\"\r\n}"
+id: node.person
+target_entity_type_id: node
+target_bundle: person
+schema_type: Person
+schema_properties:
+  schema_about: description
+  schema_has_certification: hasCertification
+  schema_has_credential: hasCredential
+  schema_honorific_suffix: honorificSuffix
+  schema_image: image
+  schema_job_title: jobTitle
+  schema_pronouns: pronouns
+  schema_skills: skills
+  schema_urls: url
+  schema_works_for: worksFor
+additional_mappings: {  }

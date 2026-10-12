@@ -1,0 +1,25 @@
+uuid: d02282d9-7716-4c56-a95f-823d4f54bb33
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.page.field_content
+    - field.field.node.page.schema_image
+    - field.field.node.page.schema_short_description
+    - node.type.page
+  module:
+    - node
+    - schemadotorg_jsonld_custom
+third_party_settings:
+  schemadotorg_jsonld_custom:
+    json: "{\r\n    \"@id\": \"[site:url]node/[node:nid]#webpage\",\r\n    \"url\": \"[node:url]\"\r\n}"
+id: node.page
+target_entity_type_id: node
+target_bundle: page
+schema_type: WebPage
+schema_properties:
+  schema_short_description: description
+  schema_image: image
+  schema_last_reviewed: lastReviewed
+  field_content: text
+additional_mappings: {  }

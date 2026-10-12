@@ -1,0 +1,19 @@
+uuid: 9d2a9f1f-e3ab-47a9-a48a-f34eb7a7a1c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_value
+    - paragraphs.paragraphs_type.proof_point
+id: paragraph.proof_point.field_value
+field_name: field_value
+entity_type: paragraph
+bundle: proof_point
+label: Value
+description: 'Examples: 95%, 240+, 1'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

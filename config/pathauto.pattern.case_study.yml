@@ -1,0 +1,23 @@
+uuid: a997dc94-264d-45aa-b955-7a7a15cca1b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.case_study
+  module:
+    - node
+id: case_study
+label: 'Case Study'
+type: 'canonical_entities:node'
+pattern: '/case-studies/[node:title]'
+selection_criteria:
+  fb401ea1-4bdc-4e87-9c0c-cc1c6877fca2:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      case_study: case_study
+selection_logic: and
+weight: -5
+relationships: {  }

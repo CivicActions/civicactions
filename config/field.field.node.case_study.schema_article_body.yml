@@ -1,0 +1,26 @@
+uuid: 117f020f-9086-4718-8ce2-4345e8c0a0e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_article_body
+    - node.type.case_study
+  module:
+    - entity_reference_revisions
+id: node.case_study.schema_article_body
+field_name: schema_article_body
+entity_type: node
+bundle: case_study
+label: 'Article body'
+description: 'The actual body of the article.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles: {  }
+    negate: 0
+    target_bundles_drag_drop: {  }
+field_type: entity_reference_revisions

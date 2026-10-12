@@ -1,0 +1,19 @@
+uuid: b8be0e92-19fd-4b3d-afdd-61c7aff1fdd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_pronouns
+    - node.type.person
+id: node.person.schema_pronouns
+field_name: schema_pronouns
+entity_type: node
+bundle: person
+label: Pronouns
+description: 'A short string listing or describing pronouns for a person.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

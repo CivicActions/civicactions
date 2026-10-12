@@ -1,0 +1,9 @@
+uuid: 6d8891e3-3120-4134-9b79-b7f8d358d391
+langcode: en
+status: true
+dependencies: {  }
+name: Expertise
+vid: expertise
+description: 'These expertise terms cover techniques. Currently on case studies.'
+weight: 0
+new_revision: false

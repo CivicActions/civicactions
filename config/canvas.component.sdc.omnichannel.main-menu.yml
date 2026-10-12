@@ -1,0 +1,18 @@
+uuid: cf897f97-9ee2-46bb-8ac5-854369653206
+langcode: en
+status: true
+dependencies:
+  theme:
+    - omnichannel
+active_version: 8fe3be948e0194e1
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions: {  }
+    fallback_metadata:
+      slot_definitions: {  }
+label: 'Main menu'
+id: sdc.omnichannel.main-menu
+provider: omnichannel
+source: sdc
+source_local_id: 'omnichannel:main-menu'

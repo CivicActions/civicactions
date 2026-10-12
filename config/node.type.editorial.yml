@@ -1,0 +1,11 @@
+uuid: 1fdb36c6-9247-4b6c-8854-4c7c0be865d7
+langcode: en
+status: true
+dependencies: {  }
+name: Editorial
+type: editorial
+description: 'News, blog post, whitepaper, or highlight.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

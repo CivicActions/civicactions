@@ -1,0 +1,94 @@
+uuid: 21c1a7e0-698c-4f7e-ad69-fca6f91fe604
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.organization.field_organization_type
+    - field.field.node.organization.schema_alternate_name
+    - field.field.node.organization.schema_description
+    - field.field.node.organization.schema_logo
+    - field.field.node.organization.schema_parent_organization
+    - field.field.node.organization.schema_same_as
+    - field.field.node.organization.schema_url
+    - node.type.organization
+  module:
+    - link
+    - user
+id: node.organization.default
+targetEntityType: node
+bundle: organization
+mode: default
+content:
+  field_organization_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  schema_alternate_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  schema_description:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  schema_logo:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 60
+    region: content
+  schema_parent_organization:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 60
+    region: content
+  schema_same_as:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 41
+    region: content
+  schema_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 41
+    region: content
+hidden: {  }

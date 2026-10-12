@@ -1,0 +1,29 @@
+uuid: 0b1b8eb8-a32a-45ad-822e-deb9a4a8218a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_profile_category
+    - node.type.person
+    - taxonomy.vocabulary.profile_category
+id: node.person.field_profile_category
+field_name: field_profile_category
+entity_type: node
+bundle: person
+label: 'Profile Category'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      profile_category: profile_category
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,9 @@
+uuid: 6e23e746-7866-4bdd-a7bf-c268856b8daf
+langcode: und
+status: true
+dependencies: {  }
+name: 'Life Events'
+vid: life_events
+description: 'Life events and transitions that may lead people to seek information, services, or support.'
+weight: 0
+new_revision: null

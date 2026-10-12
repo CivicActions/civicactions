@@ -1,0 +1,28 @@
+uuid: eaa008bd-c2b8-42ff-b6cf-1460e532726f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.schema_parent_organization
+    - node.type.organization
+id: node.organization.schema_parent_organization
+field_name: schema_parent_organization
+entity_type: node
+bundle: organization
+label: 'Parent organization'
+description: 'The larger organization that this organization is a sub-organization of, if any.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'schemadotorg:node'
+  handler_settings:
+    target_type: node
+    schema_types:
+      Organization: Organization
+    excluded_schema_types: {  }
+    ignore_additional_mappings: false
+    target_bundles:
+      organization: organization
+field_type: entity_reference

@@ -1,0 +1,21 @@
+uuid: 5ce6c103-bb59-4a56-8e51-75ecabb22e6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.image.field_media_image
+    - media.type.image
+  module:
+    - media
+id: media.image
+target_entity_type_id: media
+target_bundle: image
+schema_type: ImageObject
+schema_properties:
+  field_media_image: contentUrl
+  created: dateCreated
+  changed: dateModified
+  langcode: inLanguage
+  name: name
+  thumbnail: thumbnail
+additional_mappings: {  }
