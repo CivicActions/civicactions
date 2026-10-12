@@ -17,6 +17,11 @@ process:
     source: schema_author_items
     process:
       target_id: target_id
+  schema_keywords:
+    plugin: sub_process
+    source: schema_keyword_items
+    process:
+      target_id: target_id
   schema_short_description:
     plugin: get
     source: subtitle
@@ -34,6 +39,11 @@ process:
     from_format: 'Y-m-d\TH:i:s.u\Z'
     to_format: U
     source: published_at
+  changed:
+    plugin: format_date
+    from_format: 'Y-m-d\TH:i:s.u\Z'
+    to_format: U
+    source: updated_at
   status:
     plugin: default_value
     default_value: 1
