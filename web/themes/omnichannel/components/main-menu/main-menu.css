@@ -204,8 +204,9 @@ ul.primary-nav__menu--level-1 {
 
   .primary-nav__menu-item--level-1 {
     position: relative;
+    top: var(--size-6); /* Needed to offset bottom padding. */
+    padding-bottom: var(--size-6); /* Needed to avoid gap for submenu hover. */
     border-bottom: none;
-    padding: 0;
     margin-left: var(--size-6);
     overflow: visible;
 
@@ -226,7 +227,6 @@ ul.primary-nav__menu--level-1 {
         height: var(--size-2);
         margin-left: var(--size-3);
       }
-
       &[aria-expanded="true"] {
         &::after {
           transform: rotate(180deg);
@@ -240,7 +240,8 @@ ul.primary-nav__menu--level-1 {
     z-index: 105;
     position: absolute;
     width: max-content;
-    margin: var(--size-1) 0 0;
+    margin-left: var(--size-1);
+    top: var(--size-14);
     padding: var(--size-4);
     box-shadow: var(--shadow-card);
     transition:

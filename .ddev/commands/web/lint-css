@@ -17,7 +17,9 @@ cd "$REPO_ROOT"
 while IFS= read -r changed_file; do
   case "$changed_file" in
     "$THEME_PATH"/*.css)
-      lint_files+=("./${changed_file#"$THEME_PATH/"}")
+      if [[ -f "$REPO_ROOT/$changed_file" ]]; then
+        lint_files+=("./${changed_file#"$THEME_PATH/"}")
+      fi
       ;;
   esac
 done < <(

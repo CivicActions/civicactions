@@ -1,0 +1,56 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Media
+description: Responsive image or remote video embed with an optional caption and transcript link.
+group: Content
+status: stable
+props:
+  type: object
+  properties:
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: Image
+      description: Image selected from the Media Library. Ignored when a video URL is present.
+      default:
+        src: '/themes/omnichannel/images/canvas-assets/editorial-teaser-img.jpg'
+        alt: 'Traffic light against the sky'
+        width: 354
+        height: 220
+      examples:
+        - src: '/themes/omnichannel/images/canvas-assets/editorial-teaser-img.jpg'
+          alt: 'Traffic light against the sky'
+          width: 354
+          height: 220
+    video_url:
+      type: string
+      title: Video embed URL
+      description: HTTPS iframe embed URL from a supported video provider, such as YouTube or Vimeo.
+      format: uri-reference
+      x-allowed-schemes:
+        - https
+      examples:
+        - 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ'
+    video_title:
+      type: string
+      title: Video title
+      description: Accessible name describing the embedded video.
+      default: 'CivicActions project video'
+      examples:
+        - 'CivicActions project video'
+    caption:
+      type: string
+      title: Caption
+      description: Caption displayed below the image or video.
+      default: 'CivicActions project media.'
+      examples:
+        - 'CivicActions project media.'
+    transcript_url:
+      type: string
+      title: Transcript URL
+      description: Optional URL to a text transcript for the video.
+      format: uri-reference
+      x-allowed-schemes:
+        - http
+        - https
+      examples:
+        - '/transcripts/civicactions-project-video'

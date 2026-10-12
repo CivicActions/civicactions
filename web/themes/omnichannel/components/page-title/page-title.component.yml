@@ -1,0 +1,44 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Page Title
+description: Semantic page heading for Canvas landing pages.
+group: Content
+status: stable
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Page title
+      default: 'Government services that build public trust'
+      examples:
+        - 'Government services that build public trust'
+    subtitle:
+      type: string
+      title: Subtitle
+      default: 'Digital services for the public good.'
+      examples:
+        - 'Digital services for the public good.'
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Use h1 for the page title and h2 only when the component is nested below another page heading.
+      enum:
+        - 1
+        - 2
+      default: 1
+      examples:
+        - 1
+    alignment:
+      type: string
+      title: Alignment
+      enum:
+        - left
+        - center
+      meta:enum:
+        left: Left
+        center: Center
+      default: left
+      examples:
+        - left

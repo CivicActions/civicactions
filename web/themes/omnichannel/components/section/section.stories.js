@@ -7,7 +7,14 @@ const meta = {
   argTypes: {
     layout: {
       control: 'select',
-      options: ['two-equal', 'three-equal', 'two-one', 'one-two', 'four-equal'],
+      options: [
+        'one',
+        'two-equal',
+        'three-equal',
+        'two-one',
+        'one-two',
+        'four-equal',
+      ],
     },
     padding: { control: 'select', options: ['small', 'medium', 'large'] },
     alignment: { control: 'select', options: ['top', 'center', 'bottom'] },
@@ -16,6 +23,9 @@ const meta = {
       options: ['white', 'gray', 'blue', 'red'],
     },
     width: { control: 'select', options: ['full', 'constrained'] },
+    section_id: { control: 'text' },
+    title: { control: 'text' },
+    heading_level: { control: 'select', options: [2, 3, 4] },
   },
   args: {
     layout: 'two-equal',
@@ -23,12 +33,21 @@ const meta = {
     alignment: 'top',
     background_color: 'gray',
     width: 'full',
+    section_id: '',
+    title: '',
+    heading_level: 2,
   },
 };
 
 export default meta;
 
 export const TwoColumns = {};
+
+export const OneColumn = {
+  args: {
+    layout: 'one',
+  },
+};
 
 export const ThreeColumns = {
   args: {
@@ -51,5 +70,12 @@ export const TwoOne = {
 export const OneTwo = {
   args: {
     layout: 'one-two',
+  },
+};
+
+export const WithTitleAndAnchor = {
+  args: {
+    section_id: 'services',
+    title: 'Services',
   },
 };
