@@ -1,0 +1,184 @@
+/**
+ * Styles for the CivicActions Proofpoints SDC.
+ *
+ * The unscoped selectors provide progressive enhancement fallback for
+ * browsers without CSS @scope support.
+ */
+
+.ca-proofpoints {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.ca-proofpoints__list {
+  display: grid;
+  gap: var(--size-8, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ca-proofpoints--1-col .ca-proofpoints__list {
+  grid-template-columns: 1fr;
+}
+
+.ca-proofpoints--2-col .ca-proofpoints__list {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.ca-proofpoints--3-col .ca-proofpoints__list {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 767px) {
+  .ca-proofpoints--2-col .ca-proofpoints__list,
+  .ca-proofpoints--3-col .ca-proofpoints__list {
+    grid-template-columns: 1fr;
+    gap: var(--size-6, 1.5rem);
+  }
+}
+
+.ca-proofpoints__item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ca-proofpoints__inner {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.ca-proofpoints--align-center .ca-proofpoints__inner {
+  align-items: center;
+  text-align: center;
+}
+
+.ca-proofpoints--align-left .ca-proofpoints__inner {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.ca-proofpoints--card-style .ca-proofpoints__inner {
+  padding: var(--size-6, 1.5rem);
+  border: 1px solid var(--gray-10, #e6e6e6);
+  border-radius: var(--size-2, 0.5rem);
+  background-color: var(--white, #fff);
+  box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+}
+
+.ca-proofpoints__stat {
+  display: block;
+  margin-bottom: var(--size-2, 0.5rem);
+  color: var(--primary-red, #d83933);
+  font-family: var(--font-heading, "Merriweather", georgia, serif);
+  font-size: var(--size-14, 3.5rem);
+  font-weight: 700;
+  line-height: var(--line-height-base, 1.15);
+}
+
+@media (max-width: 767px) {
+  .ca-proofpoints__stat {
+    font-size: var(--size-10, 2.5rem);
+  }
+}
+
+.ca-proofpoints__label {
+  display: block;
+  color: var(--gray-70, #454545);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--size-4, 1rem);
+  line-height: var(--line-height-body-large, 1.7);
+}
+
+@scope (.ca-proofpoints) {
+  :scope {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .ca-proofpoints__list {
+    display: grid;
+    gap: var(--size-8, 2rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  :scope.ca-proofpoints--1-col .ca-proofpoints__list {
+    grid-template-columns: 1fr;
+  }
+
+  :scope.ca-proofpoints--2-col .ca-proofpoints__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  :scope.ca-proofpoints--3-col .ca-proofpoints__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ca-proofpoints__item {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ca-proofpoints__inner {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  :scope.ca-proofpoints--align-center .ca-proofpoints__inner {
+    align-items: center;
+    text-align: center;
+  }
+
+  :scope.ca-proofpoints--align-left .ca-proofpoints__inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  :scope.ca-proofpoints--card-style .ca-proofpoints__inner {
+    padding: var(--size-6, 1.5rem);
+    border: 1px solid var(--gray-10, #e6e6e6);
+    border-radius: var(--size-2, 0.5rem);
+    background-color: var(--white, #fff);
+    box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+  }
+
+  .ca-proofpoints__stat {
+    display: block;
+    margin-bottom: var(--size-2, 0.5rem);
+    color: var(--primary-red, #d83933);
+    font-family: var(--font-heading, "Merriweather", georgia, serif);
+    font-size: var(--size-14, 3.5rem);
+    font-weight: 700;
+    line-height: var(--line-height-base, 1.15);
+  }
+
+  .ca-proofpoints__label {
+    display: block;
+    color: var(--gray-70, #454545);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--size-4, 1rem);
+    line-height: var(--line-height-body-large, 1.7);
+  }
+
+  @media (max-width: 767px) {
+    :scope.ca-proofpoints--2-col .ca-proofpoints__list,
+    :scope.ca-proofpoints--3-col .ca-proofpoints__list {
+      grid-template-columns: 1fr;
+      gap: var(--size-6, 1.5rem);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ca-proofpoints__stat {
+      font-size: var(--size-10, 2.5rem);
+    }
+  }
+}

@@ -3,19 +3,25 @@ langcode: en
 status: true
 dependencies:
   config:
+    - canvas.component.sdc.omnichannel.accordion
     - canvas.component.sdc.omnichannel.card
     - canvas.component.sdc.omnichannel.content
     - canvas.component.sdc.omnichannel.hero
+    - canvas.component.sdc.omnichannel.icon
     - canvas.component.sdc.omnichannel.media
     - canvas.component.sdc.omnichannel.page-title
+    - canvas.component.sdc.omnichannel.proofpoints
     - canvas.component.sdc.omnichannel.quote
 name: Content
 configEntityTypeId: component
 weight: 0
 items:
+  - sdc.omnichannel.accordion
   - sdc.omnichannel.card
   - sdc.omnichannel.content
   - sdc.omnichannel.hero
+  - sdc.omnichannel.icon
   - sdc.omnichannel.media
   - sdc.omnichannel.page-title
+  - sdc.omnichannel.proofpoints
   - sdc.omnichannel.quote

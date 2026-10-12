@@ -1,0 +1,70 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Accordion component.
+ *
+ * Available props:
+ * - title: Optional heading for the accordion group.
+ * - heading_level: Heading level for the group title (2, 3, or 4).
+ * - allow_multiple: Whether to allow multiple items open simultaneously.
+ * - items: Programmatic/Storybook-only array of objects with title, content,
+ *   and optional open boolean. Canvas uses the item_1 through item_5 props.
+ * - item_1_title, item_1_content: First accordion item.
+ * - item_2_title, item_2_content: Second accordion item.
+ * - item_3_title, item_3_content: Third accordion item.
+ * - item_4_title, item_4_content: Fourth accordion item.
+ * - item_5_title, item_5_content: Fifth accordion item.
+ * - accordion_items: Slot for additional nested accordion items or content.
+ */
+#}
+{% set accordion_attributes = attributes|default(create_attribute()) %}
+{% set h_level = heading_level in [2, 3, 4] ? heading_level : 2 %}
+{% set h_tag = 'h' ~ h_level %}
+{% set accordion_group_id = (title|default('group'))|clean_id %}
+{% set group_name = allow_multiple ? '' : 'ca-accordion-' ~ accordion_group_id %}
+
+{% set resolved_items = items|default([]) %}
+{% if resolved_items is empty %}
+  {% if item_1_title is not empty and item_1_content is not empty %}
+    {% set resolved_items = resolved_items|merge([{ title: item_1_title, content: item_1_content }]) %}
+  {% endif %}
+  {% if item_2_title is not empty and item_2_content is not empty %}
+    {% set resolved_items = resolved_items|merge([{ title: item_2_title, content: item_2_content }]) %}
+  {% endif %}
+  {% if item_3_title is not empty and item_3_content is not empty %}
+    {% set resolved_items = resolved_items|merge([{ title: item_3_title, content: item_3_content }]) %}
+  {% endif %}
+  {% if item_4_title is not empty and item_4_content is not empty %}
+    {% set resolved_items = resolved_items|merge([{ title: item_4_title, content: item_4_content }]) %}
+  {% endif %}
+  {% if item_5_title is not empty and item_5_content is not empty %}
+    {% set resolved_items = resolved_items|merge([{ title: item_5_title, content: item_5_content }]) %}
+  {% endif %}
+{% endif %}
+
+<div{{ accordion_attributes.addClass('ca-accordion') }}>
+  {% if title is not empty %}
+    <{{ h_tag }} class="ca-accordion__group-title">{{ title }}</{{ h_tag }}>
+  {% endif %}
+
+  {% if resolved_items is not empty or accordion_items is not empty %}
+    <div class="ca-accordion__items">
+      {% for item in resolved_items %}
+        <details class="ca-accordion__item"{% if group_name is not empty %} name="{{ group_name|e('html_attr') }}"{% endif %}{% if item.open %} open{% endif %}>
+          <summary class="ca-accordion__summary">
+            <span class="ca-accordion__title">{{ item.title }}</span>
+            <span class="ca-accordion__icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="ca-accordion__content">
+            {{ item.content|raw }}
+          </div>
+        </details>
+      {% endfor %}
+      {{ accordion_items }}
+    </div>
+  {% endif %}
+</div>
