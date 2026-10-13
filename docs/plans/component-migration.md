@@ -54,9 +54,9 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`Text` (WYSIWYG)** | Rich text container for Utility pages (Privacy, 404) and service descriptions. Scoped typography (`@scope`) without admin bleed. | **Built / In Review** | `omnichannel:content` | MAHOM-1183; proposed Utility template ticket | High |
 | **`Image` & `video.js` (Media SDC)** | Unified media embed primitive supporting responsive images and video embeds (16:9 ratio, caption, transcript support). | **Built / In Review** | `omnichannel:media` | MAHOM-1183 | High |
 | **`page-title`** | Standalone semantic H1 heading component for Canvas landing pages, resolving Axe heading order violations. | **Built / In Review** | `omnichannel:page-title` | MAHOM-1183 | High |
-| **`Proofpoints`** | Key statistical metrics (1 to 3 items, with or without boxed card background). Used on offering pages and Case Studies. | **Planned** | `omnichannel:proofpoints` | MAHOM-1184 | Med |
-| **`Accordions`** | Collapsible disclosure items on offering pages and FAQs. Supports section title field and unlimited items with full keyboard access. | **Planned** | `omnichannel:accordion` | MAHOM-1184 | Med |
-| **`icons.js`** | Scalable SVG icons for offering highlights. Carries over existing icon set as primitives. | **Planned** | `omnichannel:icon` | MAHOM-1184 | Med |
+| **`Proofpoints`** | Key statistical metrics (1 to 3 items, with or without boxed card background). Used on offering pages and Case Studies. | **Built / In Review** | `omnichannel:proofpoints` | MAHOM-1184 | Med |
+| **`Accordions`** | Single-item disclosure SDC plus a slot-based container for unlimited items on offering pages and FAQs. | **Built / In Review** | `omnichannel:accordion`, `omnichannel:accordion-container` | MAHOM-1184 | Med |
+| **`icons.js`** | Scalable SVG icons for offering highlights. Carries over the planned icon names as primitives. | **Built / In Review** | `omnichannel:icon` | MAHOM-1184 | Med |
 | **`/team` Views Listing** | Views grid for `/team` filtered by role category. Cards remain unlinked for MVP (individual profile pages deferred). | **Planned** | Team Listing View (`views.view.team`) | MAHOM-1185 | Med |
 | **`/blog` Views Listing** | Views feed for `/blog` with category filtering, rendering `editorial-teaser` in card and compact modes. | **Planned** | Blog / Editorial View (`views.view.blog`) | MAHOM-1185 | Med |
 | **Case Study Node Template** | Structured 1:1 reproduction of legacy Case Studies assembling Hero, Proofpoints, Content, Media, and Quote SDCs without manual Canvas assembly. | **Planned** | `node--case-study.html.twig` | MAHOM-1186 | Med |
@@ -118,7 +118,8 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **Problem:** Offering and campaign pages require statistical callouts, collapsible disclosures, and feature icons.
 - **Approach:**
   - Build `omnichannel:proofpoints` supporting 1 to 3 key metrics with optional boxed card styling.
-  - Build `omnichannel:accordion` with group title and accessible keyboard navigation.
+  - Build `omnichannel:accordion` as a single disclosure item with an `accordion_content` slot.
+  - Build `omnichannel:accordion-container` as a slot-based group that closes sibling items when one opens.
   - Build `omnichannel:icon` bundling SVG primitives with color and size tokens.
 - **Outcome:** Fulfills requirements for DITAP, Case Studies, and Homepage feature callouts.
 
