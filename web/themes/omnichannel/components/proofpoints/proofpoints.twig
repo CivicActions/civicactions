@@ -31,16 +31,25 @@
   {% endif %}
 {% endif %}
 
-{% set count = resolved_items|length %}
-{% set proofpoints_classes = [
-  'ca-proofpoints',
-  'ca-proofpoints--' ~ (count ? count : 1) ~ '-col',
-  card_style ? 'ca-proofpoints--card-style',
-  alignment == 'left' ? 'ca-proofpoints--align-left' : 'ca-proofpoints--align-center',
-] %}
+{% if resolved_items[2] is defined %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--3-col') %}
+{% elseif resolved_items[1] is defined %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--2-col') %}
+{% else %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--1-col') %}
+{% endif %}
+{% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints') %}
+{% if card_style %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--card-style') %}
+{% endif %}
+{% if alignment == 'left' %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--align-left') %}
+{% else %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--align-center') %}
+{% endif %}
 
 {% if resolved_items is not empty %}
-  <div{{ proofpoints_attributes.addClass(proofpoints_classes) }}>
+  <div{{ proofpoints_attributes }}>
     <ul class="ca-proofpoints__list">
       {% for item in resolved_items %}
         <li class="ca-proofpoints__item">
