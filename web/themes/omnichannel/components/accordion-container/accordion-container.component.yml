@@ -1,0 +1,18 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Accordion container
+description: Groups accordion items so only one item is open at a time.
+group: Content
+status: stable
+props:
+  type: object
+  properties: {  }
+slots:
+  accordion_content:
+    title: Accordion content
+    description: Accordion items displayed inside the container.
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - core/once
+  js:
+    accordion-container.js: {}

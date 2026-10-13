@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - canvas.component.sdc.omnichannel.accordion
+    - canvas.component.sdc.omnichannel.accordion-container
     - canvas.component.sdc.omnichannel.card
     - canvas.component.sdc.omnichannel.content
     - canvas.component.sdc.omnichannel.hero
@@ -17,6 +18,7 @@ configEntityTypeId: component
 weight: 0
 items:
   - sdc.omnichannel.accordion
+  - sdc.omnichannel.accordion-container
   - sdc.omnichannel.card
   - sdc.omnichannel.content
   - sdc.omnichannel.hero

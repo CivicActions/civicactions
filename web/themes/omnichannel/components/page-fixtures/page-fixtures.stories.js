@@ -1,6 +1,7 @@
 import '../../css/layout.css';
-import accordion from '../accordion/accordion.twig';
 import '../accordion/accordion.css';
+import accordionContainer from '../accordion-container/accordion-container-preview.twig';
+import '../accordion-container/accordion-container.css';
 import card from '../card/card.twig';
 import '../card/card.css';
 import content from '../content/content.twig';
@@ -746,10 +747,8 @@ const ditap = () =>
     </section>
 
     <section id="faq" class="ca-container ca-section ca-section--medium">
-      ${accordion({
-        title: 'Frequently asked questions',
+      ${accordionContainer({
         heading_level: 2,
-        allow_multiple: false,
         items: [
           {
             title: 'What is the class size?',

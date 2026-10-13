@@ -1,117 +1,49 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
 name: Accordion
-description: Collapsible disclosure items with optional group title and keyboard support. Canvas editors use item_1 through item_5; programmatic and Storybook callers may pass an items array.
+description: A single collapsible disclosure item with keyboard support.
 group: Content
 status: stable
 props:
   type: object
+  required:
+    - title
+    - heading_level
   properties:
     title:
       type: string
-      title: Group title
-      description: Optional heading for the accordion group (e.g. Frequently asked questions).
-      default: 'Frequently asked questions'
+      title: Item title
+      description: The question or title shown in the disclosure trigger.
+      default: 'What is the class size?'
       examples:
-        - 'Frequently asked questions'
+        - 'What is the class size?'
+    item_id:
+      type: string
+      title: Item ID
+      description: Optional unique ID used for the disclosure item and its content region.
+      default: ''
+      examples:
+        - faq-class-size
     heading_level:
       type: integer
       title: Heading level
-      description: Heading level for the optional group title (h2, h3, or h4).
+      description: Heading level for the disclosure trigger.
       enum:
         - 2
         - 3
         - 4
+        - 5
+        - 6
       default: 2
       examples:
         - 2
-    allow_multiple:
+    open_by_default:
       type: boolean
-      title: Allow multiple open
-      description: Allow multiple accordion items to be open simultaneously.
+      title: Open by default
+      description: Expand this item when the page loads.
       default: false
       examples:
         - false
-    item_1_title:
-      type: string
-      title: Item 1 title
-      description: Title or question for the first item.
-      default: 'What is the class size?'
-      examples:
-        - 'What is the class size?'
-    item_1_content:
-      type: string
-      title: Item 1 content
-      description: Content displayed when the first item is expanded.
-      contentMediaType: text/html
-      x-formatting-context: block
-      default: '<p>Cohorts are typically capped to ensure personal coaching and collaborative breakout sessions.</p>'
-      examples:
-        - '<p>Cohorts are typically capped to ensure personal coaching and collaborative breakout sessions.</p>'
-    item_2_title:
-      type: string
-      title: Item 2 title
-      description: Title or question for the second item.
-      default: 'Is the training customizable?'
-      examples:
-        - 'Is the training customizable?'
-    item_2_content:
-      type: string
-      title: Item 2 content
-      description: Content displayed when the second item is expanded.
-      contentMediaType: text/html
-      x-formatting-context: block
-      default: '<p>Yes, CivicActions tailors learning pathways and schedule cadences to meet agency acquisition objectives.</p>'
-      examples:
-        - '<p>Yes, CivicActions tailors learning pathways and schedule cadences to meet agency acquisition objectives.</p>'
-    item_3_title:
-      type: string
-      title: Item 3 title
-      description: Title or question for the third item.
-      default: 'How much does DITAP cost, and how do I pay?'
-      examples:
-        - 'How much does DITAP cost, and how do I pay?'
-    item_3_content:
-      type: string
-      title: Item 3 content
-      description: Content displayed when the third item is expanded.
-      contentMediaType: text/html
-      x-formatting-context: block
-      default: '<p>Tuition details and government purchase card or interagency agreement payment options are available upon request.</p>'
-      examples:
-        - '<p>Tuition details and government purchase card or interagency agreement payment options are available upon request.</p>'
-    item_4_title:
-      type: string
-      title: Item 4 title
-      description: Optional title or question for the fourth item.
-      default: 'How was DITAP created?'
-      examples:
-        - 'How was DITAP created?'
-    item_4_content:
-      type: string
-      title: Item 4 content
-      description: Optional content displayed when the fourth item is expanded.
-      contentMediaType: text/html
-      x-formatting-context: block
-      default: '<p>The Digital IT Acquisition Program was designed by the U.S. Digital Service and the Federal Acquisition Institute.</p>'
-      examples:
-        - '<p>The Digital IT Acquisition Program was designed by the U.S. Digital Service and the Federal Acquisition Institute.</p>'
-    item_5_title:
-      type: string
-      title: Item 5 title
-      description: Optional title or question for the fifth item.
-      default: 'Is this training required?'
-      examples:
-        - 'Is this training required?'
-    item_5_content:
-      type: string
-      title: Item 5 content
-      description: Optional content displayed when the fifth item is expanded.
-      contentMediaType: text/html
-      x-formatting-context: block
-      default: '<p>Federal contracting professionals managing major digital service investments are required to hold the certification.</p>'
-      examples:
-        - '<p>Federal contracting professionals managing major digital service investments are required to hold the certification.</p>'
 slots:
-  accordion_items:
-    title: Additional accordion items
-    description: Slot for additional nested accordion items or custom content.
+  accordion_content:
+    title: Accordion content
+    description: Content shown when this item is expanded.

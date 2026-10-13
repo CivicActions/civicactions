@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Container for single-item Accordion components.
+ *
+ * Available slots:
+ * - accordion_content: Accordion items displayed inside the container.
+ */
+#}
+{% set accordion_container_attributes = attributes|default(create_attribute()) %}
+
+<div{{ accordion_container_attributes.addClass('ca-accordion-container') }}>
+  {% block accordion_content %}{% endblock %}
+</div>

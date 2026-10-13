@@ -1,0 +1,17 @@
+/**
+ * Styles for the CivicActions Accordion Container SDC.
+ */
+
+.ca-accordion-container {
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid var(--gray-10, #e6e6e6);
+}
+
+@scope (.ca-accordion-container) {
+  :scope {
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid var(--gray-10, #e6e6e6);
+  }
+}

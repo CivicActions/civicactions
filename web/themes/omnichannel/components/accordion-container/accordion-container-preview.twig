@@ -1,0 +1,15 @@
+{% extends './accordion-container.twig' %}
+
+{% block accordion_content %}
+  {% for item in items %}
+    {% embed 'omnichannel:accordion' with {
+      title: item.title,
+      heading_level: heading_level|default(2),
+      open_by_default: item.open|default(false),
+    } only %}
+      {% block accordion_content %}
+        {{ item.content|raw }}
+      {% endblock %}
+    {% endembed %}
+  {% endfor %}
+{% endblock %}

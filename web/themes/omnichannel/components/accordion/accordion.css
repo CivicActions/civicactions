@@ -6,35 +6,9 @@
  */
 
 .ca-accordion {
+  display: block;
   box-sizing: border-box;
   width: 100%;
-}
-
-.ca-accordion__group-title {
-  margin: 0 0 var(--size-6, 1.5rem);
-  color: var(--primary-blue, #162e51);
-  font-family: var(--font-heading, "Merriweather", Georgia, serif);
-  font-weight: 400;
-  line-height: var(--line-height-base, 1.15);
-}
-
-h2.ca-accordion__group-title {
-  font-size: var(--size-8, 2rem);
-}
-
-h3.ca-accordion__group-title {
-  font-size: var(--size-6, 1.5rem);
-}
-
-h4.ca-accordion__group-title {
-  font-size: var(--size-5, 1.25rem);
-}
-
-.ca-accordion__items {
-  border-top: 1px solid var(--gray-10, #e6e6e6);
-}
-
-.ca-accordion__item {
   border-bottom: 1px solid var(--gray-10, #e6e6e6);
 }
 
@@ -92,7 +66,7 @@ h4.ca-accordion__group-title {
   color: var(--primary-red, #d83933);
 }
 
-.ca-accordion__item[open] .ca-accordion__icon {
+.ca-accordion[open] .ca-accordion__icon {
   transform: rotate(180deg);
 }
 
@@ -120,35 +94,9 @@ h4.ca-accordion__group-title {
 
 @scope (.ca-accordion) {
   :scope {
+    display: block;
     box-sizing: border-box;
     width: 100%;
-  }
-
-  .ca-accordion__group-title {
-    margin: 0 0 var(--size-6, 1.5rem);
-    color: var(--primary-blue, #162e51);
-    font-family: var(--font-heading, "Merriweather", Georgia, serif);
-    font-weight: 400;
-    line-height: var(--line-height-base, 1.15);
-  }
-
-  h2.ca-accordion__group-title {
-    font-size: var(--size-8, 2rem);
-  }
-
-  h3.ca-accordion__group-title {
-    font-size: var(--size-6, 1.5rem);
-  }
-
-  h4.ca-accordion__group-title {
-    font-size: var(--size-5, 1.25rem);
-  }
-
-  .ca-accordion__items {
-    border-top: 1px solid var(--gray-10, #e6e6e6);
-  }
-
-  .ca-accordion__item {
     border-bottom: 1px solid var(--gray-10, #e6e6e6);
   }
 
@@ -206,7 +154,7 @@ h4.ca-accordion__group-title {
     color: var(--primary-red, #d83933);
   }
 
-  .ca-accordion__item[open] .ca-accordion__icon {
+  :scope[open] .ca-accordion__icon {
     transform: rotate(180deg);
   }
 
