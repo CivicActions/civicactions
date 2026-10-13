@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for civicactions_landing_page_views.
+ */
+
+/**
+ * Creates the CA Team view if it is missing on already-enabled sites.
+ */
+function civicactions_landing_page_views_update_9001(): void {
+  $view_storage = \Drupal::entityTypeManager()->getStorage('view');
+  if ($view_storage->load('ca_team')) {
+    return;
+  }
+
+  $module_path = \Drupal::service('extension.list.module')->getPath('civicactions_landing_page_views');
+  $config_path = DRUPAL_ROOT . '/' . $module_path . '/config/install/views.view.ca_team.yml';
+  if (!is_file($config_path) || !is_readable($config_path)) {
+    throw new \RuntimeException(sprintf('Missing required config file: %s', $config_path));
+  }
+
+  $data = \Drupal\Component\Serialization\Yaml::decode((string) file_get_contents($config_path));
+  if (!is_array($data) || empty($data['id'])) {
+    throw new \RuntimeException('Invalid CA Team view config payload.');
+  }
+
+  \Drupal\views\Entity\View::create($data)->save();
+}
