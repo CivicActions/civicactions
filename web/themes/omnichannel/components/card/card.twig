@@ -19,7 +19,7 @@
 {% set card_heading_tag = card_heading_tags[heading_level|default(3)]|default('h3') %}
 
 <a href="{{ link|e('html_attr') }}" {{ card_attributes.addClass(card_classes) }}>
-  {% if icon_name %}
+  {% if icon_name and icon_name != 'none' %}
     <span class="ca-card__icon ca-card__icon--symbol">
       {% include 'omnichannel:icon' with { name: icon_name, size: 'xl', color: 'primary-blue' } only %}
     </span>

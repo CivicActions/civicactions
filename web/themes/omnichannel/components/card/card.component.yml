@@ -52,8 +52,9 @@ props:
     icon_name:
       type: string
       title: Icon name
-      description: "Bundled icon symbol from the Icon SDC (check, calendar, certificate, users, arrow, document, star)."
+      description: "Bundled icon symbol from the Icon SDC, or none to use the image icon."
       enum:
+        - none
         - check
         - calendar
         - certificate
@@ -62,6 +63,7 @@ props:
         - document
         - star
       meta:enum:
+        none: None (use image icon)
         check: Checkmark
         calendar: Calendar
         certificate: Certificate
@@ -69,9 +71,9 @@ props:
         arrow: Arrow Right
         document: Document
         star: Star
-      default: check
+      default: none
       examples:
-        - check
+        - none
     body:
       type: string
       title: Body text

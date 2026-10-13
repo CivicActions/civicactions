@@ -14,7 +14,7 @@ const meta = {
     icon_name: {
       control: 'select',
       options: [
-        '',
+        'none',
         'check',
         'calendar',
         'certificate',
@@ -32,7 +32,7 @@ const meta = {
     link: '/services#web-cms',
     icon: placeholderIcon,
     icon_alt: 'Service category icon',
-    icon_name: '',
+    icon_name: 'none',
     body: 'Accessible digital services for the public good.',
   },
 };

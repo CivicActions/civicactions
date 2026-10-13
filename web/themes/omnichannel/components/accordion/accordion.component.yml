@@ -21,8 +21,6 @@ props:
       title: Item ID
       description: Optional unique ID used for the disclosure item and its content region.
       default: ''
-      examples:
-        - faq-class-size
     heading_level:
       type: integer
       title: Heading level
