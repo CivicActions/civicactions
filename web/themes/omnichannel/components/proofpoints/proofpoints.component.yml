@@ -1,0 +1,72 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Proofpoints
+description: Displays 1 to 3 statistical callouts with descriptive labels. Canvas editors use stat_1 through stat_3 and label_1 through label_3; programmatic and Storybook callers may pass an items array.
+group: Content
+status: stable
+props:
+  type: object
+  required:
+    - stat_1
+    - label_1
+  properties:
+    stat_1:
+      type: string
+      title: Stat 1
+      description: Primary metric or statistic (e.g. 92%, 438, 100%).
+      default: '92%'
+      examples:
+        - '92%'
+    label_1:
+      type: string
+      title: Label 1
+      description: Description for the first stat.
+      default: 'of CivicActions DITAP participants would recommend it to a colleague'
+      examples:
+        - 'of CivicActions DITAP participants would recommend it to a colleague'
+    stat_2:
+      type: string
+      title: Stat 2
+      description: Optional second metric or statistic.
+      default: '438'
+      examples:
+        - '438'
+    label_2:
+      type: string
+      title: Label 2
+      description: Description for the second stat.
+      default: 'contracting officers graduated from our program to date'
+      examples:
+        - 'contracting officers graduated from our program to date'
+    stat_3:
+      type: string
+      title: Stat 3
+      description: Optional third metric or statistic.
+      default: '100%'
+      examples:
+        - '100%'
+    label_3:
+      type: string
+      title: Label 3
+      description: Description for the third stat.
+      default: 'of learners reported they have “clear takeaways from the course”'
+      examples:
+        - 'of learners reported they have “clear takeaways from the course”'
+    card_style:
+      type: boolean
+      title: Card background
+      description: Display the proofpoints as one unified elevated stats band.
+      default: false
+      examples:
+        - false
+    alignment:
+      type: string
+      title: Alignment
+      enum:
+        - center
+        - left
+      meta:enum:
+        center: Center
+        left: Left
+      default: center
+      examples:
+        - center

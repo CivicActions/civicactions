@@ -49,6 +49,31 @@ props:
       default: "Service category icon"
       examples:
         - "Service category icon"
+    icon_name:
+      type: string
+      title: Icon name
+      description: "Bundled icon symbol from the Icon SDC, or none to hide the card icon."
+      enum:
+        - none
+        - check
+        - calendar
+        - certificate
+        - users
+        - arrow
+        - document
+        - star
+      meta:enum:
+        none: No icon
+        check: Checkmark
+        calendar: Calendar
+        certificate: Certificate
+        users: Users / Community
+        arrow: Arrow Right
+        document: Document
+        star: Star
+      default: none
+      examples:
+        - none
     body:
       type: string
       title: Body text

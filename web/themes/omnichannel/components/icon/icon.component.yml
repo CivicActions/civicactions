@@ -1,0 +1,76 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Icon
+description: Scalable SVG icon primitive using brand colors and size tokens.
+group: Content
+status: stable
+props:
+  type: object
+  required:
+    - name
+  properties:
+    name:
+      type: string
+      title: Icon name
+      description: The name of the bundled icon symbol.
+      enum:
+        - check
+        - calendar
+        - certificate
+        - users
+        - arrow
+        - document
+        - star
+      meta:enum:
+        check: Checkmark
+        calendar: Calendar
+        certificate: Certificate
+        users: Users / Community
+        arrow: Arrow Right
+        document: Document
+        star: Star
+      default: check
+      examples:
+        - check
+    size:
+      type: string
+      title: Size
+      description: Icon size token.
+      enum:
+        - sm
+        - md
+        - lg
+        - xl
+      meta:enum:
+        sm: Small (16px)
+        md: Medium (24px)
+        lg: Large (32px)
+        xl: Extra Large (48px)
+      default: md
+      examples:
+        - md
+    color:
+      type: string
+      title: Color
+      description: Brand color token for the icon.
+      enum:
+        - inherit
+        - primary-red
+        - primary-blue
+        - light-blue
+        - gray-90
+      meta:enum:
+        inherit: Inherit (Current color)
+        primary-red: Primary Red
+        primary-blue: Primary Blue
+        light-blue: Light Blue
+        gray-90: Dark Gray (90)
+      default: inherit
+      examples:
+        - inherit
+    aria_label:
+      type: string
+      title: Accessible label
+      description: Optional accessible label. When provided, the icon is announced to screen readers. When omitted, the icon is hidden from assistive technologies.
+      default: ''
+      examples:
+        - 'Verification checkmark'

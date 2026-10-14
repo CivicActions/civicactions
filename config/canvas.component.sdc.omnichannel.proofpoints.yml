@@ -1,0 +1,115 @@
+uuid: 4131f45b-bfc5-46d0-af22-44dd88cc197e
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+  theme:
+    - omnichannel
+active_version: 551ddad84181adcd
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions:
+        stat_1:
+          required: true
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 92%
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        label_1:
+          required: true
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'of CivicActions DITAP participants would recommend it to a colleague'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        stat_2:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: '438'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        label_2:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'contracting officers graduated from our program to date'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        stat_3:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 100%
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        label_3:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'of learners reported they have “clear takeaways from the course”'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        card_style:
+          required: false
+          field_type: boolean
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: boolean_checkbox
+          default_value:
+            -
+              value: false
+          expression: ℹ︎boolean␟value
+          derived_schema_metadata: {  }
+        alignment:
+          required: false
+          field_type: list_string
+          field_storage_settings:
+            allowed_values_function: canvas_load_allowed_values_for_component_prop
+          field_instance_settings: {  }
+          field_widget: options_select
+          default_value:
+            -
+              value: center
+          expression: ℹ︎list_string␟value
+          derived_schema_metadata: {  }
+    fallback_metadata:
+      slot_definitions: {  }
+label: Proofpoints
+id: sdc.omnichannel.proofpoints
+provider: omnichannel
+source: sdc
+source_local_id: 'omnichannel:proofpoints'

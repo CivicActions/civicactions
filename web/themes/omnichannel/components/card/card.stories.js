@@ -11,6 +11,19 @@ const meta = {
     link: { control: 'text' },
     icon: { control: 'text' },
     icon_alt: { control: 'text' },
+    icon_name: {
+      control: 'select',
+      options: [
+        'none',
+        'check',
+        'calendar',
+        'certificate',
+        'users',
+        'arrow',
+        'document',
+        'star',
+      ],
+    },
     body: { control: 'text' },
   },
   args: {
@@ -19,6 +32,7 @@ const meta = {
     link: '/services#web-cms',
     icon: placeholderIcon,
     icon_alt: 'Service category icon',
+    icon_name: 'none',
     body: 'Accessible digital services for the public good.',
   },
 };
@@ -26,6 +40,15 @@ const meta = {
 export default meta;
 
 export const Default = {};
+
+export const WithIconSymbol = {
+  args: {
+    icon: '',
+    icon_name: 'certificate',
+    title: 'Certified Credential',
+    body: 'Earn the official FAC-C (Core-Plus) DITAP specialization recognized across government.',
+  },
+};
 
 export const NestedHeading = {
   args: {

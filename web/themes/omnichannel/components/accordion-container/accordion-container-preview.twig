@@ -1,0 +1,22 @@
+{% extends './accordion-container.twig' %}
+
+{% block accordion_content %}
+  {% set item_heading_level = heading_level|default(2) < 6 ? heading_level|default(2) + 1 : 6 %}
+  {% for item in items %}
+    {% embed 'omnichannel:accordion' with {
+      title: item.title,
+      heading_level: item_heading_level,
+      open_by_default: item.open|default(false),
+      answer_content: item.content|default(''),
+      answer_card: item.card|default(null),
+    } only %}
+      {% block accordion_content %}
+        {% if answer_card %}
+          {% include 'omnichannel:card' with answer_card only %}
+        {% else %}
+          {{ answer_content|raw }}
+        {% endif %}
+      {% endblock %}
+    {% endembed %}
+  {% endfor %}
+{% endblock %}

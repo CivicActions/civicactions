@@ -1,0 +1,120 @@
+/**
+ * Styles for the CivicActions Icon SDC.
+ *
+ * The unscoped selectors provide progressive enhancement fallback for
+ * browsers without CSS @scope support.
+ */
+
+.ca-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.ca-icon__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ca-icon--size-sm {
+  width: var(--size-4, 1rem);
+  height: var(--size-4, 1rem);
+}
+
+.ca-icon--size-md {
+  width: var(--icon-size-md, var(--size-6, 1.5rem));
+  height: var(--icon-size-md, var(--size-6, 1.5rem));
+}
+
+.ca-icon--size-lg {
+  width: var(--icon-size-large, var(--size-8, 2rem));
+  height: var(--icon-size-large, var(--size-8, 2rem));
+}
+
+.ca-icon--size-xl {
+  width: var(--size-12, 3rem);
+  height: var(--size-12, 3rem);
+}
+
+.ca-icon--color-inherit {
+  color: inherit;
+}
+
+.ca-icon--color-primary-red {
+  color: var(--primary-red, #d83933);
+}
+
+.ca-icon--color-primary-blue {
+  color: var(--primary-blue, #162e51);
+}
+
+.ca-icon--color-light-blue {
+  color: var(--light-blue, #73b3e7);
+}
+
+.ca-icon--color-gray-90 {
+  color: var(--gray-90, #171717);
+}
+
+@scope (.ca-icon) {
+  :scope {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+    line-height: 1;
+  }
+
+  .ca-icon__svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  :scope.ca-icon--size-sm {
+    width: var(--size-4, 1rem);
+    height: var(--size-4, 1rem);
+  }
+
+  :scope.ca-icon--size-md {
+    width: var(--icon-size-md, var(--size-6, 1.5rem));
+    height: var(--icon-size-md, var(--size-6, 1.5rem));
+  }
+
+  :scope.ca-icon--size-lg {
+    width: var(--icon-size-large, var(--size-8, 2rem));
+    height: var(--icon-size-large, var(--size-8, 2rem));
+  }
+
+  :scope.ca-icon--size-xl {
+    width: var(--size-12, 3rem);
+    height: var(--size-12, 3rem);
+  }
+
+  :scope.ca-icon--color-inherit {
+    color: inherit;
+  }
+
+  :scope.ca-icon--color-primary-red {
+    color: var(--primary-red, #d83933);
+  }
+
+  :scope.ca-icon--color-primary-blue {
+    color: var(--primary-blue, #162e51);
+  }
+
+  :scope.ca-icon--color-light-blue {
+    color: var(--light-blue, #73b3e7);
+  }
+
+  :scope.ca-icon--color-gray-90 {
+    color: var(--gray-90, #171717);
+  }
+}

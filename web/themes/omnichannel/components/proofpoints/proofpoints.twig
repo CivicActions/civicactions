@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Proofpoints component.
+ *
+ * Available props:
+ * - stat_1: Primary metric (e.g. "92%").
+ * - label_1: Description for stat 1.
+ * - stat_2: Optional second metric.
+ * - label_2: Optional description for stat 2.
+ * - stat_3: Optional third metric.
+ * - label_3: Optional description for stat 3.
+ * - card_style: Whether to display the group inside a unified card band.
+ * - alignment: Text alignment ("center" or "left").
+ * - items: Programmatic/Storybook-only array of objects [{stat: string,
+ *   label: string}]. Canvas uses the stat_1 through stat_3 and label_1 through
+ *   label_3 props.
+ */
+#}
+{% set proofpoints_attributes = attributes|default(create_attribute()) %}
+{% set resolved_items = items|default([]) %}
+{% if resolved_items is empty %}
+  {% if stat_1 is not empty and label_1 is not empty %}
+    {% set resolved_items = resolved_items|merge([{ stat: stat_1, label: label_1 }]) %}
+  {% endif %}
+  {% if stat_2 is not empty and label_2 is not empty %}
+    {% set resolved_items = resolved_items|merge([{ stat: stat_2, label: label_2 }]) %}
+  {% endif %}
+  {% if stat_3 is not empty and label_3 is not empty %}
+    {% set resolved_items = resolved_items|merge([{ stat: stat_3, label: label_3 }]) %}
+  {% endif %}
+{% endif %}
+
+{% if resolved_items[2] is defined %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--3-col') %}
+{% elseif resolved_items[1] is defined %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--2-col') %}
+{% else %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--1-col') %}
+{% endif %}
+{% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints') %}
+{% if card_style %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--card-style') %}
+{% endif %}
+{% if alignment == 'left' %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--align-left') %}
+{% else %}
+  {% set proofpoints_attributes = proofpoints_attributes.addClass('ca-proofpoints--align-center') %}
+{% endif %}
+
+{% if resolved_items is not empty %}
+  <div{{ proofpoints_attributes }}>
+    <ul class="ca-proofpoints__list">
+      {% for item in resolved_items %}
+        <li class="ca-proofpoints__item">
+          <div class="ca-proofpoints__inner">
+            <span class="ca-proofpoints__stat">{{ item.stat }}</span>
+            <span class="ca-proofpoints__label">{{ item.label }}</span>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
