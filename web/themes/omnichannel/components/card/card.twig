@@ -17,8 +17,9 @@
 {% set card_classes = ['ca-card'] %}
 {% set card_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6'} %}
 {% set card_heading_tag = card_heading_tags[heading_level|default(3)]|default('h3') %}
+{% set card_tag = link ? 'a' : 'div' %}
 
-<a href="{{ link|e('html_attr') }}" {{ card_attributes.addClass(card_classes) }}>
+<{{ card_tag }}{% if link %} href="{{ link|e('html_attr') }}"{% endif %} {{ card_attributes.addClass(card_classes) }}>
   {% if icon_name and icon_name != 'none' %}
     <span class="ca-card__icon ca-card__icon--symbol">
       {% include 'omnichannel:icon' with { name: icon_name, size: 'xl', color: 'primary-blue' } only %}
@@ -34,4 +35,4 @@
       <p class="ca-card__body">{{ body }}</p>
     {% endif %}
   </div>
-</a>
+</{{ card_tag }}>

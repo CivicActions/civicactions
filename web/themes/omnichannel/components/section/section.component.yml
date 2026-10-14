@@ -33,11 +33,13 @@ props:
       title: Section padding
       description: Vertical padding for the section.
       enum:
+        - none
         - small
         - medium
         - large
       default: medium
       meta:enum:
+        none: No padding
         small: Small padding
         medium: Medium padding
         large: Large padding
@@ -98,6 +100,13 @@ props:
       default: Services
       examples:
         - Services
+    intro:
+      type: string
+      title: Section introduction
+      description: Optional introductory copy displayed below the section title and above the columns.
+      default: ''
+      examples:
+        - We help public service teams make digital experiences simpler and more humane.
     heading_level:
       type: integer
       title: Section title heading level
@@ -112,13 +121,13 @@ props:
 slots:
   column_one:
     title: First column
-    description: Content displayed in the first column.
+    description: Content displayed in the first column. Use the Content SDC for rich text that should inherit Section contrast styles.
   column_two:
     title: Second column
-    description: Content displayed in the second column.
+    description: Content displayed in the second column. Use the Content SDC for rich text that should inherit Section contrast styles.
   column_three:
     title: Third column
-    description: Content displayed in the third column when using the three-column layout.
+    description: Content displayed in the third column when using the three-column layout. Use the Content SDC for rich text that should inherit Section contrast styles.
   column_four:
     title: Fourth column
-    description: Content displayed in the fourth column when using the four-column layout.
+    description: Content displayed in the fourth column when using the four-column layout. Use the Content SDC for rich text that should inherit Section contrast styles.
