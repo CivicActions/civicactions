@@ -70,6 +70,16 @@ The shared page shell uses full-width bands with constrained inner content. The 
 - Standard content container: approximately 1200px
 - Editorial reading container: approximately 720px
 
+### Page width models
+
+Pages use one of three width models. The page template at [page.html.twig](../../web/themes/omnichannel/templates/layout/page.html.twig) chooses the wrapper around `page.content`.
+
+- **Full-width (unconstrained):** Canvas pages (`canvas_page`) get no page-level container. Each layout Section determines its own width: a full-bleed background band with content constrained inside it.
+- **Constrained width:** `.ca-container` with `max-width: var(--container-max-width)` (1200px).
+- **Narrow width:** `.ca-container.ca-container--narrow` with `max-width: var(--container-narrow-width)` (720px), for editorial and prose content types such as the Utility page (Privacy, Accessibility Statement, Licensing).
+
+The header sets its own width (`.site-header__inner__container` uses `--container-max-width`) and is not affected by these wrappers. The Hero caps `.ca-hero__inner` at `--container-narrow-width` (`--container-max-width` for the flush variant) independently of the page wrapper.
+
 Responsive behavior must be checked at the project breakpoints and must not introduce horizontal overflow. The legacy mobile navigation drawer and a Drupal content sidebar are separate concerns.
 
 ## Accessibility and component documentation

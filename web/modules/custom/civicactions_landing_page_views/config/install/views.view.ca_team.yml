@@ -2,6 +2,8 @@ uuid: be9276bd-6f53-4d42-bd15-18f9f3adef60
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.profile_category
   module:
     - node
     - user
@@ -198,12 +200,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Profile Category: Team member'
-          plugin_id: numeric
-          operator: '='
+          plugin_id: taxonomy_index_tid
+          operator: or
           value:
-            value: '293'
-            min: ''
-            max: ''
+            293: 293
           group: 1
           exposed: false
           expose:
@@ -232,6 +232,12 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: false
+          vid: profile_category
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
         profile_status:
           id: field_profile_status_value
           table: node__field_profile_status
@@ -239,9 +245,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Profile Status: current'
-          plugin_id: string
-          operator: '='
-          value: current
+          plugin_id: list_field
+          operator: or
+          value:
+            current: current
           group: 1
           exposed: false
           expose:

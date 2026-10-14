@@ -31,7 +31,7 @@ props:
     padding:
       type: string
       title: Section padding
-      description: CSS padding for the section.
+      description: Vertical padding for the section.
       enum:
         - small
         - medium
@@ -71,7 +71,7 @@ props:
     width:
       type: string
       title: Section width
-      description: CSS width for the section.
+      description: Outer width for the section.
       enum:
         - full
         - constrained
@@ -79,6 +79,11 @@ props:
       meta:enum:
         full: Full width
         constrained: Constrained width
+    narrow_content:
+      type: boolean
+      title: Narrow content
+      description: Limit the inner content width to a readable line length of 720px within the section. The default is 1200px.
+      default: false
     section_id:
       type: string
       title: Section anchor ID

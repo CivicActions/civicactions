@@ -64,8 +64,15 @@
 
   {% set has_sidebar_first = page.sidebar_first is not empty %}
   {% set has_sidebar_second = page.sidebar_second is not empty %}
-  {% set is_canvas_page = node and node.bundle == 'canvas_page' %}
-  {% set needs_narrow_content = (node and not is_canvas_page) or (not node and not is_admin) %}
+  {# is_canvas_page is set in OmnichannelHooks::preprocessPage(). #}
+  {% if is_canvas_page %}
+    {% set page_width = 'ca-container--full-width' %}
+  {% elseif node and node.bundle == 'page' %}
+  {# @todo: Replace this with something that can take an array of narrow content types #}
+    {% set page_width = 'ca-container--narrow' %}
+  {% else %}
+    {% set page_width = 'ca-container--default' %}
+  {% endif %}
   {% set main_layout_class = 'ca-page__main-layout' %}
   {% if has_sidebar_first and has_sidebar_second %}
     {% set main_layout_class = main_layout_class ~ ' ca-page__main-layout--two-sidebars' %}
@@ -76,10 +83,8 @@
   {% endif %}
 
   <div class="{{ main_layout_class }}">
-    {% set content_classes = ['ca-page__content'] %}
-    {% if needs_narrow_content %}
-      {% set content_classes = content_classes|merge(['ca-container', 'ca-container--narrow']) %}
-    {% endif %}
+    {% set content_classes = ['ca-page__content']|merge(['ca-container', page_width]) %}
+
     <div class="{{ content_classes|join(' ') }}">
       {{ page.content }}
     </div>
