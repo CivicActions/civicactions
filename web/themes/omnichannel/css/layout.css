@@ -31,6 +31,10 @@
   max-width: var(--container-narrow-width);
 }
 
+.ca-container.ca-container--narrow {
+  padding-inline: var(--container-spacing-sm);
+}
+
 .ca-container--wide {
   max-width: var(--container-wide-width);
 }
