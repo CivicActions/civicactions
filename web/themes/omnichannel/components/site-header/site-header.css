@@ -23,6 +23,16 @@
   }
 }
 
+/******************************  Tablet styles **************************** */
+@media (min-width: 768px) {
+  .site-logo {
+    img {
+      width: 100%;
+      max-width: 294px;
+    }
+  }
+}
+
 /******************************  Desktop styles **************************** */
 @media (min-width: 1200px) {
   .site-header__inner__container {
@@ -32,13 +42,6 @@
 
   .ca-region--header {
     flex: 1;
-  }
-
-  .site-logo {
-    img {
-      width: 100%;
-      max-width: 294px;
-    }
   }
 
   .header-nav {
