@@ -23,7 +23,7 @@
     <span class="ca-card__icon ca-card__icon--symbol">
       {% include 'omnichannel:icon' with { name: icon_name, size: 'xl', color: 'primary-blue' } only %}
     </span>
-  {% elseif icon %}
+  {% elseif (icon_name is not defined or icon_name == '') and icon %}
     <img class="ca-card__icon" src="{{ icon|e('html_attr') }}" alt="{{ icon_alt|default('')|e('html_attr') }}">
   {% endif %}
   <div class="ca-card__content">
