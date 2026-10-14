@@ -1,6 +1,10 @@
 /**
  * Styles for the CivicActions Content SDC.
  *
+ * Base typography (color, font family, sizes, line heights, links) is
+ * inherited from css/global.css. This file only adds the rich-text rhythm and
+ * the elements that global.css does not style.
+ *
  * The unscoped selectors provide the progressive-enhancement fallback for
  * browsers without CSS @scope support.
  */
@@ -8,10 +12,6 @@
 .ca-content {
   box-sizing: border-box;
   max-width: 100%;
-  color: var(--gray-90, #171717);
-  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
-  font-size: var(--size-4, 1rem);
-  line-height: var(--line-height-body-large, 1.7);
 }
 
 .ca-content--narrow {
@@ -25,23 +25,13 @@
 .ca-content h4,
 .ca-content h5,
 .ca-content h6 {
-  margin: var(--size-8, 2rem) 0 var(--size-4, 1rem);
-  color: var(--gray-90, #171717);
-  font-family: var(--font-heading, "Merriweather", Georgia, serif);
-  font-weight: 400;
-  line-height: var(--line-height-base, 1.15);
+  margin: 0 0 var(--size-4, 1rem);
 }
 
+/* As in .text-formatted, h2 uses the h3 scale to match the legacy editorial content. */
 .ca-content h2 {
-  font-size: var(--size-8, 2rem);
-}
-
-.ca-content h3 {
-  font-size: var(--size-6, 1.5rem);
-}
-
-.ca-content h4 {
-  font-size: var(--size-5, 1.25rem);
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
 }
 
 .ca-content h5,
@@ -64,11 +54,11 @@
 .ca-content ul,
 .ca-content ol {
   margin: 0 0 var(--size-4, 1rem);
-  padding-left: var(--size-6, 1.5rem);
+  padding-left: var(--size-10, 2.5rem);
 }
 
 .ca-content li + li {
-  margin-top: var(--size-2, 0.5rem);
+  margin-top: var(--size-4, 1rem);
 }
 
 .ca-content blockquote {
@@ -114,24 +104,13 @@
 }
 
 .ca-content a {
-  text-decoration: underline;
   text-underline-offset: var(--size-1, 0.25rem);
-  color: var(--link-internal, #d83933);
-}
-
-.ca-content a:hover,
-.ca-content a:focus-visible {
-  color: var(--gray-90, #171717);
 }
 
 @scope (.ca-content) {
   :scope {
     box-sizing: border-box;
     max-width: 100%;
-    color: var(--gray-90, #171717);
-    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
-    font-size: var(--size-4, 1rem);
-    line-height: var(--line-height-body-large, 1.7);
   }
 
   :scope.ca-content--narrow {
@@ -145,23 +124,12 @@
   h4,
   h5,
   h6 {
-    margin: var(--size-8, 2rem) 0 var(--size-4, 1rem);
-    color: var(--gray-90, #171717);
-    font-family: var(--font-heading, "Merriweather", Georgia, serif);
-    font-weight: 400;
-    line-height: var(--line-height-base, 1.15);
+    margin: 0 0 var(--size-4, 1rem);
   }
 
   h2 {
-    font-size: var(--size-8, 2rem);
-  }
-
-  h3 {
-    font-size: var(--size-6, 1.5rem);
-  }
-
-  h4 {
-    font-size: var(--size-5, 1.25rem);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
   }
 
   h5,
@@ -184,11 +152,11 @@
   ul,
   ol {
     margin: 0 0 var(--size-4, 1rem);
-    padding-left: var(--size-6, 1.5rem);
+    padding-left: var(--size-10, 2.5rem);
   }
 
   li + li {
-    margin-top: var(--size-2, 0.5rem);
+    margin-top: var(--size-4, 1rem);
   }
 
   blockquote {
@@ -234,13 +202,6 @@
   }
 
   a {
-    text-decoration: underline;
     text-underline-offset: var(--size-1, 0.25rem);
-    color: var(--link-internal, #d83933);
-  }
-
-  a:hover,
-  a:focus-visible {
-    color: var(--gray-90, #171717);
   }
 }

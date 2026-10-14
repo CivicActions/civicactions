@@ -31,6 +31,14 @@ class OmnichannelHooks {
   }
 
   /**
+   * Implements hook_preprocess_page().
+   */
+  #[Hook('preprocess_page')]
+  public function preprocessPage(array &$variables): void {
+    $variables['is_canvas_page'] = \Drupal::routeMatch()->getRouteName() === 'entity.canvas_page.canonical';
+  }
+
+  /**
    * Adds URL protocol filtering to SDC component props.
    */
   #[Hook('element_info_alter')]
