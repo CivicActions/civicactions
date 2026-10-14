@@ -23,31 +23,41 @@ const meta = {
       options: ['white', 'gray', 'blue', 'red'],
     },
     width: { control: 'select', options: ['full', 'constrained'] },
+    narrow_content: { control: 'boolean' },
     section_id: { control: 'text' },
     title: { control: 'text' },
     heading_level: { control: 'select', options: [2, 3, 4] },
   },
   args: {
     layout: 'two-equal',
-    padding: 'medium',
-    alignment: 'top',
     background_color: 'gray',
-    width: 'full',
-    section_id: '',
-    title: '',
-    heading_level: 2,
   },
 };
 
 export default meta;
 
-export const TwoColumns = {};
-
-export const OneColumn = {
+export const FullWidth = {
   args: {
     layout: 'one',
   },
 };
+
+export const NarrowContent = {
+  args: {
+    layout: 'one',
+    narrow_content: true,
+    title: 'Services',
+  },
+};
+
+export const ConstrainedWidth = {
+  args: {
+    width: 'constrained',
+    title: 'Services',
+  },
+};
+
+export const TwoColumns = {};
 
 export const ThreeColumns = {
   args: {
