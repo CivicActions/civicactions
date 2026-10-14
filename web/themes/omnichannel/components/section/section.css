@@ -24,15 +24,27 @@
 
 .ca-section__title {
   margin: 0;
-  color: var(--gray-90, #171717);
+  color: var(--primary-blue, #162e51);
   font-family: var(--font-heading, "Merriweather", Georgia, serif);
   font-size: var(--size-8, 2rem);
   font-weight: 400;
   line-height: var(--line-height-base, 1.15);
 }
 
+.ca-section__intro {
+  margin: var(--size-4, 1rem) 0 0;
+  color: var(--text-body, #1b1b1b);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--font-size-body-large, 1.25rem);
+  line-height: var(--line-height-body-large, 1.7);
+}
+
 .ca-section__column {
   min-width: 0;
+}
+
+.ca-section--none {
+  padding-block: 0;
 }
 
 .ca-section--small {
@@ -92,6 +104,51 @@
   background-color: var(--primary-red);
 }
 
+.ca-section--blue,
+.ca-section--red {
+  color: var(--white, #fff);
+}
+
+.ca-section--blue .ca-section__title,
+.ca-section--red .ca-section__title,
+.ca-section--blue .ca-section__intro,
+.ca-section--red .ca-section__intro,
+.ca-section--blue .ca-section__column > .ca-content :is(h1, h2, h3, h4, h5, h6),
+.ca-section--red .ca-section__column > .ca-content :is(h1, h2, h3, h4, h5, h6),
+.ca-section--blue .ca-section__column > :is(h1, h2, h3, h4, h5, h6),
+.ca-section--red .ca-section__column > :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--white, #fff);
+}
+
+.ca-section--blue .ca-section__column > .ca-content blockquote,
+.ca-section--red .ca-section__column > .ca-content blockquote {
+  color: var(--white, #fff);
+  border-left-color: var(--white, #fff);
+}
+
+.ca-section--blue .ca-section__column > .ca-content a,
+.ca-section--red .ca-section__column > .ca-content a,
+.ca-section--blue .ca-section__column > a,
+.ca-section--red .ca-section__column > a,
+.ca-section--blue .ca-section__column > .ca-content a:hover,
+.ca-section--red .ca-section__column > .ca-content a:hover,
+.ca-section--blue .ca-section__column > a:hover,
+.ca-section--red .ca-section__column > a:hover,
+.ca-section--blue .ca-section__column > .ca-content a:focus,
+.ca-section--red .ca-section__column > .ca-content a:focus,
+.ca-section--blue .ca-section__column > a:focus,
+.ca-section--red .ca-section__column > a:focus {
+  color: var(--white, #fff);
+}
+
+.ca-section--blue .ca-section__column > .ca-content a:focus-visible,
+.ca-section--red .ca-section__column > .ca-content a:focus-visible,
+.ca-section--blue .ca-section__column > a:focus-visible,
+.ca-section--red .ca-section__column > a:focus-visible {
+  outline: var(--focus-outline-width, 3px) solid var(--white, #fff);
+  outline-offset: var(--focus-outline-offset, 3px);
+}
+
 /* Section width styles */
 .ca-section {
   padding-inline: var(--container-spacing-sm);
@@ -131,10 +188,67 @@
 
   .ca-section__title {
     margin: 0;
-    color: var(--gray-90, #171717);
+    color: var(--primary-blue, #162e51);
     font-family: var(--font-heading, "Merriweather", Georgia, serif);
     font-size: var(--size-8, 2rem);
     font-weight: 400;
     line-height: var(--line-height-base, 1.15);
+  }
+
+  .ca-section__intro {
+    margin: var(--size-4, 1rem) 0 0;
+    color: var(--text-body, #1b1b1b);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--font-size-body-large, 1.25rem);
+    line-height: var(--line-height-body-large, 1.7);
+  }
+
+  :scope.ca-section--none {
+    padding-block: 0;
+  }
+
+  :scope.ca-section--blue,
+  :scope.ca-section--red {
+    color: var(--white, #fff);
+  }
+
+  :scope.ca-section--blue .ca-section__title,
+  :scope.ca-section--red .ca-section__title,
+  :scope.ca-section--blue .ca-section__intro,
+  :scope.ca-section--red .ca-section__intro,
+  :scope.ca-section--blue .ca-section__column > .ca-content :is(h1, h2, h3, h4, h5, h6),
+  :scope.ca-section--red .ca-section__column > .ca-content :is(h1, h2, h3, h4, h5, h6),
+  :scope.ca-section--blue .ca-section__column > :is(h1, h2, h3, h4, h5, h6),
+  :scope.ca-section--red .ca-section__column > :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--white, #fff);
+  }
+
+  :scope.ca-section--blue .ca-section__column > .ca-content blockquote,
+  :scope.ca-section--red .ca-section__column > .ca-content blockquote {
+    color: var(--white, #fff);
+    border-left-color: var(--white, #fff);
+  }
+
+  :scope.ca-section--blue .ca-section__column > .ca-content a,
+  :scope.ca-section--red .ca-section__column > .ca-content a,
+  :scope.ca-section--blue .ca-section__column > a,
+  :scope.ca-section--red .ca-section__column > a,
+  :scope.ca-section--blue .ca-section__column > .ca-content a:hover,
+  :scope.ca-section--red .ca-section__column > .ca-content a:hover,
+  :scope.ca-section--blue .ca-section__column > a:hover,
+  :scope.ca-section--red .ca-section__column > a:hover,
+  :scope.ca-section--blue .ca-section__column > .ca-content a:focus,
+  :scope.ca-section--red .ca-section__column > .ca-content a:focus,
+  :scope.ca-section--blue .ca-section__column > a:focus,
+  :scope.ca-section--red .ca-section__column > a:focus {
+    color: var(--white, #fff);
+  }
+
+  :scope.ca-section--blue .ca-section__column > .ca-content a:focus-visible,
+  :scope.ca-section--red .ca-section__column > .ca-content a:focus-visible,
+  :scope.ca-section--blue .ca-section__column > a:focus-visible,
+  :scope.ca-section--red .ca-section__column > a:focus-visible {
+    outline: var(--focus-outline-width, 3px) solid var(--white, #fff);
+    outline-offset: var(--focus-outline-offset, 3px);
   }
 }

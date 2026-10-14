@@ -16,7 +16,10 @@ const meta = {
         'four-equal',
       ],
     },
-    padding: { control: 'select', options: ['small', 'medium', 'large'] },
+    padding: {
+      control: 'select',
+      options: ['none', 'small', 'medium', 'large'],
+    },
     alignment: { control: 'select', options: ['top', 'center', 'bottom'] },
     background_color: {
       control: 'select',
@@ -26,6 +29,7 @@ const meta = {
     narrow_content: { control: 'boolean' },
     section_id: { control: 'text' },
     title: { control: 'text' },
+    intro: { control: 'text' },
     heading_level: { control: 'select', options: [2, 3, 4] },
   },
   args: {
@@ -87,5 +91,47 @@ export const WithTitleAndAnchor = {
   args: {
     section_id: 'services',
     title: 'Services',
+  },
+};
+
+export const WithIntro = {
+  args: {
+    layout: 'one',
+    title: 'Services',
+    intro:
+      'We help public service teams make digital experiences simpler and more humane.',
+  },
+};
+
+export const IntroWithoutTitle = {
+  args: {
+    layout: 'one',
+    intro: 'Introductory copy can stand on its own above the section columns.',
+  },
+};
+
+export const NoPadding = {
+  args: {
+    layout: 'one',
+    padding: 'none',
+    title: 'Compact section',
+  },
+};
+
+export const BlueBackground = {
+  args: {
+    layout: 'one',
+    background_color: 'blue',
+    title: 'Services',
+    intro: 'Readable section content on a brand blue background.',
+  },
+};
+
+export const RedBackground = {
+  args: {
+    layout: 'one',
+    background_color: 'red',
+    title: 'Services',
+    intro: 'Readable section content on a brand red background.',
   },
 };

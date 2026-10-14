@@ -13,6 +13,7 @@
  * - narrow_content: Limit the content width to a readable line length of 720px within the section. Defaults to false.
  * - section_id: Optional in-page anchor ID.
  * - title: Optional section heading.
+ * - intro: Optional introductory copy displayed above the columns.
  * - heading_level: Heading level for the optional section title: 2, 3, or 4. Defaults to 2.
  * - attributes: Optional Attribute object applied to the section element.
  *
@@ -49,9 +50,14 @@
   'ca-section--' ~ width,
 ]) }}>
   <div class="{{ section_inner_classes|join(' ') }}">
-    {% if title %}
+    {% if title or intro %}
       <header class="ca-section__header">
-        <{{ section_heading_tag }} class="ca-section__title">{{ title }}</{{ section_heading_tag }}>
+        {% if title %}
+          <{{ section_heading_tag }} class="ca-section__title">{{ title }}</{{ section_heading_tag }}>
+        {% endif %}
+        {% if intro %}
+          <p class="ca-section__intro">{{ intro }}</p>
+        {% endif %}
       </header>
     {% endif %}
 
