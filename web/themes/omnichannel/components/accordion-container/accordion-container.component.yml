@@ -14,18 +14,18 @@ props:
       examples:
         - 'Frequently asked questions'
     heading_level:
-      type: string
+      type: integer
       title: Heading level
       description: Semantic heading level for the optional group heading.
       enum:
-        - '2'
-        - '3'
-        - '4'
-        - '5'
-        - '6'
-      default: '2'
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 2
       examples:
-        - '2'
+        - 2
     single_open:
       type: boolean
       title: Single-open mode
