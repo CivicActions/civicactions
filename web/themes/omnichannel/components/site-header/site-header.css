@@ -14,12 +14,22 @@
 }
 
 .site-logo {
-  display: block;
+  display: flex;;
   padding: var(--size-1);
   margin-left: calc(var(--size-1) * -1);
 
   img {
     max-width: 159px;
+  }
+}
+
+/******************************  Tablet styles **************************** */
+@media (min-width: 768px) {
+  .site-logo {
+    img {
+      width: 100%;
+      max-width: 294px;
+    }
   }
 }
 
@@ -32,13 +42,6 @@
 
   .ca-region--header {
     flex: 1;
-  }
-
-  .site-logo {
-    img {
-      width: 100%;
-      max-width: 294px;
-    }
   }
 
   .header-nav {

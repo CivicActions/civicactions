@@ -204,7 +204,7 @@ ul.primary-nav__menu--level-1 {
 
   .primary-nav__menu-item--level-1 {
     position: relative;
-    top: var(--size-6); /* Needed to offset bottom padding. */
+    top: 1.75rem; /* Needed to offset bottom padding. */
     padding-bottom: var(--size-6); /* Needed to avoid gap for submenu hover. */
     border-bottom: none;
     margin-left: var(--size-6);
@@ -243,6 +243,8 @@ ul.primary-nav__menu--level-1 {
     margin-left: var(--size-1);
     top: var(--size-14);
     padding: var(--size-4);
+    background-color: var(--white);
+
     box-shadow: var(--shadow-card);
     transition:
       visibility 0.2s,
