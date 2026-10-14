@@ -41,6 +41,14 @@ export default meta;
 
 export const Default = {};
 
+export const UnlinkedCard = {
+  args: {
+    link: '',
+    title: 'Public interest technology',
+    body: 'A static highlight card without a destination URL.',
+  },
+};
+
 export const WithIconSymbol = {
   args: {
     icon: '',

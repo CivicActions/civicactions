@@ -24,18 +24,18 @@
   gap: 32px;
 }
 
-.ca-card:hover,
-.ca-card:active,
-.ca-card:focus-visible {
+a.ca-card:hover,
+a.ca-card:active,
+a.ca-card:focus-visible {
   background-color: var(--gray-05, #f0f0f0);
 }
 
-.ca-card:active,
-.ca-card:focus-visible {
+a.ca-card:active,
+a.ca-card:focus-visible {
   box-shadow: none;
 }
 
-.ca-card:focus-visible {
+a.ca-card:focus-visible {
   outline: 3px solid var(--primary-blue, #162e51);
   outline-offset: 3px;
 }
@@ -123,18 +123,18 @@
     gap: 32px;
   }
 
-  :scope:hover,
-  :scope:active,
-  :scope:focus-visible {
+  :scope:is(a):hover,
+  :scope:is(a):active,
+  :scope:is(a):focus-visible {
     background-color: var(--gray-05, #f0f0f0);
   }
 
-  :scope:active,
-  :scope:focus-visible {
+  :scope:is(a):active,
+  :scope:is(a):focus-visible {
     box-shadow: none;
   }
 
-  :scope:focus-visible {
+  :scope:is(a):focus-visible {
     outline: 3px solid var(--primary-blue, #162e51);
     outline-offset: 3px;
   }
