@@ -64,13 +64,12 @@
 
   {% set has_sidebar_first = page.sidebar_first is not empty %}
   {% set has_sidebar_second = page.sidebar_second is not empty %}
-  {% set is_canvas_page = node and node.bundle == 'canvas_page' %}
-  {% if not node and (is_canvas_page or is_admin) %}
+  {# is_canvas_page is set in OmnichannelHooks::preprocessPage(). #}
+  {% if is_canvas_page %}
     {% set page_width = 'ca-container--full-width' %}
   {% elseif node and node.bundle == 'page' %}
   {# @todo: Replace this with something that can take an array of narrow content types #}
     {% set page_width = 'ca-container--narrow' %}
-    {% set needs_narrow_content = true %}
   {% else %}
     {% set page_width = 'ca-container--default' %}
   {% endif %}

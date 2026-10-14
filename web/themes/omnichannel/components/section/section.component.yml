@@ -82,7 +82,7 @@ props:
     narrow_content:
       type: boolean
       title: Narrow content
-      description: Limit the inner content width to to a readable line length of 720px within the section. The default is 1200px.
+      description: Limit the inner content width to a readable line length of 720px within the section. The default is 1200px.
       default: false
     section_id:
       type: string
