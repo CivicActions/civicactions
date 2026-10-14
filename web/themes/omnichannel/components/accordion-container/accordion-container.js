@@ -1,6 +1,6 @@
 /**
  * @file
- * Keeps one Accordion item open within each Accordion Container.
+ * Supports optional single-open Accordion groups and Canvas editor visibility.
  */
 
 /**
@@ -28,7 +28,10 @@ function closeOtherItems(container, openedItem) {
 function handleSummaryClick(event) {
   const summary = event.target.closest('.ca-accordion__summary');
   const container = summary?.closest('.ca-accordion-container');
-  if (!container) {
+  if (
+    !container ||
+    !container.classList.contains('ca-accordion-container--single-open')
+  ) {
     return;
   }
 
@@ -37,6 +40,40 @@ function handleSummaryClick(event) {
     if (openedItem?.open) {
       closeOtherItems(container, openedItem);
     }
+  });
+}
+
+/**
+ * Detect the Canvas editor when this component is rendered in its preview iframe.
+ *
+ * @return {boolean}
+ *   TRUE when the parent Canvas route is the editor.
+ */
+function isCanvasEditor() {
+  const paths = [window.location.pathname];
+
+  try {
+    paths.push(window.top.location.pathname);
+  } catch {
+    // The parent may be cross-origin in an embedded consumer.
+  }
+
+  return paths.some((path) => path.includes('/canvas/editor/'));
+}
+
+/**
+ * Keep newly inserted Accordion slot content visible to Canvas authors.
+ *
+ * @param {Element|Document} context
+ *   The render context to scan.
+ */
+function openEditorItems(context) {
+  if (!isCanvasEditor()) {
+    return;
+  }
+
+  once('accordion-editor-open', '.ca-accordion', context).forEach((item) => {
+    item.open = true;
   });
 }
 
@@ -69,6 +106,7 @@ function handleSummaryClick(event) {
     once('accordion-container', '.ca-accordion-container', context).forEach(
       attachContainer,
     );
+    openEditorItems(context);
   };
 
   const attachDocumentBehavior = () => {

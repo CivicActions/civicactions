@@ -223,9 +223,10 @@ const renderAgencyList = (agencies = agencyNames) => `
   </ul>
 `;
 
-const renderProofpointPreview = (items) =>
+const renderProofpointPreview = (items, cardStyle = false) =>
   proofpoints({
     items: items.map(([stat, label]) => ({ stat, label })),
+    card_style: cardStyle,
   });
 
 const serviceBlock = ({ id, title, body, cards, cta }) => `
@@ -634,17 +635,20 @@ const ditap = () =>
 
     <section class="ca-container ca-section ca-section--medium">
       <h2>The CivicActions difference</h2>
-      ${renderProofpointPreview([
+      ${renderProofpointPreview(
         [
-          '92%',
-          'of CivicActions DITAP participants would recommend it to a colleague',
+          [
+            '92%',
+            'of CivicActions DITAP participants would recommend it to a colleague',
+          ],
+          ['438', 'contracting officers graduated from our program to date'],
+          [
+            '100%',
+            'of learners reported they have “clear takeaways from the course”',
+          ],
         ],
-        ['438', 'contracting officers graduated from our program to date'],
-        [
-          '100%',
-          'of learners reported they have “clear takeaways from the course”',
-        ],
-      ])}
+        true,
+      )}
       <h2>What you’ll learn</h2>
       <h2>Dates and cost</h2>
       <div class="ca-grid ca-grid--3-col">
@@ -748,17 +752,18 @@ const ditap = () =>
 
     <section id="faq" class="ca-container ca-section ca-section--medium">
       ${accordionContainer({
+        title: 'Frequently asked questions',
         heading_level: 2,
         items: [
           {
             title: 'What is the class size?',
             content:
-              '<p>Cohorts are typically capped at 25 participants to ensure personalized coaching and collaborative breakout sessions.</p>',
+              '<p>There is a minimum of 25 - 30 students per cohort. These could be all from one agency, or a blended group. When you apply, we will walk you through the steps to get you (or the people you are registering) into the right group.</p>',
           },
           {
             title: 'Is the training customizable?',
             content:
-              '<p>Yes. While covering standard FAC-C curriculum, CivicActions tailors casework and exercises to agency-specific acquisition priorities.</p>',
+              '<p>Yes &ndash; we can help your agency achieve specific goals through DITAP as long as the training minimally meets the requirements for the Digital Services Credential (DITAP) from USDS. If you want a customized program that does not result in this credential, we are happy to discuss delivery of a specialized training that meets your needs.</p>',
           },
           {
             title: 'How much does DITAP cost, and how do I pay?',

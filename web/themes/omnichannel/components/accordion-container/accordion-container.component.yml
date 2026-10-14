@@ -1,15 +1,42 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Accordion container
-description: Groups accordion items so only one item is open at a time.
+name: Accordion group
+description: A group of collapsible questions with an optional section heading. Add Accordion items here; multiple can remain open.
 group: Content
 status: stable
 props:
   type: object
-  properties: {  }
+  properties:
+    title:
+      type: string
+      title: Group heading
+      description: Optional heading displayed above the Accordion items.
+      default: 'Frequently asked questions'
+      examples:
+        - 'Frequently asked questions'
+    heading_level:
+      type: string
+      title: Heading level
+      description: Semantic heading level for the optional group heading.
+      enum:
+        - '2'
+        - '3'
+        - '4'
+        - '5'
+        - '6'
+      default: '2'
+      examples:
+        - '2'
+    single_open:
+      type: boolean
+      title: Single-open mode
+      description: Close other items when one opens. Leave off to allow multiple answers to remain open.
+      default: false
+      examples:
+        - false
 slots:
   accordion_content:
-    title: Accordion content
-    description: Accordion items displayed inside the container.
+    title: Accordion items
+    description: Add Accordion items here. Add answer content inside each individual item.
 libraryOverrides:
   dependencies:
     - core/drupal

@@ -1,6 +1,6 @@
 $schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
-name: Accordion
-description: A single collapsible disclosure item with keyboard support.
+name: Accordion item
+description: A single collapsible question or disclosure. Use Accordion group for multiple items.
 group: Content
 status: stable
 props:
@@ -12,19 +12,19 @@ props:
     title:
       type: string
       title: Item title
-      description: The question or title shown in the disclosure trigger.
+      description: Question or heading shown in the disclosure trigger.
       default: 'What is the class size?'
       examples:
         - 'What is the class size?'
     item_id:
       type: string
       title: Item ID
-      description: Optional unique ID used for the disclosure item and its content region.
+      description: Optional stable anchor ID. Leave blank for normal use; provide a unique value when this item needs a link target.
       default: ''
     heading_level:
       type: integer
       title: Heading level
-      description: Heading level for the disclosure trigger.
+      description: Heading level for the question. Match the surrounding page hierarchy.
       enum:
         - 2
         - 3
@@ -37,11 +37,11 @@ props:
     open_by_default:
       type: boolean
       title: Open by default
-      description: Expand this item when the page loads.
+      description: Expand this item when the public page loads. Use sparingly for long groups.
       default: false
       examples:
         - false
 slots:
   accordion_content:
-    title: Accordion content
-    description: Content shown when this item is expanded.
+    title: Answer content
+    description: Add Content, Card, or another component here. It appears when this item opens.

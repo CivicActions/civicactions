@@ -10,6 +10,14 @@
   width: 100%;
 }
 
+.ca-proofpoints--card-style {
+  max-width: var(--container-max-width, 1200px);
+  margin: 0 auto;
+  padding: var(--size-8, 2rem) 0;
+  background-color: var(--white, #fff);
+  box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
+}
+
 .ca-proofpoints__list {
   display: grid;
   gap: var(--size-8, 2rem);
@@ -61,27 +69,44 @@
   text-align: left;
 }
 
-.ca-proofpoints--card-style .ca-proofpoints__inner {
-  padding: var(--size-6, 1.5rem);
-  border: 1px solid var(--gray-10, #e6e6e6);
-  border-radius: var(--size-2, 0.5rem);
-  background-color: var(--white, #fff);
-  box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
-}
-
 .ca-proofpoints__stat {
   display: block;
-  margin-bottom: var(--size-2, 0.5rem);
+  margin-bottom: 0;
+  padding-bottom: var(--size-2, 0.5rem);
   color: var(--primary-red, #d83933);
   font-family: var(--font-heading, "Merriweather", georgia, serif);
-  font-size: var(--size-14, 3.5rem);
-  font-weight: 700;
-  line-height: var(--line-height-base, 1.15);
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 50px;
 }
 
 @media (max-width: 767px) {
+  .ca-proofpoints--card-style {
+    margin: 0 auto;
+    padding: var(--size-8, 2rem) 0;
+  }
+
   .ca-proofpoints__stat {
-    font-size: var(--size-10, 2.5rem);
+    font-size: var(--size-14, 3.5rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .ca-proofpoints--card-style {
+    margin: 0 auto;
+  }
+
+  .ca-proofpoints__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 50px;
+    padding: 0 var(--size-8, 2rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .ca-proofpoints--card-style {
+    margin: 0 auto;
+    padding: 47px 113px;
   }
 }
 
@@ -97,6 +122,14 @@
   :scope {
     box-sizing: border-box;
     width: 100%;
+  }
+
+  :scope.ca-proofpoints--card-style {
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
+    padding: var(--size-8, 2rem) 0;
+    background-color: var(--white, #fff);
+    box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
   }
 
   .ca-proofpoints__list {
@@ -142,22 +175,15 @@
     text-align: left;
   }
 
-  :scope.ca-proofpoints--card-style .ca-proofpoints__inner {
-    padding: var(--size-6, 1.5rem);
-    border: 1px solid var(--gray-10, #e6e6e6);
-    border-radius: var(--size-2, 0.5rem);
-    background-color: var(--white, #fff);
-    box-shadow: var(--shadow-card, 0 5px 25px -10px rgb(0, 0, 0, 0.3));
-  }
-
   .ca-proofpoints__stat {
     display: block;
-    margin-bottom: var(--size-2, 0.5rem);
+    margin-bottom: 0;
+    padding-bottom: var(--size-2, 0.5rem);
     color: var(--primary-red, #d83933);
     font-family: var(--font-heading, "Merriweather", georgia, serif);
-    font-size: var(--size-14, 3.5rem);
-    font-weight: 700;
-    line-height: var(--line-height-base, 1.15);
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 50px;
   }
 
   .ca-proofpoints__label {
@@ -177,8 +203,32 @@
   }
 
   @media (max-width: 767px) {
+    :scope.ca-proofpoints--card-style {
+      margin: 0 auto;
+      padding: var(--size-8, 2rem) 0;
+    }
+
     .ca-proofpoints__stat {
-      font-size: var(--size-10, 2.5rem);
+      font-size: var(--size-14, 3.5rem);
+    }
+  }
+
+  @media (min-width: 768px) {
+    :scope.ca-proofpoints--card-style {
+      margin: 0 auto;
+    }
+
+    .ca-proofpoints__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 50px;
+      padding: 0 var(--size-8, 2rem);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    :scope.ca-proofpoints--card-style {
+      margin: 0 auto;
+      padding: 47px 113px;
     }
   }
 }

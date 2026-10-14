@@ -54,7 +54,7 @@ props:
     card_style:
       type: boolean
       title: Card background
-      description: Display each proof point inside an elevated card box.
+      description: Display the proofpoints as one unified elevated stats band.
       default: false
       examples:
         - false
