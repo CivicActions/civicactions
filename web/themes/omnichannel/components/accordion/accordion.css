@@ -10,6 +10,7 @@
   box-sizing: border-box;
   width: 100%;
   margin-bottom: var(--size-4, 1rem);
+  border: 0;
 }
 
 .ca-accordion__summary {
@@ -100,6 +101,7 @@
     box-sizing: border-box;
     width: 100%;
     margin-bottom: var(--size-4, 1rem);
+    border: 0;
   }
 
   .ca-accordion__summary {
