@@ -5,7 +5,6 @@
 .ca-accordion-container {
   box-sizing: border-box;
   width: 100%;
-  max-width: 845px;
   margin: 0 auto;
   padding: 0 var(--size-6, 1.5rem);
 }
@@ -37,7 +36,6 @@
   :scope {
     box-sizing: border-box;
     width: 100%;
-    max-width: 845px;
     margin: 0 auto;
     padding: 0 var(--size-6, 1.5rem);
   }
