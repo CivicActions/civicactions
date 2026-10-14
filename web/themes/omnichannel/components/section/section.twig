@@ -4,14 +4,21 @@
  * Template for the CivicActions Section component.
  *
  * Available props:
- * - layout: Column configuration: one, two-equal, three-equal, two-one, one-two, or four-equal.
+ * - layout: Column configuration: one, two-equal, three-equal, two-one,
+ *   one-two, or four-equal. Defaults to two-equal.
+ * - padding: Section padding: small, medium, or large. Defaults to medium.
+ * - alignment: Vertical alignment of the columns: top, center, or bottom. Defaults to top.
+ * - background_color: Section background: white, gray, blue, or red. Defaults to white.
+ * - width: Outer content width: full or constrained. Defaults to full.
+ * - narrow_content: Limit the content width to to a readable line length of 720px within the section. Defaults to false.
  * - section_id: Optional in-page anchor ID.
  * - title: Optional section heading.
- * - heading_level: Heading level for the optional section title.
+ * - heading_level: Heading level for the optional section title: 2, 3, or 4. Defaults to 2.
+ * - attributes: Optional Attribute object applied to the section element.
  *
  * Available slots:
  * - column_one: First column content.
- * - column_two: Second column content.
+ * - column_two: Second column content. Not rendered for the one layout.
  * - column_three: Third column content for the three-equal or four-equal layout.
  * - column_four: Fourth column content for the four-equal layout.
  */
@@ -21,6 +28,7 @@
 {% set background_color = background_color|default('white') %}
 {% set alignment = alignment|default('top') %}
 {% set width = width|default('full') %}
+{% set narrow_content = narrow_content|default(false) %}
 {% set section_attributes = attributes|default(create_attribute()) %}
 {% set section_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4'} %}
 {% set section_heading_tag = section_heading_tags[heading_level|default(2)]|default('h2') %}
@@ -31,13 +39,14 @@
   'ca-section__inner',
   'ca-section--' ~ column_layout,
   'ca-section--' ~ alignment,
-  'ca-section__inner--' ~ width,
+  narrow_content ? 'ca-section__inner--narrow' : ''
 ] %}
 
 <section {{ section_attributes.addClass([
   'ca-section',
   'ca-section--' ~ padding,
   'ca-section--' ~ background_color,
+  'ca-section--' ~ width,
 ]) }}>
   <div class="{{ section_inner_classes|join(' ') }}">
     {% if title %}

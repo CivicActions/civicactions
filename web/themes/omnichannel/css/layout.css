@@ -35,8 +35,12 @@
   padding-inline: var(--container-spacing-sm);
 }
 
-.ca-container--wide {
-  max-width: var(--container-wide-width);
+.ca-container--full-width {
+  max-width: 100%;
+}
+
+.ca-container.ca-container--full-width {
+  padding-inline: 0;
 }
 
 .ca-grid {
