@@ -56,21 +56,23 @@ For component styling standards and progressive-enhancement CSS scoping, see [ca
 
 All styles use `1.15` base line height (`--line-height-base`) unless specifically styled for long-form reading (`--line-height-body-large: 1.7`).
 
+The base `h1`–`h4` and `body` sizes in `css/global.css` match the legacy site as measured on `/licensing/`. They are driven by `--font-size-<level>` and `--line-height-<level>` custom properties that change at the breakpoints listed below. Content inside `.text-formatted` renders `h2` at the `h3` scale, as the legacy editorial content does, and uses a 16px vertical rhythm.
+
 #### Headings (Merriweather)
 
-| Level | Size | Weight | Line Height | Color Token | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Display / H1 | 36px / 48px | Regular (400) | 1.25 - 1.4 | `--primary-blue` | Responsive scaling via media query |
-| H2 | 28px / 32px | Regular (400) | 1.3 | `--primary-blue` | Section headers |
-| H3 | 24px | Regular (400) | 1.3 | `--primary-blue` | Sub-sections, card titles |
-| H4 | 20px | Regular (400) | 1.35 | `--primary-blue` | Component headings |
-| H5 | 16px | Bold (700) | 1.3 | `--gray-90` | Minor headings |
+| Level | Size (mobile → 600 / 768 / 1024 / 1201px) | Line height (same breakpoints) | Color Token | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| H1 | 24px → 36px (768) → 48px (1024) | 33.6px → 50.4px → 78px | `--primary-blue` | |
+| H2 | 24px → 28px (600) → 36px (1201) | 34px → 40px → 50px | `--primary-blue` | Section headers |
+| H3 | 18px → 24px (600) → 28px (1201) | 22px → 33px → 33px | `--primary-blue` | Sub-sections, card titles |
+| H4 | 16px → 20px (600) | 22px → 33px | `--primary-blue` | Component headings |
+| H5 | 16px | 1.15 | `--primary-blue` | Unchanged; no legacy base rule |
 
 #### Body Copy (Nunito)
 
 | Variant | Size | Weight | Line Height | Color Token | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Body Default | 16px | Light (300) | 1.6 | `--gray-90` | Standard paragraph text |
+| Body Default | 16px, 20px from 1024px | Light (300) | 22px, 34px from 1024px | `--text-body` (`#1b1b1b`) | Base `body` text. `--text-body` is the legacy value and differs from `--gray-90` |
 | Body Large | 20px (`--size-5`) | Light (300) | 1.7 | `--gray-70` | Hero summaries, lead paragraphs |
 | Eyebrow | 16px | Bold (700) | 1.3 | `--primary-red` | Uppercase section taglines |
 | Caption | 14px | Light (300) | 1.4 | `--gray-70` | Image and media captions |
