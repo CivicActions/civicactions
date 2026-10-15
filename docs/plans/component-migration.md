@@ -129,14 +129,15 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
   - Build `omnichannel:icon` bundling SVG primitives with color and size tokens.
 - **Outcome:** Merged in PR #34. Fulfills requirements for DITAP, Case Studies, and Homepage feature callouts.
 
-### Phase 4: Views Listings for Team & Blog (MAHOM-1185) - In Progress
+### Phase 4: Views Listings for Team & Blog (MAHOM-1185) - In Progress (PR #40)
 
 - **Problem:** Backend content migrations cannot be visually validated without listing views.
 - **Approach:**
   - Build `/team` Views listing grouped by role category, rendering unlinked `person-teaser` cards (profile pages deferred post-MVP). Implemented in `civicactions_landing_page_views` module (`views.view.ca_team.yml`); filter operator fixes merged in PR #35 & PR #36.
   - Build `/blog` Views feed with category filtering, rendering `editorial-teaser` in card and compact modes (`views.view.ca_articles.yml` and `views.view.ca_news.yml`).
+  - Render Person, Editorial, and Case Study teaser view modes through the existing Omnichannel SDCs, with responsive grid styling and bundle-specific field/media prop mapping in the theme.
   - Confirm public anonymous view permissions for taxonomy vocabularies.
-- **Outcome:** Placed as block views on Canvas pages, unblocking staff and blog migrations.
+- **Current status:** PR #40 adds route-level teaser rendering and local checks for `/team`, `/case-studies`, and `/insights/articles`. Disposable Canvas placement and the full responsive viewport matrix remain open validation work. The local Articles route is `/insights/articles`, not `/blog`.
 
 ### Phase 5: Case Studies 1:1 Structured Reproduction (MAHOM-1186) - Unblocked / Ready for Dev
 

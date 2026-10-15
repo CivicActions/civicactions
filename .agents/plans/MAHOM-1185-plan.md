@@ -6,6 +6,8 @@ Public: Visitors browsing the Team, Case Studies, and Blog listings see cohesive
 
 The backend Views configurations already exist in `civicactions_landing_page_views` (`ca_team`, `ca_articles`, `ca_news`, and `ca_case_studies`). This plan covers the remaining theme work: render teaser view modes through existing SDCs, preserve the MVP decision that Person cards are unlinked, and provide responsive Views grid presentation.
 
+The implementation is committed in PR #40. A related MAHOM-1192 commit in the same branch synchronizes the project-owned Canvas recipe variants with the heading-enabled repository configuration; existing environments still require an explicit configuration import after deployment.
+
 ## Scope
 
 - Add bundle-specific teaser templates for Person, Editorial, and Case Study nodes.
@@ -98,8 +100,8 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - [Triage] -> completed: Task classification and `OmnichannelBuild` label.
 - [Refinement] -> completed: Purpose, scope, acceptance criteria, implementation details, and estimate.
 - [Plan] -> completed: this plan saved at `.agents/plans/MAHOM-1185-plan.md`.
-- [Build] -> completed: feature branch created and implementation added without a commit.
+- [Build] -> completed: feature branch implementation added and committed in PR #40.
 - [Validate] -> needs: local cache rebuild, lint, route checks, responsive checks, and Canvas verification where available.
-- [Communicate] -> needs: PR or commit summary, QA notes, and handoff.
+- [Communicate] -> in progress: PR #40 is open with the implementation summary and remaining validation blockers documented.
 
 _AI-assisted, reviewed/adjusted by me._
