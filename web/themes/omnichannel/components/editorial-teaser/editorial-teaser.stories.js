@@ -26,10 +26,7 @@ const meta = {
       control: 'text',
       if: { arg: 'variant', eq: 'news' },
     },
-    image: {
-      control: 'object',
-      if: { arg: 'variant', eq: 'press' },
-    },
+    image: { control: 'object' },
     title: { control: 'text' },
     description: { control: 'text' },
   },
@@ -74,10 +71,19 @@ const newsArgs = {
     'CivicActions is pleased to announce that The G. Raymond Chang School of Continuing Education (The Chang School) at Ryerson University has partnered with us to support its Digital Accessibility Specialist Microcredential Program.',
   date: '2024-07-08',
   fullstorylink: '#',
+  image: null,
 };
 
 export const NewsRelease = {
   args: newsArgs,
+};
+
+export const NewsReleaseWithImage = {
+  args: {
+    ...newsArgs,
+    image:
+      '<img class="editorial-teaser-news__image" src="/images/canvas-assets/editorial-teaser-img.jpg" alt="Traffic light against the sky" width="354" height="220" loading="lazy">',
+  },
 };
 
 export const NewsReleaseWithoutDate = {
