@@ -27,3 +27,21 @@ function civicactions_landing_page_views_update_9001(): void {
 
   \Drupal\views\Entity\View::create($data)->save();
 }
+
+/**
+ * Exposes the Team profile category filter for the listing page.
+ */
+function civicactions_landing_page_views_update_9002(): void {
+  $config = \Drupal::configFactory()->getEditable('views.view.ca_team');
+  if (!$config->get('display.default.display_options.filters.profile_category')) {
+    return;
+  }
+
+  $config
+    ->set('display.default.display_options.filters.profile_category.value', [])
+    ->set('display.default.display_options.filters.profile_category.exposed', TRUE)
+    ->set('display.default.display_options.filters.profile_category.expose.label', 'Team page category')
+    ->set('display.default.display_options.filters.profile_category.expose.identifier', 'profile_category')
+    ->set('display.default.display_options.filters.profile_category.expose.multiple', TRUE)
+    ->save(TRUE);
+}

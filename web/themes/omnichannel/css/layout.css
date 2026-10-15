@@ -211,3 +211,35 @@
   max-width: none;
   padding-inline: 0;
 }
+
+/* Views listings use the same responsive grid contract as Canvas sections. */
+.views-view-grid.horizontal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--size-6);
+  min-width: 0;
+}
+
+.views-view-grid.horizontal .views-col {
+  min-width: 0;
+}
+
+.views-exposed-form {
+  margin-block-end: var(--size-6);
+}
+
+@media (min-width: 768px) {
+  .views-view-grid.horizontal.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .views-view-grid.horizontal.cols-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .views-view-grid.horizontal.cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
