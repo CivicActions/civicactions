@@ -48,7 +48,7 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, and
 - Person teaser cards remain unlinked for the MVP. Editorial and Case Study teasers retain their configured canonical links.
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
 
-The local listing routes are `/team`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees.
+The local listing routes are `/team`, `/news`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees.
 
 ## Design tokens and visual language
 

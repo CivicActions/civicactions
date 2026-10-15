@@ -44,6 +44,7 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - [x] Add `node--person--teaser.html.twig` using `omnichannel:person-teaser` with no profile link.
 - [x] Add `node--editorial--teaser.html.twig` using `omnichannel:editorial-teaser` with the appropriate press/news variant for the view bundle.
 - [x] Add `node--case-study--teaser.html.twig` using `omnichannel:case-study-teaser`.
+- [x] Switch the existing CA News View from field rows to the Editorial node teaser and add update hook `9003` for already-enabled sites.
 - [x] Add tokenized responsive styles for Views grids and exposed filters, without altering unrelated layout rules.
 - [x] Expose the existing Team profile-category filter and add update hook `9002` for already-enabled sites.
 - [x] Remove the card shadow/surface treatment from Person Teaser and align name, role, and content spacing with the legacy staff grid.
@@ -68,6 +69,7 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - `/team` rendered a Person Teaser with name, role, and alt text, and no anchor around the card or name.
 - `/case-studies` rendered a Case Study Teaser with client, title, summary, image alt text, and a working canonical link. The rendered grid computed to two columns at the available desktop viewport.
 - `/insights/articles` rendered the configured Articles View using the Editorial Teaser card variant. `/blog` is not the configured local path.
+- The CA News View now uses `entity:node` teaser rows so `/news` follows the same Editorial SDC render boundary; local `/news` currently returns no rows despite the route and active view configuration being present.
 - The Team View now exposes a multi-select `Team page category` filter with the available local taxonomy terms; its default remains unfiltered apart from the existing current-team constraints.
 - Legacy comparison confirmed Person Teaser should be a flat portrait/name/role item: no background, border, shadow, or card hover surface. Local CSS now follows that treatment while retaining focus outlines for linked contexts.
 - Legacy comparison confirmed Editorial News typography is already close; Editorial press/card typography needed the Nunito title family and responsive body scale now applied locally. Case Study overlay typography remains a separate follow-up because its entire visual treatment differs.
