@@ -1,0 +1,6 @@
+name: 'CivicActions Greenhouse'
+type: module
+description: 'Integrates the Greenhouse Job Board API to display career opportunities with real-time webhook cache invalidation.'
+package: 'CivicActions'
+core_version_requirement: ^10 || ^11
+configure: civicactions_greenhouse.settings

@@ -1,0 +1,12 @@
+services:
+  logger.channel.civicactions_greenhouse:
+    parent: logger.channel_base
+    arguments: ['civicactions_greenhouse']
+
+  civicactions_greenhouse.client:
+    class: Drupal\civicactions_greenhouse\Client\GreenhouseClient
+    arguments:
+      - '@http_client'
+      - '@config.factory'
+      - '@cache.default'
+      - '@logger.channel.civicactions_greenhouse'

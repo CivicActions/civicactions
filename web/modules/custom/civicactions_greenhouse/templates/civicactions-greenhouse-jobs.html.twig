@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * Template for CivicActions Greenhouse job listings.
+ *
+ * Available variables:
+ * - heading: The section heading text.
+ * - intro: The introductory text.
+ * - jobs: Array of job items with id, title, url, location.
+ * - empty_message: Text displayed when no jobs are open.
+ * - error_message: Optional error message if API failed and no jobs available.
+ */
+#}
+<section class="ca-greenhouse-jobs" id="open-positions" aria-labelledby="careers-open-positions-heading">
+  <div class="ca-greenhouse-jobs__inner">
+    {% if heading %}
+      <h2 id="careers-open-positions-heading" class="ca-greenhouse-jobs__title">{{ heading }}</h2>
+    {% endif %}
+
+    {% if intro %}
+      <div class="ca-greenhouse-jobs__intro">
+        <p>{{ intro }}</p>
+      </div>
+    {% endif %}
+
+    {% if error_message and jobs is empty %}
+      <div class="ca-greenhouse-jobs__status ca-greenhouse-jobs__status--error" role="status">
+        <p>{{ error_message }}</p>
+      </div>
+    {% elseif jobs is empty %}
+      <div class="ca-greenhouse-jobs__empty" role="status">
+        <p>{{ empty_message }}</p>
+      </div>
+    {% else %}
+      <div class="ca-greenhouse-jobs__grid">
+        {% for job in jobs %}
+          <div class="ca-greenhouse-jobs__item">
+            <a href="{{ job.url|e('html_attr') }}" class="ca-greenhouse-jobs__link" target="_blank" rel="noopener noreferrer">
+              <span class="ca-greenhouse-jobs__job-title">{{ job.title }}</span>
+              <span class="visually-hidden"> (opens in a new window at Greenhouse)</span>
+              <svg class="ca-greenhouse-jobs__arrow" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

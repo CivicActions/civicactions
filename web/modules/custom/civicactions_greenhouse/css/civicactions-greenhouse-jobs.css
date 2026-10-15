@@ -1,0 +1,99 @@
+/**
+ * @file
+ * Styling for the CivicActions Greenhouse Job Listings block.
+ * Adheres to CivicActions BEM conventions and design tokens from global.css.
+ */
+
+.ca-greenhouse-jobs {
+  padding: var(--container-spacing-lg, 5rem) var(--container-spacing-sm, 1.5rem);
+  background-color: var(--white, #fff);
+  color: var(--primary-blue, #162e51);
+  font-family: var(--font-body, "Nunito", sans-serif);
+}
+
+.ca-greenhouse-jobs__inner {
+  max-width: var(--container-max-width, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ca-greenhouse-jobs__title {
+  font-family: var(--font-heading, "Merriweather", serif);
+  font-size: 2.25rem;
+  line-height: var(--line-height-base, 1.15);
+  color: var(--primary-blue, #162e51);
+  margin-top: 0;
+  margin-bottom: var(--size-4, 1rem);
+}
+
+.ca-greenhouse-jobs__intro {
+  max-width: var(--container-narrow-width, 45rem);
+  font-size: var(--font-size-body-large, 1.25rem);
+  line-height: var(--line-height-body-large, 1.7);
+  color: var(--gray-70, #454545);
+  margin-bottom: var(--size-8, 2rem);
+}
+
+.ca-greenhouse-jobs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--size-6, 1.5rem);
+}
+
+.ca-greenhouse-jobs__item {
+  display: flex;
+}
+
+.ca-greenhouse-jobs__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--size-5, 1.25rem) var(--size-6, 1.5rem);
+  background-color: var(--white, #fff);
+  border: 1px solid var(--gray-10, #e6e6e6);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--primary-blue, #162e51);
+  font-weight: 700;
+  font-size: 1.125rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ca-greenhouse-jobs__link:hover,
+.ca-greenhouse-jobs__link:focus-visible {
+  border-color: var(--primary-red, #d83933);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+.ca-greenhouse-jobs__link:focus-visible {
+  outline: 2px solid var(--primary-red, #d83933);
+  outline-offset: 2px;
+}
+
+.ca-greenhouse-jobs__job-title {
+  flex: 1;
+  margin-right: var(--size-4, 1rem);
+}
+
+.ca-greenhouse-jobs__arrow {
+  flex-shrink: 0;
+  color: var(--primary-red, #d83933);
+  transition: transform 0.2s ease;
+}
+
+.ca-greenhouse-jobs__link:hover .ca-greenhouse-jobs__arrow,
+.ca-greenhouse-jobs__link:focus-visible .ca-greenhouse-jobs__arrow {
+  transform: translateX(4px);
+}
+
+.ca-greenhouse-jobs__empty,
+.ca-greenhouse-jobs__status {
+  padding: var(--size-6, 1.5rem);
+  border-radius: 4px;
+  background-color: var(--gray-05, #f0f0f0);
+  color: var(--gray-70, #454545);
+  font-size: 1.125rem;
+  line-height: var(--line-height-body-large, 1.7);
+}
