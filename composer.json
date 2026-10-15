@@ -217,7 +217,7 @@
         ]
     },
     "require-dev": {
-        "drupal/coder": "^9.0",
+        "drupal/core-dev": "^11.5.0-beta1",
         "mglaman/phpstan-drupal": "^2.2",
         "phpstan/phpstan": "^2.2"
     }
