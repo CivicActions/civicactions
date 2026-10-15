@@ -4,7 +4,7 @@
 
 Public: Visitors browsing the Team, Case Studies, and Blog listings see cohesive, responsive cards using the CivicActions design system rather than unstyled core Drupal entity lists.
 
-The backend Views configurations already exist in `civicactions_landing_page_views` (`ca_team`, `ca_articles`, `ca_news`, and `ca_case_studies`). This plan covers the remaining theme work: render teaser view modes through existing SDCs, preserve the MVP decision that Person cards are unlinked, and provide responsive Views grid presentation.
+The backend Views configurations already exist in `civicactions_landing_page_views` (`ca_team`, `ca_articles`, `ca_news`, `ca_publications`, and `ca_case_studies`). This plan covers the remaining theme work: render teaser view modes through existing SDCs, preserve the MVP decision that Person cards are unlinked, and provide responsive Views grid presentation.
 
 The implementation is committed in PR #40. Existing environments still require an explicit configuration import after deployment to activate the repository's heading-enabled Canvas configuration.
 
@@ -59,6 +59,7 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - Person cards and names on `/team` are not links.
 - `/blog` and `/news` render Editorial records through the appropriate existing Editorial Teaser variant with title, description/date where available, and image where available.
 - `/case-studies` renders Case Study records through `omnichannel:case-study-teaser` with client, title, summary, image where available, and a working case-study link.
+- `/publications` renders White Paper Editorial records through the shared Editorial teaser path.
 - Views grids reflow without horizontal overflow at 375px, 768px, and 1200px.
 - Views blocks retain their styling when placed inside a Canvas Section.
 - Drupal cache rebuild, theme linting, and focused browser checks pass, or blockers are documented.
@@ -70,6 +71,7 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - `/case-studies` rendered a Case Study Teaser with client, title, summary, image alt text, and a working canonical link. The rendered grid computed to two columns at the available desktop viewport.
 - `/insights/articles` rendered the configured Articles View using the Editorial Teaser card variant. `/blog` is not the configured local path.
 - The CA News View now uses `entity:node` teaser rows so `/news` follows the same Editorial SDC render boundary; local `/news` currently returns no rows despite the route and active view configuration being present.
+- The CA Publications View already uses `entity:node` teaser rows and the shared Editorial teaser path; local `/publications` currently returns no rows despite the route and active view configuration being present.
 - The Team View now exposes a multi-select `Team page category` filter with the available local taxonomy terms; its default remains unfiltered apart from the existing current-team constraints.
 - Legacy comparison confirmed Person Teaser should be a flat portrait/name/role item: no background, border, shadow, or card hover surface. Local CSS now follows that treatment while retaining focus outlines for linked contexts.
 - Legacy comparison confirmed Editorial News typography is already close; Editorial press/card typography needed the Nunito title family and responsive body scale now applied locally. Case Study overlay typography remains a separate follow-up because its entire visual treatment differs.

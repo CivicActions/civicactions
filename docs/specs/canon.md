@@ -40,7 +40,7 @@ Canvas requires useful, non-empty defaults and examples for required and structu
 
 ## Views listings and teaser rendering
 
-The `civicactions_landing_page_views` module owns the Team, Editorial, News, and Case Study listing Views. The Omnichannel theme renders their node teaser view modes through the existing teaser SDCs rather than introducing listing-specific components.
+The `civicactions_landing_page_views` module owns the Team, Editorial, News, Publications, and Case Study listing Views. Publications represents White Papers through the Editorial taxonomy; it does not require a separate content bundle or teaser component. The Omnichannel theme renders their node teaser view modes through the existing teaser SDCs rather than introducing listing-specific components.
 
 - Bundle-specific `node--<bundle>--teaser.html.twig` templates live under `web/themes/omnichannel/templates/content/` and pass `teaser_props` to the matching SDC.
 - `preprocessNode()` builds bundle-specific props only for the `teaser` view mode and guards missing fields and media references.
@@ -48,7 +48,7 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, and
 - Person teaser cards remain unlinked for the MVP. Editorial and Case Study teasers retain their configured canonical links.
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
 
-The local listing routes are `/team`, `/news`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees.
+The local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees. The local News and Publications fixtures currently return no rows even though their Views and teaser configuration are present.
 
 ## Design tokens and visual language
 
