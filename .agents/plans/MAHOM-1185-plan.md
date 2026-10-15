@@ -6,7 +6,7 @@ Public: Visitors browsing the Team, Case Studies, and Blog listings see cohesive
 
 The backend Views configurations already exist in `civicactions_landing_page_views` (`ca_team`, `ca_articles`, `ca_news`, and `ca_case_studies`). This plan covers the remaining theme work: render teaser view modes through existing SDCs, preserve the MVP decision that Person cards are unlinked, and provide responsive Views grid presentation.
 
-The implementation is committed in PR #40. A related MAHOM-1192 commit in the same branch synchronizes the project-owned Canvas recipe variants with the heading-enabled repository configuration; existing environments still require an explicit configuration import after deployment.
+The implementation is committed in PR #40. Existing environments still require an explicit configuration import after deployment to activate the repository's heading-enabled Canvas configuration.
 
 ## Scope
 

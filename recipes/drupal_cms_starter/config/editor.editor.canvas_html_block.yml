@@ -17,7 +17,6 @@ settings:
       - italic
       - underline
       - alignment
-      - heading
       - link
       - '|'
       - bulletedList
@@ -29,13 +28,6 @@ settings:
         - justify
         - left
         - right
-    ckeditor5_heading:
-      enabled_headings:
-        - heading2
-        - heading3
-        - heading4
-        - heading5
-        - heading6
     ckeditor5_list:
       properties:
         reversed: false
