@@ -1,20 +1,2 @@
-{% if (node.field_editorial_type.entity.label == 'News') or (node.field_editorial_type.entity.label == 'Whitepaper') %}
-    {# Include date, but no img. #}
-    {{ include('omnichannel:editorial-news-teaser', {
-        variant: 'news',
-        title: label,
-        date: node.created.value|date('Y-m-d'),
-        fullstorylink: url,
-        description: content.schema_short_description|render|striptags,
-        }, with_context = false) }}
-
-{% elseif (node.field_editorial_type.entity.label == 'Article') or (node.field_editorial_type.entity.label == 'Highlight') %}
-    {# Include img, but no dates. #}
-    {{ include('omnichannel:editorial-news-teaser', {
-        variant: 'news',
-        title: label,
-        fullstorylink: url,
-        description: content.schema_short_description|render|striptags,
-        image: content.schema_image,
-        }, with_context = false) }}
-{% endif %}
+{% set props = teaser_props|default({}) %}
+{% include 'omnichannel:editorial-teaser' with props only %}

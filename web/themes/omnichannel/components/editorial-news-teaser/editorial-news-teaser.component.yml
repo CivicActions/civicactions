@@ -17,6 +17,16 @@ props:
       type: string
       title: Full story link
       format: uri-reference
+    image:
+      $ref: json-schema-definitions://canvas.module/image
+      type: object
+      title: News image
+      description: Optional Media Library image.
+      examples:
+        - src: '/themes/omnichannel/images/canvas-assets/editorial-teaser-img.jpg'
+          alt: 'Traffic light against the sky'
+          width: 354
+          height: 220
     title:
       type: string
       title: Title

@@ -19,6 +19,7 @@ settings:
       - bold
       - italic
       - underline
+      - alignment
       - heading
       - link
       - '|'

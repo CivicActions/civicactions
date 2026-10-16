@@ -79,11 +79,7 @@ export const NewsRelease = {
 };
 
 export const NewsReleaseWithImage = {
-  args: {
-    ...newsArgs,
-    image:
-      '<img class="editorial-teaser-news__image" src="/images/canvas-assets/editorial-teaser-img.jpg" alt="Traffic light against the sky" width="354" height="220" loading="lazy">',
-  },
+  args: { ...newsArgs, image: placeholderImage },
 };
 
 export const NewsReleaseWithoutDate = {

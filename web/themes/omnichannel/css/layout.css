@@ -211,3 +211,112 @@
   max-width: none;
   padding-inline: 0;
 }
+
+/* Views listings use the same responsive grid contract as Canvas sections. */
+.views-view-grid.horizontal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--size-6);
+  min-width: 0;
+}
+
+.views-view-grid.horizontal .views-col {
+  display: flex;
+  min-width: 100%;
+}
+
+.views-view-grid.horizontal .views-col > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.view-ca-articles .view-content,
+.view-ca-publications .view-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--size-8);
+  min-width: 0;
+}
+
+.view-ca-articles .views-row,
+.view-ca-publications .views-row {
+  display: flex;
+  min-width: 0;
+}
+
+.view-ca-articles .views-row > *,
+.view-ca-publications .views-row > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.view-ca-case-studies .ca-case-study-teaser__summary {
+  display: none;
+}
+
+.view-ca-news .views-row:last-child .editorial-teaser-news {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.views-exposed-form {
+  margin-block-end: var(--size-6);
+}
+
+.views-exposed-form .form-item,
+.views-exposed-form .form-select {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .views-view-grid.horizontal.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .views-view-grid.horizontal.cols-5 {
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+  }
+
+  .view-ca-articles .view-content,
+  .view-ca-publications .view-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .views-view-grid.horizontal.cols-5 {
+    grid-template-columns: repeat(3, max-content);
+    justify-content: center;
+  }
+
+  .view-ca-case-studies {
+    margin-inline: calc(var(--container-spacing-md) - var(--container-spacing-lg));
+  }
+
+  .view-ca-case-studies .views-view-grid.horizontal.cols-2 {
+    gap: var(--size-8);
+  }
+
+  .view-ca-articles .view-content,
+  .view-ca-publications .view-content {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .views-view-grid.horizontal.cols-5 {
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+  }
+
+  .view-ca-case-studies {
+    margin-inline: calc(-1 * var(--container-spacing-lg));
+  }
+}
+
+@media (min-width: 1280px) {
+  .views-view-grid.horizontal.cols-5 {
+    grid-template-columns: repeat(5, max-content);
+  }
+}

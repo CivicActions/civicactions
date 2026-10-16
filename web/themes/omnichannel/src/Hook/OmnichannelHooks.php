@@ -3,8 +3,16 @@
 namespace Drupal\omnichannel\Hook;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Security\Attribute\TrustedCallback;
+use Drupal\file\FileInterface;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\media\MediaInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Hook implementations for omnichannel.
@@ -36,6 +44,230 @@ class OmnichannelHooks {
   #[Hook('preprocess_page')]
   public function preprocessPage(array &$variables): void {
     $variables['is_canvas_page'] = \Drupal::routeMatch()->getRouteName() === 'entity.canvas_page.canonical';
+  }
+
+  /**
+   * Prepares SDC props for content teaser view modes.
+   */
+  #[Hook('preprocess_node')]
+  public function preprocessNode(array &$variables): void {
+    if (($variables['view_mode'] ?? '') !== 'teaser' || !($variables['node'] ?? NULL) instanceof NodeInterface) {
+      return;
+    }
+
+    $node = $variables['node'];
+    $cacheability = new CacheableMetadata();
+    $variables['teaser_props'] = match ($node->bundle()) {
+      'person' => $this->buildPersonTeaserProps($node, $cacheability),
+      'editorial' => $this->buildEditorialTeaserProps($node, $cacheability),
+      'case_study' => $this->buildCaseStudyTeaserProps($node, $cacheability),
+      default => [],
+    };
+    $cacheability->applyTo($variables);
+  }
+
+  /**
+   * Builds the props used by the Person Teaser SDC.
+   */
+  private function buildPersonTeaserProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    return [
+      'heading_level' => 3,
+      'name' => $node->label(),
+      'role' => $this->getStringFieldValue($node, 'schema_job_title', $cacheability),
+      'image' => $this->getImageProp($node, 'schema_image', $cacheability) ?? [
+        'src' => '/themes/omnichannel/images/canvas-assets/quote-portrait.png',
+        'alt' => 'CivicActions team member',
+        'width' => 346,
+        'height' => 446,
+      ],
+    ];
+  }
+
+  /**
+   * Builds the props used by the Editorial Teaser SDC.
+   */
+  private function buildEditorialTeaserProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    $url = $node->toUrl('canonical')->toString();
+    $editorial_type = strtolower($this->getReferencedLabel($node, 'field_editorial_type', $cacheability));
+    $variant = match ($editorial_type) {
+      'news', 'whitepaper' => 'news',
+      'article', 'highlight' => 'press',
+      default => 'press',
+    };
+    $props = [
+      'variant' => $variant,
+      'title' => $node->label(),
+      'description' => $this->getStringFieldValue($node, 'schema_short_description', $cacheability),
+    ];
+
+    $image = $this->getImageProp($node, 'schema_image', $cacheability);
+    if ($image !== NULL) {
+      $props['image'] = $image;
+    }
+
+    if ($variant === 'news') {
+      $props['date'] = \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'html_date');
+      $props['fullstorylink'] = $url;
+    }
+    else {
+      $props['layout'] = 'card';
+      $props['teaserlink'] = $url;
+    }
+
+    return $props;
+  }
+
+  /**
+   * Builds the props used by the Case Study Teaser SDC.
+   */
+  private function buildCaseStudyTeaserProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    $props = [
+      'teaserlink' => $node->toUrl('canonical')->toString(),
+      'title' => $node->label(),
+      'client' => $this->getReferencedLabel($node, 'schema_client', $cacheability),
+      'summary' => $this->getStringFieldValue($node, 'schema_description', $cacheability),
+    ];
+
+    $image = $this->getImageProp($node, 'schema_image', $cacheability);
+    if ($image !== NULL) {
+      $props['image'] = $image;
+    }
+
+    return $props;
+  }
+
+  /**
+   * Gets a scalar string field value without assuming the field exists.
+   */
+  private function getStringFieldValue(NodeInterface $node, string $field_name, CacheableMetadata $cacheability): string {
+    if (!$node->hasField($field_name)) {
+      return '';
+    }
+
+    $field = $node->get($field_name);
+    $access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($access);
+    return !$access->isAllowed() || $field->isEmpty() ? '' : (string) $field->value;
+  }
+
+  /**
+   * Gets the label of an entity reference field without assuming a target.
+   */
+  private function getReferencedLabel(NodeInterface $node, string $field_name, CacheableMetadata $cacheability): string {
+    if (!$node->hasField($field_name)) {
+      return '';
+    }
+
+    $field = $node->get($field_name);
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return '';
+    }
+
+    $entity = $field->entity;
+    if (!$entity instanceof EntityInterface) {
+      return '';
+    }
+
+    $cacheability->addCacheableDependency($entity);
+    $entity_access = $entity->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($entity_access);
+    return $entity_access->isAllowed() ? (string) $entity->label() : '';
+  }
+
+  /**
+   * Converts a referenced Media image into the SDC image prop shape.
+   */
+  private function getImageProp(NodeInterface $node, string $field_name, CacheableMetadata $cacheability): ?array {
+    if (!$node->hasField($field_name)) {
+      return NULL;
+    }
+
+    $field = $node->get($field_name);
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed()) {
+      return NULL;
+    }
+
+    $media = $field->isEmpty() ? NULL : $field->entity;
+    if (!$media instanceof MediaInterface || !$media->hasField('field_media_image')) {
+      return NULL;
+    }
+
+    $cacheability->addCacheableDependency($media);
+    $media_access = $media->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($media_access);
+    if (!$media_access->isAllowed()) {
+      return NULL;
+    }
+
+    $image_field = $media->get('field_media_image');
+    if (!$image_field instanceof FieldItemListInterface) {
+      return NULL;
+    }
+
+    $image_field_access = $image_field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($image_field_access);
+    if (!$image_field_access->isAllowed() || $image_field->isEmpty()) {
+      return NULL;
+    }
+
+    $image_item = $image_field->first();
+    $file = $image_item?->entity;
+    if (!$file instanceof FileInterface) {
+      return NULL;
+    }
+
+    $cacheability->addCacheableDependency($file);
+    $file_access = $file->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($file_access);
+    if (!$file_access->isAllowed()) {
+      return NULL;
+    }
+
+    $node_view_display = EntityViewDisplay::load('node.' . $node->bundle() . '.teaser');
+    if (!$node_view_display) {
+      return NULL;
+    }
+    $cacheability->addCacheableDependency($node_view_display);
+    $node_image_component = $node_view_display?->getComponent($field_name);
+    $media_view_mode = $node_image_component['settings']['view_mode'] ?? NULL;
+    if (!is_string($media_view_mode) || $media_view_mode === '') {
+      return NULL;
+    }
+
+    $media_view_display = EntityViewDisplay::load('media.' . $media->bundle() . '.' . $media_view_mode);
+    if (!$media_view_display) {
+      return NULL;
+    }
+    $cacheability->addCacheableDependency($media_view_display);
+    $media_image_component = $media_view_display?->getComponent('field_media_image');
+    $image_style_id = $media_image_component['settings']['image_style'] ?? NULL;
+    if (!is_string($image_style_id) || $image_style_id === '') {
+      return NULL;
+    }
+
+    $image_uri = $file->getFileUri();
+    $image_style = ImageStyle::load($image_style_id);
+    if (!$image_style) {
+      return NULL;
+    }
+    $cacheability->addCacheableDependency($image_style);
+
+    $dimensions = [
+      'width' => max(1, (int) ($image_item->width ?? 0)),
+      'height' => max(1, (int) ($image_item->height ?? 0)),
+    ];
+    $image_style->transformDimensions($dimensions, $image_uri);
+
+    return [
+      'src' => $image_style->buildUrl($image_uri),
+      'alt' => (string) ($image_item->alt ?? ''),
+      'width' => max(1, (int) $dimensions['width']),
+      'height' => max(1, (int) $dimensions['height']),
+    ];
   }
 
   /**
