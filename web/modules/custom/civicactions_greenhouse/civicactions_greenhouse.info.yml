@@ -4,3 +4,5 @@ description: 'Integrates the Greenhouse Job Board API to display career opportun
 package: 'CivicActions'
 core_version_requirement: ^10 || ^11
 configure: civicactions_greenhouse.settings
+dependencies:
+  - key:key

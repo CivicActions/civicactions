@@ -1,4 +1,4 @@
 heading: 'Open positions'
 intro: 'CivicActions is an equal opportunity employer. We do not discriminate on the basis of race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or veteran status.'
 board_token: 'civicactions'
-webhook_secret: ''
+webhook_key: ''

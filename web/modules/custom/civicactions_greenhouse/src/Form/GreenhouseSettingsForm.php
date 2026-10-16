@@ -57,14 +57,12 @@ final class GreenhouseSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
-    $form['webhook_secret'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Webhook Secret Key'),
-      '#default_value' => $config->get('webhook_secret') ?? '',
-      '#description' => $this->t('The shared secret key used to authenticate incoming Greenhouse webhooks via HTTP Basic Authentication. Can be overridden in settings.php via $config["civicactions_greenhouse.settings"]["webhook_secret"].'),
-      '#attributes' => [
-        'autocomplete' => 'new-password',
-      ],
+    $form['webhook_key'] = [
+      '#type' => 'key_select',
+      '#title' => $this->t('Webhook Key'),
+      '#default_value' => $config->get('webhook_key') ?? '',
+      '#description' => $this->t('Select the Key entity that stores the shared secret used to authenticate incoming Greenhouse webhooks.'),
+      '#empty_option' => $this->t('- Select a key -'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -78,7 +76,7 @@ final class GreenhouseSettingsForm extends ConfigFormBase {
       ->set('heading', trim((string) $form_state->getValue('heading')))
       ->set('intro', trim((string) $form_state->getValue('intro')))
       ->set('board_token', trim((string) $form_state->getValue('board_token')))
-      ->set('webhook_secret', trim((string) $form_state->getValue('webhook_secret')))
+      ->set('webhook_key', (string) $form_state->getValue('webhook_key'))
       ->save();
 
     // Invalidate jobs cache tags so heading, intro, or board token updates

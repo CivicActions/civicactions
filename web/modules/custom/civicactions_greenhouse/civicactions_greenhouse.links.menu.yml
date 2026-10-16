@@ -1,0 +1,5 @@
+civicactions_greenhouse.settings:
+  title: 'CivicActions Greenhouse'
+  parent: system.admin_config_services
+  description: 'Configure Greenhouse job board integration, board token, and webhook key.'
+  route_name: civicactions_greenhouse.settings

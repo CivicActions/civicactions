@@ -11,6 +11,6 @@ civicactions_greenhouse.settings:
     board_token:
       type: string
       label: 'Greenhouse Board Token'
-    webhook_secret:
+    webhook_key:
       type: string
-      label: 'Webhook Secret Key'
+      label: 'Greenhouse Webhook Key'

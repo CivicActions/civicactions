@@ -8,6 +8,7 @@ use Drupal\civicactions_greenhouse\Client\GreenhouseClientInterface;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\key\KeyRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +27,7 @@ final class GreenhouseWebhookController extends ControllerBase {
     protected readonly GreenhouseClientInterface $greenhouseClient,
     protected readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
     protected readonly LoggerInterface $logger,
+    protected readonly ?KeyRepositoryInterface $keyRepository = NULL,
   ) {
     $this->configFactory = $config_factory;
   }
@@ -38,7 +40,8 @@ final class GreenhouseWebhookController extends ControllerBase {
       $container->get('config.factory'),
       $container->get('civicactions_greenhouse.client'),
       $container->get('cache_tags.invalidator'),
-      $container->get('logger.channel.civicactions_greenhouse')
+      $container->get('logger.channel.civicactions_greenhouse'),
+      $container->get('key.repository')
     );
   }
 
@@ -132,6 +135,27 @@ final class GreenhouseWebhookController extends ControllerBase {
   }
 
   /**
+   * Resolves the configured webhook secret from Key entity or legacy config.
+   *
+   * @return string
+   *   The secret string, or empty string if not configured.
+   */
+  protected function getSecret(): string {
+    $config = $this->configFactory->get('civicactions_greenhouse.settings');
+    $key_id = (string) $config->get('webhook_key');
+    if ($key_id !== '' && $this->keyRepository) {
+      $key = $this->keyRepository->getKey($key_id);
+      if ($key) {
+        return trim((string) $key->getKeyValue());
+      }
+    }
+
+    // Fallback to legacy raw config if present.
+    $raw_secret = (string) $config->get('webhook_secret');
+    return trim($raw_secret);
+  }
+
+  /**
    * Authenticates the webhook request against the configured secret.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
@@ -141,8 +165,7 @@ final class GreenhouseWebhookController extends ControllerBase {
    *   TRUE if authenticated, FALSE otherwise.
    */
   protected function authenticate(Request $request): bool {
-    $configured_secret = (string) $this->configFactory->get('civicactions_greenhouse.settings')->get('webhook_secret');
-    $configured_secret = trim($configured_secret);
+    $configured_secret = $this->getSecret();
 
     // If no secret has been configured, reject all webhook requests.
     if ($configured_secret === '') {

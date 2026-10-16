@@ -9,6 +9,8 @@ use Drupal\civicactions_greenhouse\Controller\GreenhouseWebhookController;
 use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\key\KeyInterface;
+use Drupal\key\KeyRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
@@ -23,11 +25,14 @@ use Symfony\Component\HttpFoundation\Request;
 class GreenhouseWebhookControllerTest extends TestCase {
 
   /**
-   * Tests webhook rejection when no secret is configured.
+   * Tests webhook rejection when no secret or key is configured.
    */
   public function testHandleUnconfiguredSecret(): void {
     $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->with('webhook_secret')->willReturn('');
+    $config->method('get')->willReturnMap([
+      ['webhook_key', ''],
+      ['webhook_secret', ''],
+    ]);
 
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
@@ -35,8 +40,15 @@ class GreenhouseWebhookControllerTest extends TestCase {
     $client = $this->createMock(GreenhouseClientInterface::class);
     $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
     $logger = $this->createMock(LoggerInterface::class);
+    $key_repository = $this->createMock(KeyRepositoryInterface::class);
 
-    $controller = new GreenhouseWebhookController($config_factory, $client, $cache_tags_invalidator, $logger);
+    $controller = new GreenhouseWebhookController(
+      $config_factory,
+      $client,
+      $cache_tags_invalidator,
+      $logger,
+      $key_repository
+    );
 
     $request = Request::create('/api/v1/greenhouse/webhook', 'POST', [], [], [], [
       'PHP_AUTH_PW' => 'some_secret',
@@ -47,20 +59,71 @@ class GreenhouseWebhookControllerTest extends TestCase {
   }
 
   /**
-   * Tests webhook rejection with invalid credentials.
+   * Tests webhook rejection when configured key entity does not exist.
    */
-  public function testHandleInvalidCredentials(): void {
+  public function testHandleKeyNotFound(): void {
     $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->with('webhook_secret')->willReturn('super_secret_123');
+    $config->method('get')->willReturnMap([
+      ['webhook_key', 'non_existent_key'],
+      ['webhook_secret', ''],
+    ]);
 
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
+
+    $key_repository = $this->createMock(KeyRepositoryInterface::class);
+    $key_repository->method('getKey')->with('non_existent_key')->willReturn(NULL);
 
     $client = $this->createMock(GreenhouseClientInterface::class);
     $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
     $logger = $this->createMock(LoggerInterface::class);
 
-    $controller = new GreenhouseWebhookController($config_factory, $client, $cache_tags_invalidator, $logger);
+    $controller = new GreenhouseWebhookController(
+      $config_factory,
+      $client,
+      $cache_tags_invalidator,
+      $logger,
+      $key_repository
+    );
+
+    $request = Request::create('/api/v1/greenhouse/webhook', 'POST', [], [], [], [
+      'PHP_AUTH_PW' => 'some_secret',
+    ]);
+
+    $response = $controller->handle($request);
+    $this->assertEquals(403, $response->getStatusCode());
+  }
+
+  /**
+   * Tests webhook rejection with invalid credentials using key module key.
+   */
+  public function testHandleInvalidCredentials(): void {
+    $config = $this->createMock(ImmutableConfig::class);
+    $config->method('get')->willReturnMap([
+      ['webhook_key', 'greenhouse_webhook_key'],
+      ['webhook_secret', ''],
+    ]);
+
+    $config_factory = $this->createMock(ConfigFactoryInterface::class);
+    $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
+
+    $key = $this->createMock(KeyInterface::class);
+    $key->method('getKeyValue')->willReturn('super_secret_123');
+
+    $key_repository = $this->createMock(KeyRepositoryInterface::class);
+    $key_repository->method('getKey')->with('greenhouse_webhook_key')->willReturn($key);
+
+    $client = $this->createMock(GreenhouseClientInterface::class);
+    $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
+    $logger = $this->createMock(LoggerInterface::class);
+
+    $controller = new GreenhouseWebhookController(
+      $config_factory,
+      $client,
+      $cache_tags_invalidator,
+      $logger,
+      $key_repository
+    );
 
     // Request with wrong password.
     $request = Request::create('/api/v1/greenhouse/webhook', 'POST', [], [], [], [
@@ -72,14 +135,23 @@ class GreenhouseWebhookControllerTest extends TestCase {
   }
 
   /**
-   * Tests successful ping event handling.
+   * Tests successful ping event handling using key module key.
    */
   public function testHandlePingSuccess(): void {
     $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->with('webhook_secret')->willReturn('super_secret_123');
+    $config->method('get')->willReturnMap([
+      ['webhook_key', 'greenhouse_webhook_key'],
+      ['webhook_secret', ''],
+    ]);
 
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
+
+    $key = $this->createMock(KeyInterface::class);
+    $key->method('getKeyValue')->willReturn('super_secret_123');
+
+    $key_repository = $this->createMock(KeyRepositoryInterface::class);
+    $key_repository->method('getKey')->with('greenhouse_webhook_key')->willReturn($key);
 
     $client = $this->createMock(GreenhouseClientInterface::class);
     $client->expects($this->never())->method('warmCache');
@@ -89,7 +161,13 @@ class GreenhouseWebhookControllerTest extends TestCase {
 
     $logger = $this->createMock(LoggerInterface::class);
 
-    $controller = new GreenhouseWebhookController($config_factory, $client, $cache_tags_invalidator, $logger);
+    $controller = new GreenhouseWebhookController(
+      $config_factory,
+      $client,
+      $cache_tags_invalidator,
+      $logger,
+      $key_repository
+    );
 
     $request = Request::create(
       '/api/v1/greenhouse/webhook',
@@ -113,10 +191,19 @@ class GreenhouseWebhookControllerTest extends TestCase {
    */
   public function testHandleJobPostEventSuccess(): void {
     $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->with('webhook_secret')->willReturn('super_secret_123');
+    $config->method('get')->willReturnMap([
+      ['webhook_key', 'greenhouse_webhook_key'],
+      ['webhook_secret', ''],
+    ]);
 
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
+
+    $key = $this->createMock(KeyInterface::class);
+    $key->method('getKeyValue')->willReturn('super_secret_123');
+
+    $key_repository = $this->createMock(KeyRepositoryInterface::class);
+    $key_repository->method('getKey')->with('greenhouse_webhook_key')->willReturn($key);
 
     $client = $this->createMock(GreenhouseClientInterface::class);
     $client->expects($this->once())->method('warmCache')->willReturn(['jobs' => []]);
@@ -128,7 +215,13 @@ class GreenhouseWebhookControllerTest extends TestCase {
 
     $logger = $this->createMock(LoggerInterface::class);
 
-    $controller = new GreenhouseWebhookController($config_factory, $client, $cache_tags_invalidator, $logger);
+    $controller = new GreenhouseWebhookController(
+      $config_factory,
+      $client,
+      $cache_tags_invalidator,
+      $logger,
+      $key_repository
+    );
 
     $request = Request::create(
       '/api/v1/greenhouse/webhook',
