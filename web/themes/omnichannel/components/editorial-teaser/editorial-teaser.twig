@@ -43,6 +43,9 @@
     {% if date %}
       {% set news_args = news_args|merge({ date: date }) %}
     {% endif %}
+    {% if image %}
+      {% set news_args = news_args|merge({ image: image }) %}
+    {% endif %}
     {% if description %}
       {% set news_args = news_args|merge({ description: description }) %}
     {% endif %}

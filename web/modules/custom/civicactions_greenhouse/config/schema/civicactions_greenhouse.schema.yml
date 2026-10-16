@@ -1,0 +1,16 @@
+civicactions_greenhouse.settings:
+  type: config_object
+  label: 'CivicActions Greenhouse settings'
+  mapping:
+    heading:
+      type: label
+      label: 'Section Heading'
+    intro:
+      type: text
+      label: 'Introductory Text'
+    board_token:
+      type: string
+      label: 'Greenhouse Board Token'
+    webhook_key:
+      type: string
+      label: 'Greenhouse Webhook Key'

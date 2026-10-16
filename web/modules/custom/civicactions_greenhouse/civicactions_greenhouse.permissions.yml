@@ -1,0 +1,4 @@
+administer civicactions greenhouse:
+  title: 'Administer CivicActions Greenhouse'
+  description: 'Configure Greenhouse job board integration settings, board token, and webhook secret.'
+  restrict access: true

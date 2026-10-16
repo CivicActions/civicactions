@@ -6,6 +6,7 @@
  * Available props:
  * - date: Optional publication date (YYYY-MM-DD).
  * - fullstorylink: Destination of the full story.
+ * - image: Optional Media Library image.
  * - title: Teaser heading.
  * - description: Optional news summary.
  */
@@ -14,14 +15,32 @@
 {% set teaser_attributes = attributes|default(create_attribute()) %}
 
 <article {{ teaser_attributes.addClass(['editorial-teaser-news']) }}>
-  {% if date %}
-    <p class="editorial-teaser__date">News Release: <time datetime="{{ date|e('html_attr') }}">{{ date }}</time></p>
+  <div class="editorial-teaser__text-wrapper">
+    {% if date %}
+      <p class="editorial-teaser__date">News Release: <time datetime="{{ date|e('html_attr') }}">{{ date }}</time></p>
+    {% endif %}
+    <h2 class="editorial-teaser__title">{{ title }}</h2>
+    {% if description %}
+      <p class="editorial-teaser__description">{{ description }}</p>
+    {% endif %}
+    <p class="editorial-teaser__full-story">
+      Full Story: <a href="{{ fullstorylink|e('html_attr') }}" class="editorial-teaser__link">{{ title }}</a>
+    </p>
+  </div>
+  {% if image %}
+    {% set image_srcset = image.src|toSrcSet(image.width) %}
+    <div class="editorial-teaser__image">
+      <img
+        src="{{ file_url(image.src)|e('html_attr') }}"
+        {% if image_srcset %}
+          srcset="{{ image_srcset|e('html_attr') }}"
+          sizes="auto, 100vw"
+        {% endif %}
+        alt="{{ image.alt|e('html_attr') }}"
+        width="{{ image.width|e('html_attr') }}"
+        height="{{ image.height|e('html_attr') }}"
+        loading="lazy"
+      >
+    </div>
   {% endif %}
-  <h2 class="editorial-teaser__title">{{ title }}</h2>
-  {% if description %}
-    <p class="editorial-teaser__description">{{ description }}</p>
-  {% endif %}
-  <p class="editorial-teaser__full-story">
-    Full Story: <a href="{{ fullstorylink|e('html_attr') }}" class="editorial-teaser__link">{{ title }}</a>
-  </p>
 </article>

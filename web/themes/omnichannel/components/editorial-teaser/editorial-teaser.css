@@ -9,7 +9,11 @@
 }
 
 .editorial-teaser__title {
-  line-height: var(--line-height-h3, 1.375rem);
+  line-height: var(--line-height-h3, 2.0625rem);
+
+  @media (max-width: 767px) {
+    line-height: 39px;
+  }
 }
 
 .editorial-teaser__link {
@@ -40,7 +44,7 @@
   margin: 0;
   padding: var(--size-8);
   color: var(--primary-blue);
-  font-family: var(--font-body);
+  font-family: var(--font-heading);
 }
 
 .editorial-teaser__description {
@@ -48,8 +52,8 @@
   padding: 0 var(--size-6) var(--size-9);
   color: var(--gray-90);
   font-family: var(--font-body);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
+  font-size: var(--font-size-body-large);
+  line-height: var(--line-height-body-large);
 }
 
 /* The compact teaser */
@@ -98,6 +102,8 @@
 /* The news teaser */
 
 .editorial-teaser-news {
+  display: flex;
+  align-items: center;
   margin-top: 55px;
   padding-bottom: 45px;
   color: var(--gray-90);
@@ -109,8 +115,13 @@
 }
 
 .editorial-teaser--news:last-child .editorial-teaser-news {
+  margin-bottom: var(--container-spacing-sm);
   padding-bottom: 0;
   border-bottom: 0;
+}
+
+.editorial-teaser-news .editorial-teaser__text-wrapper {
+  flex: 1 1 auto;
 }
 
 .editorial-teaser-news p {
@@ -152,6 +163,23 @@
   color: var(--sec-red);
 }
 
+.editorial-teaser-news .editorial-teaser__image {
+  aspect-ratio: unset;
+  justify-self: end;
+  width: auto;
+  margin-left: var(--size-6);
+
+  img {
+    max-width: 150px;
+    height: auto;
+  }
+}
+
+.editorial-teaser-news .field--name-schema-image {
+  display: flex;
+  align-items: center;
+}
+
 @media (min-width: 768px) {
   .editorial-teaser-news {
     font-size: var(--font-size-body-large);
@@ -162,10 +190,22 @@
     font-size: var(--size-5, 1.25rem);
     line-height: 34px;
   }
+
+  .editorial-teaser-news .editorial-teaser__image {
+    img {
+      max-width: 200px;
+    }
+  }
 }
 
 @media (min-width: 1024px) {
   .editorial-teaser-news .editorial-teaser__title {
     font-size: 1.75rem;
+  }
+
+  .editorial-teaser-news .editorial-teaser__image {
+    img {
+      max-width: unset;
+    }
   }
 }

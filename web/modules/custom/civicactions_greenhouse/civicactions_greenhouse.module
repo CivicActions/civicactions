@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for CivicActions Greenhouse module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme().
+ */
+function civicactions_greenhouse_theme(): array {
+  return [
+    'civicactions_greenhouse_jobs' => [
+      'variables' => [
+        'heading' => NULL,
+        'intro' => NULL,
+        'jobs' => [],
+        'empty_message' => NULL,
+        'error_message' => NULL,
+      ],
+      'template' => 'civicactions-greenhouse-jobs',
+    ],
+  ];
+}

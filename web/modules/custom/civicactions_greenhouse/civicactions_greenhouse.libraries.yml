@@ -1,0 +1,4 @@
+civicactions-greenhouse-jobs:
+  css:
+    component:
+      css/civicactions-greenhouse-jobs.css: {}

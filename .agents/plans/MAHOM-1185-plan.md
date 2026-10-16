@@ -6,7 +6,7 @@ Public: Visitors browsing the Team, Case Studies, and Blog listings see cohesive
 
 The backend Views configurations already exist in `civicactions_landing_page_views` (`ca_team`, `ca_articles`, `ca_news`, `ca_publications`, and `ca_case_studies`). This plan covers the remaining theme work: render teaser view modes through existing SDCs, preserve the MVP decision that Person cards are unlinked, and provide responsive Views grid presentation.
 
-The implementation is committed in PR #40. Existing environments require a targeted import of the Canvas editor and filter configurations after deployment to activate headings. A full repository config import is not safe while the module-owned Views remain database-managed and absent from the root config sync.
+The core implementation is committed in PR #40; the local Gatsby-parity and Editorial-sync follow-up is uncommitted in the current worktree. Existing environments require a targeted import of the Canvas editor and filter configurations after deployment to activate headings. A full repository config import is not safe while the module-owned Views remain database-managed and absent from the root config sync.
 
 ## Scope
 
@@ -16,6 +16,7 @@ The implementation is committed in PR #40. Existing environments require a targe
 - Expose the existing Team profile-category taxonomy filter so the MVP listing can be narrowed by role category.
 - Align Person Teaser surface and typography with the legacy flat staff grid while preserving linked focus states.
 - Align active Editorial press/card typography with the legacy responsive body and heading scale.
+- Match Team grid breakpoints and Case Study card crop/overlay to measured Gatsby output without changing the shared site shell.
 - Verify the listing routes and a Views block placed on the disposable Canvas draft page.
 
 ### Out of Scope
@@ -27,7 +28,7 @@ The implementation is committed in PR #40. Existing environments require a targe
 
 ### Follow-up: Team Page Container Geometry
 
-Compare the Team route's shared `.ca-container` horizontal padding with the legacy `.inner` geometry at wide desktop widths. Do not change the global page-shell container in MAHOM-1185; track this as a separate Team/page-layout parity ticket because MAHOM-1187 owns the shared container contract.
+Team grid geometry has been measured at 375px, 768px, 1024px, 1200px, and 1280px. Portrait widths and column counts now match Gatsby; the local group remains 8-12px farther right because of the rebuilt page container. Do not change the global page-shell container in MAHOM-1185; track any tighter shell alignment separately because MAHOM-1187 owns the shared container contract.
 
 ## Decisions
 
@@ -46,21 +47,24 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - [x] Add `node--case-study--teaser.html.twig` using `omnichannel:case-study-teaser`.
 - [x] Switch the existing CA News View from field rows to the Editorial node teaser and add update hook `9003` for already-enabled sites.
 - [x] Add tokenized responsive styles for Views grids and exposed filters, without altering unrelated layout rules.
+- [x] Align Team portrait grids to Gatsby's 1/2/3/4/5-column progression at 375/768/1024/1200/1280px.
+- [x] Match Case Study image crops, overlay typography, and desktop listing width to Gatsby; keep the optional summary prop available outside the listing.
 - [x] Expose the existing Team profile-category filter and add update hook `9002` for already-enabled sites.
 - [x] Remove the card shadow/surface treatment from Person Teaser and align name, role, and content spacing with the legacy staff grid.
 - [x] Align Person desktop heading scale and Editorial press/card font family, body size, and line-height with legacy typography.
 - [x] Rebuild Drupal caches and run focused PHP/Twig/CSS/JS validation.
 - [x] Verify `/team`, `/case-studies`, and `/insights/articles`, including image alt text and link behavior.
-- [ ] Verify responsive layout at 375px, 768px, and 1200px and inspect a Views block inside the disposable Canvas draft page.
+- [x] Verify Team and Case Studies responsive geometry at 375px, 768px, 1024px, 1200px, and 1280px, including keyboard focus on a Case Study link.
+- [ ] Verify a Case Study Views block inside the disposable Canvas draft page; local editor access was not available during this pass.
 
 ## Acceptance Criteria
 
 - `/team` renders Person records through `omnichannel:person-teaser` with name, role, and image where available.
 - Person cards and names on `/team` are not links.
 - `/blog` and `/news` render Editorial records through the appropriate existing Editorial Teaser variant with title, description/date where available, and image where available.
-- `/case-studies` renders Case Study records through `omnichannel:case-study-teaser` with client, title, summary, image where available, and a working case-study link.
+- `/case-studies` renders Case Study records through `omnichannel:case-study-teaser` with client, title, image where available, and a working link; the optional summary remains supported by the SDC but is hidden in the listing for Gatsby parity.
 - `/publications` renders White Paper Editorial records through the shared Editorial teaser path.
-- Views grids reflow without horizontal overflow at 375px, 768px, and 1200px.
+- Team and Case Studies grids reflow without horizontal overflow at 375px, 768px, 1024px, 1200px, and 1280px.
 - Views blocks retain their styling when placed inside a Canvas Section.
 - Drupal cache rebuild, theme linting, and focused browser checks pass, or blockers are documented.
 
@@ -68,17 +72,28 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 
 - The local listing Views were initially unavailable because `civicactions_landing_page_views` was disabled. Enabling that existing module locally made the configured listing routes available without repository configuration changes.
 - `/team` rendered a Person Teaser with name, role, and alt text, and no anchor around the card or name.
-- `/case-studies` rendered a Case Study Teaser with client, title, summary, image alt text, and a working canonical link. The rendered grid computed to two columns at the available desktop viewport.
+- `/case-studies` rendered a Case Study Teaser with client, title, image alt text, and a working canonical link. The SDC retains its optional summary prop, hidden only in the listing for Gatsby parity.
 - `/insights/articles` rendered the configured Articles View using the Editorial Teaser card variant. `/blog` is not the configured local path.
-- The CA News View now uses `entity:node` teaser rows so `/news` follows the same Editorial SDC render boundary; local `/news` currently returns no rows despite the route and active view configuration being present.
-- The CA Publications View already uses `entity:node` teaser rows and the shared Editorial teaser path; local `/publications` currently returns no rows despite the route and active view configuration being present.
+- The CA News View uses `entity:node` teaser rows and the shared Editorial SDC render boundary. Local generated News fixtures render dated release text, titles, descriptions, and Full Story links.
+- The CA Publications View uses `entity:node` teaser rows and the shared Editorial teaser path. Local generated Publications fixtures are available; fixture imagery may still be incomplete.
 - A local full config import confirmed that the repository export currently deletes module-owned Views and uninstalls `civicactions_landing_page_views`; higher-environment validation must use a targeted Canvas configuration import until that configuration ownership is resolved.
 - The Team View now exposes a multi-select `Team page category` filter with the available local taxonomy terms; its default remains unfiltered apart from the existing current-team constraints.
 - Legacy comparison confirmed Person Teaser should be a flat portrait/name/role item: no background, border, shadow, or card hover surface. Local CSS now follows that treatment while retaining focus outlines for linked contexts.
-- Legacy comparison confirmed Editorial News typography is already close; Editorial press/card typography needed the Nunito title family and responsive body scale now applied locally. Case Study overlay typography remains a separate follow-up because its entire visual treatment differs.
+- Legacy comparison confirmed Editorial News typography is already close; Editorial press/card typography uses the Nunito title family and responsive body scale.
+- Gatsby Team grid counts match locally at 375px (one column), 768px (two), 1024px (three), 1200px (four), and 1280px (five), with 210px portraits and no overflow. Local portraits sit 8-12px farther right because the rebuilt page container was left unchanged.
+- Gatsby Case Study card geometry matches locally at 375px (327x239), 768px (324x324, 1px shorter than Gatsby), 1024px (448x388), 1200px/1280px (584x426). Desktop cards use a 32px gap; the tablet grid uses 24px. The client/title overlay is bottom-aligned and summaries are hidden only in the listing.
+- Gatsby `/press/` is the closest semantic comparison for local `/news`. The local teasers preserve release date, title, description, and Full Story link, but the Gatsby page heading/intro and release content are not reproduced by generated fixtures.
+- Local Team and Case Studies routes have no page-level H1/intro and use View filter controls, unlike Gatsby's intro panels and category buttons/checkboxes. The shared header treatment differs too. These content, filter, and shell differences remain open for product/content direction and were not changed in this component pass.
+- Keyboard Tab from the Case Studies Apply control reaches the first teaser link with a visible 3px blue outline and 3px offset. The disposable Canvas editor route redirected to Login, so palette and drag/drop placement remain unverified.
 - The first render exposed and fixed a `public://` image URI passed into the SDC validator by converting file URIs through Drupal's `file_url_generator` service.
 - The local Person image file is absent from the current fixture, so the browser screenshot shows the configured alt text while the image request fails. This is a local file-sync/content fixture gap, not a template discovery failure.
-- The `bdg` CLI was available but could not establish a CDP session for the requested 375px, 768px, and 1200px measurements. Responsive and disposable Canvas placement remain open verification items.
+- Browser measurements used the local DDEV site and public Gatsby site at matched viewports. The local Case Studies route had no console errors/warnings or HTTP responses at 400+ across 85 requests, and all 11 teaser images had non-empty alt text. Drupal CSS lint and editor diagnostics pass. CI on the current PR revision reports successful CodeQL checks, but PR #40 remains open with `mergeStateStatus: DIRTY`; these uncommitted parity edits are not included in those checks.
+- After selectively applying upstream Editorial News changes locally, the News child SDC declares and renders its structured image prop. `ddev lint-css`, `ddev drush cr`, and the local `/news` request pass; the route returns HTTP 200 and all four teaser images expose alt text.
+- The Editorial teaser node template follows the existing `teaser_props` dispatcher pattern. `OmnichannelHooks::buildEditorialTeaserProps()` maps News/Whitepaper to the News variant and Article/Highlight to the Press card, retaining Jacqueline's taxonomy intent while using the established theme render boundary.
+- Editorial News has no horizontal overflow at 375px or 768px. At 1024px the document expands to 5260px, and at 1920px to 5620px, because the merged desktop image rule removes the image max-width. Do not override that Editorial rule before discussing it with its owner. Two rows also reference a local `VA-hero.png` fixture that returns 404; the browser console reports no errors or warnings.
+- Drupal discovers `omnichannel:editorial-teaser`; Canvas reports it eligible, and its generated component config exists and is enabled. The local component-status route returns 403 anonymously, so palette visibility and pointer drag-and-drop placement remain unverified.
+- The add/add conflict in `web/themes/omnichannel/templates/content/node--editorial--teaser.html.twig` is resolved locally with the `teaser_props` wrapper. No unmerged paths remain; the merge commit has not been created and nothing has been pushed.
+- PR #40 has not been updated with the local merge or follow-up changes. Its previously successful CodeQL checks apply to the older pushed head.
 
 ## Risks
 
@@ -106,7 +121,7 @@ Compare the Team route's shared `.ca-container` horizontal padding with the lega
 - [Refinement] -> completed: Purpose, scope, acceptance criteria, implementation details, and estimate.
 - [Plan] -> completed: this plan saved at `.agents/plans/MAHOM-1185-plan.md`.
 - [Build] -> completed: feature branch implementation added and committed in PR #40.
-- [Validate] -> needs: local cache rebuild, lint, route checks, responsive checks, and Canvas verification where available.
+- [Validate] -> in progress: cache rebuild, CSS lint, route checks, responsive geometry, and keyboard focus passed; Canvas placement and PR merge/review gates remain open.
 - [Communicate] -> in progress: PR #40 is open with the implementation summary and remaining validation blockers documented.
 
 _AI-assisted, reviewed/adjusted by me._

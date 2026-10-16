@@ -1,0 +1,19 @@
+civicactions_greenhouse.settings:
+  path: '/admin/config/services/greenhouse'
+  defaults:
+    _form: '\Drupal\civicactions_greenhouse\Form\GreenhouseSettingsForm'
+    _title: 'Greenhouse Job Board Settings'
+  requirements:
+    _permission: 'administer civicactions greenhouse'
+
+civicactions_greenhouse.webhook:
+  path: '/api/v1/greenhouse/webhook'
+  defaults:
+    _controller: '\Drupal\civicactions_greenhouse\Controller\GreenhouseWebhookController::handle'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+  options:
+    _auth: []
+    no_cache: 'TRUE'
+

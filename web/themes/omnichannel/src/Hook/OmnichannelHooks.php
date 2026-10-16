@@ -82,7 +82,11 @@ class OmnichannelHooks {
   private function buildEditorialTeaserProps(NodeInterface $node): array {
     $url = $node->toUrl('canonical')->toString();
     $editorial_type = strtolower($this->getReferencedLabel($node, 'field_editorial_type'));
-    $variant = $editorial_type === 'news' ? 'news' : 'press';
+    $variant = match ($editorial_type) {
+      'news', 'whitepaper' => 'news',
+      'article', 'highlight' => 'press',
+      default => 'press',
+    };
     $props = [
       'variant' => $variant,
       'title' => $node->label(),
