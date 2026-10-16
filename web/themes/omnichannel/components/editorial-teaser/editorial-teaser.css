@@ -114,12 +114,6 @@
   line-height: 22px;
 }
 
-.editorial-teaser--news:last-child .editorial-teaser-news {
-  margin-bottom: var(--container-spacing-sm);
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
 .editorial-teaser-news .editorial-teaser__text-wrapper {
   flex: 1 1 auto;
 }

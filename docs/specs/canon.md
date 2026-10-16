@@ -43,8 +43,8 @@ Canvas requires useful, non-empty defaults and examples for required and structu
 The `civicactions_landing_page_views` module owns the Team, Editorial, News, Publications, and Case Study listing Views. Publications represents White Papers through the Editorial taxonomy; it does not require a separate content bundle or teaser component. The Omnichannel theme renders their node teaser view modes through the existing teaser SDCs rather than introducing listing-specific components.
 
 - Bundle-specific `node--<bundle>--teaser.html.twig` templates live under `web/themes/omnichannel/templates/content/` and pass `teaser_props` to the matching SDC.
-- `preprocessNode()` builds bundle-specific props only for the `teaser` view mode and guards missing fields and media references.
-- Managed file URIs are converted to browser URLs at the theme render boundary before they are passed to image props.
+- `preprocessNode()` builds bundle-specific props only for the `teaser` view mode, guards missing fields and references, checks entity and field view access, and adds access/cache dependencies to Drupal's preprocess bubbleable metadata.
+- Managed Media images are converted to structured SDC props at the theme render boundary. Teaser image styles are selected by the Media view display referenced from each node teaser display, not hard-coded in preprocessing; Media, file, and image-style cache dependencies are bubbled with the output.
 - Person teaser cards remain unlinked for the MVP. Editorial and Case Study teasers retain their configured canonical links.
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
 

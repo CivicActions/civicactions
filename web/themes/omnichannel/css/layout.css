@@ -254,6 +254,11 @@
   display: none;
 }
 
+.view-ca-news .views-row:last-child .editorial-teaser-news {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
 .views-exposed-form {
   margin-block-end: var(--size-6);
 }

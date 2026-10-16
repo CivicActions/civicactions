@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.media.teaser
     - field.field.node.editorial.field_content_job
     - field.field.node.editorial.field_editorial_type
     - field.field.node.editorial.field_file_download
@@ -23,14 +24,31 @@ targetEntityType: node
 bundle: editorial
 mode: teaser
 content:
+  field_editorial_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
     region: content
+  schema_image:
+    type: entity_reference_entity_view
+    label: visually_hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
   schema_short_description:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
       link_rel: canonical
@@ -39,12 +57,10 @@ content:
     region: content
 hidden:
   field_content_job: true
-  field_editorial_type: true
   field_file_download: true
   field_funnel_stage: true
   schema_article_body: true
   schema_audience: true
   schema_author: true
   schema_contributor: true
-  schema_image: true
   schema_keywords: true

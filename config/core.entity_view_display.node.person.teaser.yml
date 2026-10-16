@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.media.teaser
     - field.field.node.person.field_profile_category
     - field.field.node.person.field_profile_status
     - field.field.node.person.schema_about
@@ -20,7 +21,6 @@ dependencies:
     - field.field.node.person.schema_works_for
     - node.type.person
   module:
-    - text
     - user
 id: node.person.teaser
 targetEntityType: node
@@ -32,19 +32,20 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-  schema_about:
-    type: text_summary_or_trimmed
+  schema_job_title:
+    type: string
     label: hidden
     settings:
-      trim_length: 600
+      link_to_entity: false
+      link_rel: canonical
     third_party_settings: {  }
-    weight: 25
+    weight: 10
     region: content
   schema_image:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: teaser
       link: false
     third_party_settings: {  }
     weight: 65
@@ -52,10 +53,10 @@ content:
 hidden:
   field_profile_category: true
   field_profile_status: true
+  schema_about: true
   schema_has_certification: true
   schema_has_credential: true
   schema_honorific_suffix: true
-  schema_job_title: true
   schema_knows_about: true
   schema_member_of: true
   schema_pronouns: true
