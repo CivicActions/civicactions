@@ -25,6 +25,7 @@ module:
   canvas_ai: 0
   captcha: 0
   civicactions_blog_migration: 0
+  civicactions_landing_page_views: 0
   ckeditor5: 0
   coffee: 0
   config: 0

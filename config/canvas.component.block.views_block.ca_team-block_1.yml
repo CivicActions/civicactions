@@ -1,0 +1,26 @@
+uuid: 8a9f93d5-d3dc-4dad-959a-a6763a98e05e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.ca_team
+  module:
+    - views
+active_version: eff08a11125ee9f0
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:ca_team-block_1'
+        label: 'CA Team'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'CA Team'
+id: block.views_block.ca_team-block_1
+provider: views
+source: block
+source_local_id: 'views_block:ca_team-block_1'

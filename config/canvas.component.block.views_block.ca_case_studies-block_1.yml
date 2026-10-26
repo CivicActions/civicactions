@@ -1,0 +1,26 @@
+uuid: 409b493f-d33d-4777-a835-38c765f0888c
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.ca_case_studies
+  module:
+    - views
+active_version: 870ddd08c3864558
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:ca_case_studies-block_1'
+        label: 'CA Case Studies'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'CA Case Studies'
+id: block.views_block.ca_case_studies-block_1
+provider: views
+source: block
+source_local_id: 'views_block:ca_case_studies-block_1'

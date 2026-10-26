@@ -1,0 +1,26 @@
+uuid: 7cc28c68-3352-493d-b51f-898468b52e81
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.ca_news
+  module:
+    - views
+active_version: efcedbb9c19b3b96
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:ca_news-block_1'
+        label: 'CA News'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'CA News'
+id: block.views_block.ca_news-block_1
+provider: views
+source: block
+source_local_id: 'views_block:ca_news-block_1'
