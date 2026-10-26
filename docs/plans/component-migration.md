@@ -61,7 +61,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`/team` Views Listing** | Views grid for `/team` filtered by role category. Cards remain unlinked for MVP (individual profile pages deferred). Placed as a block view on the Canvas page. | **Merged; Live placement reported working** | `views.view.ca_team` in `civicactions_landing_page_views` | MAHOM-1185, PR #40 | Done |
 | **Editorial Views Listings** | Articles, News, and Publications listings render configured teaser SDCs. Current editorial routes include `/news`, `/publications`, and `/insights/articles`. | **Merged; Publications content follow-up remains** | `views.view.ca_articles`, `ca_news`, and `ca_publications` | MAHOM-1185, PR #40 | Done |
 | **Editorial subtype landing pages** | Provide separate landing pages for Articles, Insights, Highlights, and News to support distinct URL structures and breadcrumbs. Confirm final route names with the content team. | **Backlog** | Editorial Views and Canvas page composition | MAHOM-1201 | TBD |
-| **Case Study Node Template** | MAHOM-1186 proposed a dedicated 1:1 node template and listing. Jira resolved it as Declined, noting the work was handled in other tickets. | **MAHOM-1186 Declined** | Existing node rendering and `case-study-teaser` | MAHOM-1185, MAHOM-1186 | N/A |
+| **Case Study Node Template** | MAHOM-1186 proposed a dedicated 1:1 Gatsby node template reproduction, which Jira resolved as Declined ("Not needed, handled in other tickets"). Clean node theming is tracked in MAHOM-1162 (in Develop with Iris Ibekwe). | **MAHOM-1162 In Develop** | Existing node theming & `case-study-teaser` | MAHOM-1162, MAHOM-1185 | Active |
 | **Case Studies Grid Listing** | Responsive teaser grid at `/case-studies` rendering `case-study-teaser` cards with category filters. | **Merged** | `views.view.ca_case_studies` | MAHOM-1185, PR #40 | Done |
 | **`sidebar.js`** | Legacy sticky sidebar. Replaced by Section SDC anchor jump links (`#web-cms`, etc.) on landing pages. | **De-scoped** | Replaced by Section SDC jump anchors | MAHOM-1183 | N/A |
 | **`clients.js`** | Client and agency seal grid. The October 8 decision was to avoid governance risk from official seals and logos. | **De-scoped** | Text-based agency names or simple icons in standard Canvas sections; no custom logo rail | No ticket planned | N/A |
@@ -159,6 +159,17 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - Use Playwright to compare the Live site with PR environments (MAHOM-1204).
 - Default the Team page to current team members and suppress the internal/external filter (MAHOM-1202). Pager styling is tracked in MAHOM-1203.
 - Jack's next frontend work is to finish plugging teasers into Views and merge listing styles.
+
+### October 26 Live Environment & Jira Reconciliation
+
+- **Skeleton Canvas pages created on Live:** Jenna created skeleton Canvas Page entities on Live for `/case-studies` (Page 17), `/insights/articles` (Page 18), `/news` (Page 19), `/publications` (Page 21), `/careers` (Page 8), and `/contact` (Page 11). These currently override Drupal Views page routes with empty layouts. Placing the corresponding Views blocks (`ca_*_block_1`) and an H1 title on each page fixes this.
+- **Team Listing Populated:** `/team` (Canvas Page 9) has `ca_team-block-1` placed and renders 112+ staff cards. Needs H1 title and intro mission copy.
+- **Missing `/ditap` Route:** `/ditap` currently returns a 404 error; Canvas page not yet created.
+- **Empty Publications Listing:** Node 13 ("Whitepaper test", TID 281) is soft-deleted in Drupal Trash, leaving `/publications` empty until restored or replaced with real content.
+- **Full Node Displays:** Full node detail views for `editorial` (Articles/News) currently render raw Drupal core field labels ("Description", "Featured Image", "Article body", "Funnel stage"). Articles also lack the 720px narrow container in `page.html.twig`. Case Studies node theming is tracked in MAHOM-1162.
+- **Forms & Greenhouse:** Webform module is uninstalled on Live; Greenhouse module (`civicactions_greenhouse`) is in `master` (`80b84ca`) but not yet enabled on Live.
+- **Main Menu Links:** Fourteen links in the main navigation currently point to `internal:#`.
+- **Target Launch:** First week of November 2026. Wednesday October 28 cowork is the primary milestone for Canvas assembly and forms integration.
 
 ---
 
