@@ -49,7 +49,16 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, Pub
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
 - The Section SDC supports optional intro copy, no vertical padding, and blue/red backgrounds with white foreground content. Its full prop contract remains in `components/section/section.component.yml`.
 
-The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. MAHOM-1201 tracks the planned separate landing pages for Articles, Insights, Highlights, and News to establish subtype URLs and breadcrumbs. Final route paths remain unconfirmed, and these pages are not current behavior. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees.
+The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. On Live, these routes resolve to Canvas Page entities created by editorial authors, which override naked Views page routes. Placing the matching Views blocks (`ca_*_block_1`) and an authored H1 `page-title` component within these Canvas pages is the active architecture (demonstrated on `/team` with `ca_team-block-1`). MAHOM-1201 tracks separate landing pages for Articles, Insights, Highlights, and News.
+
+## Full node rendering standards
+
+Full node detail displays (`editorial`, `case_study`, `page`) render standard node templates wrapped by `page.html.twig`.
+
+- **Reading width:** Long-form prose and editorial content (`page`, `editorial`) use the 720px narrow container (`.ca-container.ca-container--narrow`).
+- **Entity view display sanitization:** Full node displays must hide internal administrative taxonomies (`field_funnel_stage`, `field_content_job`, `schema_audience`, `field_tools`, `field_expertise`) and raw field labels ("Description", "Featured Image", "Article body").
+- **Case Study node theming:** Tracked in MAHOM-1162 (in Develop with Iris Ibekwe). Dedicated 1:1 Gatsby parity was declined under MAHOM-1186; clean node theming matching the Omnichannel design tokens is the target standard.
+- **Person nodes:** Person teaser cards remain unlinked on `/team` for MVP. Individual staff detail nodes are deferred post-MVP.
 
 ## Design tokens and visual language
 
