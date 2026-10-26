@@ -3,7 +3,7 @@ _core:
 langcode: en
 uuid: 04ebdd82-eefe-495c-9761-919c705f44c9
 name: CivicActions
-mail: owen.barton@civicactions.com
+mail: homesite@mg.civicactions.net
 slogan: ''
 page:
   403: /user/login
