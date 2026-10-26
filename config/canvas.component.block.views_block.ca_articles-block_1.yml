@@ -1,0 +1,26 @@
+uuid: f62402eb-d09f-46bb-b2aa-61ea4829c648
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.ca_articles
+  module:
+    - views
+active_version: 90693ef530c125e4
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:ca_articles-block_1'
+        label: 'CA Articles'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'CA Articles'
+id: block.views_block.ca_articles-block_1
+provider: views
+source: block
+source_local_id: 'views_block:ca_articles-block_1'

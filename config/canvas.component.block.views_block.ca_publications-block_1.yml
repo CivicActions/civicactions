@@ -1,0 +1,26 @@
+uuid: 36b9eea1-b8ba-4cc9-862e-3453670d0f4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.ca_publications
+  module:
+    - views
+active_version: 8e92f8125509b262
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'views_block:ca_publications-block_1'
+        label: 'CA Publications'
+        label_display: '0'
+        provider: views
+        views_label: ''
+        items_per_page: null
+    fallback_metadata:
+      slot_definitions: null
+label: 'CA Publications'
+id: block.views_block.ca_publications-block_1
+provider: views
+source: block
+source_local_id: 'views_block:ca_publications-block_1'
