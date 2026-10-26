@@ -2,7 +2,7 @@
 
 Status: Active public technical canon
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-09-29
+Last reviewed: 2026-10-19
 
 This document records the public-facing architecture, design-system rules, and component conventions for the homesite rebuild. It is intentionally distilled from project work rather than copied from internal discovery notes.
 
@@ -47,8 +47,9 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, Pub
 - Managed Media images are converted to structured SDC props at the theme render boundary. Teaser image styles are selected by the Media view display referenced from each node teaser display, not hard-coded in preprocessing; Media, file, and image-style cache dependencies are bubbled with the output.
 - Person teaser cards remain unlinked for the MVP. Editorial and Case Study teasers retain their configured canonical links.
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
+- The Section SDC supports optional intro copy, no vertical padding, and blue/red backgrounds with white foreground content. Its full prop contract remains in `components/section/section.component.yml`.
 
-The local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees. The local News and Publications fixtures currently return no rows even though their Views and teaser configuration are present.
+The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. MAHOM-1201 tracks the planned separate landing pages for Articles, Insights, Highlights, and News to establish subtype URLs and breadcrumbs. Final route paths remain unconfirmed, and these pages are not current behavior. Views blocks are intended to work inside Canvas Sections, but disposable-page placement and the full responsive matrix remain validation requirements rather than completed guarantees.
 
 ## Design tokens and visual language
 

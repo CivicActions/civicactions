@@ -3,7 +3,7 @@
 Status: Active shared implementation plan
 Audience: Contributors working on the CivicActions homesite rebuild
 Target end date: November 1, 2026
-Last reviewed: 2026-10-14
+Last reviewed: 2026-10-19
 
 This plan records the complete component migration strategy from the legacy Strapi/Gatsby homesite to Drupal 11 and Drupal CMS 2.0. It coordinates the delivery of Twig Single Directory Components (SDCs), Drupal Canvas visual authoring integration, and structured Drupal Views listings.
 
@@ -58,18 +58,19 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`Proofpoints`** | Key statistical metrics (1 to 3 items, with or without boxed card background). Used on offering pages and Case Studies. | **Merged** | `omnichannel:proofpoints` | MAHOM-1184 (PR #34) | Done |
 | **`Accordions`** | Single-item disclosure SDC plus a slot-based container for unlimited items on offering pages and FAQs. Gatsby CSS-triangle parity. | **Merged** | `omnichannel:accordion`, `omnichannel:accordion-container` | MAHOM-1184 (PR #34) | Done |
 | **`icons.js`** | Scalable SVG icons for offering highlights. Pure Twig symbol catalog with brand tokens. | **Merged** | `omnichannel:icon` | MAHOM-1184 (PR #34) | Done |
-| **`/team` Views Listing** | Views grid for `/team` filtered by role category. Cards remain unlinked for MVP (individual profile pages deferred). Placed as block view on Canvas page. | **In Progress** | `views.view.ca_team` in `civicactions_landing_page_views` | PR #35, PR #36 (MAHOM-1185) | Med |
-| **`/blog` Views Listing** | Views feed for `/blog` with category filtering, rendering `editorial-teaser` in card and compact modes. | **In Progress** | `views.view.ca_articles` & `ca_news` | MAHOM-1185 | Med |
-| **Case Study Node Template** | Structured 1:1 reproduction of legacy Case Studies assembling Hero, Proofpoints, Content, Media, and Quote SDCs without manual Canvas assembly. Unblocked by PR #37. | **Ready for Dev** | `node--case-study.html.twig` | MAHOM-1186 | Med |
-| **Case Studies Grid Listing** | Responsive teaser grid at `/case-studies` rendering `case-study-teaser` cards with category filters. | **In Progress** | `views.view.ca_case_studies` | MAHOM-1186 | Med |
+| **`/team` Views Listing** | Views grid for `/team` filtered by role category. Cards remain unlinked for MVP (individual profile pages deferred). Placed as a block view on the Canvas page. | **Merged; Live placement reported working** | `views.view.ca_team` in `civicactions_landing_page_views` | MAHOM-1185, PR #40 | Done |
+| **Editorial Views Listings** | Articles, News, and Publications listings render configured teaser SDCs. Current editorial routes include `/news`, `/publications`, and `/insights/articles`. | **Merged; Publications content follow-up remains** | `views.view.ca_articles`, `ca_news`, and `ca_publications` | MAHOM-1185, PR #40 | Done |
+| **Editorial subtype landing pages** | Provide separate landing pages for Articles, Insights, Highlights, and News to support distinct URL structures and breadcrumbs. Confirm final route names with the content team. | **Backlog** | Editorial Views and Canvas page composition | MAHOM-1201 | TBD |
+| **Case Study Node Template** | MAHOM-1186 proposed a dedicated 1:1 node template and listing. Jira resolved it as Declined, noting the work was handled in other tickets. | **MAHOM-1186 Declined** | Existing node rendering and `case-study-teaser` | MAHOM-1185, MAHOM-1186 | N/A |
+| **Case Studies Grid Listing** | Responsive teaser grid at `/case-studies` rendering `case-study-teaser` cards with category filters. | **Merged** | `views.view.ca_case_studies` | MAHOM-1185, PR #40 | Done |
 | **`sidebar.js`** | Legacy sticky sidebar. Replaced by Section SDC anchor jump links (`#web-cms`, etc.) on landing pages. | **De-scoped** | Replaced by Section SDC jump anchors | MAHOM-1183 | N/A |
 | **`clients.js`** | Client and agency seal grid. The October 8 decision was to avoid governance risk from official seals and logos. | **De-scoped** | Text-based agency names or simple icons in standard Canvas sections; no custom logo rail | No ticket planned | N/A |
 | **`tabmobile.js`** | Mobile tab navigation. | **De-scoped** | Permanently retired; use straightforward page flow and standard links | N/A | N/A |
 | **`sections.js`** | Generic legacy content renderer. Replaced by Drupal Canvas layout system. | **Retired** | Replaced by Drupal Canvas layout system | N/A | N/A |
 | **`seo.js`** | Social sharing and SEO tags. Handled via Drupal `metatag` module configuration (Dublin Core and Open Graph). | **Backend Core** | Drupal `metatag` module config | Core Config | Low |
-| **`pagination.js`** | Pagination navigation. | **Core Views** | Drupal core Views mini/full pager | MAHOM-1185, MAHOM-1186 | Done in View |
+| **`pagination.js`** | Pagination navigation. | **Core Views; theme follow-up may be needed** | Drupal core Views mini/full pager | MAHOM-1185 | Existing Views pager |
 | **`banner.js`** | Dismissible announcement banner. Placed via Canvas block. | **Canvas** | Standard Canvas banner block | Editorial | Low |
-| **Careers Job Board (`/careers/`)** | Job board feed. Implemented as custom Drupal PHP block fetching Greenhouse JSON API, avoiding React dependencies. | **In Progress** | Custom Drupal block plugin with cache-clearing webhook | Backend | Med |
+| **Careers Job Board (`/careers/`)** | Job board feed implemented as a custom Drupal PHP block fetching Greenhouse JSON. The sandbox is running; webhook setup remains before deployment. | **In Progress** | Custom Drupal block plugin with cache-clearing webhook | Backend | Med |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |
 
 ---
@@ -84,8 +85,8 @@ flowchart TD
     I1["MAHOM-1183: Core Layout & Canvas Primitives\nSection, Content, Media, Page Title\n(Status: Merged)"]
     I15["MAHOM-1187: Shared Page Layout\nContainer widths, Canvas route detection\n(Status: Merged in PR #37)"]
     I2["MAHOM-1184: Reusable Hub Components\nProofpoints, Accordion, Icon\n(Status: Merged in PR #34)"]
-    I3["MAHOM-1185: Views Listings for Team & Blog\ncivicactions_landing_page_views\n(Status: In Progress - PR #35/#36 Merged)"]
-    I4["MAHOM-1186: Case Studies 1:1 Template & Listing\nnode--case-study.html.twig, Listing View\n(Status: Unblocked / Ready for Dev)"]
+    I3["MAHOM-1185: Views Listings and Teaser Wiring\n(Status: Resolved / PR #40 merged)"]
+    I4["MAHOM-1186: Case Studies 1:1 Template & Listing\n(Status: Declined, handled in other tickets)"]
 
     D0 --> I1
     D0 --> I3
@@ -97,9 +98,9 @@ flowchart TD
 
 ### Phase 1: DevOps Pre-Flight Configuration Sync (MAHOM-1182) - Merged
 
-- **Problem:** Initial content types and taxonomies were created directly in the production CMS environment, while `config/` in git remains unpopulated.
+- **Problem:** Initial content types and taxonomies were created directly in the production CMS environment while `config/` in git was unpopulated, creating a risk of environment drift.
 - **Approach:** Pull production database locally, run `drush cex -y`, review configuration diff (content types, field storages, displays, vocabularies, and anonymous permissions), and open a pull request into `master`. Import downstream on lower environments.
-- **Outcome:** Merged. Git is the single source of truth for site configuration.
+- **Outcome:** The initial Live configuration export merged. MAHOM-1193 remains in Backlog because the custom landing-page Views and Canvas placements are not yet safely owned by root config sync. A full config import is not safe until that work is complete.
 
 ### Phase 2: Core Layout & Canvas Primitives (MAHOM-1183) - Merged
 
@@ -129,29 +130,35 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
   - Build `omnichannel:icon` bundling SVG primitives with color and size tokens.
 - **Outcome:** Merged in PR #34. Fulfills requirements for DITAP, Case Studies, and Homepage feature callouts.
 
-### Phase 4: Views Listings for Team & Blog (MAHOM-1185) - In Progress (PR #40)
+### Phase 4: Views Listings and Teaser Wiring (MAHOM-1185) - Merged (PR #40)
 
 - **Problem:** Backend content migrations cannot be visually validated without listing views.
 - **Approach:**
   - Build `/team` Views listing grouped by role category, rendering unlinked `person-teaser` cards (profile pages deferred post-MVP). Implemented in `civicactions_landing_page_views` module (`views.view.ca_team.yml`); filter operator fixes merged in PR #35 & PR #36.
-  - Build `/blog` Views feed with category filtering, rendering `editorial-teaser` in card and compact modes (`views.view.ca_articles.yml` and `views.view.ca_news.yml`).
+  - Provide editorial listings on `/news`, `/publications`, and `/insights/articles` using the configured Article, News, and Publications Views and `editorial-teaser` modes.
   - Render Person, Editorial, and Case Study teaser view modes through the existing Omnichannel SDCs, with responsive grid styling and bundle-specific field/media prop mapping in the theme.
   - Confirm public anonymous view permissions for taxonomy vocabularies.
-- **Current status:** PR #40 adds route-level teaser rendering and local checks for `/team`, `/case-studies`, and `/insights/articles`. Disposable Canvas placement and the full responsive viewport matrix remain open validation work. The local Articles route is `/insights/articles`, not `/blog`.
+- **Outcome:** PR #40 merged and MAHOM-1185 is resolved in Jira. The user reports that `/team`, `/news`, `/insights/articles`, and `/case-studies` render content on Live. `/publications` still needs investigation: the October 17 local Live database copy showed the matching Whitepaper fixture in Drupal Trash. Treat that as a snapshot finding until confirmed against current Live state; restore through the Trash UI if appropriate. The October 15 team sync also decided to create separate editorial subtype landing pages for Articles, Insights, Highlights, and News. Confirm final routes and ownership before implementation.
 
-### Phase 5: Case Studies 1:1 Structured Reproduction (MAHOM-1186) - Unblocked / Ready for Dev
+### Phase 5: Case Studies 1:1 Structured Reproduction (MAHOM-1186) - Declined
 
-- **Problem:** Assembling repeating case studies manually in Canvas introduces layout drift and excessive authoring effort.
-- **Approach:**
-  - Theme `node--case-study.html.twig` to automatically assemble Hero, Proofpoints, Content, Media, and Quote SDCs from node fields, utilizing layout container classes established in PR #37.
-  - Build `/case-studies` Views grid with category filtering (`views.view.ca_case_studies.yml`).
-- **Outcome:** 1:1 legacy layout reproduction with zero manual page assembly for editors.
+- **Disposition:** Jira resolved MAHOM-1186 as Declined with the note "Not needed, handled in other tickets." The Case Studies listing and teaser rendering are part of MAHOM-1185. Do not treat dedicated 1:1 node-template work as an active commitment without a new product decision.
 
 ### Proposed Frontend Follow-Up Tickets
 
 - **Hero Media and Image Presentation:** Add the optional Hero media treatment still visible in the legacy Homepage, Services, DITAP, and Case Study compositions.
 - **Basic Page and Utility Template:** Give standard Privacy, Accessibility Statement, and Licensing nodes a predictable 720px reading layout using the existing Page Title and Content patterns.
 - **No client logo rail ticket:** Agency seals and logos are intentionally replaced by text-based representations or simple icons in standard Canvas compositions.
+
+### October 15 Team Sync Decisions and Follow-Ups
+
+- Create separate landing pages for Articles, Insights, Highlights, and News (MAHOM-1201). Confirm route paths and breadcrumb behavior with the content team.
+- Defer dynamic topic taxonomy feeds and keyword filtering until after the summit (MAHOM-1205).
+- Build the main Contact and DITAP forms with Drupal Webforms (MAHOM-1200). Keep embedded forms as a fallback if Webforms cannot be delivered within MVP scope. DITAP submissions must be available by email or CSV, and public forms require a service-based CAPTCHA.
+- Owen is setting up site email, potentially through Mailgun, to support Webform notifications.
+- Use Playwright to compare the Live site with PR environments (MAHOM-1204).
+- Default the Team page to current team members and suppress the internal/external filter (MAHOM-1202). Pager styling is tracked in MAHOM-1203.
+- Jack's next frontend work is to finish plugging teasers into Views and merge listing styles.
 
 ---
 
