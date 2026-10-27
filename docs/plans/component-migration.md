@@ -68,7 +68,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`tabmobile.js`** | Mobile tab navigation. | **De-scoped** | Permanently retired; use straightforward page flow and standard links | N/A | N/A |
 | **`sections.js`** | Generic legacy content renderer. Replaced by Drupal Canvas layout system. | **Retired** | Replaced by Drupal Canvas layout system | N/A | N/A |
 | **`seo.js`** | Social sharing and SEO tags. Handled via Drupal `metatag` module configuration (Dublin Core and Open Graph). | **Backend Core** | Drupal `metatag` module config | Core Config | Low |
-| **`pagination.js`** | Pagination navigation. | **Core Views; theme follow-up may be needed** | Drupal core Views mini/full pager | MAHOM-1185 | Existing Views pager |
+| **`pagination.js`** | Pagination navigation. | **Merged (PR #47)** | `omnichannel:link-button` & Views pager templates (legacy Back / Page X of Y / Next pattern) | MAHOM-1203 | Done |
 | **`banner.js`** | Dismissible announcement banner. Placed via Canvas block. | **Canvas** | Standard Canvas banner block | Editorial | Low |
 | **Careers Job Board (`/careers/`)** | Job board feed implemented as a custom Drupal PHP block fetching Greenhouse JSON. The sandbox is running; webhook setup remains before deployment. | **In Progress** | Custom Drupal block plugin with cache-clearing webhook | Backend | Med |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |

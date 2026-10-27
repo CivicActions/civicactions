@@ -48,6 +48,7 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, Pub
 - Person teaser cards remain unlinked for the MVP. Editorial and Case Study teasers retain their configured canonical links.
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
 - The Section SDC supports optional intro copy, no vertical padding, and blue/red backgrounds with white foreground content. Its full prop contract remains in `components/section/section.component.yml`.
+- Full Views pagination uses the legacy Back | Page X of Y | Next pattern centered in the 720px container (`.ca-pager`), delegating button presentation to `omnichannel:link-button` while preserving Drupal core's `.js-pager__items` hook for Views AJAX paging.
 
 The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. On Live, these routes resolve to Canvas Page entities created by editorial authors, which override naked Views page routes. Placing the matching Views blocks (`ca_*_block_1`) and an authored H1 `page-title` component within these Canvas pages is the active architecture (demonstrated on `/team` with `ca_team-block-1`). MAHOM-1201 tracks separate landing pages for Articles, Insights, Highlights, and News.
 
