@@ -1,29 +1,32 @@
-{# 
- * Case study header component.
- * Uses case_study_props for rendering.
- * Expects the following properties in case_study_props:
- * - title: The title of the case study.
- * - client: The client associated with the case study.
- * - description: The description of the case study.
- #}
-
+{#
+/**
+ * @file
+ * Template for the CivicActions Case Study Header component.
+ *
+ * Available props:
+ * - title: The case study title, rendered as an h1.
+ * - client: Optional client name shown above the title.
+ * - description: Optional plain-text summary.
+ * - narrow_width: Whether to use the narrow container.
+ */
+#}
+{% set case_study_header_attributes = attributes|default(create_attribute()) %}
 {% set container_classes = [
-  narrow_width ? 'ca-container--narrow' : '',
-  'case-study--header',
-  'ca-container'
-   ]%}
+  'ca-case-study-header',
+  'ca-container',
+  narrow_width ? 'ca-container--narrow',
+] %}
 
-<section class="{{ container_classes|join(' ') }}">
-  <div class="case-study--header__inner">
+<section{{ case_study_header_attributes.addClass(container_classes) }}>
+  <div class="ca-case-study-header__inner">
     {% if title %}
-      {% set page_title_attributes = attributes|default(create_attribute()) %}
-      <h1 {{ page_title_attributes.addClass('case-study-header--title') }}>{{ title }}</h1>
+      <h1 class="ca-case-study-header__title">{{ title }}</h1>
     {% endif %}
     {% if client %}
-      <div class="case-study-header--client">{{ client }}</div>
+      <div class="ca-case-study-header__client">{{ client }}</div>
     {% endif %}
     {% if description %}
-      <div class="case-study-header--description">{{ description }}</div>
+      <div class="ca-case-study-header__description">{{ description }}</div>
     {% endif %}
   </div>
 </section>

@@ -96,7 +96,9 @@ class OmnichannelHooks {
     $node = $variables['node'];
     $view_mode = $variables['view_mode'] ?? '';
     if ($view_mode === 'full' && $node->bundle() === 'case_study') {
-      $variables['case_study_props'] = $this->buildCaseStudyFullProps($variables);
+      $cacheability = new CacheableMetadata();
+      $variables['case_study_props'] = $this->buildCaseStudyFullProps($variables, $cacheability);
+      $cacheability->applyTo($variables);
     }
 
     if ($view_mode !== 'teaser') {
@@ -186,10 +188,9 @@ class OmnichannelHooks {
   /**
    * Builds full-page props while preserving prepared field render arrays.
    */
-  private function buildCaseStudyFullProps(array $variables): array {
+  private function buildCaseStudyFullProps(array $variables, CacheableMetadata $cacheability): array {
     $props = [
       'title' => $variables['label'],
-      'remaining_content' => $variables['content'],
     ];
 
     foreach ([
@@ -202,17 +203,14 @@ class OmnichannelHooks {
       'team_members' => 'field_team_members',
       'keywords' => 'schema_keywords',
       'outcomes' => 'field_outcomes',
-      'proof_points' => 'field_proof_points',
     ] as $prop => $field_name) {
       $props[$prop] = $variables['content'][$field_name] ?? [];
-      unset($props['remaining_content'][$field_name]);
     }
 
     // The Proofpoints SDC receives scalar props rather than the field render
-    // array. The remaining content is rendered, so it carries the cacheability.
-    $cacheability = new CacheableMetadata();
+    // array, so its access and cache dependencies are applied to the preprocess
+    // variables by the caller.
     $props['proofpoints_component_props'] = $this->buildProofpointsProps($variables['node'], $cacheability);
-    $cacheability->applyTo($props['remaining_content']);
 
     return $props;
   }

@@ -19,12 +19,14 @@
   }
 }
 
-.ca-case-study__expertise-tools h2 {
+.ca-case-study__expertise .ca-case-study__heading,
+.ca-case-study__tools .ca-case-study__heading {
   font-size: var(--font-size-h3);
   line-height: var(--line-height-h3);
 }
 
-.ca-case-study__expertise-tools > div {
+.ca-case-study__expertise,
+.ca-case-study__tools {
   background-color: var(--color-gray-background);
   padding: var(--size-12);
 
@@ -46,11 +48,11 @@
   }
 }
 
-.ca-case-study__outcomes > h2 {
+.ca-case-study__outcomes .ca-case-study__heading {
   font-size: var(--font-size-h3);
   line-height: var(--line-height-h3);
   text-align: center;
-  color: white;
+  color: var(--white, #fff);
   padding-bottom: var(--size-12);
   margin-bottom: 0;
 }
@@ -84,7 +86,7 @@
   }
 }
 
-.ca-case-study__team h2 {
+.ca-case-study__team .ca-case-study__heading {
   margin-bottom: var(--size-8);
   font-size: var(--size-6);
   line-height: var(--line-height-h2);

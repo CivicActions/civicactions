@@ -1,19 +1,55 @@
-.case-study--header__inner {
+/**
+ * Styles for the CivicActions Case Study Header SDC.
+ *
+ * The title gap (0.375rem) and client size (1.125rem) are measured from the
+ * legacy header and have no exact token in css/global.css. The unscoped
+ * selectors are the fallback for browsers without CSS @scope support.
+ */
+
+.ca-case-study-header__inner {
   display: grid;
-  padding: 0 0 var(--size-16);
+  padding: 0 0 var(--size-16, 4rem);
 }
-.case-study-header--title {
+
+.ca-case-study-header__title {
   grid-area: 2/1;
-  margin-bottom: 6px;
+  margin-bottom: 0.375rem;
 }
-.case-study-header--client {
+
+.ca-case-study-header__client {
   grid-area: 1/1;
   margin: 0;
   text-transform: uppercase;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
 }
-.case-study-header--description {
+
+.ca-case-study-header__description {
   grid-area: 3/1;
   margin: 0;
+}
+
+@scope (.ca-case-study-header) {
+  .ca-case-study-header__inner {
+    display: grid;
+    padding: 0 0 var(--size-16, 4rem);
+  }
+
+  .ca-case-study-header__title {
+    grid-area: 2/1;
+    margin-bottom: 0.375rem;
+  }
+
+  .ca-case-study-header__client {
+    grid-area: 1/1;
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  .ca-case-study-header__description {
+    grid-area: 3/1;
+    margin: 0;
+  }
 }

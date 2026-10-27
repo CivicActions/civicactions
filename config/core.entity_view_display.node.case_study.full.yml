@@ -65,15 +65,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_proof_points:
-    type: entity_reference_revisions_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_team_members:
     type: entity_reference_entity_view
     label: hidden
@@ -131,4 +122,5 @@ content:
     weight: 2
     region: content
 hidden:
+  field_proof_points: true
   schema_article_body: true
