@@ -49,8 +49,6 @@
 }
 
 .ca-case-study__outcomes .ca-case-study__heading {
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
   text-align: center;
   color: var(--white, #fff);
   padding-bottom: var(--size-12);

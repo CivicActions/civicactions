@@ -11,6 +11,7 @@ dependencies:
     - canvas.component.sdc.omnichannel.hero
     - canvas.component.sdc.omnichannel.icon
     - canvas.component.sdc.omnichannel.media
+    - canvas.component.sdc.omnichannel.outcome-card
     - canvas.component.sdc.omnichannel.page-title
     - canvas.component.sdc.omnichannel.proofpoints
     - canvas.component.sdc.omnichannel.quote
@@ -26,6 +27,7 @@ items:
   - sdc.omnichannel.hero
   - sdc.omnichannel.icon
   - sdc.omnichannel.media
+  - sdc.omnichannel.outcome-card
   - sdc.omnichannel.page-title
   - sdc.omnichannel.proofpoints
   - sdc.omnichannel.quote

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
-    - core.entity_view_mode.node.teaser
     - field.field.node.case_study.field_body
     - field.field.node.case_study.field_expertise
     - field.field.node.case_study.field_hero_image
@@ -37,7 +36,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 1
     region: content
   field_expertise:
     type: entity_reference_label
@@ -45,7 +44,7 @@ content:
     settings:
       link: false
     third_party_settings: {  }
-    weight: 8
+    weight: 4
     region: content
   field_hero_image:
     type: entity_reference_entity_view
@@ -54,16 +53,16 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 11
+    weight: 7
     region: content
   field_outcomes:
     type: entity_reference_revisions_entity_view
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 2
     region: content
   field_team_members:
     type: entity_reference_entity_view
@@ -72,7 +71,7 @@ content:
       view_mode: teaser
       link: false
     third_party_settings: {  }
-    weight: 10
+    weight: 6
     region: content
   field_tools:
     type: entity_reference_label
@@ -80,12 +79,7 @@ content:
     settings:
       link: false
     third_party_settings: {  }
-    weight: 9
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   schema_client:
     type: entity_reference_label
@@ -93,7 +87,7 @@ content:
     settings:
       link: false
     third_party_settings: {  }
-    weight: 7
+    weight: 3
     region: content
   schema_description:
     type: string
@@ -104,23 +98,9 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  schema_image:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  schema_keywords:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 2
-    region: content
 hidden:
   field_proof_points: true
+  links: true
   schema_article_body: true
+  schema_image: true
+  schema_keywords: true
