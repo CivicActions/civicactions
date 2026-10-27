@@ -21,6 +21,17 @@ use Drupal\node\NodeInterface;
  */
 class OmnichannelHooks {
   /**
+   * Content types rendered with the full-width page container.
+   *
+   * Node bundles are listed by machine name. 'canvas_page' covers Canvas pages,
+   * which are not nodes.
+   */
+  private const FULL_WIDTH_CONTENT_TYPES = [
+    'canvas_page',
+    'case_study',
+  ];
+
+  /**
    * @file
    * Functions to support theming.
    */
@@ -45,7 +56,16 @@ class OmnichannelHooks {
    */
   #[Hook('preprocess_page')]
   public function preprocessPage(array &$variables): void {
-    $variables['is_canvas_page'] = \Drupal::routeMatch()->getRouteName() === 'entity.canvas_page.canonical';
+    $route_match = \Drupal::routeMatch();
+    $is_canvas_page = $route_match->getRouteName() === 'entity.canvas_page.canonical';
+    $variables['is_canvas_page'] = $is_canvas_page;
+
+    $node = $route_match->getParameter('node');
+    $content_type = $is_canvas_page
+      ? 'canvas_page'
+      : ($node instanceof NodeInterface ? $node->bundle() : NULL);
+    $variables['is_full_width'] = $content_type !== NULL
+      && in_array($content_type, self::FULL_WIDTH_CONTENT_TYPES, TRUE);
   }
 
   /**
