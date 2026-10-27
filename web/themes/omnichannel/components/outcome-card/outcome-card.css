@@ -1,0 +1,46 @@
+/**
+ * Styles for the CivicActions Outcome Card SDC.
+ *
+ * Measured from the legacy Key outcomes cards. The legacy background is
+ * #e7efef, which has no exact token in css/global.css. --gray-05 (#f0f0f0) is
+ * the nearest token and is slightly lighter and less blue. Heading and
+ * paragraph margins use 1em to match the legacy 20px and 16px rhythm at each
+ * body size. The unscoped selectors are the fallback for browsers without CSS
+ * @scope support.
+ */
+
+.ca-outcome-card {
+  box-sizing: border-box;
+  padding: var(--size-8, 2rem) var(--size-6, 1.5rem);
+  color: var(--text-body, #1b1b1b);
+  background-color: var(--gray-05, #f0f0f0);
+}
+
+.ca-outcome-card__heading {
+  margin: 1em 0;
+  text-transform: uppercase;
+  color: inherit;
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+}
+
+@scope (.ca-outcome-card) {
+  :scope {
+    box-sizing: border-box;
+    padding: var(--size-8, 2rem) var(--size-6, 1.5rem);
+    color: var(--text-body, #1b1b1b);
+    background-color: var(--gray-05, #f0f0f0);
+  }
+
+  .ca-outcome-card__heading {
+    margin: 1em 0;
+    text-transform: uppercase;
+    color: inherit;
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: inherit;
+    font-weight: 700;
+    line-height: inherit;
+  }
+}

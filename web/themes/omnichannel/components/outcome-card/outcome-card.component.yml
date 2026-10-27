@@ -1,0 +1,40 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Outcome Card
+description: A single case study outcome with an uppercase heading and a short formatted body. Place several in a grid for a key outcomes section.
+group: Content
+status: experimental
+props:
+  type: object
+  required:
+    - heading
+    - body
+  properties:
+    heading:
+      type: string
+      title: Heading
+      description: Short outcome title, displayed in uppercase.
+      default: 'More accessible experience'
+      examples:
+        - 'More accessible experience'
+    body:
+      type: string
+      title: Body
+      description: Brief description of the outcome.
+      contentMediaType: text/html
+      x-formatting-context: block
+      default: '<p>The new administration theme is cleaner, clearer, and more accessible for content editors.</p>'
+      examples:
+        - '<p>The new administration theme is cleaner, clearer, and more accessible for content editors.</p>'
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Heading level for the outcome title. Match the surrounding page hierarchy.
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 3
+      examples:
+        - 3

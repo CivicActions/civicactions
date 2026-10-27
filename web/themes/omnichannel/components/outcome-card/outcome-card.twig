@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Outcome Card component.
+ *
+ * Available props:
+ * - heading: Short outcome title.
+ * - body: Filtered block HTML describing the outcome.
+ * - heading_level: Heading level from 2 to 6. Defaults to 3.
+ */
+#}
+{% set outcome_card_attributes = attributes|default(create_attribute()) %}
+{% set level = heading_level in [2, 3, 4, 5, 6] ? heading_level : 3 %}
+
+{% if heading or body %}
+  <div{{ outcome_card_attributes.addClass('ca-outcome-card') }}>
+    {% if heading %}
+      <h{{ level }} class="ca-outcome-card__heading">{{ heading }}</h{{ level }}>
+    {% endif %}
+    {% if body %}
+      <div class="ca-outcome-card__body">{{ body }}</div>
+    {% endif %}
+  </div>
+{% endif %}
