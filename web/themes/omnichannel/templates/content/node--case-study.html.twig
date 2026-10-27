@@ -47,9 +47,18 @@
       </section>
     {% endif %}
 
+
+    {% if props.outcomes is not empty %}
+      <section class="ca-case-study__outcomes">
+        <h2>Key outcomes</h2>
+        <div class="ca-case-study__outcomes-grid ca-container">
+          {{ props.outcomes }}
+        </div>
+      </section>
+    {% endif %}
+
       {{ props.team_members }}
       {{ props.keywords }}
-      {{ props.outcomes }}
       {{ props.remaining_content }}
   {% endif %}
 {% endblock %}

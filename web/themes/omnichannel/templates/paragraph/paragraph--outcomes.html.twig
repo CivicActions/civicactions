@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Outcomes paragraph rendered as an Outcome Card SDC.
+ *
+ * Available variables:
+ * - content.field_outcome_heading: Outcome heading field.
+ * - content.field_outcome_body: Outcome body field.
+ *
+ * The first item of each field is rendered directly so the card receives the
+ * formatted value without Drupal's field wrapper or label.
+ */
+#}
+{% set outcome_heading %}{{ content.field_outcome_heading[0] }}{% endset %}
+{% set outcome_body %}{{ content.field_outcome_body[0] }}{% endset %}
+
+{% include 'omnichannel:outcome-card' with {
+  heading: outcome_heading|trim,
+  body: outcome_body|trim,
+  heading_level: 3,
+} only %}

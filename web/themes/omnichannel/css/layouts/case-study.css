@@ -1,5 +1,7 @@
 .ca-case-study__hero,
-.ca-case-study__proofpoints {
+.ca-case-study__proofpoints,
+.ca-case-study__expertise-tools,
+.ca-case-study__outcomes {
   margin-bottom: var(--size-20);
 }
 
@@ -30,4 +32,39 @@
   @media (min-width: 1024px) {
     padding: var(--size-12) var(--size-16);
   }
+}
+
+.ca-case-study__outcomes .field__items {
+  display: grid;
+  gap: var(--size-8);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ca-case-study__outcomes > h2 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  text-align: center;
+  color: white;
+  padding-bottom: var(--size-12);
+  margin-bottom: 0;
+}
+
+.ca-case-study__outcomes {
+  background-color: var(--primary-blue);
+  padding: var(--size-8) 0;
+
+  @media (min-width: 1024px) {
+    padding: var(--size-20) 0;
+  }
+}
+
+.ca-case-study__outcomes .field__item .ca-outcome-card {
+  height: 100%;
 }
