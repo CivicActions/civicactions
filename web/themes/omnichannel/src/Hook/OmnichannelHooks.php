@@ -67,11 +67,20 @@ class OmnichannelHooks {
    */
   #[Hook('preprocess_node')]
   public function preprocessNode(array &$variables): void {
-    if (($variables['view_mode'] ?? '') !== 'teaser' || !($variables['node'] ?? NULL) instanceof NodeInterface) {
+    if (!($variables['node'] ?? NULL) instanceof NodeInterface) {
       return;
     }
 
     $node = $variables['node'];
+    $view_mode = $variables['view_mode'] ?? '';
+    if ($view_mode === 'full' && $node->bundle() === 'case_study') {
+      $variables['case_study_props'] = $this->buildCaseStudyFullProps($variables);
+    }
+
+    if ($view_mode !== 'teaser') {
+      return;
+    }
+
     $cacheability = new CacheableMetadata();
     $variables['teaser_props'] = match ($node->bundle()) {
       'person' => $this->buildPersonTeaserProps($node, $cacheability),
@@ -147,6 +156,32 @@ class OmnichannelHooks {
     $image = $this->getImageProp($node, 'schema_image', $cacheability);
     if ($image !== NULL) {
       $props['image'] = $image;
+    }
+
+    return $props;
+  }
+
+  /**
+   * Builds full-page props while preserving prepared field render arrays.
+   */
+  private function buildCaseStudyFullProps(array $variables): array {
+    $props = [
+      'title' => $variables['label'],
+      'remaining_content' => $variables['content'],
+    ];
+
+    foreach ([
+      'client' => 'schema_client',
+      'description' => 'schema_description',
+      'hero_image' => 'field_hero_image',
+      'body' => 'schema_article_body',
+      'expertise' => 'field_expertise',
+      'tools' => 'field_tools',
+      'team_members' => 'field_team_members',
+      'keywords' => 'schema_keywords',
+    ] as $prop => $field_name) {
+      $props[$prop] = $variables['content'][$field_name] ?? [];
+      unset($props['remaining_content'][$field_name]);
     }
 
     return $props;
