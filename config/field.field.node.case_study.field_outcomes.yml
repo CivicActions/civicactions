@@ -1,0 +1,31 @@
+uuid: d0008865-c0e3-4906-bcb3-e62c01a67d43
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_outcomes
+    - node.type.case_study
+    - paragraphs.paragraphs_type.outcomes
+  module:
+    - entity_reference_revisions
+id: node.case_study.field_outcomes
+field_name: field_outcomes
+entity_type: node
+bundle: case_study
+label: Outcomes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      outcomes: outcomes
+    negate: 0
+    target_bundles_drag_drop:
+      outcomes:
+        weight: 0
+        enabled: true
+field_type: entity_reference_revisions

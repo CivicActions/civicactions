@@ -1,0 +1,31 @@
+uuid: 4e14b89e-9c67-4dc2-88f1-dfdc070a5caf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_proof_points
+    - node.type.case_study
+    - paragraphs.paragraphs_type.proof_point
+  module:
+    - entity_reference_revisions
+id: node.case_study.field_proof_points
+field_name: field_proof_points
+entity_type: node
+bundle: case_study
+label: 'Proof points'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      proof_point: proof_point
+    negate: 0
+    target_bundles_drag_drop:
+      proof_point:
+        weight: 0
+        enabled: true
+field_type: entity_reference_revisions
