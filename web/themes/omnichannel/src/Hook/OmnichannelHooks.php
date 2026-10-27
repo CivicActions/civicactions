@@ -47,6 +47,22 @@ class OmnichannelHooks {
   }
 
   /**
+   * Adds the total page count for legacy-style pager output.
+   */
+  #[Hook('preprocess_pager')]
+  public function preprocessPager(array &$variables): void {
+    $element = $variables['pager']['#element'] ?? NULL;
+    if (!is_int($element)) {
+      return;
+    }
+
+    $pager = \Drupal::service('pager.manager')->getPager($element);
+    if ($pager !== NULL) {
+      $variables['total_pages'] = $pager->getTotalPages();
+    }
+  }
+
+  /**
    * Prepares SDC props for content teaser view modes.
    */
   #[Hook('preprocess_node')]
