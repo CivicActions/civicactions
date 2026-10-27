@@ -1,16 +1,54 @@
 /**
  * @file
- * Visual styles for pager.
+ * Layout for Views pagers.
  */
 
-.pager__items {
+.ca-pager {
   clear: both;
+  margin-block: var(--size-8, 2rem);
+  margin-inline: 0;
   text-align: center;
 }
-.pager__item {
-  display: inline;
-  padding: 0.5em;
+
+.ca-pager__inner {
+  display: flex;
+  justify-content: center;
+  max-width: var(--container-narrow-width, 45rem);
+  margin-inline: auto;
+  font-size: var(--size-4, 1rem);
 }
-.pager__item.is-active {
-  font-weight: bold;
+
+.ca-pager__previous,
+.ca-pager__next {
+  margin: 0 var(--size-4, 1rem);
+}
+
+.ca-pager__location {
+  margin: auto var(--size-4, 1rem);
+}
+
+@scope (.ca-pager) {
+  :scope {
+    clear: both;
+    margin-block: var(--size-8, 2rem);
+    margin-inline: 0;
+    text-align: center;
+  }
+
+  .ca-pager__inner {
+    display: flex;
+    justify-content: center;
+    max-width: var(--container-narrow-width, 45rem);
+    margin-inline: auto;
+    font-size: var(--size-4, 1rem);
+  }
+
+  .ca-pager__previous,
+  .ca-pager__next {
+    margin: 0 var(--size-4, 1rem);
+  }
+
+  .ca-pager__location {
+    margin: auto var(--size-4, 1rem);
+  }
 }
