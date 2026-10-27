@@ -147,6 +147,7 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 ### Proposed Frontend Follow-Up Tickets
 
 - **Hero Media and Image Presentation:** Add the optional Hero media treatment still visible in the legacy Homepage, Services, DITAP, and Case Study compositions.
+- **Outcomes Paragraph Card View Mode (post-MVP):** The Outcomes paragraph currently renders the Outcome Card SDC by overriding the default paragraph template (`paragraph--outcomes.html.twig`). Replace that with a dedicated `card` paragraph view mode: add `core.entity_view_mode.paragraph.card` and `core.entity_view_display.paragraph.outcomes.card` with both fields enabled and labels hidden, point the `field_outcomes` formatter on the Case Study displays at `card`, and rename the template to `paragraph--outcomes--card.html.twig`. This keeps the default Outcomes display available for other uses.
 - **Basic Page and Utility Template:** Give standard Privacy, Accessibility Statement, and Licensing nodes a predictable 720px reading layout using the existing Page Title and Content patterns.
 - **No client logo rail ticket:** Agency seals and logos are intentionally replaced by text-based representations or simple icons in standard Canvas compositions.
 

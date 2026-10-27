@@ -57,8 +57,13 @@
       </section>
     {% endif %}
 
-      {{ props.team_members }}
-      {{ props.keywords }}
-      {{ props.remaining_content }}
+    {% if props.team_members is not empty %}
+      <section class="ca-case-study__team">
+        <div class="ca-case-study__team-inner ca-container">
+          <h2>Meet the team</h2>
+          {{ props.team_members }}
+        </div>
+      </section>
+    {% endif %}
   {% endif %}
 {% endblock %}

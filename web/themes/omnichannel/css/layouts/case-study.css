@@ -1,7 +1,6 @@
 .ca-case-study__hero,
 .ca-case-study__proofpoints,
-.ca-case-study__expertise-tools,
-.ca-case-study__outcomes {
+.ca-case-study__expertise-tools {
   margin-bottom: var(--size-20);
 }
 
@@ -67,4 +66,63 @@
 
 .ca-case-study__outcomes .field__item .ca-outcome-card {
   height: 100%;
+}
+
+.ca-case-study__team {
+  background-color: var(--gray-05);
+}
+
+.ca-case-study__team-inner {
+  padding-block: var(--size-8);
+
+  @media (min-width: 768px) {
+    padding-block: var(--size-12);
+  }
+
+  @media (min-width: 1024px) {
+    padding-block: var(--size-16);
+  }
+}
+
+.ca-case-study__team h2 {
+  margin-bottom: var(--size-8);
+  font-size: var(--size-6);
+  line-height: var(--line-height-h2);
+
+  @media (min-width: 600px) {
+    font-size: var(--font-size-h2);
+  }
+
+  @media (min-width: 1024px) {
+    text-align: center;
+  }
+}
+
+.ca-case-study__team .field__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-8);
+  justify-content: center;
+
+  @media (min-width: 1024px) {
+    gap: var(--size-12);
+  }
+}
+
+.ca-case-study__team .field__item {
+  flex: 0 1 13.125rem;
+}
+
+/* The legacy team list shows names as regular body text, not headings. */
+.ca-case-study__team .ca-person-teaser__name {
+  padding-bottom: 0;
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: 300;
+  line-height: var(--line-height-body);
+}
+
+.ca-case-study__team .ca-person-teaser__role {
+  font-size: var(--size-4);
 }

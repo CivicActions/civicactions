@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
+    - core.entity_view_mode.node.teaser
     - field.field.node.case_study.field_body
     - field.field.node.case_study.field_expertise
     - field.field.node.case_study.field_hero_image
@@ -74,10 +75,11 @@ content:
     weight: 3
     region: content
   field_team_members:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: teaser
+      link: false
     third_party_settings: {  }
     weight: 10
     region: content
