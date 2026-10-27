@@ -2,6 +2,7 @@
 
 namespace Drupal\omnichannel\Hook;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
@@ -10,6 +11,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Security\Attribute\TrustedCallback;
 use Drupal\file\FileInterface;
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
@@ -174,17 +176,101 @@ class OmnichannelHooks {
       'client' => 'schema_client',
       'description' => 'schema_description',
       'hero_image' => 'field_hero_image',
-      'body' => 'schema_article_body',
+      'body' => 'field_body',
       'expertise' => 'field_expertise',
       'tools' => 'field_tools',
       'team_members' => 'field_team_members',
       'keywords' => 'schema_keywords',
+      'outcomes' => 'field_outcomes',
+      'proof_points' => 'field_proof_points',
     ] as $prop => $field_name) {
       $props[$prop] = $variables['content'][$field_name] ?? [];
       unset($props['remaining_content'][$field_name]);
     }
 
+    // The Proofpoints SDC receives scalar props rather than the field render
+    // array. The remaining content is rendered, so it carries the cacheability.
+    $cacheability = new CacheableMetadata();
+    $props['proofpoints_component_props'] = $this->buildProofpointsProps($variables['node'], $cacheability);
+    $cacheability->applyTo($props['remaining_content']);
+
     return $props;
+  }
+
+  /**
+   * Maps Proof point paragraphs to the Proofpoints SDC stat and label props.
+   *
+   * The SDC displays at most three stats, so additional paragraphs are ignored.
+   */
+  private function buildProofpointsProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    if (!$node->hasField('field_proof_points')) {
+      return [];
+    }
+
+    $field = $node->get('field_proof_points');
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return [];
+    }
+
+    $entity_repository = \Drupal::service('entity.repository');
+    $props = [];
+    $position = 0;
+    foreach ($field->referencedEntities() as $paragraph) {
+      if ($position === 3) {
+        break;
+      }
+
+      $paragraph = $entity_repository->getTranslationFromContext($paragraph);
+      $cacheability->addCacheableDependency($paragraph);
+      $paragraph_access = $paragraph->access('view', NULL, TRUE);
+      $cacheability->addCacheableDependency($paragraph_access);
+      if (!$paragraph_access->isAllowed()) {
+        continue;
+      }
+
+      $stat = trim($this->getParagraphStringValue($paragraph, 'field_value', $cacheability));
+      $label = trim($this->getParagraphStringValue($paragraph, 'field_description', $cacheability, TRUE));
+      if ($stat === '' || $label === '') {
+        continue;
+      }
+
+      $position++;
+      $props['stat_' . $position] = $stat;
+      $props['label_' . $position] = $label;
+    }
+
+    return $props;
+  }
+
+  /**
+   * Gets an accessible paragraph field value as plain text.
+   *
+   * Formatted text is run through its text format before tags are removed, so
+   * the SDC string props receive filtered output.
+   */
+  private function getParagraphStringValue(EntityInterface $paragraph, string $field_name, CacheableMetadata $cacheability, bool $formatted = FALSE): string {
+    if (!$paragraph->hasField($field_name)) {
+      return '';
+    }
+
+    $field = $paragraph->get($field_name);
+    $access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($access);
+    if (!$access->isAllowed() || $field->isEmpty()) {
+      return '';
+    }
+
+    if (!$formatted) {
+      return (string) $field->value;
+    }
+
+    $format = $field->format;
+    if ($format && ($filter_format = FilterFormat::load($format))) {
+      $cacheability->addCacheableDependency($filter_format);
+    }
+    return Html::decodeEntities(strip_tags((string) $field->first()->processed));
   }
 
   /**

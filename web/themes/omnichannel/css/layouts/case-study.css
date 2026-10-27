@@ -1,3 +1,8 @@
+.ca-case-study__hero,
+.ca-case-study__proofpoints {
+  margin-bottom: var(--size-20);
+}
+
 .ca-case-study__hero img {
   display: block;
   width: 100%;

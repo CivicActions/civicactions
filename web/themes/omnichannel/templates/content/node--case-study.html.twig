@@ -15,17 +15,18 @@
     {% set narrow_width = true %}
     {% include 'omnichannel:case-study-header' with props %}
 
-    <div class="ca-container ca-case-study__hero">
+    <div class="ca-case-study__hero">
       {{ props.hero_image }}
     </div>
 
-    <div{{ content_attributes.addClass('node__content') }}>
+    {% if props.proofpoints_component_props is not empty %}
+      <div class="ca-case-study__proofpoints">
+        {% include 'omnichannel:proofpoints' with props.proofpoints_component_props|merge({ card_style: true }) only %}
+      </div>
+    {% endif %}
+
+    <div{{ content_attributes.addClass('node__content ca-container ca-container--narrow') }}>
       {{ props.body }}
-      {{ props.expertise }}
-      {{ props.tools }}
-      {{ props.team_members }}
-      {{ props.keywords }}
-      {{ props.remaining_content }}
     </div>
   {% endif %}
 {% endblock %}
