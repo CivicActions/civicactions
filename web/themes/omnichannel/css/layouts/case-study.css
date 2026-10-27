@@ -8,3 +8,26 @@
   width: 100%;
   height: auto;
 }
+
+.ca-case-study__expertise-tools {
+  display: grid;
+  gap: var(--size-8);
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ca-case-study__expertise-tools h2 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+}
+
+.ca-case-study__expertise-tools > div {
+  background-color: var(--color-gray-background);
+  padding: var(--size-12);
+
+  @media (min-width: 1024px) {
+    padding: var(--size-12) var(--size-16);
+  }
+}

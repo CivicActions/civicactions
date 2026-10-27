@@ -27,6 +27,9 @@
   --gray-90: #171717;
   --black: #000;
 
+  /* Global color vars */
+  --color-gray-background: var(--gray-05);
+
   /* Spacing (based on 4px increments) */
   --size-1: 0.25rem;
   --size-2: 0.5rem;

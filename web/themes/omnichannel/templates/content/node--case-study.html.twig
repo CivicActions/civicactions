@@ -15,18 +15,41 @@
     {% set narrow_width = true %}
     {% include 'omnichannel:case-study-header' with props %}
 
-    <div class="ca-case-study__hero">
+    <div class="ca-case-study__hero ca-container">
       {{ props.hero_image }}
     </div>
 
     {% if props.proofpoints_component_props is not empty %}
-      <div class="ca-case-study__proofpoints">
+      <section class="ca-case-study__proofpoints ca-container">
         {% include 'omnichannel:proofpoints' with props.proofpoints_component_props|merge({ card_style: true }) only %}
-      </div>
+      </section>
     {% endif %}
 
     <div{{ content_attributes.addClass('node__content ca-container ca-container--narrow') }}>
       {{ props.body }}
     </div>
+
+    {# Expertise and Tools #}
+    {% if props.expertise is not empty or props.tools is not empty %}
+      <section class="ca-case-study__expertise-tools ca-container">
+        {% if props.expertise is not empty %}
+          <div class="ca-case-study__expertise">
+            <h2>Expertise</h2>
+            {{ props.expertise }}
+          </div>
+        {% endif %}
+        {% if props.tools is not empty %}
+          <div class="ca-case-study__tools">
+            <h2>Tools</h2>
+            {{ props.tools }}
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+
+      {{ props.team_members }}
+      {{ props.keywords }}
+      {{ props.outcomes }}
+      {{ props.remaining_content }}
   {% endif %}
 {% endblock %}
