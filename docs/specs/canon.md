@@ -36,6 +36,8 @@ Components use the `.ca-<component>` namespace and BEM element/modifier names. C
 
 Twig templates initialize attributes with `attributes|default(create_attribute())`. User-controlled HTML attributes use `|e('html_attr')`. User-supplied URLs must be sanitized at the trusted theme render boundary with `UrlHelper::stripDangerousProtocols()` and `#[TrustedCallback]`; Twig escaping remains defense in depth. Verify callback coverage for each prop before claiming that it is implemented.
 
+Include SDCs by their Drupal plugin ID, such as `omnichannel:case-study-header`, without a leading `@`. The `@namespace/path` syntax is for Twig template namespaces, not SDC plugin IDs.
+
 Canvas requires useful, non-empty defaults and examples for required and structured props. A valid Drupal SDC is not automatically a Canvas-available component. Canvas configuration must be generated through Drupal's component source services rather than hand-maintained opaque identifiers.
 
 ## Views listings and teaser rendering
@@ -43,7 +45,7 @@ Canvas requires useful, non-empty defaults and examples for required and structu
 The `civicactions_landing_page_views` module owns the Team, Editorial, News, Publications, and Case Study listing Views. Publications represents White Papers through the Editorial taxonomy; it does not require a separate content bundle or teaser component. The Omnichannel theme renders their node teaser view modes through the existing teaser SDCs rather than introducing listing-specific components.
 
 - Bundle-specific `node--<bundle>--teaser.html.twig` templates live under `web/themes/omnichannel/templates/content/` and pass `teaser_props` to the matching SDC.
-- `preprocessNode()` builds bundle-specific props only for the `teaser` view mode, guards missing fields and references, checks entity and field view access, and adds access/cache dependencies to Drupal's preprocess bubbleable metadata.
+- `preprocessNode()` builds `teaser_props` only for the `teaser` view mode, guards missing fields and references, checks entity and field view access, and adds access/cache dependencies to Drupal's preprocess bubbleable metadata.
 - Managed Media images are converted to structured SDC props at the theme render boundary. Teaser image styles are selected by the Media view display referenced from each node teaser display, not hard-coded in preprocessing; Media, file, and image-style cache dependencies are bubbled with the output.
 - Person teaser cards remain unlinked for the MVP. Editorial and Case Study teasers retain their configured canonical links.
 - The Views grid preserves Drupal's generated row and column attributes. `css/layout.css` supplies a one-column mobile baseline, configured responsive columns at 768px, and the five-column Team layout at 1200px.
@@ -60,6 +62,14 @@ Full node detail displays (`editorial`, `case_study`, `page`) render standard no
 - **Entity view display sanitization:** Full node displays must hide internal administrative taxonomies (`field_funnel_stage`, `field_content_job`, `schema_audience`, `field_tools`, `field_expertise`) and raw field labels ("Description", "Featured Image", "Article body").
 - **Case Study node theming:** Tracked in MAHOM-1162 (in Develop with Iris Ibekwe). Dedicated 1:1 Gatsby parity was declined under MAHOM-1186; clean node theming matching the Omnichannel design tokens is the target standard.
 - **Person nodes:** Person teaser cards remain unlinked on `/team` for MVP. Individual staff detail nodes are deferred post-MVP.
+
+### Case study detail rendering
+
+[node--case-study.html.twig](../../web/themes/omnichannel/templates/content/node--case-study.html.twig) extends the shared node template. In full view mode it renders the title, client, description, hero media, article-body paragraphs, expertise, tools, team members, and keywords in that order. Other display-enabled content is retained without repeating those fields; non-full view modes retain the parent markup unless a more specific template applies.
+
+For case-study nodes in `full` view mode, `preprocessNode()` exposes `case_study_props` through `buildCaseStudyFullProps()`, separately from teaser props. The full-page template consumes `title`, `client`, `description`, `hero_image`, `body`, `expertise`, `tools`, `team_members`, `keywords`, and `remaining_content`. The builder reuses the prepared label and field render arrays instead of extracting raw values; unmapped content remains available through `remaining_content`.
+
+The default case-study display renders hero media as an entity and hides the teaser-only image. The hero media renders immediately after the case-study header in its own `ca-container`, using the global wide layout and responsive gutters rather than the header's narrow width. The `omnichannel/case-study` library sizes the rendered image to the container while preserving its aspect ratio. It is attached only in the full-view branch of the case-study node template; case-study detail CSS is not loaded globally or by teaser templates. Field render arrays retain Drupal formatters, access checks, translations, and cache metadata. Statistics, challenges, and outcomes depend on authored article-body paragraphs rather than hard-coded legacy content. This is field mapping, not full visual parity: legacy columns, team cards, related case studies, and the closing call to action are not implemented by this node template.
 
 ## Design tokens and visual language
 
