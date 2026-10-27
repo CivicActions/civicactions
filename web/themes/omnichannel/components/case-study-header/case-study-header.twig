@@ -1,0 +1,29 @@
+{# 
+ * Case study header component.
+ * Uses case_study_props for rendering.
+ * Expects the following properties in case_study_props:
+ * - title: The title of the case study.
+ * - client: The client associated with the case study.
+ * - description: The description of the case study.
+ #}
+
+{% set container_classes = [
+  narrow_width ? 'ca-container--narrow' : '',
+  'case-study--header',
+  'ca-container'
+   ]%}
+
+<section class="{{ container_classes|join(' ') }}">
+  <div class="case-study--header__inner">
+    {% if title %}
+      {% set page_title_attributes = attributes|default(create_attribute()) %}
+      <h1 {{ page_title_attributes.addClass('case-study-header--title') }}>{{ title }}</h1>
+    {% endif %}
+    {% if client %}
+      <div class="case-study-header--client">{{ client }}</div>
+    {% endif %}
+    {% if description %}
+      <div class="case-study-header--description">{{ description }}</div>
+    {% endif %}
+  </div>
+</section>
