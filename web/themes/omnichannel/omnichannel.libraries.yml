@@ -92,6 +92,11 @@ messages:
     component:
       css/components/messages.css:
         weight: -10
+case-study:
+  version: VERSION
+  css:
+    component:
+      css/layouts/case-study.css: { }
 node:
   version: VERSION
   css:

@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Case study detail fields in legacy page order, using case_study_props.
+ */
+#}
+{% extends "node.html.twig" %}
+
+{% block node_content %}
+  {% if view_mode != 'full' %}
+    {{ parent() }}
+  {% else %}
+    {{ attach_library('omnichannel/case-study') }}
+    {% set props = case_study_props %}
+    {% set narrow_width = true %}
+    {% include 'omnichannel:case-study-header' with props %}
+
+    <div class="ca-container ca-case-study__hero">
+      {{ props.hero_image }}
+    </div>
+
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ props.body }}
+      {{ props.expertise }}
+      {{ props.tools }}
+      {{ props.team_members }}
+      {{ props.keywords }}
+      {{ props.remaining_content }}
+    </div>
+  {% endif %}
+{% endblock %}
