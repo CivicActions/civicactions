@@ -34,4 +34,4 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Run zizmor
-        uses: woodruffw/zizmor-action@e766b1a37c44ea1d740521e10ee08c1d2e1c940b # v1.3.1
+        uses: zizmorcore/zizmor-action@v1
