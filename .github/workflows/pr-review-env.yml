@@ -100,7 +100,7 @@ jobs:
           DEPLOYED_ID=$(deploy_id "${ENV_NAME}")
           echo "Deployed identifier on ${ENV_NAME}: ${DEPLOYED_ID}"
           if ! sha_matches "${DEPLOYED_ID}" "${VERIFIED_SHA}"; then
-            echo "Environment ${ENV_NAME} has ${DEPLOYED_ID}, not head ${VERIFIED_SHA[:7]}. Exiting without status change."
+            echo "Environment ${ENV_NAME} has ${DEPLOYED_ID}, not head ${VERIFIED_SHA:0:7}. Exiting without status change."
             echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
