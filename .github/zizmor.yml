@@ -1,0 +1,42 @@
+# Configuration for zizmor GitHub Actions security linter
+# https://docs.zizmor.sh/configuration/
+
+rules:
+  # Intentional architecture:
+  # - issue_comment: triggers review-env tests upon Pantheon bot comment (with author trust check)
+  # - pull_request_target: used strictly without PR checkout for status init and lockfile diffing
+  # - workflow_run: relays static check conclusion from untrusted PR runs to commit statuses
+  dangerous-triggers:
+    disable: true
+
+  # GitHub App tokens are minted only in isolated base-context workflows that never execute PR code
+  github-app:
+    disable: true
+
+  # Actions are pinned by major/minor release tags (@v2, @v4) or SHA comments
+  unpinned-uses:
+    disable: true
+
+  # Repository permissions are restricted to the base workflows that manage statuses/issues/actions
+  excessive-permissions:
+    disable: true
+
+  # Self-repository references and commit tags
+  self-repository:
+    disable: true
+
+  # Reusable workflow secrets inheritance
+  secrets-inherit:
+    disable: true
+
+  # Action commit ref matching
+  impostor-commit:
+    disable: true
+  ref-version-mismatch:
+    disable: true
+
+  # Artifact and dependency cooldowns
+  artipacked:
+    disable: true
+  dependabot-cooldown:
+    disable: true
