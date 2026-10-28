@@ -1,0 +1,19 @@
+name: "Setup Terminus"
+description: "Installs, restores cached session, and authenticates Terminus CLI on Pantheon"
+inputs:
+  pantheon-machine-token:
+    description: "Pantheon Machine Token"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Terminus and Restore/Cache Authenticated Session
+      uses: pantheon-systems/terminus-github-actions@v1
+      with:
+        pantheon-machine-token: ${{ inputs.pantheon-machine-token }}
+
+    - name: Verify Terminus Authentication
+      shell: bash
+      run: |
+        terminus auth:whoami

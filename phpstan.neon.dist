@@ -1,0 +1,12 @@
+includes:
+  - phpstan-baseline.neon
+
+parameters:
+  level: 2
+  paths:
+    - web/modules/custom
+    - web/themes/omnichannel
+  excludePaths:
+    - */node_modules/*
+    - */storybook-static/*
+    - */vendor/*

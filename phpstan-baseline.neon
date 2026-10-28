@@ -1,0 +1,57 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '''
+				#^Fetching deprecated class constant EXISTS_REPLACE of interface Drupal\\Core\\File\\FileSystemInterface\:
+				in drupal\:10\.3\.0 and is removed from drupal\:12\.0\.0\. Use
+				\\Drupal\\Core\\File\\FileExists\:\:Replace instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: web/modules/custom/civicactions_blog_migration/src/Plugin/migrate/source/BlogArchivePosts.php
+
+		-
+			message: '#^Logger assigned from LoggerChannelFactory in a class using DependencySerializationTrait will break serialization\. Inject a named logger channel service directly \(e\.g\. @logger\.channel\.my_channel\) instead\.$#'
+			identifier: loggerFromFactory.propertyAssignment
+			count: 1
+			path: web/modules/custom/civicactions_blog_migration/src/Plugin/migrate/source/BlogArchivePosts.php
+
+		-
+			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
+			identifier: globalDrupalDependencyInjection.useDependencyInjection
+			count: 11
+			path: web/modules/custom/civicactions_blog_migration/src/Plugin/migrate/source/BlogArchivePosts.php
+
+		-
+			message: '''
+				#^Fetching deprecated class constant EXISTS_REPLACE of interface Drupal\\Core\\File\\FileSystemInterface\:
+				in drupal\:10\.3\.0 and is removed from drupal\:12\.0\.0\. Use
+				\\Drupal\\Core\\File\\FileExists\:\:Replace instead\.$#
+			'''
+			identifier: classConstant.deprecated
+			count: 1
+			path: web/modules/custom/civicactions_blog_migration/src/Plugin/migrate/source/PeopleArchiveProfiles.php
+
+		-
+			message: '#^Logger assigned from LoggerChannelFactory in a class using DependencySerializationTrait will break serialization\. Inject a named logger channel service directly \(e\.g\. @logger\.channel\.my_channel\) instead\.$#'
+			identifier: loggerFromFactory.propertyAssignment
+			count: 1
+			path: web/modules/custom/civicactions_blog_migration/src/Plugin/migrate/source/PeopleArchiveProfiles.php
+
+		-
+			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
+			identifier: globalDrupalDependencyInjection.useDependencyInjection
+			count: 5
+			path: web/modules/custom/civicactions_blog_migration/src/Plugin/migrate/source/PeopleArchiveProfiles.php
+
+		-
+			message: '#^Access to an undefined property Drupal\\Core\\Field\\FieldItemInterface\:\:\$entity\.$#'
+			identifier: property.notFound
+			count: 1
+			path: web/themes/omnichannel/src/Hook/OmnichannelHooks.php
+
+		-
+			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
+			identifier: globalDrupalDependencyInjection.useDependencyInjection
+			count: 2
+			path: web/themes/omnichannel/src/Hook/OmnichannelHooks.php

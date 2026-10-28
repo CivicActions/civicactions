@@ -43,6 +43,13 @@ if (isset($_ENV['PANTHEON_ROLLING_TMP'])) {
   $settings['php_storage']['trash']['secret'] = $settings['hash_salt'] . ($settings['deployment_identifier'] ?? '');
 }
 
+/**
+ * Ensure in-site unattended automatic updates are disabled on all Pantheon environments.
+ */
+if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+  $config['automatic_updates.settings']['unattended']['level'] = 'disable';
+}
+
 # Disable HTML5 validation for accessibility reasons
 $settings['enable_html5_validation'] = FALSE;
 

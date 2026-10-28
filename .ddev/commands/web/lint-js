@@ -21,10 +21,14 @@ while IFS= read -r changed_file; do
       ;;
   esac
 done < <(
-  {
-    git diff --name-only HEAD
-    git ls-files --others --exclude-standard
-  } | sort -u
+  if [[ -n "${LINT_BASE:-}" ]]; then
+    git diff --name-only "$LINT_BASE"...HEAD
+  else
+    {
+      git diff --name-only HEAD
+      git ls-files --others --exclude-standard
+    } | sort -u
+  fi
 )
 
 if [[ ${#lint_files[@]} -eq 0 ]]; then

@@ -1,0 +1,70 @@
+version: 2
+updates:
+  # 1. Composer (Drupal site root)
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    groups:
+      drupal-contrib-version:
+        applies-to: "version-updates"
+        patterns:
+          - "drupal/*"
+        update-types:
+          - "patch"
+          - "minor"
+      other-packages-version:
+        applies-to: "version-updates"
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "drupal/*"
+        update-types:
+          - "patch"
+          - "minor"
+      security-patch-minor:
+        applies-to: "security-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+
+  # 2. NPM (Omnichannel custom theme)
+  - package-ecosystem: "npm"
+    directory: "/web/themes/omnichannel"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 1
+    groups:
+      theme-tooling-version:
+        applies-to: "version-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+      theme-tooling-security:
+        applies-to: "security-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+
+  # 3. GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 1
+    groups:
+      actions-version:
+        applies-to: "version-updates"
+        patterns:
+          - "*"
+      actions-security:
+        applies-to: "security-updates"
+        patterns:
+          - "*"

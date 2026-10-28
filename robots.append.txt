@@ -1,0 +1,2 @@
+# Disallow indexing of Storybook component preview
+Disallow: /storybook/

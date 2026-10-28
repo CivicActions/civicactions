@@ -1,0 +1,149 @@
+name: "Daily Security Audit"
+
+on:
+  schedule:
+    - cron: "0 14 * * *" # Daily at 14:00 UTC (06:00/07:00 PT)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    name: "Audit Dependencies & Live Security Advisories"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout master tools
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@c54fbc0777231c0f82b5377710e0e0cf55448378 # v2.32.0
+        with:
+          php-version: "8.3"
+          tools: composer:v2
+
+      - name: Setup Terminus
+        uses: ./.github/actions/terminus-setup
+        with:
+          pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+
+      - name: Run Composer & Drupal Advisories Audit
+        id: audit-check
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+          REPO: ${{ github.repository }}
+        run: |
+          source .github/ci/pantheon.sh
+
+          echo "Running composer audit..."
+          COMPOSER_AUDIT_RAW=$(composer audit --locked --format=json 2>/dev/null || echo "{}")
+
+          echo "Running drush pm:security on live..."
+          PM_SECURITY_RAW=$(drush live -- pm:security --format=json 2>/dev/null || echo "{}")
+
+          # Parse and cross-reference with open Dependabot PRs
+          python3 -c "
+          import os, sys, json, urllib.request
+
+          token = os.environ['GH_TOKEN']
+          repo = os.environ['REPO']
+          composer_raw = '${COMPOSER_AUDIT_RAW}'
+          drush_raw = '${PM_SECURITY_RAW}'
+
+          headers = {
+              'Authorization': f'token {token}',
+              'Accept': 'application/vnd.github.v3+json',
+              'User-Agent': 'civicactions-security-audit'
+          }
+
+          # Fetch open Dependabot PR titles
+          pr_url = f'https://api.github.com/repos/{repo}/pulls?state=open&creator=app%2Fdependabot&per_page=100'
+          req = urllib.request.Request(pr_url, headers=headers)
+          open_pr_titles = []
+          try:
+              with urllib.request.urlopen(req) as resp:
+                  open_pr_titles = [pr['title'].lower() for pr in json.loads(resp.read().decode())]
+          except Exception:
+              pass
+
+          findings = []
+
+          # Check composer audit
+          try:
+              comp_data = json.loads(composer_raw)
+              for pkg, advisories in comp_data.get('advisories', {}).items():
+                  # Check if an open PR covers this package
+                  if not any(pkg.lower() in title for title in open_pr_titles):
+                      for adv in advisories:
+                          findings.append({
+                              'source': 'composer audit',
+                              'package': pkg,
+                              'title': adv.get('title', 'Security advisory'),
+                              'cve': adv.get('cve', ''),
+                              'link': adv.get('link', '')
+                          })
+          except Exception:
+              pass
+
+          # Check drush pm:security
+          try:
+              pm_data = json.loads(drush_raw)
+              if isinstance(pm_data, dict):
+                  for mod, info in pm_data.items():
+                      if not any(mod.lower() in title for title in open_pr_titles):
+                          findings.append({
+                              'source': 'drush pm:security',
+                              'package': mod,
+                              'title': info.get('title', 'Drupal project security update required'),
+                              'link': info.get('link', '')
+                          })
+          except Exception:
+              pass
+
+          has_uncovered_findings = len(findings) > 0
+          print(f'Uncovered security findings: {len(findings)}')
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write(f'has_findings={\"true\" if has_uncovered_findings else \"false\"}\n')
+
+          if has_uncovered_findings:
+              lines = ['The following security advisories affect dependencies on `master` or `live` and have NO open fix PR:\n']
+              lines.append('| Source | Package | Advisory | Link |')
+              lines.append('|---|---|---|---|')
+              for f in findings:
+                  lines.append(f\"| {f['source']} | `{f['package']}` | {f['title']} | {f.get('link', '')} |\")
+              report = '\n'.join(lines)
+              with open('security-report.md', 'w') as rf:
+                  rf.write(report)
+          "
+
+      - name: Alert on Uncovered Advisories
+        if: steps.audit-check.outputs.has_findings == 'true'
+        uses: ./.github/actions/notify
+        with:
+          kind: "security-advisory"
+          title: "Security Advisories Detected without Fix PR"
+          body: ${{ hashFiles('security-report.md') != '' && steps.read_report.outputs.content || 'Security advisories detected on site.' }}
+          resolved: "false"
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          github-token: ${{ steps.app-token.outputs.token }}
+
+      - name: Resolve Stale Advisory Alert
+        if: steps.audit-check.outputs.has_findings == 'false'
+        uses: ./.github/actions/notify
+        with:
+          kind: "security-advisory"
+          title: "Security Advisories Resolved"
+          body: "All detected security advisories have been resolved or have active PRs."
+          resolved: "true"
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          github-token: ${{ steps.app-token.outputs.token }}

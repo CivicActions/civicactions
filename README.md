@@ -27,6 +27,38 @@ ddev lint-js
 The commands check changed files under `web/themes/omnichannel/`, not Drupal
 core or contributed code.
 
+To lint files against a custom Git base branch (the same method used in CI):
+
+```bash
+LINT_BASE=origin/master ddev lint-css
+LINT_BASE=origin/master ddev lint-js
+```
+
+## End-to-End & Accessibility Tests
+
+Browser functional, accessibility (axe), and visual regression tests use Playwright in `tests/e2e`:
+
+```bash
+cd tests/e2e
+npm ci
+npx playwright install --with-deps chromium
+
+# Run functional & accessibility tests against local DDEV or remote dev environment:
+BASE_URL=https://civicactions.ddev.site npx playwright test --grep "@functional|@a11y"
+
+# Run smoke tests:
+BASE_URL=https://civicactions.ddev.site npx playwright test --grep "@smoke"
+```
+
+## CI/CD Pipeline & Automated Deployment
+
+Pull requests and releases are managed via GitHub Actions:
+- **PR Checks**: Fast static analysis, Drupal health diagnostics on Pantheon review environments, Playwright functional/a11y tests, and visual regression.
+- **Master Branch**: Deploys automatically to Pantheon `dev`.
+- **Live Promotion**: Gated releases to `test` and `live`. Verified Dependabot security updates auto-merge and auto-deploy during business hours.
+
+For architecture rules, gate criteria, kill switches, and drift management, see the [Homesite Canon](docs/specs/canon.md#cicd-pipeline--automated-deployment) and [ADR-0002](docs/decisions/0002-ci-cd-pipeline.md).
+
 ## Contributing
 
 Contributions are welcome in the form of GitHub pull requests. However, the

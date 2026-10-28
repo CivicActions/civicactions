@@ -1,0 +1,123 @@
+# Curated, fixed list of pages exercised by the functional, a11y and visual suites.
+# No sitemap or crawl discovery: these are the only URLs tested.
+pages:
+  - id: home
+    path: /
+    kind: front
+    smoke: true
+    visual: true
+    expect_status: 200
+    masks: []
+    a11y_exclude: []
+
+  - id: listing-team
+    path: /team
+    kind: listing
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: listing-case-studies
+    path: /case-studies
+    kind: listing
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: listing-articles
+    path: /insights/articles
+    kind: listing
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: listing-news
+    path: /news
+    kind: listing
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: listing-publications
+    path: /publications
+    kind: listing
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-editorial-contract
+    path: /news/2020-civicactions-wins-cms-redesign-migration-contract
+    kind: node:editorial
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-editorial-arpit
+    path: /meet-arpit-patil-what-he-loves-about-devops-and-working-government
+    kind: node:editorial
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-organization-va
+    path: /department-veterans-affairs
+    kind: node:organization
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-organization-fearless
+    path: /fearless
+    kind: node:organization
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-page-privacy
+    path: /privacy-policy
+    kind: node:page
+    smoke: true
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-page-licensing
+    path: /licensing-policy
+    kind: node:page
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-person-robert
+    path: /robert-l-read
+    kind: node:person
+    smoke: true
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: node-person-victor
+    path: /victor
+    kind: node:person
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
+  - id: not-found
+    path: /__ci-not-found__
+    kind: error
+    smoke: false
+    visual: false
+    expect_status: 404
+    masks: []

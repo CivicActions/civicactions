@@ -1,0 +1,77 @@
+name: "PR Static Status Relay"
+
+on:
+  workflow_run:
+    workflows: ["PR Static Checks"]
+    types: [completed]
+
+permissions:
+  statuses: write
+
+jobs:
+  relay-status:
+    name: "Relay Static Status"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout repository for composite actions
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: |
+            .github/actions/update-gate
+
+      - name: Post status and update gate
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 -c "
+          import os, sys, urllib.request, json
+
+          token = os.environ['GH_TOKEN']
+          repo = os.environ['REPO']
+          head_sha = os.environ['HEAD_SHA']
+          conclusion = os.environ['CONCLUSION']
+          run_url = os.environ['RUN_URL']
+
+          if conclusion == 'cancelled':
+              print('Workflow was cancelled; skipping status write.')
+              sys.exit(0)
+
+          state = 'success' if conclusion == 'success' else 'failure'
+          description = 'Static checks passed' if conclusion == 'success' else 'Static checks failed (see run details)'
+
+          headers = {
+              'Authorization': f'token {token}',
+              'Accept': 'application/vnd.github.v3+json',
+              'User-Agent': 'civicactions-static-status'
+          }
+
+          # Post ci/static status
+          url = f'https://api.github.com/repos/{repo}/statuses/{head_sha}'
+          payload = json.dumps({
+              'state': state,
+              'context': 'ci/static',
+              'description': description,
+              'target_url': run_url
+          }).encode('utf-8')
+
+          req = urllib.request.Request(url, data=payload, headers=headers)
+          with urllib.request.urlopen(req) as resp:
+              print(f'Posted ci/static = {state} on {head_sha[:8]}')
+          "
+
+      - name: Update Gate Status
+        uses: ./.github/actions/update-gate
+        with:
+          sha: ${{ github.event.workflow_run.head_sha }}
+          github-token: ${{ steps.app-token.outputs.token }}

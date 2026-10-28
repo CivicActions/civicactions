@@ -167,7 +167,10 @@
                 "[project-root]/.editorconfig": false,
                 "[project-root]/pantheon.upstream.yml": false,
                 "[project-root]/.gitattributes": false,
-                "[web-root]/example.gitignore": false
+                "[web-root]/example.gitignore": false,
+                "[web-root]/robots.txt": {
+                    "append": "robots.append.txt"
+                }
             },
             "allowed-packages": [
                 "drupal/drupal_cms_seo_tools",

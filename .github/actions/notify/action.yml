@@ -1,0 +1,113 @@
+name: "CI Alert & Notification"
+description: "Upserts a deduplicated GitHub issue by alert kind and optionally notifies Slack"
+inputs:
+  kind:
+    description: "Alert kind (e.g. deploy-blocked, live-check-failed, dev-check-failed, security-advisory)"
+    required: true
+  title:
+    description: "Issue title"
+    required: true
+  body:
+    description: "Markdown body content"
+    required: true
+  resolved:
+    description: "Set to 'true' if the condition has cleared and the tracking issue should be closed"
+    required: false
+    default: "false"
+  slack-webhook-url:
+    description: "Slack incoming webhook URL (optional)"
+    required: false
+    default: ""
+  github-token:
+    description: "GitHub Token with issues:write permission"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Manage tracking issue and post notification
+      shell: bash
+      env:
+        KIND: ${{ inputs.kind }}
+        TITLE: ${{ inputs.title }}
+        BODY: ${{ inputs.body }}
+        RESOLVED: ${{ inputs.resolved }}
+        SLACK_URL: ${{ inputs.slack-webhook-url }}
+        GH_TOKEN: ${{ inputs.github-token }}
+        REPO: ${{ github.repository }}
+      run: |
+        python3 -c "
+        import os, sys, urllib.request, json
+
+        token = os.environ['GH_TOKEN']
+        repo = os.environ['REPO']
+        kind = os.environ['KIND']
+        title = os.environ['TITLE']
+        body = os.environ['BODY']
+        resolved = os.environ.get('RESOLVED', 'false').lower() == 'true'
+        slack_url = os.environ.get('SLACK_URL', '')
+
+        label = f'ci-alert:{kind}'
+
+        headers = {
+            'Authorization': f'token {token}',
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'civicactions-notifier'
+        }
+
+        # 1. Search for existing open issue with this label
+        url = f'https://api.github.com/repos/{repo}/issues?labels={label}&state=open'
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req) as resp:
+            issues = json.loads(resp.read().decode())
+
+        target_issue = issues[0] if issues else None
+
+        if resolved:
+            if target_issue:
+                issue_num = target_issue['number']
+                print(f'Closing resolved alert issue #{issue_num} ({label})')
+                close_url = f'https://api.github.com/repos/{repo}/issues/{issue_num}'
+                close_payload = json.dumps({'state': 'closed'}).encode('utf-8')
+                close_req = urllib.request.Request(close_url, data=close_payload, headers=headers, method='PATCH')
+                urllib.request.urlopen(close_req)
+                comment_url = f'https://api.github.com/repos/{repo}/issues/{issue_num}/comments'
+                comment_payload = json.dumps({'body': '✓ Alert resolved: condition is now clear.'}).encode('utf-8')
+                urllib.request.urlopen(urllib.request.Request(comment_url, data=comment_payload, headers=headers))
+            else:
+                print(f'No open issue for {label} to resolve.')
+            sys.exit(0)
+
+        # Upsert issue
+        issue_url = ''
+        if target_issue:
+            issue_num = target_issue['number']
+            issue_url = target_issue['html_url']
+            print(f'Updating existing issue #{issue_num}')
+            patch_url = f'https://api.github.com/repos/{repo}/issues/{issue_num}'
+            patch_payload = json.dumps({'title': title, 'body': body}).encode('utf-8')
+            urllib.request.urlopen(urllib.request.Request(patch_url, data=patch_payload, headers=headers, method='PATCH'))
+
+            comment_url = f'https://api.github.com/repos/{repo}/issues/{issue_num}/comments'
+            comment_payload = json.dumps({'body': f'Update:\n\n{body}'}).encode('utf-8')
+            urllib.request.urlopen(urllib.request.Request(comment_url, data=comment_payload, headers=headers))
+        else:
+            print(f'Creating new issue for {label}')
+            create_url = f'https://api.github.com/repos/{repo}/issues'
+            create_payload = json.dumps({'title': title, 'body': body, 'labels': [label]}).encode('utf-8')
+            create_req = urllib.request.Request(create_url, data=create_payload, headers=headers)
+            with urllib.request.urlopen(create_req) as resp:
+                created = json.loads(resp.read().decode())
+                issue_url = created.get('html_url', '')
+
+        # Post to Slack if configured
+        if slack_url and not resolved:
+            slack_text = f'*[{kind.upper()}]* {title}\n{issue_url}'
+            slack_payload = json.dumps({'text': slack_text}).encode('utf-8')
+            slack_req = urllib.request.Request(slack_url, data=slack_payload, headers={'Content-Type': 'application/json'})
+            try:
+                urllib.request.urlopen(slack_req)
+                print('Sent alert to Slack.')
+            except Exception as e:
+                print(f'Failed to post to Slack: {e}', file=sys.stderr)
+        "
