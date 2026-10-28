@@ -1,46 +1,242 @@
 /**
  * @file
- * Visual styles for exposed filters.
+ * Visual styles for Views exposed filters.
+ *
+ * Scoped with @scope (.ca-views-exposed-form) with progressive enhancement fallback.
  */
 
-.exposed-filters .filters {
-  float: left; /* LTR */
-  margin-right: 1em; /* LTR */
+.view-filters {
+  margin-block-end: var(--size-8, 2rem);
 }
-[dir="rtl"] .exposed-filters .filters {
-  float: right;
-  margin-right: 0;
-  margin-left: 1em;
+
+/* Unscoped progressive-enhancement fallback */
+.ca-views-exposed-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--size-4, 1rem) var(--size-6, 1.5rem);
 }
-.exposed-filters .form-item {
-  margin: 0 0 0.1em 0;
-  padding: 0;
+
+.ca-views-exposed-form .form-item,
+.ca-views-exposed-form .form-actions {
+  float: none;
+  clear: none;
+  margin: 0;
 }
-.exposed-filters .form-item label {
-  float: left; /* LTR */
-  width: 10em;
-  font-weight: normal;
+
+.ca-views-exposed-form .form-item label {
+  display: block;
+  margin-block-end: var(--size-2, 0.5rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-body, #1b1b1b);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
-[dir="rtl"] .exposed-filters .form-item label {
-  float: right;
+
+.ca-views-exposed-form .form-select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 15rem;
+  min-height: 44px;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  color: var(--text-body, #1b1b1b);
+  border: 1px solid var(--gray-30, #adadad);
+  border-radius: 0;
+  background-color: var(--white, #fff);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%231b1b1b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5L6 6.5L11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--size-4, 1rem) center;
+  background-size: 12px 8px;
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--font-size-body, 1rem);
+  font-weight: 600;
+  line-height: var(--line-height-body, 1.375rem);
+  padding-block: 0.625rem;
+  padding-inline: var(--size-4, 1rem) var(--size-10, 2.5rem);
+  appearance: none;
 }
-.exposed-filters .form-select {
-  width: 14em;
+
+.ca-views-exposed-form .form-select:hover {
+  border-color: var(--gray-70, #454545);
 }
-/* Current filters */
-.exposed-filters .current-filters {
-  margin-bottom: 1em;
+
+.ca-views-exposed-form .form-select:focus-visible {
+  border-color: var(--primary-blue, #162e51);
+  outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+  outline-offset: var(--focus-outline-offset, 3px);
 }
-.exposed-filters .current-filters .placeholder {
-  font-weight: bold;
-  font-style: normal;
+
+.ca-views-exposed-form .form-actions .form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  margin: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--white, #fff);
+  border: 1px solid var(--primary-red, #d83933);
+  border-radius: 0;
+  background-color: var(--primary-red, #d83933);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--font-size-body, 1rem);
+  font-weight: 700;
+  line-height: var(--line-height-body, 1.375rem);
+  padding-block: 0.625rem;
+  padding-inline: var(--size-6, 1.5rem);
 }
-.exposed-filters .additional-filters {
-  float: left; /* LTR */
-  margin-right: 1em; /* LTR */
+
+.ca-views-exposed-form .form-actions .form-submit:hover {
+  border-color: var(--gray-90, #171717);
+  background-color: var(--gray-90, #171717);
 }
-[dir="rtl"] .exposed-filters .additional-filters {
-  float: right;
-  margin-right: 0;
-  margin-left: 1em;
+
+.ca-views-exposed-form .form-actions .form-submit:focus-visible {
+  border-color: var(--gray-90, #171717);
+  outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+  outline-offset: var(--focus-outline-offset, 3px);
+  background-color: var(--gray-90, #171717);
+}
+
+@media (max-width: 600px) {
+  .ca-views-exposed-form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--size-4, 1rem);
+  }
+
+  .ca-views-exposed-form .form-item,
+  .ca-views-exposed-form .form-actions,
+  .ca-views-exposed-form .form-select,
+  .ca-views-exposed-form .form-actions .form-submit {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Scoped block */
+@scope (.ca-views-exposed-form) {
+  :scope {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--size-4, 1rem) var(--size-6, 1.5rem);
+  }
+
+  .form-item,
+  .form-actions {
+    float: none;
+    clear: none;
+    margin: 0;
+  }
+
+  .form-item label {
+    display: block;
+    margin-block-end: var(--size-2, 0.5rem);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-body, #1b1b1b);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .form-select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 15rem;
+    min-height: 44px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    color: var(--text-body, #1b1b1b);
+    border: 1px solid var(--gray-30, #adadad);
+    border-radius: 0;
+    background-color: var(--white, #fff);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%231b1b1b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5L6 6.5L11 1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--size-4, 1rem) center;
+    background-size: 12px 8px;
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--font-size-body, 1rem);
+    font-weight: 600;
+    line-height: var(--line-height-body, 1.375rem);
+    padding-block: 0.625rem;
+    padding-inline: var(--size-4, 1rem) var(--size-10, 2.5rem);
+    appearance: none;
+  }
+
+  .form-select:hover {
+    border-color: var(--gray-70, #454545);
+  }
+
+  .form-select:focus-visible {
+    border-color: var(--primary-blue, #162e51);
+    outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+    outline-offset: var(--focus-outline-offset, 3px);
+  }
+
+  .form-actions .form-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 44px;
+    margin: 0;
+    cursor: pointer;
+    transition:
+      background-color 0.4s ease,
+      border-color 0.4s ease;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white, #fff);
+    border: 1px solid var(--primary-red, #d83933);
+    border-radius: 0;
+    background-color: var(--primary-red, #d83933);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--font-size-body, 1rem);
+    font-weight: 700;
+    line-height: var(--line-height-body, 1.375rem);
+    padding-block: 0.625rem;
+    padding-inline: var(--size-6, 1.5rem);
+  }
+
+  .form-actions .form-submit:hover {
+    border-color: var(--gray-90, #171717);
+    background-color: var(--gray-90, #171717);
+  }
+
+  .form-actions .form-submit:focus-visible {
+    border-color: var(--gray-90, #171717);
+    outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+    outline-offset: var(--focus-outline-offset, 3px);
+    background-color: var(--gray-90, #171717);
+  }
+
+  @media (max-width: 600px) {
+    :scope {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--size-4, 1rem);
+    }
+
+    .form-item,
+    .form-actions,
+    .form-select,
+    .form-actions .form-submit {
+      width: 100%;
+      min-width: 0;
+    }
+  }
 }

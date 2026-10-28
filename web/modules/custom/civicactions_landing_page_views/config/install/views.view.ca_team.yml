@@ -202,23 +202,25 @@ display:
           admin_label: 'Profile Category: Team member'
           plugin_id: taxonomy_index_tid
           operator: or
-          value: {  }
+          value:
+            293: 293
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: ''
-            label: 'Team page category'
+            label: ''
             description: ''
             use_operator: false
             operator: ''
             operator_limit_selection: false
             operator_list: {  }
-            identifier: profile_category
+            identifier: ''
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
