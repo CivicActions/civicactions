@@ -117,3 +117,9 @@
 /tests/e2e/test-results/
 /tests/e2e/playwright-report/
 /.github/ci/node_modules/
+
+# Spec Kit skills/specs
+.github/agents/
+.github/prompts/
+.specify/
+specs/

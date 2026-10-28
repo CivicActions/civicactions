@@ -57,7 +57,7 @@ jobs:
           echo "Master: ${MASTER_SHA}"
 
           # 1. Check window
-          WINDOW_CONFIG='${{ vars.DEPLOY_WINDOW || "{\"days\":[1,2,3,4],\"start\":\"09:00\",\"end\":\"15:00\",\"tz\":\"America/Los_Angeles\"}" }}'
+          WINDOW_CONFIG="${DEPLOY_WINDOW_VAR:-{\"days\":[1,2,3,4],\"start\":\"09:00\",\"end\":\"15:00\",\"tz\":\"America/Los_Angeles\"}}"
           WINDOW_RES=$(node .github/ci/deploy-window.mjs --window "${WINDOW_CONFIG}")
           IN_WINDOW=$(echo "${WINDOW_RES}" | jq -r .open)
           echo "In window: ${IN_WINDOW}"
@@ -73,85 +73,9 @@ jobs:
           TRACK_RECORD=$(.github/ci/deployment-record.sh count-manual)
           echo "Manual track record: ${TRACK_RECORD}"
 
-          # 4. Fetch commits between live and master
-          python3 -c "
-          import os, sys, urllib.request, json, subprocess
-
-          token = os.environ['GH_TOKEN']
-          repo = os.environ['REPO']
-          live_sha = '${LIVE_SHA}'
-          master_sha = '${MASTER_SHA}'
-          dev_sha = '${DEV_SHA}'
-          test_sha = '${TEST_SHA}'
-          in_window = ('${IN_WINDOW}' == 'true')
-          live_clean = ('${LIVE_CLEAN}' == 'true')
-          auto_enabled = ('${AUTO_DEPLOY_ENABLED_VAR}' == 'true')
-          track_record = int('${TRACK_RECORD}' or 0)
-
-          headers = {
-              'Authorization': f'token {token}',
-              'Accept': 'application/vnd.github.v3+json',
-              'User-Agent': 'civicactions-deploy-gate'
-          }
-
-          commits_list = []
-          if live_sha and master_sha and live_sha != master_sha:
-              compare_url = f'https://api.github.com/repos/{repo}/compare/{live_sha}...{master_sha}'
-              try:
-                  req = urllib.request.Request(compare_url, headers=headers)
-                  with urllib.request.urlopen(req) as resp:
-                      comp_data = json.loads(resp.read().decode())
-                  for c in comp_data.get('commits', []):
-                      c_sha = c['sha']
-                      # Find associated PR
-                      pr_url = f'https://api.github.com/repos/{repo}/commits/{c_sha}/pulls'
-                      req_p = urllib.request.Request(pr_url, headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github.groot-preview+json'})
-                      pr_num = None
-                      pr_labels = []
-                      try:
-                          with urllib.request.urlopen(req_p) as resp_p:
-                              prs = json.loads(resp_p.read().decode())
-                              if prs:
-                                  pr_num = prs[0]['number']
-                                  pr_labels = [l['name'] for l in prs[0].get('labels', [])]
-                      except Exception:
-                          pass
-
-                      commits_list.append({
-                          'sha': c_sha,
-                          'pr': pr_num,
-                          'labels': pr_labels
-                      })
-              except Exception as e:
-                  print(f'Note on commit comparison: {e}')
-
-          state = {
-              'live_sha': live_sha,
-              'master_sha': master_sha,
-              'dev_sha': dev_sha,
-              'test_sha': test_sha,
-              'commits': commits_list,
-              'live_clean': live_clean,
-              'in_window': in_window,
-              'auto_deploy_enabled': auto_enabled,
-              'manual_track_record': track_record
-          }
-
-          with open('gate-state.json', 'w') as f:
-              json.dump(state, f, indent=2)
-
-          eval_res = subprocess.run(['node', '.github/ci/evaluate-deploy-gate.mjs', '--state', json.dumps(state)], capture_output=True, text=True, check=True)
-          eval_data = json.loads(eval_res.stdout)
-          with open('gate-eval.json', 'w') as f:
-              json.dump(eval_data, f, indent=2)
-
-          print('Decision:', eval_data['decision'])
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              out.write(f"decision={eval_data['decision']}\n")
-              out.write(f"target_sha={master_sha}\n")
-          with open(os.environ['GITHUB_ENV'], 'a') as env_file:
-              env_file.write(f"GATE_JSON<<EOF\n{json.dumps(eval_data)}\nEOF\n")
-          "
+          # 4. Fetch commits and evaluate gate
+          export DEV_SHA TEST_SHA LIVE_SHA MASTER_SHA IN_WINDOW LIVE_CLEAN TRACK_RECORD
+          python3 .github/ci/auto-deploy-gate-runner.py
 
       - name: Trigger Automated Deployment
         if: steps.gate.outputs.decision == 'deploy'

@@ -29,6 +29,7 @@ jobs:
         with:
           sparse-checkout: |
             .github/actions/update-gate
+            .github/ci
 
       - name: Set pending statuses and cancel stale runs
         env:
@@ -37,56 +38,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
-          python3 -c "
-          import os, sys, urllib.request, json
-
-          token = os.environ['GH_TOKEN']
-          repo = os.environ['REPO']
-          sha = os.environ['HEAD_SHA']
-          pr = os.environ['PR_NUMBER']
-
-          headers = {
-              'Authorization': f'token {token}',
-              'Accept': 'application/vnd.github.v3+json',
-              'User-Agent': 'civicactions-pr-target'
-          }
-
-          # 1. Post pending status for ci/static
-          post_url = f'https://api.github.com/repos/{repo}/statuses/{sha}'
-          req = urllib.request.Request(post_url, data=json.dumps({
-              'state': 'pending',
-              'context': 'ci/static',
-              'description': 'Static checks running'
-          }).encode('utf-8'), headers=headers)
-          urllib.request.urlopen(req)
-
-          # 2. Post pending status for ci/review-env
-          req2 = urllib.request.Request(post_url, data=json.dumps({
-              'state': 'pending',
-              'context': 'ci/review-env',
-              'description': f'Waiting for Pantheon pr-{pr}'
-          }).encode('utf-8'), headers=headers)
-          urllib.request.urlopen(req2)
-          print(f'Initialized pending statuses for {sha[:8]} on PR #{pr}')
-
-          # 3. Cancel in-flight pr-review-env runs for older SHAs on this PR
-          runs_url = f'https://api.github.com/repos/{repo}/actions/workflows/pr-review-env.yml/runs?status=in_progress'
-          try:
-              req_runs = urllib.request.Request(runs_url, headers=headers)
-              with urllib.request.urlopen(req_runs) as resp:
-                  runs_data = json.loads(resp.read().decode()).get('workflow_runs', [])
-
-              target_prefix = f'review-env PR #{pr} @'
-              for r in runs_data:
-                  run_name = r.get('name', '')
-                  run_id = r['id']
-                  if target_prefix in run_name and not run_name.endswith(sha[:8]):
-                      print(f'Cancelling stale in-progress review-env run #{run_id}: {run_name}')
-                      cancel_url = f'https://api.github.com/repos/{repo}/actions/runs/{run_id}/cancel'
-                      urllib.request.urlopen(urllib.request.Request(cancel_url, data=b'', headers=headers))
-          except Exception as e:
-              print(f'Note on run cancellation: {e}')
-          "
+          python3 .github/ci/pr-target-mark-pending.py
 
       - name: Update Gate Status
         uses: ./.github/actions/update-gate
@@ -130,130 +82,7 @@ jobs:
           AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED || 'false' }}
           REPO: ${{ github.repository }}
         run: |
-          python3 -c "
-          import os, sys, urllib.request, json, subprocess
-
-          token = os.environ['GH_TOKEN']
-          repo = os.environ['REPO']
-          pr = os.environ['PR_NUMBER']
-          base_sha = os.environ['BASE_SHA']
-          head_sha = os.environ['HEAD_SHA']
-          ecosystem = os.environ.get('PACKAGE_ECOSYSTEM', 'composer')
-          auto_merge_enabled = os.environ.get('AUTO_MERGE_ENABLED', 'false').lower() == 'true'
-
-          headers = {
-              'Authorization': f'token {token}',
-              'Accept': 'application/vnd.github.v3+json',
-              'User-Agent': 'civicactions-classifier'
-          }
-
-          # 1. Fetch changed files on PR
-          files_url = f'https://api.github.com/repos/{repo}/pulls/{pr}/files?per_page=100'
-          req = urllib.request.Request(files_url, headers=headers)
-          with urllib.request.urlopen(req) as resp:
-              pr_files = [f['filename'] for f in json.loads(resp.read().decode())]
-
-          with open('changed-files.json', 'w') as f:
-              json.dump(pr_files, f)
-
-          # 2. Fetch lockfiles
-          lock_filename = 'composer.lock' if ecosystem == 'composer' else 'web/themes/omnichannel/package-lock.json'
-          def fetch_file(path, ref):
-              url = f'https://api.github.com/repos/{repo}/contents/{path}?ref={ref}'
-              try:
-                  r = urllib.request.Request(url, headers={'Authorization': f'token {token}', 'Accept': 'application/vnd.github.raw+json'})
-                  with urllib.request.urlopen(r) as response:
-                      return response.read().decode('utf-8')
-              except Exception:
-                  return '{}'
-
-          base_lock = fetch_file(lock_filename, base_sha)
-          head_lock = fetch_file(lock_filename, head_sha)
-
-          with open('base-lock.json', 'w') as f:
-              f.write(base_lock)
-          with open('head-lock.json', 'w') as f:
-              f.write(head_lock)
-
-          metadata = {
-              'advisories': [] # Populated by dependabot-metadata if alerts found
-          }
-          if os.environ.get('ALERTS_LOOKUP') and os.environ.get('ALERTS_LOOKUP') != '[]':
-              try:
-                  metadata['advisories'] = json.loads(os.environ['ALERTS_LOOKUP'])
-              except Exception:
-                  metadata['advisories'] = [{'ghsa_id': 'advisory'}]
-
-          with open('metadata.json', 'w') as f:
-              json.dump(metadata, f)
-
-          # 3. Execute classify-dependency-pr.mjs
-          cmd = [
-              'node', '.github/ci/classify-dependency-pr.mjs',
-              '--metadata', 'metadata.json',
-              '--base-lock', 'base-lock.json',
-              '--head-lock', 'head-lock.json',
-              '--files', 'changed-files.json',
-              '--ecosystem', ecosystem
-          ]
-          res = subprocess.run(cmd, capture_output=True, text=True, check=True)
-          result = json.loads(res.stdout)
-
-          category = result['category']
-          label = result['label']
-          reasons = result.get('reasons', [])
-
-          print(f'Classification result for PR #{pr}: {category} -> {label}')
-
-          # 4. Set labels
-          # Remove other deps: labels first
-          existing_labels_url = f'https://api.github.com/repos/{repo}/issues/{pr}/labels'
-          req_l = urllib.request.Request(existing_labels_url, headers=headers)
-          with urllib.request.urlopen(req_l) as resp_l:
-              cur_labels = [l['name'] for l in json.loads(resp_l.read().decode())]
-
-          for l in cur_labels:
-              if l.startswith('deps:') and l != label:
-                  del_url = f'https://api.github.com/repos/{repo}/issues/{pr}/labels/{urllib.parse.quote(l)}'
-                  urllib.request.urlopen(urllib.request.Request(del_url, headers=headers, method='DELETE'))
-
-          add_label_url = f'https://api.github.com/repos/{repo}/issues/{pr}/labels'
-          urllib.request.urlopen(urllib.request.Request(add_label_url, data=json.dumps({'labels': [label]}).encode('utf-8'), headers=headers))
-
-          # 5. Build PR comment
-          diff_rows = ''
-          for d in result.get('diffs', []):
-              diff_rows += f"| `{d['name']}` | {d.get('from') or 'new'} | {d.get('to') or 'removed'} | {d['change']} |\n"
-
-          comment_lines = [
-              f"### Dependabot Classification: `{label}`",
-              f"- **Category**: **{category}**",
-              f"- **Ecosystem**: {ecosystem}",
-              f"- **Security Advisories**: {len(result.get('advisories', []))}",
-              "",
-              "| Package | From | To | Change |",
-              "|---|---|---|---|",
-              diff_rows.strip() if diff_rows else "| None | - | - | - |"
-          ]
-          if reasons:
-              comment_lines.append("\n**Reasons for review:**")
-              for r in reasons:
-                  comment_lines.append(f"- {r}")
-
-          comment_body = "\n".join(comment_lines)
-
-          with open('classification-comment.md', 'w') as f:
-              f.write(comment_body)
-
-          # Export to GITHUB_ENV
-          with open(os.environ['GITHUB_ENV'], 'a') as env_file:
-              env_file.write(f'COMMENT_BODY<<EOF\n{comment_body}\nEOF\n')
-
-          # 6. Auto-merge if eligible
-          if auto_merge_enabled and category != 'needs-review':
-              print('Enabling auto-merge for PR #' + pr)
-              subprocess.run(['gh', 'pr', 'merge', pr, '--auto', '--squash'], check=False)
-          "
+          python3 .github/ci/pr-target-classify.py
 
       - name: Upsert Classification Comment
         if: env.COMMENT_BODY != ''
