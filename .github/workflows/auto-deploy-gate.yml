@@ -87,6 +87,10 @@ jobs:
 
       - name: Notify Blocked Auto-Deployment
         if: steps.gate.outputs.decision == 'blocked'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          TARGET_SHA: ${{ steps.gate.outputs.target_sha }}
         run: |
           REASONS=$(jq -r '.reasons[]' gate-eval.json 2>/dev/null || echo "Unknown reasons")
           HAS_SECURITY_PR=$(jq -e '.commits[] | select(.labels[] == "deps:security-verified")' gate-state.json >/dev/null 2>&1 && echo "true" || echo "false")
@@ -96,12 +100,10 @@ jobs:
             echo "Security commits are pending but blocked from automatic deployment:"
             echo "${REASONS}"
 
-            gh api "repos/${{ github.repository }}/issues" \
+            gh api "repos/${REPO}/issues" \
               -f title="Automated Deployment Blocked for Pending Security Updates" \
-              -f body="Automated live deployment was evaluated and blocked for the following reasons:\n\n${REASONS}\n\nTarget SHA: ${{ steps.gate.outputs.target_sha }}" \
+              -f body="Automated live deployment was evaluated and blocked for the following reasons:\n\n${REASONS}\n\nTarget SHA: ${TARGET_SHA}" \
               -f labels='["ci-alert:deploy-blocked"]' || true
           else
             echo "No pending security PRs to deploy. Gate evaluation complete without action."
           fi
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}

@@ -288,7 +288,7 @@ jobs:
           # 6. Build PR comment
           CREATED_AT=$(terminus env:info "${PANTHEON_SITE}.${ENV_NAME}" --field=created)
           COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Cloned At**: <t:%s:f>\n- **Functional & A11y Tests**: %s\n- **Drush Deploy & Health**: ✓ Passed\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s" \
-            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CREATED_AT}" "${{ needs.browser-tests.result }}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
+            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CREATED_AT}" "${BROWSER_RESULT}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
 
           {
             echo "COMMENT_BODY<<EOF"

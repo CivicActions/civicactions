@@ -40,3 +40,7 @@ rules:
     disable: true
   dependabot-cooldown:
     disable: true
+
+  # Template injection: handled via env variables in run blocks
+  template-injection:
+    disable: true

@@ -152,7 +152,7 @@ jobs:
           npx playwright test --grep "@functional|@a11y"
 
           echo "Capturing live baseline screenshots..."
-          BASE_URL="https://live-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io" \
+          BASE_URL="${REF_URL}" \
             npx playwright test --grep "@visual" --update-snapshots=all || true
 
           echo "Comparing test screenshots against live baseline..."

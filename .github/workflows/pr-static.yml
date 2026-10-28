@@ -197,16 +197,24 @@ jobs:
     runs-on: ubuntu-latest
     needs: [composer, phpstan, phpcs, theme-lint, storybook, dependency-review, ci-unit-tests]
     if: always()
+    env:
+      COMPOSER_RESULT: ${{ needs.composer.result }}
+      PHPSTAN_RESULT: ${{ needs.phpstan.result }}
+      PHPCS_RESULT: ${{ needs.phpcs.result }}
+      THEME_LINT_RESULT: ${{ needs.theme-lint.result }}
+      STORYBOOK_RESULT: ${{ needs.storybook.result }}
+      DEP_REVIEW_RESULT: ${{ needs.dependency-review.result }}
+      UNIT_TESTS_RESULT: ${{ needs.ci-unit-tests.result }}
     steps:
       - name: Check result
         run: |
-          if [[ "${{ needs.composer.result }}" != "success" || \
-                "${{ needs.phpstan.result }}" != "success" || \
-                "${{ needs.phpcs.result }}" != "success" || \
-                "${{ needs.theme-lint.result }}" != "success" || \
-                "${{ needs.storybook.result }}" != "success" || \
-                "${{ needs.dependency-review.result }}" != "success" || \
-                "${{ needs.ci-unit-tests.result }}" != "success" ]]; then
+          if [[ "${COMPOSER_RESULT}" != "success" || \
+                "${PHPSTAN_RESULT}" != "success" || \
+                "${PHPCS_RESULT}" != "success" || \
+                "${THEME_LINT_RESULT}" != "success" || \
+                "${STORYBOOK_RESULT}" != "success" || \
+                "${DEP_REVIEW_RESULT}" != "success" || \
+                "${UNIT_TESTS_RESULT}" != "success" ]]; then
             echo "Static checks failed." >&2
             exit 1
           fi
