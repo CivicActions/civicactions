@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@c54fbc0777231c0f82b5377710e0e0cf55448378 # v2.32.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
           tools: composer:v2
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@c54fbc0777231c0f82b5377710e0e0cf55448378 # v2.32.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
           tools: composer:v2
@@ -61,7 +61,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@c54fbc0777231c0f82b5377710e0e0cf55448378 # v2.32.0
+        uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
           tools: composer:v2
@@ -87,7 +87,7 @@ jobs:
           node-version: "22"
 
       - name: Cache Drupal Core Yarn dependencies
-        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772115cf71e # v4.2.2
+        uses: actions/cache@v4
         with:
           path: web/core/node_modules
           key: ${{ runner.os }}-core-yarn-${{ hashFiles('web/core/yarn.lock') }}
@@ -180,7 +180,7 @@ jobs:
           node-version: "22"
 
       - name: Run Node test suite
-        run: node --test .github/ci/test/
+        run: node --test .github/ci/test/*.test.mjs
 
   static-result:
     name: "Static Checks Result"

@@ -147,8 +147,10 @@ jobs:
 
           print('Decision:', eval_data['decision'])
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              out.write(f\"decision={eval_data['decision']}\\n\")
-              out.write(f\"target_sha={master_sha}\\n\")
+              out.write(f"decision={eval_data['decision']}\n")
+              out.write(f"target_sha={master_sha}\n")
+          with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+              env_file.write(f"GATE_JSON<<EOF\n{json.dumps(eval_data)}\nEOF\n")
           "
 
       - name: Trigger Automated Deployment
@@ -157,7 +159,7 @@ jobs:
         with:
           trigger: "auto"
           expected_sha: ${{ steps.gate.outputs.target_sha }}
-          gate_json: ${{ hashFiles('gate-eval.json') != '' && steps.read_eval.outputs.content || '{}' }}
+          gate_json: ${{ env.GATE_JSON || '{}' }}
 
       - name: Notify Blocked Auto-Deployment
         if: steps.gate.outputs.decision == 'blocked'

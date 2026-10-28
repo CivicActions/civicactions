@@ -90,8 +90,7 @@ jobs:
           fi
 
           # 3. Check for refresh-content label
-          if echo "${LABELS}" | tr ',' '
-' | grep -q "^refresh-content$"; then
+          if echo "${LABELS}" | tr ',' '\n' | grep -q "^refresh-content$"; then
             echo "Label refresh-content detected. Syncing content from dev..."
             terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --yes
             gh api --method DELETE "repos/${REPO}/issues/${PR_NUMBER}/labels/refresh-content" || true
@@ -286,19 +285,9 @@ jobs:
 
           # 6. Build PR comment
           CREATED_AT=$(terminus env:info "${PANTHEON_SITE}.${ENV_NAME}" --field=created)
-          COMMENT_BODY=$(cat <<EOF
-### Review Environment: [${ENV_NAME}](${ENV_URL})
-- **Deployed Commit**: \`${VERIFIED_SHA:0:7}\`
-- **Content Cloned At**: <t:${CREATED_AT}:f>
-- **Functional & A11y Tests**: ${{ needs.browser-tests.result }}
-- **Drush Deploy & Health**: ✓ Passed
+          COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Cloned At**: <t:%s:f>\n- **Functional & A11y Tests**: %s\n- **Drush Deploy & Health**: ✓ Passed\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s" \
+            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CREATED_AT}" "${{ needs.browser-tests.result }}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
 
-#### Visual Comparison (Dev vs ${ENV_NAME})
-${VISUAL_TABLE}
-
-${COVERAGE_WARNINGS}
-EOF
-)
           echo "COMMENT_BODY<<EOF" >> $GITHUB_ENV
           echo "${COMMENT_BODY}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV

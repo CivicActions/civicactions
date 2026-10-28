@@ -223,19 +223,24 @@ jobs:
           # 5. Build PR comment
           diff_rows = ''
           for d in result.get('diffs', []):
-              diff_rows += f\"| \\`{d['name']}\\` | {d.get('from') or 'new'} | {d.get('to') or 'removed'} | {d['change']} |\\n\"
+              diff_rows += f"| `{d['name']}` | {d.get('from') or 'new'} | {d.get('to') or 'removed'} | {d['change']} |\n"
 
-          comment_body = f'''### Dependabot Classification: \\`{label}\\`
-- **Category**: **{category}**
-- **Ecosystem**: {ecosystem}
-- **Security Advisories**: {len(result.get('advisories', []))}
-
-| Package | From | To | Change |
-|---|---|---|---|
-{diff_rows or '| None | - | - | - |\\n'}
-'''
+          comment_lines = [
+              f"### Dependabot Classification: `{label}`",
+              f"- **Category**: **{category}**",
+              f"- **Ecosystem**: {ecosystem}",
+              f"- **Security Advisories**: {len(result.get('advisories', []))}",
+              "",
+              "| Package | From | To | Change |",
+              "|---|---|---|---|",
+              diff_rows.strip() if diff_rows else "| None | - | - | - |"
+          ]
           if reasons:
-              comment_body += '\\n**Reasons for review:**\\n' + '\\n'.join(f'- {r}' for r in reasons)
+              comment_lines.append("\n**Reasons for review:**")
+              for r in reasons:
+                  comment_lines.append(f"- {r}")
+
+          comment_body = "\n".join(comment_lines)
 
           with open('classification-comment.md', 'w') as f:
               f.write(comment_body)

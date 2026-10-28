@@ -113,17 +113,19 @@ jobs:
           print(f'Uncovered security findings: {len(findings)}')
 
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              out.write(f'has_findings={\"true\" if has_uncovered_findings else \"false\"}\n')
+              out.write(f"has_findings={'true' if has_uncovered_findings else 'false'}\n")
 
           if has_uncovered_findings:
               lines = ['The following security advisories affect dependencies on `master` or `live` and have NO open fix PR:\n']
               lines.append('| Source | Package | Advisory | Link |')
               lines.append('|---|---|---|---|')
               for f in findings:
-                  lines.append(f\"| {f['source']} | `{f['package']}` | {f['title']} | {f.get('link', '')} |\")
+                  lines.append(f"| {f['source']} | `{f['package']}` | {f['title']} | {f.get('link', '')} |")
               report = '\n'.join(lines)
               with open('security-report.md', 'w') as rf:
                   rf.write(report)
+              with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+                  env_file.write(f"REPORT_BODY<<EOF\n{report}\nEOF\n")
           "
 
       - name: Alert on Uncovered Advisories
@@ -132,7 +134,7 @@ jobs:
         with:
           kind: "security-advisory"
           title: "Security Advisories Detected without Fix PR"
-          body: ${{ hashFiles('security-report.md') != '' && steps.read_report.outputs.content || 'Security advisories detected on site.' }}
+          body: ${{ env.REPORT_BODY || 'Security advisories detected on site.' }}
           resolved: "false"
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           github-token: ${{ steps.app-token.outputs.token }}
