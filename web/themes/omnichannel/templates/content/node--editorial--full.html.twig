@@ -79,19 +79,8 @@
         title: label,
        
     } only %}
- {# image in header or elsewhere on page? image: content.schema_image, #}
 {% endif %}
 {{ title_suffix }}
-
-{% if display_submitted %}
-    <footer class="node__meta">
-        {{ author_picture }}
-        <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-        </div>
-    </footer>
-{% endif %}
 
 <div{{ content_attributes.addClass('node__content ca-container ca-container--narrow') }}>
 
