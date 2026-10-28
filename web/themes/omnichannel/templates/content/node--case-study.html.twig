@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * Case study detail fields in legacy page order, using case_study_props.
+ */
+#}
+{% extends "node.html.twig" %}
+
+{% block node_content %}
+  {% if view_mode != 'full' %}
+    {{ parent() }}
+  {% else %}
+    {{ attach_library('omnichannel/case-study') }}
+    {% set props = case_study_props %}
+    {% include 'omnichannel:case-study-header' with {
+      title: props.title,
+      client: props.client,
+      description: props.description,
+      narrow_width: true,
+    } only %}
+
+    {% if props.hero_image is not empty %}
+      <div class="ca-case-study__hero ca-container">
+        {{ props.hero_image }}
+      </div>
+    {% endif %}
+
+    {% if props.proofpoints_component_props is not empty %}
+      <section class="ca-case-study__proofpoints ca-container">
+        {% include 'omnichannel:proofpoints' with props.proofpoints_component_props|merge({ card_style: true }) only %}
+      </section>
+    {% endif %}
+
+    <div{{ content_attributes.addClass('node__content ca-container ca-container--narrow') }}>
+      {{ props.body }}
+    </div>
+
+    {# Expertise and Tools #}
+    {% if props.expertise is not empty or props.tools is not empty %}
+      <section class="ca-case-study__expertise-tools ca-container">
+        {% if props.expertise is not empty %}
+          <div class="ca-case-study__expertise">
+            <h2 class="ca-case-study__heading">{{ 'Expertise'|t }}</h2>
+            {{ props.expertise }}
+          </div>
+        {% endif %}
+        {% if props.tools is not empty %}
+          <div class="ca-case-study__tools">
+            <h2 class="ca-case-study__heading">{{ 'Tools'|t }}</h2>
+            {{ props.tools }}
+          </div>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    {% if props.outcomes is not empty %}
+      <section class="ca-case-study__outcomes">
+        <h2 class="ca-case-study__heading">{{ 'Key outcomes'|t }}</h2>
+        <div class="ca-case-study__outcomes-grid ca-container">
+          {{ props.outcomes }}
+        </div>
+      </section>
+    {% endif %}
+
+    {% if props.team_members is not empty %}
+      <section class="ca-case-study__team">
+        <div class="ca-case-study__team-inner ca-container">
+          <h2 class="ca-case-study__heading">{{ 'Meet the team'|t }}</h2>
+          {{ props.team_members }}
+        </div>
+      </section>
+    {% endif %}
+  {% endif %}
+{% endblock %}

@@ -6,10 +6,12 @@ dependencies:
     - canvas.component.sdc.omnichannel.accordion
     - canvas.component.sdc.omnichannel.accordion-container
     - canvas.component.sdc.omnichannel.card
+    - canvas.component.sdc.omnichannel.case-study-header
     - canvas.component.sdc.omnichannel.content
     - canvas.component.sdc.omnichannel.hero
     - canvas.component.sdc.omnichannel.icon
     - canvas.component.sdc.omnichannel.media
+    - canvas.component.sdc.omnichannel.outcome-card
     - canvas.component.sdc.omnichannel.page-title
     - canvas.component.sdc.omnichannel.proofpoints
     - canvas.component.sdc.omnichannel.quote
@@ -20,10 +22,12 @@ items:
   - sdc.omnichannel.accordion
   - sdc.omnichannel.accordion-container
   - sdc.omnichannel.card
+  - sdc.omnichannel.case-study-header
   - sdc.omnichannel.content
   - sdc.omnichannel.hero
   - sdc.omnichannel.icon
   - sdc.omnichannel.media
+  - sdc.omnichannel.outcome-card
   - sdc.omnichannel.page-title
   - sdc.omnichannel.proofpoints
   - sdc.omnichannel.quote

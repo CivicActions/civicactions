@@ -64,8 +64,8 @@
 
   {% set has_sidebar_first = page.sidebar_first is not empty %}
   {% set has_sidebar_second = page.sidebar_second is not empty %}
-  {# is_canvas_page is set in OmnichannelHooks::preprocessPage(). #}
-  {% if is_canvas_page %}
+  {# is_full_width is set in OmnichannelHooks::preprocessPage(). #}
+  {% if is_full_width %}
     {% set page_width = 'ca-container--full-width' %}
   {% elseif node and node.bundle == 'page' %}
   {# @todo: Replace this with something that can take an array of narrow content types #}

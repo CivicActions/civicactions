@@ -1,0 +1,36 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: Case Study Header
+description: Case study page heading with an optional client name and plain-text description. Renders an h1; use once per page.
+group: Content
+status: experimental
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Title
+      description: The primary heading for the case study.
+      default: 'Modernizing public services with open technology'
+      examples:
+        - 'Modernizing public services with open technology'
+    client:
+      type: string
+      title: Client
+      description: Optional client name displayed above the heading.
+      default: 'Public sector partner'
+      examples:
+        - 'Public sector partner'
+    description:
+      type: string
+      title: Description
+      description: Optional plain-text summary of the case study.
+      default: 'Building accessible digital services that help people find the information and support they need.'
+      examples:
+        - 'Building accessible digital services that help people find the information and support they need.'
+    narrow_width:
+      type: boolean
+      title: Narrow Width
+      description: Optional flag to render the header with a narrower width of 720px.
+      default: false

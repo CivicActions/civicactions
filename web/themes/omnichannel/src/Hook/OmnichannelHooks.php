@@ -2,6 +2,7 @@
 
 namespace Drupal\omnichannel\Hook;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
@@ -10,6 +11,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Security\Attribute\TrustedCallback;
 use Drupal\file\FileInterface;
+use Drupal\filter\Entity\FilterFormat;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\media\MediaInterface;
 use Drupal\node\NodeInterface;
@@ -18,6 +20,17 @@ use Drupal\node\NodeInterface;
  * Hook implementations for omnichannel.
  */
 class OmnichannelHooks {
+  /**
+   * Content types rendered with the full-width page container.
+   *
+   * Node bundles are listed by machine name. 'canvas_page' covers Canvas pages,
+   * which are not nodes.
+   */
+  private const FULL_WIDTH_CONTENT_TYPES = [
+    'canvas_page',
+    'case_study',
+  ];
+
   /**
    * @file
    * Functions to support theming.
@@ -43,7 +56,16 @@ class OmnichannelHooks {
    */
   #[Hook('preprocess_page')]
   public function preprocessPage(array &$variables): void {
-    $variables['is_canvas_page'] = \Drupal::routeMatch()->getRouteName() === 'entity.canvas_page.canonical';
+    $route_match = \Drupal::routeMatch();
+    $is_canvas_page = $route_match->getRouteName() === 'entity.canvas_page.canonical';
+    $variables['is_canvas_page'] = $is_canvas_page;
+
+    $node = $route_match->getParameter('node');
+    $content_type = $is_canvas_page
+      ? 'canvas_page'
+      : ($node instanceof NodeInterface ? $node->bundle() : NULL);
+    $variables['is_full_width'] = $content_type !== NULL
+      && in_array($content_type, self::FULL_WIDTH_CONTENT_TYPES, TRUE);
   }
 
   /**
@@ -67,11 +89,22 @@ class OmnichannelHooks {
    */
   #[Hook('preprocess_node')]
   public function preprocessNode(array &$variables): void {
-    if (($variables['view_mode'] ?? '') !== 'teaser' || !($variables['node'] ?? NULL) instanceof NodeInterface) {
+    if (!($variables['node'] ?? NULL) instanceof NodeInterface) {
       return;
     }
 
     $node = $variables['node'];
+    $view_mode = $variables['view_mode'] ?? '';
+    if ($view_mode === 'full' && $node->bundle() === 'case_study') {
+      $cacheability = new CacheableMetadata();
+      $variables['case_study_props'] = $this->buildCaseStudyFullProps($variables, $cacheability);
+      $cacheability->applyTo($variables);
+    }
+
+    if ($view_mode !== 'teaser') {
+      return;
+    }
+
     $cacheability = new CacheableMetadata();
     $variables['teaser_props'] = match ($node->bundle()) {
       'person' => $this->buildPersonTeaserProps($node, $cacheability),
@@ -150,6 +183,112 @@ class OmnichannelHooks {
     }
 
     return $props;
+  }
+
+  /**
+   * Builds full-page props while preserving prepared field render arrays.
+   */
+  private function buildCaseStudyFullProps(array $variables, CacheableMetadata $cacheability): array {
+    $props = [
+      'title' => $variables['label'],
+    ];
+
+    foreach ([
+      'client' => 'schema_client',
+      'description' => 'schema_description',
+      'hero_image' => 'field_hero_image',
+      'body' => 'field_body',
+      'expertise' => 'field_expertise',
+      'tools' => 'field_tools',
+      'team_members' => 'field_team_members',
+      'keywords' => 'schema_keywords',
+      'outcomes' => 'field_outcomes',
+    ] as $prop => $field_name) {
+      $props[$prop] = $variables['content'][$field_name] ?? [];
+    }
+
+    // The Proofpoints SDC receives scalar props rather than the field render
+    // array, so its access and cache dependencies are applied to the preprocess
+    // variables by the caller.
+    $props['proofpoints_component_props'] = $this->buildProofpointsProps($variables['node'], $cacheability);
+
+    return $props;
+  }
+
+  /**
+   * Maps Proof point paragraphs to the Proofpoints SDC stat and label props.
+   *
+   * The SDC displays at most three stats, so additional paragraphs are ignored.
+   */
+  private function buildProofpointsProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    if (!$node->hasField('field_proof_points')) {
+      return [];
+    }
+
+    $field = $node->get('field_proof_points');
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return [];
+    }
+
+    $entity_repository = \Drupal::service('entity.repository');
+    $props = [];
+    $position = 0;
+    foreach ($field->referencedEntities() as $paragraph) {
+      if ($position === 3) {
+        break;
+      }
+
+      $paragraph = $entity_repository->getTranslationFromContext($paragraph);
+      $cacheability->addCacheableDependency($paragraph);
+      $paragraph_access = $paragraph->access('view', NULL, TRUE);
+      $cacheability->addCacheableDependency($paragraph_access);
+      if (!$paragraph_access->isAllowed()) {
+        continue;
+      }
+
+      $stat = trim($this->getParagraphStringValue($paragraph, 'field_value', $cacheability));
+      $label = trim($this->getParagraphStringValue($paragraph, 'field_description', $cacheability, TRUE));
+      if ($stat === '' || $label === '') {
+        continue;
+      }
+
+      $position++;
+      $props['stat_' . $position] = $stat;
+      $props['label_' . $position] = $label;
+    }
+
+    return $props;
+  }
+
+  /**
+   * Gets an accessible paragraph field value as plain text.
+   *
+   * Formatted text is run through its text format before tags are removed, so
+   * the SDC string props receive filtered output.
+   */
+  private function getParagraphStringValue(EntityInterface $paragraph, string $field_name, CacheableMetadata $cacheability, bool $formatted = FALSE): string {
+    if (!$paragraph->hasField($field_name)) {
+      return '';
+    }
+
+    $field = $paragraph->get($field_name);
+    $access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($access);
+    if (!$access->isAllowed() || $field->isEmpty()) {
+      return '';
+    }
+
+    if (!$formatted) {
+      return (string) $field->value;
+    }
+
+    $format = $field->format;
+    if ($format && ($filter_format = FilterFormat::load($format))) {
+      $cacheability->addCacheableDependency($filter_format);
+    }
+    return Html::decodeEntities(strip_tags((string) $field->first()->processed));
   }
 
   /**

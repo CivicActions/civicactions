@@ -1,0 +1,106 @@
+uuid: 79665a90-b6df-4121-a448-1902ceba9bd7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.case_study.field_body
+    - field.field.node.case_study.field_expertise
+    - field.field.node.case_study.field_hero_image
+    - field.field.node.case_study.field_outcomes
+    - field.field.node.case_study.field_proof_points
+    - field.field.node.case_study.field_team_members
+    - field.field.node.case_study.field_tools
+    - field.field.node.case_study.schema_article_body
+    - field.field.node.case_study.schema_client
+    - field.field.node.case_study.schema_description
+    - field.field.node.case_study.schema_image
+    - field.field.node.case_study.schema_keywords
+    - node.type.case_study
+  module:
+    - entity_reference_revisions
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.case_study.full
+targetEntityType: node
+bundle: case_study
+mode: full
+content:
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_expertise:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_hero_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_outcomes:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_team_members:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_tools:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  schema_client:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  schema_description:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_proof_points: true
+  links: true
+  schema_article_body: true
+  schema_image: true
+  schema_keywords: true

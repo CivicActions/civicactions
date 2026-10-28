@@ -1,0 +1,63 @@
+uuid: e5cc8ffb-090f-441a-923c-232fbe692444
+langcode: en
+status: true
+dependencies:
+  theme:
+    - omnichannel
+active_version: 1ee1f52678af619d
+versioned_properties:
+  active:
+    settings:
+      prop_field_definitions:
+        title:
+          required: true
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'Modernizing public services with open technology'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        client:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'Public sector partner'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        description:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'Building accessible digital services that help people find the information and support they need.'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+        narrow_width:
+          required: false
+          field_type: boolean
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: boolean_checkbox
+          default_value: null
+          expression: ℹ︎boolean␟value
+          derived_schema_metadata: {  }
+    fallback_metadata:
+      slot_definitions: {  }
+label: 'Case Study Header'
+id: sdc.omnichannel.case-study-header
+provider: omnichannel
+source: sdc
+source_local_id: 'omnichannel:case-study-header'

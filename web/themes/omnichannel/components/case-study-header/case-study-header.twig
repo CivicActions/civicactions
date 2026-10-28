@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Template for the CivicActions Case Study Header component.
+ *
+ * Available props:
+ * - title: The case study title, rendered as an h1.
+ * - client: Optional client name shown above the title.
+ * - description: Optional plain-text summary.
+ * - narrow_width: Whether to use the narrow container.
+ */
+#}
+{% set case_study_header_attributes = attributes|default(create_attribute()) %}
+{% set container_classes = [
+  'ca-case-study-header',
+  'ca-container',
+  narrow_width ? 'ca-container--narrow',
+] %}
+
+<section{{ case_study_header_attributes.addClass(container_classes) }}>
+  <div class="ca-case-study-header__inner">
+    {% if title %}
+      <h1 class="ca-case-study-header__title">{{ title }}</h1>
+    {% endif %}
+    {% if client %}
+      <div class="ca-case-study-header__client">{{ client }}</div>
+    {% endif %}
+    {% if description %}
+      <div class="ca-case-study-header__description">{{ description }}</div>
+    {% endif %}
+  </div>
+</section>
