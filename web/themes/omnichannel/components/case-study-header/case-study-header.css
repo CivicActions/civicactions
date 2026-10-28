@@ -30,6 +30,8 @@
 }
 
 @scope (.ca-case-study-header) {
+  padding-inline: 0;
+
   .ca-case-study-header__inner {
     display: grid;
     padding: 0 0 var(--size-16, 4rem);
