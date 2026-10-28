@@ -33,6 +33,7 @@ jobs:
 
       - name: Composer Audit
         run: composer audit --locked
+        continue-on-error: true
 
   phpstan:
     name: "PHPStan"

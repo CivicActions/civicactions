@@ -127,12 +127,14 @@ jobs:
             is_bot_pr="true"
           fi
 
-          echo "verified_sha=${VERIFIED_SHA}" >> "$GITHUB_OUTPUT"
-          echo "env_name=${ENV_NAME}" >> "$GITHUB_OUTPUT"
-          echo "env_url=${ENV_URL}" >> "$GITHUB_OUTPUT"
-          echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
-          echo "is_bot_pr=${is_bot_pr}" >> "$GITHUB_OUTPUT"
-          echo "should_run_tests=true" >> "$GITHUB_OUTPUT"
+          {
+            echo "verified_sha=${VERIFIED_SHA}"
+            echo "env_name=${ENV_NAME}"
+            echo "env_url=${ENV_URL}"
+            echo "pr_number=${PR_NUMBER}"
+            echo "is_bot_pr=${is_bot_pr}"
+            echo "should_run_tests=true"
+          } >> "$GITHUB_OUTPUT"
 
   browser-tests:
     name: "Playwright Functional, A11y & Visual"
@@ -288,9 +290,11 @@ jobs:
           COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Cloned At**: <t:%s:f>\n- **Functional & A11y Tests**: %s\n- **Drush Deploy & Health**: ✓ Passed\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s" \
             "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CREATED_AT}" "${{ needs.browser-tests.result }}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
 
-          echo "COMMENT_BODY<<EOF" >> $GITHUB_ENV
-          echo "${COMMENT_BODY}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          {
+            echo "COMMENT_BODY<<EOF"
+            echo "${COMMENT_BODY}"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
 
       - name: Upsert PR comment
         uses: ./.github/actions/pr-comment

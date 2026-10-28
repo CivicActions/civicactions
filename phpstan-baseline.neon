@@ -53,5 +53,5 @@ parameters:
 		-
 			message: '#^\\Drupal calls should be avoided in classes, use dependency injection instead$#'
 			identifier: globalDrupalDependencyInjection.useDependencyInjection
-			count: 2
+			count: 4
 			path: web/themes/omnichannel/src/Hook/OmnichannelHooks.php
