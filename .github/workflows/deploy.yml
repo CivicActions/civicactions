@@ -140,6 +140,13 @@ jobs:
           echo "Running health checks on test..."
           .github/ci/health-check.sh test --phase post
 
+      - name: Setup Node.js for test verification
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: tests/e2e/package-lock.json
+
       - name: Run Test Verification Suites (Functional, A11y, Live-vs-Test Visual)
         working-directory: tests/e2e
         env:
