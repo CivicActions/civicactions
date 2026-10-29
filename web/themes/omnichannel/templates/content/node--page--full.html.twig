@@ -6,11 +6,13 @@
 {% block node_content %}
   {{ attach_library('omnichannel/basic-page') }}
   {% block node_title %}
-    {% include 'omnichannel:hero' with {
-      title: label,
-      variant: 'card',
-      summary: content.schema_short_description
-    } %}
+    {{ title_prefix }}
+      {% include 'omnichannel:hero' with {
+        title: label,
+        variant: 'card',
+        summary: page_hero_summary
+      } %}
+    {{ title_suffix }}
   {% endblock %}
 
   <div{{ content_attributes.addClass('node__content') }}>

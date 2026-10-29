@@ -85,7 +85,7 @@ class OmnichannelHooks {
   }
 
   /**
-   * Prepares SDC props for content teaser view modes.
+   * Prepares SDC props for full and teaser content view modes.
    */
   #[Hook('preprocess_node')]
   public function preprocessNode(array &$variables): void {
@@ -95,6 +95,12 @@ class OmnichannelHooks {
 
     $node = $variables['node'];
     $view_mode = $variables['view_mode'] ?? '';
+    if ($view_mode === 'full' && $node->bundle() === 'page') {
+      $cacheability = CacheableMetadata::createFromRenderArray($variables);
+      $variables['page_hero_summary'] = $this->getStringFieldValue($node, 'schema_short_description', $cacheability);
+      $cacheability->applyTo($variables);
+    }
+
     if ($view_mode === 'full' && $node->bundle() === 'case_study') {
       $cacheability = new CacheableMetadata();
       $variables['case_study_props'] = $this->buildCaseStudyFullProps($variables, $cacheability);
