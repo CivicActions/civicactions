@@ -41,13 +41,13 @@ for (const pageEntry of pages) {
       await settle(sitePage);
 
       // Verify essential page shell elements
-      const mainContent = sitePage.locator('main, role=main, #main-content');
+      const mainContent = sitePage.locator('main, [role="main"], #main-content');
       await expect(mainContent.first()).toBeVisible();
 
-      const header = sitePage.locator('header, role=banner, .header');
+      const header = sitePage.locator('header, [role="banner"], .header');
       await expect(header.first()).toBeVisible();
 
-      const footer = sitePage.locator('footer, role=contentinfo, .footer');
+      const footer = sitePage.locator('footer, [role="contentinfo"], .footer');
       await expect(footer.first()).toBeVisible();
 
       // Heading / title present

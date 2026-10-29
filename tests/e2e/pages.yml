@@ -59,7 +59,7 @@ pages:
     masks: []
 
   - id: node-editorial-arpit
-    path: /meet-arpit-patil-what-he-loves-about-devops-and-working-government
+    path: /insights/articles/steve-curtis-empathy-driven-leadership
     kind: node:editorial
     smoke: false
     visual: true

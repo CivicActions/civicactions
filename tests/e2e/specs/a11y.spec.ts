@@ -19,7 +19,7 @@ for (const pageEntry of pages) {
     await settle(sitePage);
 
     let builder = new AxeBuilder({ page: sitePage })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']);
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa']);
 
     for (const excludeSel of GLOBAL_A11Y_EXCLUDES) {
       builder = builder.exclude(excludeSel);

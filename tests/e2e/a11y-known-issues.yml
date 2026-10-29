@@ -6,4 +6,9 @@
 #   selector: css-selector
 #   issue: issue-url-or-key (e.g. https://github.com/.../issues/123 or MAHOM-1234)
 #   expires: YYYY-MM-DD (must be future date; expired entries cause CI to fail)
-known_issues: []
+known_issues:
+  - id: primary-cta-subtitle-contrast
+    rule: color-contrast
+    selector: .ca-primary-page-cta__subtitle
+    issue: https://github.com/CivicActions/civicactions/issues/51
+    expires: '2026-12-31'
