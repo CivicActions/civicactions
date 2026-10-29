@@ -71,11 +71,17 @@ jobs:
           echo "VERIFIED_SHA: ${VERIFIED_SHA}"
           echo "Author: ${AUTHOR_LOGIN} (${AUTHOR_ASSOC})"
 
+          # Emitted early so the failure handler can report against this SHA
+          {
+            echo "verified_sha=${VERIFIED_SHA}"
+            echo "stage=waiting for Pantheon environment"
+          } >> "$GITHUB_OUTPUT"
+
           # 2. Trust check
           if [[ "${EVENT_NAME}" == "issue_comment" ]]; then
             if [[ "${AUTHOR_LOGIN}" != "dependabot[bot]" &&                   "${AUTHOR_ASSOC}" != "OWNER" &&                   "${AUTHOR_ASSOC}" != "MEMBER" &&                   "${AUTHOR_ASSOC}" != "COLLABORATOR" ]]; then
-              echo "Author ${AUTHOR_LOGIN} is external. Awaiting maintainer approval."
-              gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"                 -f state="pending"                 -f context="ci/review-env"                 -f description="Awaiting maintainer approval: run workflow_dispatch" >/dev/null
+              echo "Author ${AUTHOR_LOGIN} is external. Review environment tests are not run."
+              gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"                 -f state="pending"                 -f context="ci/review-env"                 -f description="External author: review-env tests not run automatically" >/dev/null
               echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
@@ -107,10 +113,12 @@ jobs:
           gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"             -f state="pending"             -f context="ci/review-env"             -f description="Running Drupal deploy & health checks" >/dev/null
 
           # 7. Drush deploy
+          echo "stage=drush deploy" >> "$GITHUB_OUTPUT"
           echo "Running drush deploy on ${ENV_NAME}..."
           drush "${ENV_NAME}" -- deploy -y
 
           # 8. Pre-test health check
+          echo "stage=pre-test health check" >> "$GITHUB_OUTPUT"
           echo "Running pre-test health check..."
           .github/ci/health-check.sh "${ENV_NAME}" --phase pre
 
@@ -127,6 +135,28 @@ jobs:
             echo "is_bot_pr=${is_bot_pr}"
             echo "should_run_tests=true"
           } >> "$GITHUB_OUTPUT"
+
+      - name: Report review-env failure
+        if: failure() && steps.prep.outputs.verified_sha != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          VERIFIED_SHA: ${{ steps.prep.outputs.verified_sha }}
+          STAGE: ${{ steps.prep.outputs.stage }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh api "repos/${REPO}/statuses/${VERIFIED_SHA}" \
+            -f state="failure" \
+            -f context="ci/review-env" \
+            -f description="Failed during ${STAGE}" \
+            -f target_url="${RUN_URL}" >/dev/null
+
+      - name: Update Gate Status on failure
+        if: failure() && steps.prep.outputs.verified_sha != ''
+        uses: ./.github/actions/update-gate
+        with:
+          sha: ${{ steps.prep.outputs.verified_sha }}
+          github-token: ${{ steps.app-token.outputs.token }}
 
   browser-tests:
     name: "Playwright Functional, A11y & Visual"
