@@ -135,7 +135,7 @@ jobs:
           fi
 
           echo "Running drush deploy on test..."
-          drush test -- deploy -y
+          drush test -- deploy
 
           echo "Running health checks on test..."
           .github/ci/health-check.sh test --phase post
@@ -187,7 +187,7 @@ jobs:
 
           wait_workflows live 600
           echo "Running drush deploy on live..."
-          drush live -- deploy -y
+          drush live -- deploy
 
           echo "Clearing caches on live..."
           terminus env:clear-cache "${PANTHEON_SITE}.live"

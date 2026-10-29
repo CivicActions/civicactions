@@ -115,7 +115,7 @@ jobs:
           # 7. Drush deploy
           echo "stage=drush deploy" >> "$GITHUB_OUTPUT"
           echo "Running drush deploy on ${ENV_NAME}..."
-          drush "${ENV_NAME}" -- deploy -y
+          drush "${ENV_NAME}" -- deploy
 
           # 8. Pre-test health check
           echo "stage=pre-test health check" >> "$GITHUB_OUTPUT"

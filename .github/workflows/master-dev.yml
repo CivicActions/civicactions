@@ -67,7 +67,7 @@ jobs:
 
           wait_workflows dev 600
           echo "Running drush deploy on dev..."
-          drush dev -- deploy -y
+          drush dev -- deploy
 
           echo "Running post-deploy health diagnostics on dev..."
           .github/ci/health-check.sh dev --phase post
