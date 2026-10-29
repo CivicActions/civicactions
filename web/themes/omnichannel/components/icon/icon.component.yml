@@ -20,6 +20,18 @@ props:
         - arrow
         - document
         - star
+        - web-cms
+        - it-modernization
+        - data-services
+        - product-design
+        - security-compliance
+        - workforce-dev
+        - health-benefits
+        - 401k-program
+        - time-off
+        - remote-life
+        - annual-upgrades
+        - family-friendly
       meta:enum:
         check: Checkmark
         calendar: Calendar
@@ -28,6 +40,18 @@ props:
         arrow: Arrow Right
         document: Document
         star: Star
+        web-cms: Web / CMS 
+        it-modernization: IT Modernization
+        data-services: Data Services
+        product-design: Product Design
+        security-compliance: Security Compliance
+        workforce-dev: Workforce Development
+        health-benefits: Health Benefits
+        401k-program: 401k Program
+        time-off: Time Off
+        remote-life: Remote Life
+        annual-upgrades: Annual Upgrades
+        family-friendly: Family Friendly
       default: check
       examples:
         - check
