@@ -1,0 +1,183 @@
+/**
+ * @file
+ * Styles for the 404 Not Found page.
+ */
+
+.ca-not-found {
+  padding-block: 0 var(--size-12, 3rem);
+  /* Preserve the measured legacy spacing before the CTA. */
+  margin-block-end: 8.375rem;
+}
+
+.ca-not-found__inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--container-max-width, 75rem);
+  margin-inline: auto;
+  padding-inline: var(--container-spacing-sm, 1.5rem);
+  text-align: center;
+}
+
+.ca-not-found__code {
+  margin: 0;
+  color: var(--primary-red, #d83933);
+  font-family: var(--font-heading, "Merriweather", Georgia, serif);
+  font-size: var(--font-size-h1, 1.5rem);
+  font-weight: 700;
+  line-height: var(--line-height-h1, 2.1rem);
+}
+
+.ca-not-found__title {
+  margin: 0;
+  color: var(--primary-blue, #162e51);
+  font-family: var(--font-heading, "Merriweather", Georgia, serif);
+  font-size: var(--size-6, 1.5rem);
+  font-weight: 400;
+  /* The legacy 404 heading uses a 1.4 line-height. */
+  line-height: 1.4;
+}
+
+.ca-not-found__image {
+  display: block;
+  /* Match the legacy image width and center it on mobile. */
+  width: 83%;
+  max-width: 47.4375rem;
+  height: auto;
+  margin-inline: auto;
+  padding-block: var(--size-6, 1.5rem);
+  border-radius: 4px;
+}
+
+.ca-not-found__body {
+  margin-block-start: var(--size-2, 0.5rem);
+  padding-block-end: var(--size-6, 1.5rem);
+  color: var(--text-body, #1b1b1b);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--font-size-body, 1rem);
+  line-height: var(--line-height-body, 1.375rem);
+}
+
+.ca-not-found__body p {
+  margin: 0;
+}
+
+.ca-not-found__links {
+  margin: 0;
+  padding: var(--size-6, 1.5rem) 0 0;
+  list-style: none;
+}
+
+.ca-not-found__links li {
+  padding-block-end: var(--size-2, 0.5rem);
+}
+
+.ca-not-found__links a {
+  text-underline-offset: var(--size-1, 0.25rem);
+}
+
+@media (min-width: 600px) {
+  .ca-not-found__title {
+    font-size: var(--font-size-h2, 1.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ca-not-found {
+    margin-block-end: 9.375rem;
+    padding-block-start: var(--size-8, 2rem);
+    padding-block-end: 4.5rem;
+  }
+
+  .ca-not-found__inner {
+    padding-inline: 0;
+  }
+}
+
+@scope (.ca-not-found) {
+  :scope {
+    padding-block: 0 var(--size-12, 3rem);
+    margin-block-end: 8.375rem;
+  }
+
+  .ca-not-found__inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--container-max-width, 75rem);
+    margin-inline: auto;
+    padding-inline: var(--container-spacing-sm, 1.5rem);
+    text-align: center;
+  }
+
+  .ca-not-found__code {
+    margin: 0;
+    color: var(--primary-red, #d83933);
+    font-family: var(--font-heading, "Merriweather", Georgia, serif);
+    font-size: var(--font-size-h1, 1.5rem);
+    font-weight: 700;
+    line-height: var(--line-height-h1, 2.1rem);
+  }
+
+  .ca-not-found__title {
+    margin: 0;
+    color: var(--primary-blue, #162e51);
+    font-family: var(--font-heading, "Merriweather", Georgia, serif);
+    font-size: var(--size-6, 1.5rem);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .ca-not-found__image {
+    display: block;
+    width: 83%;
+    max-width: 47.4375rem;
+    height: auto;
+    margin-inline: auto;
+    padding-block: var(--size-6, 1.5rem);
+    border-radius: 4px;
+  }
+
+  .ca-not-found__body {
+    margin-block-start: var(--size-2, 0.5rem);
+    padding-block-end: var(--size-6, 1.5rem);
+    color: var(--text-body, #1b1b1b);
+    font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+    font-size: var(--font-size-body, 1rem);
+    line-height: var(--line-height-body, 1.375rem);
+  }
+
+  .ca-not-found__body p {
+    margin: 0;
+  }
+
+  .ca-not-found__links {
+    margin: 0;
+    padding: var(--size-6, 1.5rem) 0 0;
+    list-style: none;
+  }
+
+  .ca-not-found__links li {
+    padding-block-end: var(--size-2, 0.5rem);
+  }
+
+  .ca-not-found__links a {
+    text-underline-offset: var(--size-1, 0.25rem);
+  }
+
+  @media (min-width: 600px) {
+    .ca-not-found__title {
+      font-size: var(--font-size-h2, 1.75rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :scope {
+      margin-block-end: 9.375rem;
+      padding-block-start: var(--size-8, 2rem);
+      padding-block-end: 4.5rem;
+    }
+
+    .ca-not-found__inner {
+      padding-inline: 0;
+    }
+  }
+}

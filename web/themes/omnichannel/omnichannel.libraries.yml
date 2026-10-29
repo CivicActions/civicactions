@@ -132,3 +132,9 @@ user:
     component:
       css/components/user.css:
         weight: -10
+not-found:
+  version: VERSION
+  css:
+    component:
+      css/components/not-found.css:
+        weight: -10

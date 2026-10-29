@@ -33,7 +33,9 @@ import siteFooter from '../site-footer/site-footer-preview.twig';
 import '../site-footer/site-footer.css';
 import socialLinksTemplate from '../social-links/social-links-preview.twig';
 import '../social-links/social-links.css';
+import '../../css/components/not-found.css';
 import {
+  notFoundImage,
   placeholderIcon,
   placeholderImage,
   quotePortrait,
@@ -987,4 +989,43 @@ export const Utility = {
 
 export const CaseStudyDetail = {
   render: caseStudyDetail,
+};
+
+const notFoundPage = () =>
+  shell(`
+    <section class="ca-not-found">
+      <div class="ca-not-found__inner">
+        <h1 class="ca-not-found__code">404</h1>
+        <h2 class="ca-not-found__title">Well, that's awkward.</h2>
+        <img
+          class="ca-not-found__image"
+          src="${notFoundImage}"
+          alt="Funny photo of CivicActions frozen in a Zoom call"
+          width="759"
+          height="285"
+        >
+        <div class="ca-not-found__body">
+          <p>We’re frozen on Zoom and can’t find the page you’re looking for.</p>
+          <p>While we sign back on, here are some quick links for you:</p>
+          <ul class="ca-not-found__links">
+            <li><a href="/">Visit our homepage</a></li>
+            <li><a href="/careers/">View our job listings</a></li>
+            <li><a href="/insights/">Read our insights</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    ${primaryPageCta({
+      title: "Let's build a public success story.",
+      subtitle: 'Get in touch to start.',
+      variant: 'default',
+      primary_button_text: 'Put us to work',
+      primary_button_url: '/contact/',
+      secondary_button_text: 'Join our team',
+      secondary_button_url: '/careers/',
+    })}
+  `);
+
+export const NotFound = {
+  render: notFoundPage,
 };

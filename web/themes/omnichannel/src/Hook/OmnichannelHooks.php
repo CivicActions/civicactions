@@ -69,6 +69,16 @@ class OmnichannelHooks {
   }
 
   /**
+   * Implements hook_theme_suggestions_page_alter().
+   */
+  #[Hook('theme_suggestions_page_alter')]
+  public function themeSuggestionsPageAlter(array &$suggestions, array $variables): void {
+    if (\Drupal::routeMatch()->getRouteName() === 'system.404') {
+      $suggestions[] = 'page__404';
+    }
+  }
+
+  /**
    * Adds the total page count for legacy-style pager output.
    */
   #[Hook('preprocess_pager')]
