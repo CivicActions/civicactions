@@ -10,7 +10,7 @@
     "@storybook/html": "^10.6.4",
     "@storybook/html-vite": "^10.6.4",
     "storybook": "^10.6.5",
-    "vite": "^7.3.7",
+    "vite": "^8.3.5",
     "vite-plugin-twig-drupal": "^1.7.0"
   }
 }
