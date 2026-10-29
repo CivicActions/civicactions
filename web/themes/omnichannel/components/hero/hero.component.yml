@@ -14,6 +14,16 @@ props:
       default: 'Government services that build public trust'
       examples:
         - 'Government services that build public trust'
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Use h1 for the primary hero and h2 when the component is placed below another page heading.
+      enum:
+        - 1
+        - 2
+      default: 1
+      examples:
+        - 1
     eyebrow:
       type: string
       title: Eyebrow
