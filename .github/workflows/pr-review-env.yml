@@ -51,7 +51,7 @@ jobs:
         id: prep
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          PR_NUMBER: ${{ inputs.pr_number || github.event.issue.number }}
+          PR_NUMBER: ${{ github.event.issue.number }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
           EVENT_NAME: ${{ github.event_name }}
           REPO: ${{ github.repository }}
