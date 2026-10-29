@@ -1,0 +1,109 @@
+name: "Automated Deploy Gate"
+
+on:
+  schedule:
+    # 16:05 and 17:05 UTC covers window opening under both PDT and PST
+    - cron: "5 16,17 * * 1-4"
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: pantheon-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+  deployments: read
+
+jobs:
+  evaluate-and-deploy:
+    name: "Evaluate Gate & Trigger Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout master tools
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Terminus
+        uses: ./.github/actions/terminus-setup
+        with:
+          pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+
+      - name: Collect State and Evaluate Gate
+        id: gate
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          DEPLOY_WINDOW_VAR: ${{ vars.DEPLOY_WINDOW }}
+          AUTO_DEPLOY_ENABLED_VAR: ${{ vars.AUTO_DEPLOY_ENABLED || 'false' }}
+        run: |
+          source .github/ci/pantheon.sh
+
+          DEV_SHA=$(env_sha dev)
+          TEST_SHA=$(env_sha test)
+          LIVE_SHA=$(env_sha live)
+          MASTER_SHA=$(git rev-parse HEAD)
+
+          echo "Dev: ${DEV_SHA}"
+          echo "Test: ${TEST_SHA}"
+          echo "Live: ${LIVE_SHA}"
+          echo "Master: ${MASTER_SHA}"
+
+          # 1. Check window
+          WINDOW_CONFIG="${DEPLOY_WINDOW_VAR:-{\"days\":[1,2,3,4],\"start\":\"09:00\",\"end\":\"15:00\",\"tz\":\"America/Los_Angeles\"}}"
+          WINDOW_RES=$(node .github/ci/deploy-window.mjs --window "${WINDOW_CONFIG}")
+          IN_WINDOW=$(echo "${WINDOW_RES}" | jq -r .open)
+          echo "In window: ${IN_WINDOW}"
+
+          # 2. Check live precheck
+          LIVE_CLEAN="true"
+          if ! .github/ci/live-precheck.sh >/dev/null 2>&1; then
+            LIVE_CLEAN="false"
+          fi
+          echo "Live clean: ${LIVE_CLEAN}"
+
+          # 3. Check track record
+          TRACK_RECORD=$(.github/ci/deployment-record.sh count-manual)
+          echo "Manual track record: ${TRACK_RECORD}"
+
+          # 4. Fetch commits and evaluate gate
+          export DEV_SHA TEST_SHA LIVE_SHA MASTER_SHA IN_WINDOW LIVE_CLEAN TRACK_RECORD
+          python3 .github/ci/auto-deploy-gate-runner.py
+
+      - name: Trigger Automated Deployment
+        if: steps.gate.outputs.decision == 'deploy'
+        uses: ./.github/workflows/deploy.yml
+        with:
+          trigger: "auto"
+          expected_sha: ${{ steps.gate.outputs.target_sha }}
+          gate_json: ${{ env.GATE_JSON || '{}' }}
+
+      - name: Notify Blocked Auto-Deployment
+        if: steps.gate.outputs.decision == 'blocked'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          TARGET_SHA: ${{ steps.gate.outputs.target_sha }}
+        run: |
+          REASONS=$(jq -r '.reasons[]' gate-eval.json 2>/dev/null || echo "Unknown reasons")
+          HAS_SECURITY_PR=$(jq -e '.commits[] | select(.labels[] == "deps:security-verified")' gate-state.json >/dev/null 2>&1 && echo "true" || echo "false")
+
+          # Only alert if there is actually a pending security PR blocked from deploying
+          if [[ "${HAS_SECURITY_PR}" == "true" ]]; then
+            echo "Security commits are pending but blocked from automatic deployment:"
+            echo "${REASONS}"
+
+            gh api "repos/${REPO}/issues" \
+              -f title="Automated Deployment Blocked for Pending Security Updates" \
+              -f body="Automated live deployment was evaluated and blocked for the following reasons:\n\n${REASONS}\n\nTarget SHA: ${TARGET_SHA}" \
+              -f labels='["ci-alert:deploy-blocked"]' || true
+          else
+            echo "No pending security PRs to deploy. Gate evaluation complete without action."
+          fi

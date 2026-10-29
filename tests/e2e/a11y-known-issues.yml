@@ -1,0 +1,9 @@
+# Accessibility known issues allowlist
+# Entries allow temporarily bypassing pre-existing or third-party issues while a ticket is resolved.
+# Format:
+# - id: unique-identifier
+#   rule: axe-rule-id (e.g. color-contrast, region)
+#   selector: css-selector
+#   issue: issue-url-or-key (e.g. https://github.com/.../issues/123 or MAHOM-1234)
+#   expires: YYYY-MM-DD (must be future date; expired entries cause CI to fail)
+known_issues: []

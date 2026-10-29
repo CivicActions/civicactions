@@ -1,0 +1,68 @@
+name: "Update Gate Status"
+description: "Recomputes and writes the required ci/gate status context from ci/static and ci/review-env"
+inputs:
+  sha:
+    description: "Commit SHA"
+    required: true
+  github-token:
+    description: "GitHub Token with statuses:write permission"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Recompute and post gate status
+      shell: bash
+      env:
+        COMMIT_SHA: ${{ inputs.sha }}
+        GH_TOKEN: ${{ inputs.github-token }}
+        REPO: ${{ github.repository }}
+      run: |
+        python3 -c "
+        import os, sys, urllib.request, json
+
+        token = os.environ['GH_TOKEN']
+        repo = os.environ['REPO']
+        sha = os.environ['COMMIT_SHA']
+
+        headers = {
+            'Authorization': f'token {token}',
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'civicactions-gate-updater'
+        }
+
+        # 1. Fetch combined status
+        url = f'https://api.github.com/repos/{repo}/commits/{sha}/status'
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req) as response:
+            data = json.loads(response.read().decode())
+
+        statuses = {s['context']: s['state'] for s in data.get('statuses', [])}
+
+        static_state = statuses.get('ci/static', 'pending')
+        review_state = statuses.get('ci/review-env', 'pending')
+
+        print(f'Current contexts for {sha[:8]}: ci/static={static_state}, ci/review-env={review_state}')
+
+        if static_state == 'success' and review_state == 'success':
+            gate_state = 'success'
+            description = 'static ✓ review-env ✓'
+        elif static_state in ('failure', 'error') or review_state in ('failure', 'error'):
+            gate_state = 'failure'
+            description = f'static: {static_state}, review-env: {review_state}'
+        else:
+            gate_state = 'pending'
+            description = f'Waiting: static={static_state}, review-env={review_state}'
+
+        # 2. Write ci/gate status
+        post_url = f'https://api.github.com/repos/{repo}/statuses/{sha}'
+        payload = json.dumps({
+            'state': gate_state,
+            'context': 'ci/gate',
+            'description': description
+        }).encode('utf-8')
+
+        post_req = urllib.request.Request(post_url, data=payload, headers=headers)
+        with urllib.request.urlopen(post_req) as response:
+            print(f'Updated ci/gate to {gate_state} ({description})')
+        "

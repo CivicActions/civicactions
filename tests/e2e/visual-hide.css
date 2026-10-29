@@ -1,0 +1,33 @@
+/* Styles injected into pages during screenshot capture to suppress dynamic UI noise */
+
+/* 1. Hide cookie consent banners and overlays */
+.klaro,
+#klaro,
+.cookie-notice,
+.cookie-banner {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* 2. Hide Deepchat AI chatbot widget */
+deep-chat,
+.deep-chat,
+#deep-chat,
+[class*="deep-chat"],
+[id*="deep-chat"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* 3. Disable CSS transitions, animations, and blinking carets */
+*,
+*::before,
+*::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+  caret-color: transparent !important;
+}

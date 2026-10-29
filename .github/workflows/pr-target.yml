@@ -1,0 +1,95 @@
+name: "PR Target Orchestrator"
+
+# zizmor: ignore[pull-request-target]
+# This workflow uses pull_request_target securely: it NEVER checks out or executes code
+# from the PR branch. It performs only API-level status initializations and bot classifications.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  statuses: write
+  actions: write
+  pull-requests: write
+
+jobs:
+  mark-pending:
+    name: "Initialize Pending Statuses"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout repository for composite actions
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: |
+            .github/actions/update-gate
+            .github/ci
+
+      - name: Set pending statuses and cancel stale runs
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 .github/ci/pr-target-mark-pending.py
+
+      - name: Update Gate Status
+        uses: ./.github/actions/update-gate
+        with:
+          sha: ${{ github.event.pull_request.head.sha }}
+          github-token: ${{ steps.app-token.outputs.token }}
+
+  classify-dependency:
+    name: "Classify Dependabot Update"
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Fetch Dependabot Metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@dbb99fe61899146d9360824522a4665c60643c40 # v2.2.0
+        with:
+          alert-lookup: true
+
+      - name: Checkout master CI scripts
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: |
+            .github/ci
+            .github/actions/pr-comment
+
+      - name: Run Classifier and Apply Actions
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PACKAGE_ECOSYSTEM: ${{ steps.dependabot-metadata.outputs.package-ecosystem }}
+          ALERTS_LOOKUP: ${{ steps.dependabot-metadata.outputs.alert-lookup }}
+          AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED || 'false' }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 .github/ci/pr-target-classify.py
+
+      - name: Upsert Classification Comment
+        if: env.COMMENT_BODY != ''
+        uses: ./.github/actions/pr-comment
+        with:
+          pr-number: ${{ github.event.pull_request.number }}
+          marker: "<!-- ci:deps-classification -->"
+          body: ${{ env.COMMENT_BODY }}
+          github-token: ${{ steps.app-token.outputs.token }}
+

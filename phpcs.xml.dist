@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="CivicActions">
+  <description>PHP CodeSniffer configuration for CivicActions homesite.</description>
+
+  <file>web/modules/custom</file>
+  <file>web/themes/omnichannel</file>
+
+  <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>*/storybook-static/*</exclude-pattern>
+  <exclude-pattern>*/vendor/*</exclude-pattern>
+  <exclude-pattern>*.min.css</exclude-pattern>
+  <exclude-pattern>*.min.js</exclude-pattern>
+
+  <arg name="extensions" value="php,module,inc,install,test,profile,theme"/>
+  <arg name="colors"/>
+  <arg value="s"/>
+
+  <rule ref="Drupal">
+    <exclude name="Drupal.InfoFiles.AutoAddedKeys.Version"/>
+    <exclude name="Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing"/>
+    <exclude name="Drupal.Commenting.VariableComment.MissingVar"/>
+    <exclude name="Drupal.Files.EndFileNewline.TooMany"/>
+  </rule>
+  <rule ref="DrupalPractice">
+    <exclude name="VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable"/>
+  </rule>
+</ruleset>

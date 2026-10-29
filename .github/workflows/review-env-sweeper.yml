@@ -1,0 +1,79 @@
+name: "Review Environment Sweeper"
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  statuses: write
+  pull-requests: read
+
+jobs:
+  sweep-pending:
+    name: "Sweep Expired Pending Review Environments"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout repository for composite actions
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          sparse-checkout: |
+            .github/actions/update-gate
+
+      - name: Sweep expired pending environments
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          TIMEOUT_MINUTES: ${{ vars.REVIEW_ENV_TIMEOUT_MINUTES || '45' }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 -c "
+          import os, sys, urllib.request, json, datetime
+
+          token = os.environ['GH_TOKEN']
+          repo = os.environ['REPO']
+          timeout_mins = int(os.environ.get('TIMEOUT_MINUTES', 45))
+          now = datetime.datetime.now(datetime.timezone.utc)
+
+          headers = {
+              'Authorization': f'token {token}',
+              'Accept': 'application/vnd.github.v3+json',
+              'User-Agent': 'civicactions-sweeper'
+          }
+
+          # 1. Fetch open PRs
+          prs_url = f'https://api.github.com/repos/{repo}/pulls?state=open&per_page=100'
+          req = urllib.request.Request(prs_url, headers=headers)
+          with urllib.request.urlopen(req) as resp:
+              prs = json.loads(resp.read().decode())
+
+          for pr in prs:
+              pr_num = pr['number']
+              head_sha = pr['head']['sha']
+
+              # Fetch commit status
+              status_url = f'https://api.github.com/repos/{repo}/commits/{head_sha}/status'
+              req_s = urllib.request.Request(status_url, headers=headers)
+              with urllib.request.urlopen(req_s) as resp_s:
+                  data = json.loads(resp_s.read().decode())
+
+              for s in data.get('statuses', []):
+                  if s['context'] == 'ci/review-env' and s['state'] == 'pending':
+                      created_at = datetime.datetime.fromisoformat(s['created_at'].replace('Z', '+00:00'))
+                      age_mins = (now - created_at).total_seconds() / 60.0
+                      if age_mins > timeout_mins:
+                          print(f'PR #{pr_num} {head_sha[:8]} ci/review-env has been pending for {age_mins:.1f}m > {timeout_mins}m. Marking error.')
+                          post_url = f'https://api.github.com/repos/{repo}/statuses/{head_sha}'
+                          post_data = json.dumps({
+                              'state': 'error',
+                              'context': 'ci/review-env',
+                              'description': f'Environment unavailable after {timeout_mins}m (check multidev limit; re-run via dispatch)'
+                          }).encode('utf-8')
+                          urllib.request.urlopen(urllib.request.Request(post_url, data=post_data, headers=headers))
+          "

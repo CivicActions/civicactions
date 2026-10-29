@@ -1,0 +1,104 @@
+name: "Master Dev Sync & Verify"
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: pantheon-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync-dev:
+    name: "Sync & Verify Dev Environment"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout master tools
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Terminus
+        uses: ./.github/actions/terminus-setup
+        with:
+          pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+
+      - name: Wait for Dev to Deploy Master Commit
+        id: wait-dev
+        env:
+          HEAD_SHA: ${{ github.sha }}
+          PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+        run: |
+          source .github/ci/pantheon.sh
+
+          echo "Waiting for dev on ${PANTHEON_SITE} to match master ${HEAD_SHA} (timeout 45m)..."
+          start_time=$(date +%s)
+          timeout=2700
+
+          while true; do
+            DEV_SHA=$(env_sha dev)
+            echo "Current dev SHA: ${DEV_SHA}"
+
+            if sha_matches "${DEV_SHA}" "${HEAD_SHA}" || sha_matches "${HEAD_SHA:0:7}" "${DEV_SHA}"; then
+              echo "Dev environment is running pushed commit ${HEAD_SHA:0:7}."
+              break
+            fi
+
+            current_time=$(date +%s)
+            if (( current_time - start_time > timeout )); then
+              echo "Timed out waiting for dev to deploy ${HEAD_SHA}." >&2
+              exit 1
+            fi
+
+            sleep 15
+          done
+
+          wait_workflows dev 600
+          echo "Running drush deploy on dev..."
+          drush dev -- deploy -y
+
+          echo "Running post-deploy health diagnostics on dev..."
+          .github/ci/health-check.sh dev --phase post
+
+      - name: Setup Node.js for smoke tests
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
+        with:
+          node-version: "22"
+
+      - name: Run Smoke Tests against Dev
+        working-directory: tests/e2e
+        env:
+          BASE_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npx playwright test --grep "@smoke"
+
+      - name: Notify on Failure
+        if: failure()
+        uses: ./.github/actions/notify
+        with:
+          kind: "dev-check-failed"
+          title: "Dev Environment Health Check Failed after Master Push (${{ github.sha }})"
+          body: |
+            A push to `master` (${{ github.sha }}) failed during dev deployment or health verification.
+            See [Actions Run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+          resolved: "false"
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          github-token: ${{ steps.app-token.outputs.token }}
+
+  check-auto-deploy:
+    name: "Evaluate Auto-Deploy Gate"
+    needs: [sync-dev]
+    uses: ./.github/workflows/auto-deploy-gate.yml
+    secrets: inherit

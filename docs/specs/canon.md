@@ -140,3 +140,51 @@ cd web/themes/omnichannel && npm run build-storybook
 ```
 
 Frontend changes also require rendered browser review at relevant mobile and desktop widths. Keep generated Storybook output out of source lint input unless the generated bundle is specifically under review.
+
+## CI/CD Pipeline & Automated Deployment
+
+The homesite rebuild follows a trunk-based deployment model on Pantheon with GitHub Actions. Detailed architecture decisions are recorded in [ADR-0002](../decisions/0002-ci-cd-pipeline.md).
+
+### Pipeline overview
+
+1. **Pull Requests**:
+   - Fast static checks run immediately (`pr-static.yml`): Composer validate/audit, PHPStan (level 2), PHPCS (Drupal standards), theme Stylelint & ESLint, Storybook build, dependency review, and CI logic unit tests.
+   - Pantheon builds a disposable review environment (`pr-<number>`) and posts a PR comment upon readiness.
+   - Environment testing (`pr-review-env.yml`) triggers on this comment, verifies the deployed commit matches the PR head, runs `drush deploy`, health diagnostics, Playwright functional and axe accessibility tests on the curated page list, and visual regression against `dev`.
+   - Results rollup into a single required status check: `ci/gate`.
+
+2. **Master branch**:
+   - Pushes to `master` deploy automatically to Pantheon `dev` (`master-dev.yml`).
+   - Runs `drush deploy`, health diagnostics, and Playwright smoke tests against `dev`.
+   - Evaluates the automated deploy gate (`auto-deploy-gate.yml`) to check if pending security updates qualify for automatic release.
+
+3. **Deploying to Live**:
+   - Code is promoted from `dev` to `test` with live content sync, verified with automated test suites (including live-vs-test visual comparison), and promoted to `live` (`deploy.yml`).
+   - **Manual releases**: Triggered via `workflow_dispatch` on `deploy.yml`. Requires deployment approval from any repository developer with write access.
+   - **Automated releases**: Security-only updates merge and deploy automatically if all conditions in ADR-0002 pass.
+
+### Status contexts & PR labels
+
+- `ci/gate`: The single required status check on `master`. Derived dynamically from `ci/static` and `ci/review-env`.
+- `deps:security-verified`: Applied to Dependabot PRs updating only manifest/lock files with patch/minor versions that resolve published security advisories.
+- `deps:tooling`: Applied to theme-local development tooling updates in `web/themes/omnichannel`.
+- `deps:needs-review`: Applied to version bumps, major updates, or PRs touching non-lock files. Requires human review.
+- `refresh-content`: Add this label to a PR to request that the next environment run re-clones the database and files from `dev`.
+
+### Kill switches & configuration
+
+Controlled via repository variables:
+- `AUTO_MERGE_ENABLED` (`true` | `false`): Enables automated squash-merging of qualifying dependency updates.
+- `AUTO_DEPLOY_ENABLED` (`true` | `false`): Enables automated promotion of verified security updates to `live`. Defaults to `false` until 5 successful manual releases are logged.
+- `DEPLOY_WINDOW`: JSON defining the allowed automated deployment window (`{"days":[1,2,3,4],"start":"09:00","end":"15:00","tz":"America/Los_Angeles"}`). Automated deploys never run on US federal holidays.
+
+### Configuration drift & secret management
+
+- **Zero drift requirement**: Deployments to `live` halt immediately if `config:status` reports unexported configuration changes on production.
+- **Never commit secrets to config**: Production credentials, API keys, and sensitive tokens must be stored in Pantheon Secrets (`terminus secrets:set`) or environment-specific `settings.php` overrides, never in exported YAML config.
+- **Resolving live drift**: To resolve drift cleanly:
+  1. Pull the live database into DDEV: `ddev pull pantheon --skip-files`.
+  2. Inspect and export locally: `ddev drush config:status` and `ddev drush config:export`.
+  3. Review exported files in `config/` to ensure no credentials or secrets are present.
+  4. Submit changes via a standard PR, or revert unintended changes on live.
+

@@ -1,0 +1,6 @@
+# Configuration schema error allowlist
+# Format: config.name:key.path
+# Lines starting with # are comments. Empty lines are ignored.
+#
+# Examples:
+# views.view.some_view:display.default.display_options.filters.some_filter

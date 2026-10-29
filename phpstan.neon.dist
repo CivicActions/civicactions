@@ -1,0 +1,16 @@
+includes:
+  - phpstan-baseline.neon
+
+parameters:
+  level: 2
+  reportUnmatchedIgnoredErrors: false
+  paths:
+    - web/modules/custom
+    - web/themes/omnichannel
+  ignoreErrors:
+    - '#Call to an undefined method Drupal\\Core\\Entity\\EntityInterface::(get|hasField)\(\)#'
+    - '#\\Drupal calls should be avoided in classes, use dependency injection instead#'
+  excludePaths:
+    - */node_modules/*
+    - */storybook-static/*
+    - */vendor/*
