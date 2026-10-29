@@ -23,14 +23,29 @@ final class CivicactionsBlogMigrationCommands extends DrushCommands {
   }
 
   /**
-   * Syncs or rolls back Medium legacy redirects for migrated article editorials.
+   * Syncs or rolls back legacy Medium redirects.
    */
   #[CLI\Command(name: 'civicactions:medium-legacy-redirects')]
-  #[CLI\Option(name: 'rollback', description: 'Delete redirects previously created by this command.')]
-  #[CLI\Option(name: 'dry-run', description: 'Show what would change without writing redirects.')]
-  #[CLI\Usage(name: 'ddev drush civicactions:medium-legacy-redirects', description: 'Create 301 redirects from legacy Medium slug-hash paths to current editorial aliases.')]
-  #[CLI\Usage(name: 'ddev drush civicactions:medium-legacy-redirects --dry-run', description: 'Preview redirect creation without writing changes.')]
-  #[CLI\Usage(name: 'ddev drush civicactions:medium-legacy-redirects --rollback', description: 'Delete redirects created by this command.')]
+  #[CLI\Option(
+    name: 'rollback',
+    description: 'Delete redirects previously created by this command.',
+  )]
+  #[CLI\Option(
+    name: 'dry-run',
+    description: 'Show what would change without writing redirects.',
+  )]
+  #[CLI\Usage(
+    name: 'ddev drush civicactions:medium-legacy-redirects',
+    description: 'Create 301 redirects from legacy Medium slug-hash paths.',
+  )]
+  #[CLI\Usage(
+    name: 'ddev drush civicactions:medium-legacy-redirects --dry-run',
+    description: 'Preview redirect creation without writing changes.',
+  )]
+  #[CLI\Usage(
+    name: 'ddev drush civicactions:medium-legacy-redirects --rollback',
+    description: 'Delete redirects created by this command.',
+  )]
   public function mediumLegacyRedirects(array $options = ['rollback' => FALSE, 'dry-run' => FALSE]): void {
     $rollback = (bool) ($options['rollback'] ?? FALSE);
     $dry_run = (bool) ($options['dry-run'] ?? FALSE);
@@ -47,4 +62,3 @@ final class CivicactionsBlogMigrationCommands extends DrushCommands {
   }
 
 }
-
