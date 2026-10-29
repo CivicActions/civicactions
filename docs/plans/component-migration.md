@@ -189,6 +189,15 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **Active Open PRs:** Owen's multidev testing branches (PR #68, PR #60, PR #56) and Dependabot dependency updates (PR #57, PR #59).
 - **Ticket Status Reconciliation:** `MAHOM-1160`, `MAHOM-1164`, `MAHOM-1165`, `MAHOM-1166`, and `MAHOM-1189` are all Delivered/Merged in code. Next critical engineering blocker is Webform / form embeds on Live (`MAHOM-1200`).
 
+### October 28 Team Sync Decisions & Operational Alignment
+
+- **Launch Strategy & QA Timeline:** Soft launch targeted for Wednesday November 4, 2026 (prioritizing low-risk release over public announcement). Holistic browser/mobile viewport QA conducted by Bridget on Monday November 2, with feedback remediation on Tuesday November 3.
+- **Webform Priority & Live Error (`MAHOM-1200`):** The primary remaining functional blocker is Webform enablement on Live. Enabling the module caused an unexpected error that broke `/admin/modules`; Jack is investigating the error and configuration on Live. Implementation sequence: build the simple Contact form first to validate email delivery and Friendly CAPTCHA; convert the DITAP Google Form second, ensuring submissions route to Farook.
+- **Team Page / In Memoriam Status Audit:** Team sync raised why *in memoriam* staff do not appear on `/team`. Root cause: `views.view.ca_team` filters on `field_profile_status` with `value: { current: current }`, intentionally excluding the 3 `in_memoriam` nodes. If desired, the filter value can be expanded to `{ current: current, in_memoriam: in_memoriam }` or broken into a dedicated memorial section. Staff profile detail links remain deferred post-MVP.
+- **Case Studies & Articles Listing Filters:** Confirmed team consensus to hide the taxonomy keyword/topic filters for MVP to eliminate cluttered, duplicative term dropdowns (delivered in PR #64).
+- **Medium Article Redirects:** Legacy Medium slug-hash redirects are operational via Andy's Drush command (PR #67); domain-level 301 redirect from `blog.civicactions.com` to `civicactions.com/insights/articles` remains on the switchover checklist.
+- **Icon Library:** Post-MVP ticket to expand the current 6-icon catalog using the original Noun Project source library.
+
 ---
 
 ## 4. Integration Boundaries
