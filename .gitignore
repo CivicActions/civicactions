@@ -122,4 +122,4 @@
 .github/agents/
 .github/prompts/
 .specify/
-specs/
+/specs/

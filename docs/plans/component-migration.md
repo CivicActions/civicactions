@@ -38,14 +38,14 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`card.js`** | Linked card with icon, title, and body for offerings and service highlights. | **Merged** | `omnichannel:card` | MAHOM-1167 | Done |
 | **`case-study-teaser.js`** | Teaser card for case study previews on Home, Services, and listing grid. | **Merged** | `omnichannel:case-study-teaser` | MAHOM-1167 | Done |
 | **`press-release-teaser.js`** | Press release teaser. Consolidated into generalized editorial teaser supporting image card and compact text feed. | **Merged** | `omnichannel:editorial-teaser` | MAHOM-1167 | Done |
-| **`hero-with-buttons.js`** | Comprehensive hero with eyebrow, heading, summary, image, and double CTAs. | **Text/CTAs merged; image implementation awaiting Canvas verification** | `omnichannel:hero` with optional image, 60:40 layout, and mobile image hiding | MAHOM-1179 (PR #14), Hero Media follow-up | Done |
-| **`hero.js`** | Basic hero without CTAs. Consolidated into base hero component with optional action links. | **Merged** | Consolidated into `omnichannel:hero` | MAHOM-1179 | Done |
+| **`hero-with-buttons.js`** | Comprehensive hero with eyebrow, heading, summary, image, and double CTAs. Supports optional `heading_level` (1 or 2, default 1) to prevent duplicate H1 tags on Canvas pages with multiple heroes. | **Merged** | `omnichannel:hero` with optional image, 60:40 layout, mobile image hiding, and `heading_level` prop | MAHOM-1179 (PR #14), MAHOM-1204 (PR #63) | Done |
+| **`hero.js`** | Basic hero without CTAs. Consolidated into base hero component with optional action links and heading level. | **Merged** | Consolidated into `omnichannel:hero` | MAHOM-1179, MAHOM-1204 (PR #63) | Done |
 | **`case-study-hero.js`** | Content-specific case study hero. Consolidated into unified hero component. | **Merged** | Consolidated into `omnichannel:hero` | MAHOM-1179 | Done |
 | **`quote.js`** | Testimonial quote with author citation, supporting optional portrait thumbnail. | **Merged** | `omnichannel:quote` | MAHOM-1167 | Done |
 | **`staff-quote.js`** | Staff quote variant. Consolidated into unified quote component. | **Merged** | Consolidated into `omnichannel:quote` | MAHOM-1167 | Done |
 | **`header.js` & `menus/main-menu/*`** | Sitewide header, desktop flyouts, mobile hamburger drawer, and skip link. | **Merged / CMS Validation Pending** | `omnichannel:main-menu` & `header.html.twig` | MAHOM-1168 (PR #18) | Done |
 | **`red-header.js`** | Alternate red header variant. De-scoped; single cohesive header shell adopted sitewide. | **De-scoped** | Single header shell adopted sitewide | MAHOM-1168 | N/A |
-| **`footer.js` & `menus/footer-menu.js`** | Sitewide multi-column footer, about summary, contact info, and legal links. | **Merged** | `omnichannel:site-footer` & partials | MAHOM-1174 | Done |
+| **`footer.js` & `menus/footer-menu.js`** | Sitewide multi-column footer, about summary, contact info, and legal links. Links updated to canonical MVP routes matching live navigation. | **Merged** | `omnichannel:site-footer`, partials, and `menu.html.twig` routes | MAHOM-1174, PR #63 | Done |
 | **`social-icons/*`** | Social link collection (LinkedIn, GitHub) rendered in footer. | **Merged** | `omnichannel:social-links` | MAHOM-1174 | Done |
 | **`skip-nav.js`** | Skip to main content accessibility control. | **Merged** | Built into page template shell | MAHOM-1175 | Done |
 | **`teaser-grid.js`** | Staff card with portrait, name, and role for Team and offering pages. | **Merged** | `omnichannel:person-teaser` | MAHOM-1180 (PR #19) | Done |
@@ -53,6 +53,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`-` (Layout Section)** | Responsive CSS Grid layout container (2, 3, 4 columns). Needs anchor ID and optional section title for in-page jump navigation. | **Merged** | `omnichannel:section` updates | MAHOM-1183 | Done |
 | **Shared page layout & full-bleed model** | Cross-page contract for full-bleed backgrounds, 1200px containers, 720px editorial columns, Canvas page boundaries, and fixture parity. | **Merged** | `page.html.twig` width classes & `is_canvas_page` hook | MAHOM-1187 (PR #37) | Done |
 | **`Text` (WYSIWYG)** | Rich text container for Utility pages (Privacy, 404) and service descriptions. Scoped typography (`@scope`) without admin bleed. | **Merged** | `omnichannel:content` | MAHOM-1183 | Done |
+| **`404 Page` (Not Found)** | Legacy-aligned 404 error template with centered 1200px layout, "Well, that's awkward." heading, team Zoom image, quick links, and Primary Page CTA. | **Merged** | `page--404.html.twig`, `not-found.css`, `system.404` suggestion | PR #62 | Done |
 | **`Image` & `video.js` (Media SDC)** | Unified media embed primitive supporting responsive images and video embeds (16:9 ratio, caption, transcript support). | **Merged** | `omnichannel:media` | MAHOM-1183 | Done |
 | **`page-title`** | Standalone semantic H1 heading component for Canvas landing pages, resolving Axe heading order violations. | **Merged** | `omnichannel:page-title` | MAHOM-1183 | Done |
 | **`Proofpoints`** | Key statistical metrics (1 to 3 items, with or without boxed card background). Used on offering pages and Case Studies. | **Merged** | `omnichannel:proofpoints` | MAHOM-1184 (PR #34) | Done |
@@ -69,7 +70,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`sections.js`** | Generic legacy content renderer. Replaced by Drupal Canvas layout system. | **Retired** | Replaced by Drupal Canvas layout system | N/A | N/A |
 | **`seo.js`** | Social sharing and SEO tags. Handled via Drupal `metatag` module configuration (Dublin Core and Open Graph). | **Backend Core** | Drupal `metatag` module config | Core Config | Low |
 | **`pagination.js`** | Pagination navigation. | **Merged (PR #47)** | `omnichannel:link-button` & Views pager templates (legacy Back / Page X of Y / Next pattern) | MAHOM-1203 | Done |
-| **Views exposed filters** | Token-based flexbox layout, 44px touch targets, uppercase Nunito bold labels, and Link Button submit styling with 3px focus rings across `/case-studies` and `/insights/articles`. | **PR #50 In Review** | `exposed-filters.css` & `views-exposed-form.html.twig` | MAHOM-1202 | In Review |
+| **Views exposed filters** | Token-based flexbox layout, 44px touch targets, uppercase Nunito bold labels, and Link Button submit styling with 3px focus rings across `/case-studies` and `/insights/articles`. For MVP, noisy taxonomy keyword/topic filters and non-functional quick-link headers are hidden. | **Merged (PR #50 & PR #64)** | `exposed-filters.css`, `views.view.ca_*` | MAHOM-1202 | Done |
 | **`banner.js`** | Dismissible announcement banner. Placed via Canvas block. | **Canvas** | Standard Canvas banner block | Editorial | Low |
 | **Careers Job Board (`/careers/`)** | Job board feed implemented as a custom Drupal PHP block fetching Greenhouse JSON. The sandbox is running; webhook setup remains before deployment. | **In Progress** | Custom Drupal block plugin with cache-clearing webhook | Backend | Med |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |
@@ -172,6 +173,21 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **Forms & Greenhouse:** Webform module is uninstalled on Live; Greenhouse module (`civicactions_greenhouse`) is in `master` (`80b84ca`) but not yet enabled on Live.
 - **Main Menu Links:** Fourteen links in the main navigation currently point to `internal:#`.
 - **Target Launch:** First week of November 2026. Wednesday October 28 cowork is the primary milestone for Canvas assembly and forms integration.
+
+### October 29 MVP Polish & PR Merge Reconciliation
+
+- **PR #49 Merged:** Editorial node detail theming (`node--editorial--full.html.twig`, 720px narrow column, author/contributor fields, label suppression) merged to `master`.
+- **PR #50 Merged:** Views exposed filters styled with token-based flexbox; `/team` defaults to current members without internal/external filter.
+- **PR #51 Merged:** Comprehensive CI/CD pipeline merged by Owen (PR static checks, Playwright visual regression, Storybook build checks, and gated deployments).
+- **PR #52 Merged:** Component margin spacing between section columns added by Jacqueline.
+- **PR #61 Merged (MAHOM-1189):** Dedicated theming for Basic Page nodes merged by Iris (card-style hero rendering page title and short description, dedicated typography stylesheet, and overridable `node_title` block).
+- **PR #62 Merged:** 404 Not Found error template (`page--404.html.twig`) extending `page.html.twig`, `@scope (.ca-not-found)` styles, team Zoom photo (`zoom-image.png`), quick navigation to `/`, `/careers/`, `/insights/`, and full-width Primary Page CTA.
+- **PR #63 Merged (MAHOM-1204):** Hero SDC `heading_level` prop (default `1`, supports `2`) added to resolve duplicate H1 on Home; footer menu links mapped to canonical MVP routes (`/team/`, `/news/`, `https://reports.civicactions.com/2025`, `/services/`, `/case-studies/`, `/contracting/`, `/contact/`, `/insights/`, `/careers/`).
+- **PR #64 Merged (MAHOM-1202):** Taxonomy keyword and topic filters set to `exposed: false` in `ca_articles` and `ca_case_studies` (both sync and install configs); non-functional quick-link header areas removed.
+- **PR #66 Merged:** E2E test suite validation (functional, a11y, and visual suites) and selector fixes.
+- **PR #67 Merged:** Reversible Medium legacy redirect sync command merged by Andy (`drush civicactions:medium-legacy-redirects` creates 301 redirects from legacy Medium paths to migrated editorial articles).
+- **Active Open PRs:** Owen's multidev testing branches (PR #68, PR #60, PR #56) and Dependabot dependency updates (PR #57, PR #59).
+- **Ticket Status Reconciliation:** `MAHOM-1160`, `MAHOM-1164`, `MAHOM-1165`, `MAHOM-1166`, and `MAHOM-1189` are all Delivered/Merged in code. Next critical engineering blocker is Webform / form embeds on Live (`MAHOM-1200`).
 
 ---
 
