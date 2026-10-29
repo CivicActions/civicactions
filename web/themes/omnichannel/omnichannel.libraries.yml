@@ -46,18 +46,24 @@ global:
   version: VERSION
   css:
     theme:
-      https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Merriweather:ital,wght@0,300..900;1,300..900&display=swap: { type: external, minified: true }
-      css/global.css: { }
+      https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Merriweather:ital,wght@0,300..900;1,300..900&display=swap:
+        { type: external, minified: true }
+      css/global.css: {}
   dependencies:
     - core/drupal
     - core/once
   js:
-    components/accordion-container/accordion-container.js: { }
+    components/accordion-container/accordion-container.js: {}
 layout:
   version: VERSION
   css:
     theme:
-      css/layout.css: { }
+      css/layout.css: {}
+basic-page:
+  version: VERSION
+  css:
+    component:
+      css/layouts/basic-page.css: {}
 dialog:
   version: VERSION
   css:
@@ -80,12 +86,12 @@ image-widget:
   version: VERSION
   css:
     component:
-      css/components/image-widget.css: {  }
+      css/components/image-widget.css: {}
 indented:
   version: VERSION
   css:
     component:
-      css/components/indented.css: {  }
+      css/components/indented.css: {}
 messages:
   version: VERSION
   css:
@@ -96,7 +102,7 @@ case-study:
   version: VERSION
   css:
     component:
-      css/layouts/case-study.css: { }
+      css/layouts/case-study.css: {}
 node:
   version: VERSION
   css:
@@ -125,7 +131,7 @@ search-results:
   version: VERSION
   css:
     component:
-      css/components/search-results.css: {  }
+      css/components/search-results.css: {}
 user:
   version: VERSION
   css:

@@ -1,0 +1,12 @@
+@scope (.node--type-page) {
+  h3 {
+    font-size: var(--font-size-h4);
+    font-weight: bold;
+    line-height: var(--line-height-h4);
+  }
+
+  h2,
+  h3 {
+    padding-top: var(--size-12);
+  }
+}

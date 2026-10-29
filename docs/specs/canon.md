@@ -64,6 +64,10 @@ Full node detail displays (`editorial`, `case_study`, `page`) render standard no
 - **Case Study node theming:** Tracked in MAHOM-1162 (in Develop with Iris Ibekwe). Dedicated 1:1 Gatsby parity was declined under MAHOM-1186; clean node theming matching the Omnichannel design tokens is the target standard.
 - **Person nodes:** Person teaser cards remain unlinked on `/team` for MVP. Individual staff detail nodes are deferred post-MVP.
 
+### Basic page detail rendering
+
+[node--page--full.html.twig](../../web/themes/omnichannel/templates/content/node--page--full.html.twig) passes `page_hero_summary` to the Hero SDC. For basic pages in `full` view mode, `preprocessNode()` extracts the plain-text `schema_short_description` value using the shared field-access helper and bubbles its access cache metadata without replacing existing cache metadata. The field render array is excluded from the remaining content so its label and block wrappers do not appear inside the hero summary paragraph or duplicate the description.
+
 ### Case study detail rendering
 
 [node--case-study.html.twig](../../web/themes/omnichannel/templates/content/node--case-study.html.twig) extends the shared node template. In full view mode it renders the header (title, client, description), hero media, proof points, article body, expertise and tools, key outcomes, and team members in that order. Display-enabled fields that are not mapped to a prop, such as keywords, are not rendered; non-full view modes retain the parent markup unless a more specific template applies.
@@ -187,4 +191,3 @@ Controlled via repository variables:
   2. Inspect and export locally: `ddev drush config:status` and `ddev drush config:export`.
   3. Review exported files in `config/` to ensure no credentials or secrets are present.
   4. Submit changes via a standard PR, or revert unintended changes on live.
-
