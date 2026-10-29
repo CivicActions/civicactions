@@ -1,13 +1,30 @@
 name: "Setup Terminus"
-description: "Installs, restores cached session, and authenticates Terminus CLI on Pantheon"
+description: "Installs, restores cached session, and authenticates Terminus and SSH for Pantheon"
 inputs:
   pantheon-machine-token:
     description: "Pantheon Machine Token"
     required: true
+  pantheon-ssh-key:
+    description: "Pantheon SSH Private Key (for remote Drush / Git operations)"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
   steps:
+    - name: Setup SSH Agent for Pantheon Drush
+      if: inputs.pantheon-ssh-key != ''
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ inputs.pantheon-ssh-key }}
+
+    - name: Configure known_hosts for Pantheon
+      if: inputs.pantheon-ssh-key != ''
+      shell: bash
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -p 2222 appserver.dev.4f7f3b10-4ed4-408a-a5c0-32aee1264edb.drush.in >> ~/.ssh/known_hosts 2>/dev/null || true
+
     - name: Setup Terminus and Restore/Cache Authenticated Session
       uses: pantheon-systems/terminus-github-actions@v1
       with:

@@ -12,6 +12,7 @@ concurrency:
 permissions:
   contents: read
   issues: write
+  deployments: read
 
 jobs:
   sync-dev:
@@ -32,6 +33,7 @@ jobs:
         uses: ./.github/actions/terminus-setup
         with:
           pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+          pantheon-ssh-key: ${{ secrets.PANTHEON_SSH_KEY }}
 
       - name: Wait for Dev to Deploy Master Commit
         id: wait-dev
@@ -74,6 +76,8 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22"
+          cache: "npm"
+          cache-dependency-path: tests/e2e/package-lock.json
 
       - name: Run Smoke Tests against Dev
         working-directory: tests/e2e

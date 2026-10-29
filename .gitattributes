@@ -59,3 +59,7 @@
 *.ttf     -text diff
 *.woff    -text diff
 *.woff2   -text diff
+
+# Generated build artifacts: exclude from GitHub CodeQL scanning and language statistics
+web/storybook/** linguist-generated=true
+

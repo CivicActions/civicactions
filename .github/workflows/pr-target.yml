@@ -60,7 +60,7 @@ jobs:
 
       - name: Fetch Dependabot Metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@dbb99fe61899146d9360824522a4665c60643c40 # v2.2.0
+        uses: dependabot/fetch-metadata@v2
         with:
           alert-lookup: true
 
