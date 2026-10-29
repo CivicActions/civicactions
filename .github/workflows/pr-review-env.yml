@@ -156,10 +156,8 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22"
-          cache: "npm"
-          cache-dependency-path: tests/e2e/package-lock.json
 
-      - name: Install test dependencies
+      - name: Install test dependencies (no cache for untrusted PR code)
         working-directory: tests/e2e
         run: npm ci
 
