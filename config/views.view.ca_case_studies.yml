@@ -159,7 +159,7 @@ display:
           operator: or
           value: {  }
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: ''
             label: Keyword
@@ -220,20 +220,7 @@ display:
       relationships: {  }
       use_ajax: true
       group_by: false
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: 'Keyword quick links'
-          plugin_id: text
-          empty: false
-          content:
-            value: '<p><strong>Filter by keyword:</strong> <a href="/case-studies?topic_tid=194">Digital Services</a> | <a href="/case-studies?topic_tid=197">Open Data</a></p>'
-            format: basic_html
-          tokenize: false
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
