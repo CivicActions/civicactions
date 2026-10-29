@@ -7,6 +7,7 @@ const meta = {
   render: (args) => template(args),
   argTypes: {
     title: { control: 'text' },
+    heading_level: { control: 'select', options: [1, 2] },
     eyebrow: { control: 'text' },
     summary: { control: 'text' },
     variant: { control: 'select', options: ['card', 'flush'] },
@@ -22,6 +23,7 @@ const meta = {
   },
   args: {
     title: 'Government services that build public trust',
+    heading_level: 1,
     eyebrow: 'CivicActions',
     summary:
       'We help government deliver trusted public services through open technology and design.',
@@ -103,5 +105,19 @@ export const ImageWithLongContent = {
       'We partner with government teams to modernize complex systems through open technology, human-centered design, and accessible digital experiences that help people find and use the services they need.',
     primary_button_text: 'Explore our government modernization case studies',
     secondary_button_text: 'Talk with our team about your next project',
+  },
+};
+
+export const SubheadingH2 = {
+  args: {
+    heading_level: 2,
+    eyebrow: 'CivicActions Culture',
+    title: 'Our people make the difference.',
+    summary:
+      'We are leaders in civic tech and design, committed to working in ways that make life better for our clients and each other.',
+    primary_button_text: 'Meet our team',
+    primary_button_url: '/team',
+    secondary_button_text: '',
+    secondary_button_url: '',
   },
 };

@@ -5,6 +5,7 @@
  *
  * Available props:
  * - title: Primary page heading.
+ * - heading_level: Optional heading level (1 or 2, defaults to 1).
  * - eyebrow: Optional client, category, or section label.
  * - summary: Optional introductory copy.
  * - variant: Presentation variant ('card' or 'flush').
@@ -28,6 +29,8 @@
 {% if hero_has_image %}
   {% set hero_classes = hero_classes|merge(['ca-hero--with-image']) %}
 {% endif %}
+{% set hero_heading_tags = {1: 'h1', 2: 'h2'} %}
+{% set hero_heading_tag = hero_heading_tags[heading_level|default(1)]|default('h1') %}
 {% set hero_attributes = attributes|default(create_attribute()) %}
 
 <section {{ hero_attributes.addClass(hero_classes) }}>
@@ -36,7 +39,7 @@
       {% if eyebrow %}
         <p class="ca-hero__eyebrow">{{ eyebrow }}</p>
       {% endif %}
-      <h1 class="ca-hero__title">{{ title }}</h1>
+      <{{ hero_heading_tag }} class="ca-hero__title">{{ title }}</{{ hero_heading_tag }}>
       {% if summary %}
         <p class="ca-hero__summary">{{ summary }}</p>
       {% endif %}
