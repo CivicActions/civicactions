@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Theme override for 404 Not Found error pages.
+ */
+#}
+{% extends "page.html.twig" %}
+
+{% block main_content %}
+  {{ attach_library('omnichannel/not-found') }}
+  <section class="ca-not-found">
+    <div class="ca-not-found__inner">
+      <h1 class="ca-not-found__code">404</h1>
+      <h2 class="ca-not-found__title">{{ "Well, that's awkward."|t }}</h2>
+      <img
+        class="ca-not-found__image"
+        src="/themes/omnichannel/images/canvas-assets/zoom-image.png"
+        alt="{{ 'Funny photo of CivicActions frozen in a Zoom call'|t|e('html_attr') }}"
+        width="759"
+        height="285"
+      >
+      <div class="ca-not-found__body">
+        <p>{{ "We’re frozen on Zoom and can’t find the page you’re looking for."|t }}</p>
+        <p>{{ "While we sign back on, here are some quick links for you:"|t }}</p>
+        <ul class="ca-not-found__links">
+          <li><a href="/">{{ "Visit our homepage"|t }}</a></li>
+          <li><a href="/careers/">{{ "View our job listings"|t }}</a></li>
+          <li><a href="/insights/">{{ "Read our insights"|t }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {% include 'omnichannel:primary-page-cta' with {
+    title: "Let’s build a public success story."|t,
+    subtitle: "Get in touch to start."|t,
+    variant: 'default',
+    primary_button_text: "Put us to work"|t,
+    primary_button_url: "/contact",
+    secondary_button_text: "Join our team"|t,
+    secondary_button_url: "/careers",
+  } only %}
+{% endblock %}

@@ -16,3 +16,5 @@ export const quotePortrait = {
   width: 346,
   height: 446,
 };
+
+export const notFoundImage = `${import.meta.env.PROD ? '/storybook' : ''}/images/canvas-assets/zoom-image.png`;

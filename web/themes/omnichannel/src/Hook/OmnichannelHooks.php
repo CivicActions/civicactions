@@ -9,6 +9,7 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Security\Attribute\TrustedCallback;
 use Drupal\file\FileInterface;
 use Drupal\filter\Entity\FilterFormat;
@@ -20,6 +21,11 @@ use Drupal\node\NodeInterface;
  * Hook implementations for omnichannel.
  */
 class OmnichannelHooks {
+
+  public function __construct(
+    private readonly RouteMatchInterface $routeMatch,
+  ) {}
+
   /**
    * Content types rendered with the full-width page container.
    *
@@ -66,6 +72,16 @@ class OmnichannelHooks {
       : ($node instanceof NodeInterface ? $node->bundle() : NULL);
     $variables['is_full_width'] = $content_type !== NULL
       && in_array($content_type, self::FULL_WIDTH_CONTENT_TYPES, TRUE);
+  }
+
+  /**
+   * Implements hook_theme_suggestions_page_alter().
+   */
+  #[Hook('theme_suggestions_page_alter')]
+  public function themeSuggestionsPageAlter(array &$suggestions, array $variables): void {
+    if ($this->routeMatch->getRouteName() === 'system.404') {
+      $suggestions[] = 'page__404';
+    }
   }
 
   /**

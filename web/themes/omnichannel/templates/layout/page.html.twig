@@ -54,6 +54,7 @@
 {% endif %}
 
 <main id="main-content" class="ca-page__main" tabindex="-1">
+  {% block main_content %}
   {% if page.breadcrumb or page.highlighted or page.help %}
     <div class="ca-container">
       {{ page.breadcrumb }}
@@ -101,6 +102,7 @@
       </aside>
     {% endif %}
   </div>
+  {% endblock %}
 </main>
 
 {# Temporary static content until the footer slots are populated through Canvas. #}
