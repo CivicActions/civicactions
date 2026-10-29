@@ -215,20 +215,7 @@ display:
             field_identifier: ''
           exposed: false
           granularity: second
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: 'Keyword quick links'
-          plugin_id: text
-          empty: false
-          content:
-            value: '<p><strong>Filter by keyword:</strong> <a href="/case-studies?topic_tid=194">Digital Services</a> | <a href="/case-studies?topic_tid=197">Open Data</a></p>'
-            format: basic_html
-          tokenize: false
+      header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
