@@ -99,7 +99,7 @@ jobs:
           # 4. Check deployed commit vs VERIFIED_SHA
           DEPLOYED_ID=$(deploy_id "${ENV_NAME}")
           echo "Deployed identifier on ${ENV_NAME}: ${DEPLOYED_ID}"
-          if ! sha_matches "${DEPLOYED_ID}" "${VERIFIED_SHA}"; then
+          if [[ -n "${DEPLOYED_ID}" ]] && ! sha_matches "${DEPLOYED_ID}" "${VERIFIED_SHA}"; then
             echo "Environment ${ENV_NAME} has ${DEPLOYED_ID}, not head ${VERIFIED_SHA:0:7}. Exiting without status change."
             echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -266,7 +266,7 @@ jobs:
 
           # 4. Check if final deployed commit matches VERIFIED_SHA
           FINAL_ID=$(deploy_id "${ENV_NAME}")
-          if ! sha_matches "${FINAL_ID}" "${VERIFIED_SHA}"; then
+          if [[ -n "${FINAL_ID}" ]] && ! sha_matches "${FINAL_ID}" "${VERIFIED_SHA}"; then
             echo "Environment identifier changed from ${VERIFIED_SHA:0:7} to ${FINAL_ID} during testing. Discarding results."
             exit 0
           fi
