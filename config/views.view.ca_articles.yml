@@ -212,7 +212,7 @@ display:
           operator: or
           value: {  }
           group: 1
-          exposed: true
+          exposed: false
           expose:
             operator_id: ''
             label: Topic
