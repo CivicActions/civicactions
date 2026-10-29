@@ -21,6 +21,7 @@ use Drupal\node\NodeInterface;
  * Hook implementations for omnichannel.
  */
 class OmnichannelHooks {
+
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
   ) {}
