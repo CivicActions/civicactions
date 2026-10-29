@@ -1,0 +1,11 @@
+services:
+  civicactions_blog_migration.medium_legacy_redirect_sync:
+    class: Drupal\civicactions_blog_migration\MediumLegacyRedirectSync
+    arguments: ['@database', '@entity_type.manager', '@path_alias.manager', '@module_handler', '@state']
+
+  civicactions_blog_migration.commands:
+    class: Drupal\civicactions_blog_migration\Commands\CivicactionsBlogMigrationCommands
+    arguments: ['@civicactions_blog_migration.medium_legacy_redirect_sync']
+    tags:
+      - { name: drush.command }
+

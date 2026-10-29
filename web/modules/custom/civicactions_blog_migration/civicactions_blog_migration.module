@@ -13,7 +13,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 function civicactions_blog_migration_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.civicactions_blog_migration':
-      return '<p>' . t('The CivicActions Blog Migration module migrates archived Medium publication HTML from blog_archive/ into the Article content type using local metadata and HTML sources.') . '</p>';
+      return '<p>' . t('The CivicActions Blog Migration module migrates archived Medium publication HTML from blog_archive/ into the Article content type using local metadata and HTML sources. It also provides the Drush command <code>civicactions:medium-legacy-redirects</code> to create or roll back legacy Medium slug-hash redirects for migrated Article editorials.') . '</p>';
   }
 }
-
