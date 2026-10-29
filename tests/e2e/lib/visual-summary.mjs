@@ -1,29 +1,22 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-export interface TestResultItem {
-  pageId: string;
-  project: string; // desktop | mobile
-  status: 'match' | 'diff' | 'reference_unavailable' | 'stale';
-  diffPixels?: number;
-}
-
-export function parseVisualResults(jsonPath: string): TestResultItem[] {
+export function parseVisualResults(jsonPath) {
   if (!fs.existsSync(jsonPath)) {
     return [];
   }
 
   const raw = fs.readFileSync(jsonPath, 'utf8');
-  let data: any;
+  let data;
   try {
     data = JSON.parse(raw);
   } catch {
     return [];
   }
 
-  const items: TestResultItem[] = [];
+  const items = [];
 
-  function traverseSuites(suite: any) {
+  function traverseSuites(suite) {
     if (!suite) return;
     for (const spec of suite.specs || []) {
       for (const test of spec.tests || []) {
@@ -32,12 +25,12 @@ export function parseVisualResults(jsonPath: string): TestResultItem[] {
         const pageId = pageIdMatch ? pageIdMatch[1] : spec.title;
 
         const result = (test.results && test.results[0]) || {};
-        let status: TestResultItem['status'] = 'match';
+        let status = 'match';
 
         if (result.status === 'skipped') {
           status = 'stale';
         } else if (result.status !== 'passed') {
-          const errorMsg = (result.errors || []).map((e: any) => e.message || '').join(' ');
+          const errorMsg = (result.errors || []).map((e) => e.message || '').join(' ');
           if (errorMsg.includes('Snapshot comparison failed') || errorMsg.includes('Screenshot comparison failed')) {
             status = 'diff';
           } else {
@@ -65,17 +58,17 @@ export function parseVisualResults(jsonPath: string): TestResultItem[] {
   return items;
 }
 
-export function formatVisualMarkdownTable(items: TestResultItem[]): string {
+export function formatVisualMarkdownTable(items) {
   if (items.length === 0) {
     return 'No visual regression comparisons were executed.';
   }
 
-  const pagesMap = new Map<string, Record<string, string>>();
+  const pagesMap = new Map();
   for (const item of items) {
     if (!pagesMap.has(item.pageId)) {
       pagesMap.set(item.pageId, {});
     }
-    pagesMap.get(item.pageId)![item.project] = item.status;
+    pagesMap.get(item.pageId)[item.project] = item.status;
   }
 
   let table = '| Page | Desktop (1440px) | Mobile (390px) |\n';
@@ -90,7 +83,7 @@ export function formatVisualMarkdownTable(items: TestResultItem[]): string {
   return table;
 }
 
-function formatStatus(status?: string): string {
+function formatStatus(status) {
   switch (status) {
     case 'match':
       return '✓ Match';

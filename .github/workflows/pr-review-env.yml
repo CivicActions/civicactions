@@ -250,7 +250,7 @@ jobs:
 
           # 3. Check visual regression results
           node --input-type=module -e "
-          import { parseVisualResults, formatVisualMarkdownTable } from './tests/e2e/lib/visual-summary.js';
+          import { parseVisualResults, formatVisualMarkdownTable } from './tests/e2e/lib/visual-summary.mjs';
           import fs from 'node:fs';
 
           const items = parseVisualResults('./tests/e2e/test-results/results.json');
