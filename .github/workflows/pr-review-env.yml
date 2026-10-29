@@ -1,19 +1,13 @@
 name: "PR Review Environment Checks"
 
-run-name: review-env PR #${{ inputs.pr_number || github.event.issue.number }} @ ${{ github.event.client_payload.sha || 'verify' }}
+run-name: review-env PR #${{ github.event.issue.number }}
 
 on:
   issue_comment:
     types: [created]
-  workflow_dispatch:
-    inputs:
-      pr_number:
-        description: "Pull request number to verify and test"
-        required: true
-        type: string
 
 concurrency:
-  group: review-env-${{ inputs.pr_number || github.event.issue.number }}
+  group: review-env-${{ github.event.issue.number }}
   cancel-in-progress: true
 
 permissions:
@@ -26,12 +20,9 @@ jobs:
     name: "Verify & Prepare Review Environment"
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'workflow_dispatch' ||
-      (
-        github.event.issue.pull_request &&
-        github.event.comment.user.login == 'pantheon-site-integration[bot]' &&
-        startsWith(github.event.comment.body, 'Successfully created multidev environment')
-      )
+      github.event.issue.pull_request &&
+      github.event.comment.user.login == 'pantheon-site-integration[bot]' &&
+      startsWith(github.event.comment.body, 'Successfully created multidev environment')
     outputs:
       verified_sha: ${{ steps.prep.outputs.verified_sha }}
       env_name: ${{ steps.prep.outputs.env_name }}
