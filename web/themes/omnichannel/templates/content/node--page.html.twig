@@ -1,0 +1,19 @@
+{# 
+  Template for basic page nodes.
+#}
+{% extends "node.html.twig" %}
+
+{% block node_content %}
+  {{ attach_library('omnichannel/basic-page') }}
+  {% block node_title %}
+    {% include 'omnichannel:hero' with {
+      title: label,
+      variant: 'card',
+      summary: content.schema_short_description
+    } %}
+  {% endblock %}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+      {{ content|without('schema_short_description') }}
+  </div>
+{% endblock %}

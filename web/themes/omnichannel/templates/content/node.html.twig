@@ -73,14 +73,19 @@
 <article{{ attributes.addClass(classes) }}>
 
   {% block node_content %}
-
-    {{ title_prefix }}
-    {% if label and view_mode != "full" %}
-      <h2{{ title_attributes }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
-    {% endif %}
-    {{ title_suffix }}
+    {% block node_title %}
+      {{ title_prefix }}
+        {% if label and (view_mode != "full") %}
+          <h2{{ title_attributes }}>
+            <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+          </h2>
+        {% else %}
+          <h1{{ title_attributes }}>
+            {{ label }}
+          </h1>
+        {% endif %}
+      {{ title_suffix }}
+    {% endblock %}
 
     {% if display_submitted %}
       <footer class="node__meta">
