@@ -12,6 +12,7 @@ concurrency:
 permissions:
   contents: read
   issues: write
+  deployments: read
 
 jobs:
   sync-dev:
