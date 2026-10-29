@@ -43,6 +43,15 @@
   min-width: 0;
 }
 
+/* Double selector hack to force consistent spacing for components in columns. */
+.ca-section__column.ca-section__column > * {
+  margin-bottom: var(--container-spacing-sm);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .ca-section--none {
   padding-block: 0;
 }
