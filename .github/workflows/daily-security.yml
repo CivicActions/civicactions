@@ -34,6 +34,7 @@ jobs:
         uses: ./.github/actions/terminus-setup
         with:
           pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+          pantheon-ssh-key: ${{ secrets.PANTHEON_SSH_KEY }}
 
       - name: Run Composer & Drupal Advisories Audit
         id: audit-check
