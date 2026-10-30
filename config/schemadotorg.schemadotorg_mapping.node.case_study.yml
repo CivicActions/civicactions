@@ -17,10 +17,14 @@ third_party_settings:
 id: node.case_study
 target_entity_type_id: node
 target_bundle: case_study
-schema_type: Article
+schema_type: Report
 schema_properties:
   schema_description: description
   schema_image: image
   schema_keywords: keywords
-  schema_client: owner
-additional_mappings: {  }
+  schema_client: about
+  title: headline
+additional_mappings:
+  WebPage:
+    schema_type: WebPage
+    schema_properties: {  }

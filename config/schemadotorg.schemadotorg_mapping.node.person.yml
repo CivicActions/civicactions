@@ -35,4 +35,8 @@ schema_properties:
   schema_skills: skills
   schema_urls: url
   schema_works_for: worksFor
-additional_mappings: {  }
+  title: name
+additional_mappings:
+  ProfilePage:
+    schema_type: ProfilePage
+    schema_properties: {  }
