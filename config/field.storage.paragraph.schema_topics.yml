@@ -1,16 +1,16 @@
-uuid: c72d000e-16d1-4e5a-b57c-ee7789ad6461
+uuid: 4022c32b-0d1f-4aa1-bce5-5f9a590f0f85
 langcode: en
 status: true
 dependencies:
   module:
-    - node
     - paragraphs
-id: paragraph.schema_keywords
-field_name: schema_keywords
+    - taxonomy
+id: paragraph.schema_topics
+field_name: schema_topics
 entity_type: paragraph
 type: entity_reference
 settings:
-  target_type: node
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: -1
