@@ -4,7 +4,7 @@ langcode: en
 uuid: 04ebdd82-eefe-495c-9761-919c705f44c9
 name: CivicActions
 mail: homesite@mg.civicactions.net
-slogan: ''
+slogan: 'CivicActions transforms government digital services through modern open technology, human-centered design, and high-impact agile delivery.'
 page:
   403: /user/login
   404: ''
