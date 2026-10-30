@@ -239,11 +239,12 @@ display:
           field: field_profile_status_value
           relationship: none
           group_type: group
-          admin_label: 'Profile Status: current'
+          admin_label: 'Profile Status: current or in_memoriam'
           plugin_id: list_field
           operator: or
           value:
             current: current
+            in_memoriam: in_memoriam
           group: 1
           exposed: false
           expose:
