@@ -50,11 +50,12 @@ Performs pre-deployment diagnostics on the live environment.
 ### 6. `deployment-record.sh`
 Creates and updates GitHub Deployment records for auditability and tracks the count of successful manual releases.
 
-### 7. `health-check.sh` & `drupal/health.php`
-Runs comprehensive Drupal runtime diagnostics via Drush and outputs JSON:
-- System requirements errors.
+### 7. `health-check.sh`
+Runs Drupal runtime diagnostics using standard Drush commands (`core:requirements`, `updatedb:status`, `config:status`, `config:get`, `watchdog:show`) and fails on:
+- System requirements errors (the `automatic_updates` readiness check is skipped while unattended updates are disabled, because Pantheon's code filesystem is read-only).
 - Pending database updates.
-- Configuration drift (names and states).
-- Config schema validation.
-- Watchdog log entries logged during the run.
-- Verification that unattended automatic updates are disabled.
+- Configuration drift (names and states only, never values).
+- Error-level watchdog entries logged after `--since-wid`, when given.
+- Unattended automatic updates not disabled.
+
+Any Drush call that fails also fails the check, so an unreachable site never reports healthy.
