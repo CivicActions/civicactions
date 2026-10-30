@@ -7,8 +7,8 @@ dependencies:
     - field.field.paragraph.quote.schema_date_created
     - field.field.paragraph.quote.schema_description
     - field.field.paragraph.quote.schema_is_based_on_link
-    - field.field.paragraph.quote.schema_keywords
-    - field.field.paragraph.quote.schema_text
+    - field.field.paragraph.quote.schema_quote_text
+    - field.field.paragraph.quote.schema_quote_topics
     - paragraphs.paragraphs_type.quote
   module:
     - paragraphs
@@ -21,6 +21,6 @@ schema_properties:
   schema_date_created: dateCreated
   schema_description: description
   schema_is_based_on_link: isBasedOn
-  schema_keywords: keywords
-  schema_text: text
+  schema_quote_text: text
+  schema_quote_topics: keywords
 additional_mappings: {  }
