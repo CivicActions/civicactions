@@ -9,3 +9,9 @@ label: Global
 tags:
   canonical_url: '[current-page:url]'
   title: '[current-page:title] | [site:name]'
+  og_site_name: '[site:name]'
+  og_locale: en_US
+  dcterms_publisher: '[site:name]'
+  dcterms_language: en
+  dcterms_type: Text
+  dcterms_format: text/html
