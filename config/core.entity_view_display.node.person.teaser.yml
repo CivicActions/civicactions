@@ -32,15 +32,6 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-  schema_job_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-      link_rel: canonical
-    third_party_settings: {  }
-    weight: 10
-    region: content
   schema_image:
     type: entity_reference_entity_view
     label: above
@@ -49,6 +40,15 @@ content:
       link: false
     third_party_settings: {  }
     weight: 65
+    region: content
+  schema_job_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+      link_rel: canonical
+    third_party_settings: {  }
+    weight: 10
     region: content
 hidden:
   field_profile_category: true

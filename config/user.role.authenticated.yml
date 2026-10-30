@@ -2,12 +2,15 @@ uuid: d581c947-043a-4306-8db0-6e27d17eb5c1
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.webform_default
   module:
     - captcha
     - coffee
     - contextual
     - editoria11y
     - file
+    - filter
     - honeypot
     - klaro
     - media
@@ -31,6 +34,7 @@ permissions:
   - 'mark as hidden in editoria11y'
   - 'skip CAPTCHA'
   - 'use klaro'
+  - 'use text format webform_default'
   - 'view editoria11y checker'
   - 'view media'
   - 'view own unpublished content'
