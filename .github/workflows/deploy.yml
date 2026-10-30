@@ -127,7 +127,7 @@ jobs:
           echo "Deploying to test with synced live content..."
           terminus env:deploy "${PANTHEON_SITE}.test" --sync-content --note="Deploy ${TARGET_SHA:0:7}"
 
-          wait_workflows test 600
+          wait_workflows test
           TEST_SHA=$(env_sha test)
           if ! sha_matches "${TEST_SHA}" "${TARGET_SHA}" && ! sha_matches "${TARGET_SHA:0:7}" "${TEST_SHA}"; then
             echo "::error::Test environment does not match expected SHA ${TARGET_SHA:0:7}."
@@ -185,7 +185,7 @@ jobs:
           echo "Deploying code to live..."
           terminus env:deploy "${PANTHEON_SITE}.live" --note="Deploy ${TARGET_SHA:0:7}"
 
-          wait_workflows live 600
+          wait_workflows live
           echo "Running drush deploy on live..."
           drush live -- deploy
 

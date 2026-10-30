@@ -51,29 +51,39 @@ sha_matches() {
   fi
 }
 
-# Wait for active Pantheon workflows for an environment to complete
+# Wait for active Pantheon workflows for an environment to complete, then fail
+# if the most recent one failed. Code syncs include the Integrated Composer
+# build, which regularly takes 8-10+ minutes, so the default timeout is 30m.
 wait_workflows() {
   local env="$1"
-  local timeout="${2:-600}"
+  local timeout="${2:-1800}"
   local start_time
   start_time=$(date +%s)
 
   echo "Waiting for active workflows on ${SITE}.${env} (timeout: ${timeout}s)..."
   while true; do
-    local running
-    running=$(terminus workflow:list "${SITE}" --format=json 2>/dev/null | python3 -c "
+    local state running last_status last_name
+    state=$(terminus workflow:list "${SITE}" --format=json 2>/dev/null | python3 -c "
 import sys, json
 env_target = '${env}'
 try:
     data = json.load(sys.stdin)
     items = list(data.values()) if isinstance(data, dict) else (data if isinstance(data, list) else [])
-    active = [w for w in items if w.get('env') == env_target and w.get('status') in ('running', 'queued')]
-    print(len(active))
+    env_items = [w for w in items if w.get('env') == env_target]
+    active = [w for w in env_items if w.get('status') in ('running', 'queued')]
+    latest = max(env_items, key=lambda w: w.get('started_at') or 0) if env_items else {}
+    print(len(active), latest.get('status', 'none'), latest.get('workflow', ''), sep='\t')
 except Exception:
-    print('0')
+    print('0', 'unknown', '', sep='\t')
 ")
+    IFS=$'\t' read -r running last_status last_name <<< "${state}"
+
     if [[ "${running}" -eq 0 ]]; then
-      echo "No running workflows on ${SITE}.${env}."
+      if [[ "${last_status}" == "failed" ]]; then
+        echo "Latest Pantheon workflow on ${SITE}.${env} failed: ${last_name}" >&2
+        return 1
+      fi
+      echo "No running workflows on ${SITE}.${env} (latest: ${last_name:-none}, ${last_status})."
       return 0
     fi
 

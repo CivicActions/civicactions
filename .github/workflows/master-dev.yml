@@ -65,7 +65,7 @@ jobs:
             sleep 15
           done
 
-          wait_workflows dev 600
+          wait_workflows dev
           echo "Running drush deploy on dev..."
           drush dev -- deploy
 

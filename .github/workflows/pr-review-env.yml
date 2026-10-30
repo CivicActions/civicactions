@@ -104,7 +104,7 @@ jobs:
           fi
 
           # 5. Wait for workflows & verify HTTP 200
-          wait_workflows "${ENV_NAME}" 600
+          wait_workflows "${ENV_NAME}"
           ENV_URL=$(env_url "${ENV_NAME}")
           echo "Pinging ${ENV_URL}..."
           curl -sSf -m 30 "${ENV_URL}" >/dev/null
