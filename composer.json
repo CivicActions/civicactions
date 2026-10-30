@@ -209,7 +209,7 @@
         "enable-patching": true,
         "patches": {
             "drupal/schemadotorg": {
-                "Keep @id on referenced entities in additional mappings JSON-LD (https://www.drupal.org/project/schemadotorg/issues/3629681)": "patches/schemadotorg-keep-id-on-referenced-entities.patch"
+                "Keep @id on referenced entities (https://www.drupal.org/project/schemadotorg/issues/3629681); src-only subset of MR !324, whose test hunk does not apply to alpha39": "patches/3629681-json-ld-no-longer.patch"
             }
         },
         "composer-patches": {
