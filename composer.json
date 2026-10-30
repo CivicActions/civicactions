@@ -27,6 +27,7 @@
     "require": {
         "composer/composer": "^2.9.8",
         "composer/installers": "^2.3",
+        "cweagans/composer-patches": "^2",
         "drupal/ai": "^1.2.6",
         "drupal/ai_agents": "^1.2",
         "drupal/ai_context": "^1.0@beta",
@@ -147,7 +148,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "tbachert/spi": true,
             "phpstan/extension-installer": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "cweagans/composer-patches": true
         },
         "bin-dir": "vendor/bin",
         "sort-packages": true,
@@ -204,7 +206,15 @@
         "drupal-core-vendor-hardening": {
             "composer/composer": false
         },
-        "enable-patching": true
+        "enable-patching": true,
+        "patches": {
+            "drupal/schemadotorg": {
+                "Keep @id on referenced entities in additional mappings JSON-LD (https://www.drupal.org/project/schemadotorg/issues/3629681)": "patches/schemadotorg-keep-id-on-referenced-entities.patch"
+            }
+        },
+        "composer-patches": {
+            "disable-resolvers": ["\\cweagans\\Composer\\Resolver\\Dependencies"]
+        }
     },
     "scripts": {
         "pre-update-cmd": [

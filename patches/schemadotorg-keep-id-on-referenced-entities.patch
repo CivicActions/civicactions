@@ -1,0 +1,14 @@
+diff --git a/modules/schemadotorg_additional_mappings/src/SchemaDotOrgAdditionalMappingsJsonLdManager.php b/modules/schemadotorg_additional_mappings/src/SchemaDotOrgAdditionalMappingsJsonLdManager.php
+index ed607127..b04ffcca 100644
+--- a/modules/schemadotorg_additional_mappings/src/SchemaDotOrgAdditionalMappingsJsonLdManager.php
++++ b/modules/schemadotorg_additional_mappings/src/SchemaDotOrgAdditionalMappingsJsonLdManager.php
+@@ -202,7 +202,9 @@ class SchemaDotOrgAdditionalMappingsJsonLdManager implements SchemaDotOrgAdditio
+     }
+ 
+     // Remove invalid properties that include https://schema.org/roleName.
++    // Keep @id so referenced entities remain linkable nodes in the graph.
+     $allowed_properties = [
++      '@id' => '@id',
+       '@type' => '@type',
+       '@url' => '@url',
+     ];
