@@ -1,0 +1,28 @@
+uuid: 2b2f81ab-5b63-4eb9-a1c6-91858b39b310
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.schema_quote_topics
+    - paragraphs.paragraphs_type.quote
+    - taxonomy.vocabulary.topic
+id: paragraph.quote.schema_quote_topics
+field_name: schema_quote_topics
+entity_type: paragraph
+bundle: quote
+label: Topics
+description: 'Topics associated with this quote.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      topic: topic
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+field_type: entity_reference
