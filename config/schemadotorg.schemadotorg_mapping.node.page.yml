@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.field_content
     - field.field.node.page.schema_image
     - field.field.node.page.schema_short_description
     - node.type.page
@@ -20,5 +19,5 @@ schema_type: WebPage
 schema_properties:
   schema_short_description: description
   schema_image: image
-  field_content: text
+  title: name
 additional_mappings: {  }
