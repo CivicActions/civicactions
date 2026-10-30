@@ -20,6 +20,5 @@ schema_type: WebPage
 schema_properties:
   schema_short_description: description
   schema_image: image
-  schema_last_reviewed: lastReviewed
   field_content: text
 additional_mappings: {  }

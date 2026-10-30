@@ -3,8 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.editorial.schema_article_body
-    - field.field.node.editorial.schema_audience
     - field.field.node.editorial.schema_author
     - field.field.node.editorial.schema_contributor
     - field.field.node.editorial.schema_image
@@ -22,12 +20,14 @@ target_entity_type_id: node
 target_bundle: editorial
 schema_type: Article
 schema_properties:
-  schema_article_body: articleBody
-  schema_audience: audience
   schema_author: author
   schema_contributor: contributor
   schema_short_description: description
   schema_image: image
   langcode: inLanguage
   schema_keywords: keywords
-additional_mappings: {  }
+  title: headline
+additional_mappings:
+  WebPage:
+    schema_type: WebPage
+    schema_properties: {  }
