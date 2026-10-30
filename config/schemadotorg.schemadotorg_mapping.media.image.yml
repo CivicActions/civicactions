@@ -13,9 +13,6 @@ target_bundle: image
 schema_type: ImageObject
 schema_properties:
   field_media_image: contentUrl
-  created: dateCreated
-  changed: dateModified
   langcode: inLanguage
   name: name
-  thumbnail: thumbnail
 additional_mappings: {  }
