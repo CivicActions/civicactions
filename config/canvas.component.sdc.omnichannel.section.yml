@@ -124,16 +124,16 @@ versioned_properties:
       slot_definitions:
         column_one:
           title: 'First column'
-          description: 'Content displayed in the first column.'
+          description: 'Content displayed in the first column. Use the Content SDC for rich text that should inherit Section contrast styles.'
         column_two:
           title: 'Second column'
-          description: 'Content displayed in the second column.'
+          description: 'Content displayed in the second column. Use the Content SDC for rich text that should inherit Section contrast styles.'
         column_three:
           title: 'Third column'
-          description: 'Content displayed in the third column when using the three-column layout.'
+          description: 'Content displayed in the third column when using the three-column layout. Use the Content SDC for rich text that should inherit Section contrast styles.'
         column_four:
           title: 'Fourth column'
-          description: 'Content displayed in the fourth column when using the four-column layout.'
+          description: 'Content displayed in the fourth column when using the four-column layout. Use the Content SDC for rich text that should inherit Section contrast styles.'
   2d143405a30b01b1:
     settings:
       prop_field_definitions:

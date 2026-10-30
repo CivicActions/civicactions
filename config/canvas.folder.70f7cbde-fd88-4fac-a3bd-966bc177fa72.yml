@@ -1,0 +1,11 @@
+uuid: 70f7cbde-fd88-4fac-a3bd-966bc177fa72
+langcode: en
+status: true
+dependencies:
+  config:
+    - canvas.component.block.civicactions_greenhouse_jobs
+name: CivicActions
+configEntityTypeId: component
+weight: 0
+items:
+  - block.civicactions_greenhouse_jobs

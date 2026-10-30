@@ -1,0 +1,22 @@
+uuid: be0857c3-ad61-487f-bff1-33ae72a9c88c
+langcode: en
+status: true
+dependencies:
+  module:
+    - civicactions_greenhouse
+active_version: bf440b068175261e
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: civicactions_greenhouse_jobs
+        label: 'Greenhouse Job Listings'
+        label_display: '0'
+        provider: civicactions_greenhouse
+    fallback_metadata:
+      slot_definitions: null
+label: 'Greenhouse Job Listings'
+id: block.civicactions_greenhouse_jobs
+provider: civicactions_greenhouse
+source: block
+source_local_id: civicactions_greenhouse_jobs

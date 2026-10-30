@@ -6,9 +6,62 @@ dependencies:
     - options
   theme:
     - omnichannel
-active_version: 2ae70b27ce185f75
+active_version: 8305d076f738af1c
 versioned_properties:
   active:
+    settings:
+      prop_field_definitions:
+        name:
+          required: true
+          field_type: list_string
+          field_storage_settings:
+            allowed_values_function: canvas_load_allowed_values_for_component_prop
+          field_instance_settings: {  }
+          field_widget: options_select
+          default_value:
+            -
+              value: check
+          expression: ℹ︎list_string␟value
+          derived_schema_metadata: {  }
+        size:
+          required: false
+          field_type: list_string
+          field_storage_settings:
+            allowed_values_function: canvas_load_allowed_values_for_component_prop
+          field_instance_settings: {  }
+          field_widget: options_select
+          default_value:
+            -
+              value: md
+          expression: ℹ︎list_string␟value
+          derived_schema_metadata: {  }
+        color:
+          required: false
+          field_type: list_string
+          field_storage_settings:
+            allowed_values_function: canvas_load_allowed_values_for_component_prop
+          field_instance_settings: {  }
+          field_widget: options_select
+          default_value:
+            -
+              value: inherit
+          expression: ℹ︎list_string␟value
+          derived_schema_metadata: {  }
+        aria_label:
+          required: false
+          field_type: string
+          field_storage_settings: {  }
+          field_instance_settings: {  }
+          field_widget: string_textfield
+          default_value:
+            -
+              value: 'Verification checkmark'
+          expression: ℹ︎string␟value
+          derived_schema_metadata:
+            string_shape: {  }
+    fallback_metadata:
+      slot_definitions: {  }
+  2ae70b27ce185f75:
     settings:
       prop_field_definitions:
         name:
