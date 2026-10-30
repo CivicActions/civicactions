@@ -42,6 +42,7 @@
         "drupal/bpmn_io": "^3.0.5",
         "drupal/byte_theme": "^1",
         "drupal/canvas": "^1.10",
+        "drupal/canvas_page_metatag": "^1.0",
         "drupal/captcha": "^2.0.10",
         "drupal/checklistapi": "^2.1.7",
         "drupal/coffee": "^2.0.1",

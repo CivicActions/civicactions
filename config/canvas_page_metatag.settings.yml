@@ -1,0 +1,7 @@
+_core:
+  default_config_hash: sXv4wuc0iBD3T71SH8RihYzDFck0zOYKyULslLOkG6Q
+expose_basic_fields: true
+expose_advanced: true
+expose_open_graph: true
+expose_facebook: true
+expose_twitter_cards: true

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27c1347312dafeab5fe63fddbd0bb8e2",
+    "content-hash": "f0d0ceb73b5fd6b02508ab4ce745539e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2957,6 +2957,62 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/canvas"
             }
+        },
+        {
+            "name": "drupal/canvas_page_metatag",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/canvas_page_metatag.git",
+                "reference": "1.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/canvas_page_metatag-1.0.3.zip",
+                "reference": "1.0.3",
+                "shasum": "71e1377f3fdb03b636428a3f9d007f1a78147e13"
+            },
+            "require": {
+                "drupal/canvas": "^1.8",
+                "drupal/core": "^10.3 || ^11.1",
+                "drupal/metatag": "^2.2",
+                "drupal/metatag_facebook": "*",
+                "drupal/metatag_open_graph": "*",
+                "drupal/metatag_twitter_cards": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.3",
+                    "datestamp": "1788364524",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Chaitanya R Dessai",
+                    "homepage": "https://www.drupal.org/u/chaitanyadessai",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "zeeshan_khan",
+                    "homepage": "https://www.drupal.org/user/1805074"
+                }
+            ],
+            "description": "Exposes the full set of Metatag SEO tag groups (Basic, Advanced, Open Graph, Facebook, Twitter Cards) on Drupal Canvas pages.",
+            "homepage": "https://www.drupal.org/project/canvas_page_metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/canvas_page_metatag",
+                "issues": "https://www.drupal.org/project/issues/canvas_page_metatag"
+            },
+            "published-time": "2026-09-02T15:55:04+00:00"
         },
         {
             "name": "drupal/captcha",
@@ -6549,6 +6605,123 @@
                 "issues": "https://www.drupal.org/project/issues/metatag",
                 "docs": "https://www.drupal.org/docs/8/modules/metatag"
             }
+        },
+        {
+            "name": "drupal/metatag_facebook",
+            "version": "2.2.4",
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "drupal/metatag": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.4",
+                    "datestamp": "1793239109",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damienmckenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "A set of meta tags specially for controlling advanced functionality with Facebook.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/metatag"
+            },
+            "published-time": "2026-10-29T01:57:08+00:00"
+        },
+        {
+            "name": "drupal/metatag_open_graph",
+            "version": "2.2.4",
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "drupal/metatag": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.4",
+                    "datestamp": "1793239109",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damienmckenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provides support for Open Graph Protocol meta tags.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/metatag"
+            },
+            "published-time": "2026-10-29T01:57:08+00:00"
+        },
+        {
+            "name": "drupal/metatag_twitter_cards",
+            "version": "2.2.4",
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "drupal/metatag": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.4",
+                    "datestamp": "1793239109",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damienmckenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provides support for Twitter's Card meta tags.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/metatag"
+            },
+            "published-time": "2026-10-29T01:57:08+00:00"
         },
         {
             "name": "drupal/migrate_file",
@@ -21298,5 +21471,5 @@
     "platform-overrides": {
         "php": "8.3.14"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }

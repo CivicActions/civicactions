@@ -23,6 +23,7 @@ module:
   breakpoint: 0
   canvas: 0
   canvas_ai: 0
+  canvas_page_metatag: 0
   captcha: 0
   civicactions_blog_migration: 0
   civicactions_greenhouse: 0
@@ -86,7 +87,9 @@ module:
   menu_ui: 0
   metatag: 0
   metatag_dc: 0
+  metatag_facebook: 0
   metatag_open_graph: 0
+  metatag_twitter_cards: 0
   migrate: 0
   migrate_plus: 0
   migrate_tools: 0
