@@ -42,7 +42,7 @@ RAW_OUTPUT=$(drush "${ENV}" -- php:eval "putenv('HEALTH_SINCE_WID=${SINCE_WID}')
 
 # Parse output with python
 PYTHON_SCRIPT=$(cat <<'EOF'
-import sys, json
+import sys, json, os
 
 raw = sys.stdin.read().strip()
 start = raw.find('{')
@@ -94,7 +94,9 @@ if new_errs:
         print(f"- [WID {e.get('wid')}] [{e.get('type')}] {e.get('message')}")
 
 # Write outputs for GitHub Actions if available
-print(f"::set-output name=max_wid::{data.get('max_wid')}")
+if os.environ.get('GITHUB_OUTPUT'):
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+        fh.write(f"max_wid={data.get('max_wid')}\n")
 if failures:
     print(f"\n::error::Health check failed: {', '.join(failures)}")
     sys.exit(1)

@@ -20,11 +20,28 @@ $result = [
 
 $since_wid = isset($_SERVER['HEALTH_SINCE_WID']) ? (int) $_SERVER['HEALTH_SINCE_WID'] : (isset($extra['since_wid']) ? (int) $extra['since_wid'] : 0);
 
+// Automatic updates enforcement (FR-005). Evaluated first because it decides
+// whether the module's readiness requirement is relevant.
+try {
+  $unattended_level = \Drupal::config('automatic_updates.settings')->get('unattended.level');
+  if ($unattended_level !== NULL && $unattended_level !== 'disable') {
+    $result['automatic_updates_disabled'] = false;
+  }
+} catch (\Throwable $e) {
+  // If config is missing or module is not active, that's fine
+}
+
 // 1. Requirements checks (severity REQUIREMENT_ERROR = 2)
 try {
   \Drupal::moduleHandler()->loadInclude('system', 'install');
   $requirements = \Drupal::moduleHandler()->invokeAll('requirements', ['runtime']);
   foreach ($requirements as $key => $req) {
+    // Pantheon's code filesystem is always read-only, so automatic_updates
+    // readiness checks can never pass there. Irrelevant while unattended
+    // updates are disabled.
+    if ($result['automatic_updates_disabled'] && str_starts_with((string) $key, 'automatic_updates_status')) {
+      continue;
+    }
     if (isset($req['severity']) && (int) $req['severity'] === 2) {
       $result['requirements_errors'][] = [
         'name' => $key,
@@ -38,34 +55,30 @@ try {
   $result['requirements_errors'][] = ['error' => $e->getMessage()];
 }
 
-// 2. Pending database updates
+// 2. Pending database updates (same APIs as drush updatedb:status)
 try {
-  $update_registry = \Drupal::service('update.post_update_registry');
-  $pending_post_updates = $update_registry->getPendingUpdateFunctions();
+  require_once DRUPAL_ROOT . '/core/includes/install.inc';
+  require_once DRUPAL_ROOT . '/core/includes/update.inc';
+  drupal_load_updates();
   $pending_updates = [];
-  foreach (\Drupal::moduleHandler()->getModuleList() as $module => $extension) {
-    \Drupal::moduleHandler()->loadInclude($module, 'install');
-    $updates = drupal_get_schema_versions($module);
-    $installed_version = drupal_get_installed_schema_version($module);
-    if (!empty($updates)) {
-      foreach ($updates as $version) {
-        if ($version > $installed_version) {
-          $pending_updates[] = "{$module}_{$version}";
-        }
-      }
+  foreach (update_get_update_list() as $module => $info) {
+    if (!empty($info['warning'])) {
+      $pending_updates[] = "{$module}: " . strip_tags((string) $info['warning']);
+    }
+    foreach (array_keys($info['pending'] ?? []) as $version) {
+      $pending_updates[] = "{$module}_update_{$version}";
     }
   }
+  $pending_post_updates = \Drupal::service('update.post_update_registry')->getPendingUpdateFunctions();
   $result['pending_updates'] = array_merge($pending_updates, $pending_post_updates);
 } catch (\Throwable $e) {
   $result['pending_updates'][] = 'Error checking updates: ' . $e->getMessage();
 }
 
-// 3. Configuration drift (names and states only)
+// 3. Configuration drift (names and states only; same as drush config:status)
 try {
-  $active_storage = \Drupal::service('config.storage');
-  $sync_storage = \Drupal::service('config.import_transformer')->transform($active_storage);
-  $target_sync = \Drupal::service('config.storage.sync');
-  $comparer = new \Drupal\Core\Config\StorageComparer($sync_storage, $target_sync);
+  $sync_storage = \Drupal::service('config.import_transformer')->transform(\Drupal::service('config.storage.sync'));
+  $comparer = new \Drupal\Core\Config\StorageComparer($sync_storage, \Drupal::service('config.storage'));
   $comparer->createChangelist();
 
   foreach (['create', 'update', 'delete', 'rename'] as $op) {
@@ -82,17 +95,7 @@ try {
   $result['config_status'][] = ['name' => 'error', 'state' => $e->getMessage(), 'operation' => 'error'];
 }
 
-// 4. Automatic updates enforcement (FR-005)
-try {
-  $unattended_level = \Drupal::config('automatic_updates.settings')->get('unattended.level');
-  if ($unattended_level !== 'disable') {
-    $result['automatic_updates_disabled'] = false;
-  }
-} catch (\Throwable $e) {
-  // If config is missing or module is not active, that's fine
-}
-
-// 5. Watchdog logging (max wid and new errors)
+// 4. Watchdog logging (max wid and new errors)
 try {
   if (\Drupal::database()->schema()->tableExists('watchdog')) {
     $max_wid = \Drupal::database()->query("SELECT MAX(wid) FROM {watchdog}")->fetchField();
