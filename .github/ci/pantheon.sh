@@ -92,6 +92,9 @@ except Exception:
 drush() {
   local env="$1"
   shift
+  # Callers write `drush <env> -- <cmd>`; Terminus adds its own `--` separator,
+  # and a second one would make remote Drush treat Terminus' appended -y as an argument.
+  [[ "${1:-}" == "--" ]] && shift
   local max_attempts=3
   local attempt=1
   local exit_code=0
