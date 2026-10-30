@@ -63,7 +63,7 @@
         "drupal/easy_email_theme": "^1.1.0",
         "drupal/easy_encryption": "^1",
         "drupal/eca": "^3.1.2",
-        "drupal/editoria11y": "^2.2",
+        "drupal/editoria11y": "^3.0",
         "drupal/entity_usage": "^5.0",
         "drupal/environment_indicator": "^4.0",
         "drupal/field_group": "^4.0.0",
