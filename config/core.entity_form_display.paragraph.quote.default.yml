@@ -7,10 +7,8 @@ dependencies:
     - field.field.paragraph.quote.schema_date_created
     - field.field.paragraph.quote.schema_description
     - field.field.paragraph.quote.schema_is_based_on_link
-    - field.field.paragraph.quote.schema_keywords
     - field.field.paragraph.quote.schema_quote_text
-    - field.field.paragraph.quote.schema_quote_topics
-    - field.field.paragraph.quote.schema_text
+    - field.field.paragraph.quote.schema_topics
     - paragraphs.paragraphs_type.quote
   module:
     - datetime
@@ -62,7 +60,7 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  schema_quote_topics:
+  schema_topics:
     type: tagify_entity_reference_autocomplete_widget
     weight: 5
     region: content
@@ -78,6 +76,4 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  schema_keywords: true
-  schema_text: true
   status: true
