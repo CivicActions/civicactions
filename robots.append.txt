@@ -1,2 +1,4 @@
 # Disallow indexing of Storybook component preview
 Disallow: /storybook/
+
+Sitemap: https://civicactions.com/sitemap.xml
