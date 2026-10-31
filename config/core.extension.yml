@@ -23,6 +23,7 @@ module:
   breakpoint: 0
   canvas: 0
   canvas_ai: 0
+  canvas_page_metatag: 0
   captcha: 0
   civicactions_blog_migration: 0
   civicactions_greenhouse: 0
@@ -75,8 +76,13 @@ module:
   layout_discovery: 0
   link: 0
   linkit: 0
+  llms_txt: 0
   login_emailusername: 0
   mailsystem: 0
+  markdownify: 0
+  markdownify_file_attachment: 0
+  markdownify_path: 0
+  markdownify_views: 0
   media: 0
   media_file_delete: 0
   media_library: 0
@@ -86,7 +92,9 @@ module:
   menu_ui: 0
   metatag: 0
   metatag_dc: 0
+  metatag_facebook: 0
   metatag_open_graph: 0
+  metatag_twitter_cards: 0
   migrate: 0
   migrate_plus: 0
   migrate_tools: 0
@@ -120,6 +128,8 @@ module:
   schemadotorg_paragraphs: 0
   schemadotorg_taxonomy: 0
   schemadotorg_ui: 0
+  simple_sitemap: 0
+  simple_sitemap_engines: 0
   styleguide: 0
   svg_image: 0
   symfony_mailer_lite: 0
@@ -130,6 +140,7 @@ module:
   taxonomy_access_fix: 0
   text: 0
   token: 0
+  token_filter: 0
   trash: 0
   update: 0
   user: 0

@@ -1,0 +1,51 @@
+_core:
+  default_config_hash: QAzM3yt6nFg0SkHtHbEDFZz0wk0_90cIPKc2nlhwNYI
+langcode: en
+content: |-
+  # [site:name]
+
+  > [site:slogan]
+
+  CivicActions helps US government agencies deliver trusted public services through open technology and design. This site describes our services, client case studies, insights (articles and news), team, careers and how to buy from us.
+
+  How to read this site:
+
+  - Every public page has a Markdown version at the same path with `.md` appended, for example [site:url]services.md. You can also request the normal URL with the `Accept: text/markdown` header. Markdown responses leave out navigation and are marked `noindex`; cite the HTML URL (without `.md`), which is the canonical URL.
+  - [site:url]sitemap.xml lists every public page.
+  - URL patterns: articles and highlights are mostly under `/insights/`, news under `/news/`, team profiles under `/team/`, and case studies under `/case-studies/`. Organization pages and some guest-author profiles use top-level paths.
+
+  Structured data (in the HTML version only):
+
+  - Each content page embeds Schema.org JSON-LD in `<script type="application/ld+json">`. The page is a `WebPage` (or `ProfilePage` for people) with `@id` `[site:url]node/{id}#webpage`; its `mainEntity` is the subject, with `@id` `[site:url]node/{id}#entity`.
+  - Subject types: `Article` (insights and news), `Report` (case studies; `about` is the client `Organization`), `Person` (team profiles; `worksFor` is their employer), `Organization` (CivicActions, clients and partners) and `WebPage` (policy pages).
+  - Referenced people and organizations reuse the same `@id` as their own pages, so you can match an article's author to their team profile.
+  - The HTML head also has a canonical link, a meta description, Open Graph tags (`og:type` is `article`, `profile` or `website`) and Dublin Core tags (`dcterms.*`).
+
+  To contact CivicActions, use the contact page. Do not submit forms on a user's behalf without their approval.
+
+  ## Company and services
+
+  - [Services]([site:url]services.md): Service lines: web and CMS, IT modernization, product and design, security and compliance, data, and workforce development.
+  - [DITAP training]([site:url]services/ditap.md): Digital IT Acquisition Professional training for federal contracting staff.
+  - [How to buy]([site:url]contracting.md): Contracting information and the areas of expertise we offer.
+  - [Team]([site:url]team.md): Staff profiles with job titles; each links to a full profile.
+  - [Careers]([site:url]careers.md): Culture, benefits and current openings.
+  - [Contact]([site:url]contact.md): Email, mail and other ways to reach us.
+
+  ## Work and insights
+
+  - [Case studies]([site:url]case-studies.md): Index of client case studies.
+  - [Insights]([site:url]insights.md): Latest articles, news and highlights.
+  - [Articles]([site:url]insights/articles.md): Index of long-form articles.
+  - [News]([site:url]news.md): Company announcements and press.
+
+  ## Policies
+
+  - [Accessibility statement]([site:url]accessibility-statement.md)
+  - [Privacy policy]([site:url]privacy-policy.md)
+  - [Licensing policy]([site:url]licensing-policy.md)
+
+  ## Optional
+
+  - [XML sitemap]([site:url]sitemap.xml): Every public URL (HTML pages).
+  - [Impact report](https://reports.civicactions.com/2025): Annual impact report on a separate site.

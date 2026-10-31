@@ -9,3 +9,12 @@ label: 'Front page'
 tags:
   canonical_url: '[site:url]'
   shortlink: '[site:url]'
+  title: '[site:name]'
+  description: '[site:slogan]'
+  og_title: '[site:name]'
+  og_description: '[site:slogan]'
+  og_type: website
+  og_url: '[site:url]'
+  dcterms_title: '[site:name]'
+  dcterms_description: '[site:slogan]'
+  dcterms_identifier: '[site:url]'

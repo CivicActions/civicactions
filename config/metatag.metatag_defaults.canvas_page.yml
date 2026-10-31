@@ -1,0 +1,19 @@
+uuid: cb3b47c5-8e0b-4f20-a90e-78dc75fc5139
+langcode: en
+status: true
+dependencies: {  }
+id: canvas_page
+label: 'Canvas page'
+tags:
+  title: '[canvas_page:title] | [site:name]'
+  description: '[canvas_page:description]'
+  canonical_url: '[canvas_page:url:absolute]'
+  og_type: website
+  og_title: '[canvas_page:title]'
+  og_description: '[canvas_page:description]'
+  og_url: '[canvas_page:url:absolute]'
+  og_image: '[canvas_page:image:entity:field_media_image:entity:url]'
+  og_image_alt: '[canvas_page:image:entity:field_media_image:alt]'
+  dcterms_title: '[canvas_page:title]'
+  dcterms_description: '[canvas_page:description]'
+  dcterms_identifier: '[canvas_page:url:absolute]'

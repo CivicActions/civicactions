@@ -59,7 +59,7 @@ schema_type_entity_references_display:
   media: entity
   taxonomy_term: entity
   paragraph: none
-  node--editorial_content--schema_additional_type: label
+  node--editorial--field_editorial_type: label
 exclude_url:
   - node
   - block_content
