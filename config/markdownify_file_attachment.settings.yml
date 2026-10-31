@@ -1,0 +1,9 @@
+_core:
+  default_config_hash: p4zv4L3JHaHt27eRyBZI8-uoswPpdpXxiYoNAR16ijk
+allowed_extensions:
+  - txt
+  - yml
+  - yaml
+  - wsdl
+  - json
+max_file_embed_size: '1 MB'
