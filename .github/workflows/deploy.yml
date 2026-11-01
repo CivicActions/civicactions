@@ -147,6 +147,12 @@ jobs:
           cache: "npm"
           cache-dependency-path: tests/e2e/package-lock.json
 
+      - name: Get Pantheon bot bypass token
+        env:
+          TERMINUS_MACHINE_TOKEN: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+          PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+        run: node .github/ci/pantheon-bot-bypass.mjs
+
       - name: Run Test Verification Suites (Functional, A11y, Live-vs-Test Visual)
         working-directory: tests/e2e
         env:

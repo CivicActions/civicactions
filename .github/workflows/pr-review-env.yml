@@ -168,6 +168,23 @@ jobs:
     permissions:
       contents: read
     steps:
+      # Runs master's script before any PR code is checked out, so the machine
+      # token is only ever in this step's environment. PR code sees only the
+      # masked bypass token exported to GITHUB_ENV.
+      - name: Checkout master CI scripts
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: .ci-trusted
+          persist-credentials: false
+          sparse-checkout: .github/ci/pantheon-bot-bypass.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: Get Pantheon bot bypass token
+        env:
+          TERMINUS_MACHINE_TOKEN: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+          PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+        run: node .ci-trusted/.github/ci/pantheon-bot-bypass.mjs
+
       - name: Checkout PR head
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

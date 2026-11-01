@@ -43,6 +43,10 @@ To maintain code quality, verify visual and functional parity across responsive 
 7. **Terminus Session Caching for CI**:
    - Workflows delegate Terminus setup and authentication to `pantheon-systems/terminus-github-actions`, passing the machine token directly to the action.
    - The action encrypts and restores `$HOME/.terminus/cache/session` using GitHub Actions cache (`actions/cache`), preserving active sessions across workflow jobs and avoiding Auth0 authentication rate limits.
+8. **Pantheon Edge Bypass for Browser Tests**:
+   - The site is on Pantheon's Cloudflare-based Global CDN, which serves a bot challenge to headless browsers on `*.pantheonsite.io`. Playwright sends Pantheon's bot bypass token as `x-pantheon-bot-bypass`, only to `*.pantheonsite.io` hosts, never to third parties.
+   - Sandbox-plan sites also show a "Sandbox Environment Notice" interstitial. Tests pre-set the `Deterrence-Bypass=1` cookie that its Continue button sets.
+   - Each Playwright job fetches the current token from Pantheon's API at runtime (`.github/ci/pantheon-bot-bypass.mjs`) and exports it masked as `PANTHEON_BOT_BYPASS_TOKEN`, so there's no stored secret to rotate. In the review-environment job, this runs from a master checkout before any PR code, so PR code never sees the Pantheon machine token.
 
 ## Consequences
 
