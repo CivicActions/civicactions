@@ -168,6 +168,23 @@ jobs:
     permissions:
       contents: read
     steps:
+      # Runs master's script before any PR code is checked out, so the machine
+      # token is only ever in this step's environment. PR code sees only the
+      # masked bypass token exported to GITHUB_ENV.
+      - name: Checkout master CI scripts
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: .ci-trusted
+          persist-credentials: false
+          sparse-checkout: .github/ci/pantheon-bot-bypass.mjs
+          sparse-checkout-cone-mode: false
+
+      - name: Get Pantheon bot bypass token
+        env:
+          TERMINUS_MACHINE_TOKEN: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+          PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+        run: node .ci-trusted/.github/ci/pantheon-bot-bypass.mjs
+
       - name: Checkout PR head
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -186,7 +203,6 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: ${{ needs.verify-and-deploy.outputs.env_url }}
-          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
           REF_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
         run: |
           npx playwright test --grep "@functional|@a11y"
@@ -195,7 +211,6 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
-          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
         run: |
           npx playwright test --grep "@visual" --update-snapshots=all || true
 
@@ -204,7 +219,6 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: ${{ needs.verify-and-deploy.outputs.env_url }}
-          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
         run: |
           npx playwright test --grep "@visual" || true
 
