@@ -68,9 +68,12 @@ jobs:
           echo "Live: ${LIVE_SHA}"
           echo "Master: ${MASTER_SHA}"
 
-          # 1. Check window
-          WINDOW_CONFIG="${DEPLOY_WINDOW_VAR:-{\"days\":[1,2,3,4],\"start\":\"09:00\",\"end\":\"15:00\",\"tz\":\"America/Los_Angeles\"}}"
-          WINDOW_RES=$(node .github/ci/deploy-window.mjs --window "${WINDOW_CONFIG}")
+          # 1. Check window (deploy-window.mjs has the same default built in)
+          WINDOW_ARGS=()
+          if [[ -n "${DEPLOY_WINDOW_VAR}" ]]; then
+            WINDOW_ARGS=(--window "${DEPLOY_WINDOW_VAR}")
+          fi
+          WINDOW_RES=$(node .github/ci/deploy-window.mjs "${WINDOW_ARGS[@]}")
           IN_WINDOW=$(echo "${WINDOW_RES}" | jq -r .open)
           echo "In window: ${IN_WINDOW}"
 
