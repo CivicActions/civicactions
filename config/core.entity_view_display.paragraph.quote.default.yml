@@ -7,8 +7,8 @@ dependencies:
     - field.field.paragraph.quote.schema_date_created
     - field.field.paragraph.quote.schema_description
     - field.field.paragraph.quote.schema_is_based_on_link
-    - field.field.paragraph.quote.schema_keywords
-    - field.field.paragraph.quote.schema_text
+    - field.field.paragraph.quote.schema_quote_text
+    - field.field.paragraph.quote.schema_topics
     - paragraphs.paragraphs_type.quote
   module:
     - datetime
@@ -54,21 +54,19 @@ content:
     third_party_settings: {  }
     weight: 41
     region: content
-  schema_keywords:
+  schema_quote_text:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  schema_topics:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
     weight: 65
-    region: content
-  schema_text:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-      link_rel: canonical
-    third_party_settings: {  }
-    weight: 10
     region: content
 hidden: {  }

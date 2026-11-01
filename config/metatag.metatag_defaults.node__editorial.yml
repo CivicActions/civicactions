@@ -1,0 +1,18 @@
+uuid: 0f5671db-ee29-475b-9af5-ff6053ea8f3c
+langcode: en
+status: true
+dependencies: {  }
+id: node__editorial
+label: 'Content: Editorial Content'
+tags:
+  description: '[node:schema_short_description]'
+  og_title: '[node:title]'
+  og_description: '[node:schema_short_description]'
+  og_type: article
+  og_url: '[node:url]'
+  og_image: '[node:schema_image:entity:field_media_image:entity:url]'
+  og_image_alt: '[node:schema_image:entity:field_media_image:alt]'
+  dcterms_title: '[node:title]'
+  dcterms_description: '[node:schema_short_description]'
+  dcterms_identifier: '[node:url]'
+  dcterms_type: Text

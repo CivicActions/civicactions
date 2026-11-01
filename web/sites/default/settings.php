@@ -50,6 +50,16 @@ if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
   $config['automatic_updates.settings']['unattended']['level'] = 'disable';
 }
 
+/**
+ * Only notify search engines (IndexNow) from production. Other environments
+ * share the database (and any IndexNow key in state) and the production
+ * sitemap base URL, so they must never submit.
+ */
+if (($_ENV['PANTHEON_ENVIRONMENT'] ?? NULL) !== 'live') {
+  $config['simple_sitemap_engines.settings']['enabled'] = FALSE;
+  $config['simple_sitemap_engines.settings']['index_now_enabled'] = FALSE;
+}
+
 # Disable HTML5 validation for accessibility reasons
 $settings['enable_html5_validation'] = FALSE;
 

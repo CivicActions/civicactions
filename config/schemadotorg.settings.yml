@@ -186,6 +186,8 @@ schema_properties:
       - Text
     Event--location:
       - Text
+    Quotation--author:
+      - Text
   ignored_properties:
     - accessMode
     - accessModeSufficient

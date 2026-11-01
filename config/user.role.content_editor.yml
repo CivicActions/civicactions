@@ -6,6 +6,7 @@ dependencies:
     - dashboard.dashboard.welcome
     - filter.format.content_format
     - filter.format.inline_content
+    - filter.format.llms_txt_content
     - media.type.document
     - media.type.image
     - media.type.remote_video
@@ -19,6 +20,7 @@ dependencies:
     - dashboard
     - editoria11y
     - filter
+    - llms_txt
     - media
     - media_library_bulk_upload
     - node
@@ -38,6 +40,7 @@ permissions:
   - 'access content overview'
   - 'access media overview'
   - 'access trash'
+  - 'administer llms.txt sections'
   - 'administer menu'
   - 'administer redirects'
   - 'administer url aliases'
@@ -73,6 +76,7 @@ permissions:
   - 'use media svg_image bulk upload form'
   - 'use text format content_format'
   - 'use text format inline_content'
+  - 'use text format llms_txt_content'
   - 'view all revisions'
   - 'view any unpublished content'
   - 'view editoria11y checker'

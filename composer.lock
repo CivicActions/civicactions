@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27c1347312dafeab5fe63fddbd0bb8e2",
+    "content-hash": "a20becae669cd71b634ea9f2a6235fcc",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1405,6 +1405,131 @@
                 "source": "https://github.com/consolidation/site-process/tree/6.1.0"
             },
             "time": "2026-06-07T03:26:06+00:00"
+        },
+        {
+            "name": "cweagans/composer-configurable-plugin",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cweagans/composer-configurable-plugin.git",
+                "reference": "15433906511a108a1806710e988629fd24b89974"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cweagans/composer-configurable-plugin/zipball/15433906511a108a1806710e988629fd24b89974",
+                "reference": "15433906511a108a1806710e988629fd24b89974",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "~4.0",
+                "codeception/module-asserts": "^2.0",
+                "composer/composer": "~2.0",
+                "php-coveralls/php-coveralls": "~2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.0.0",
+                "phpro/grumphp": "^1.8.0",
+                "sebastian/phpcpd": "^6.0",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "cweagans\\Composer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cameron Eagans",
+                    "email": "me@cweagans.net"
+                }
+            ],
+            "description": "Provides a lightweight configuration system for Composer plugins.",
+            "support": {
+                "issues": "https://github.com/cweagans/composer-configurable-plugin/issues",
+                "source": "https://github.com/cweagans/composer-configurable-plugin/tree/2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/cweagans",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-12T04:58:58+00:00",
+            "published-time": "2023-02-12T05:06:43+00:00"
+        },
+        {
+            "name": "cweagans/composer-patches",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cweagans/composer-patches.git",
+                "reference": "bfa6018a5f864653d9ed899b902ea72f858a2cf7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/bfa6018a5f864653d9ed899b902ea72f858a2cf7",
+                "reference": "bfa6018a5f864653d9ed899b902ea72f858a2cf7",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "cweagans/composer-configurable-plugin": "^2.0",
+                "ext-json": "*",
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "~4.0",
+                "codeception/module-asserts": "^2.0",
+                "codeception/module-cli": "^2.0",
+                "codeception/module-filesystem": "^2.0",
+                "composer/composer": "~2.0",
+                "php-coveralls/php-coveralls": "~2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.0.0",
+                "phpro/grumphp": "^1.8.0",
+                "sebastian/phpcpd": "^6.0",
+                "squizlabs/php_codesniffer": "^4.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "_": "The following two lines ensure that composer-patches is loaded as early as possible.",
+                "class": "cweagans\\Composer\\Plugin\\Patches",
+                "plugin-modifies-downloads": true,
+                "plugin-modifies-install-path": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "cweagans\\Composer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Cameron Eagans",
+                    "email": "me@cweagans.net"
+                }
+            ],
+            "description": "Provides a way to patch Composer packages.",
+            "support": {
+                "issues": "https://github.com/cweagans/composer-patches/issues",
+                "source": "https://github.com/cweagans/composer-patches/tree/2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/cweagans",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-30T23:44:22+00:00",
+            "published-time": "2025-10-31T01:21:00+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -2957,6 +3082,62 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/canvas"
             }
+        },
+        {
+            "name": "drupal/canvas_page_metatag",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/canvas_page_metatag.git",
+                "reference": "1.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/canvas_page_metatag-1.0.3.zip",
+                "reference": "1.0.3",
+                "shasum": "71e1377f3fdb03b636428a3f9d007f1a78147e13"
+            },
+            "require": {
+                "drupal/canvas": "^1.8",
+                "drupal/core": "^10.3 || ^11.1",
+                "drupal/metatag": "^2.2",
+                "drupal/metatag_facebook": "*",
+                "drupal/metatag_open_graph": "*",
+                "drupal/metatag_twitter_cards": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.3",
+                    "datestamp": "1788364524",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Chaitanya R Dessai",
+                    "homepage": "https://www.drupal.org/u/chaitanyadessai",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "zeeshan_khan",
+                    "homepage": "https://www.drupal.org/user/1805074"
+                }
+            ],
+            "description": "Exposes the full set of Metatag SEO tag groups (Basic, Advanced, Open Graph, Facebook, Twitter Cards) on Drupal Canvas pages.",
+            "homepage": "https://www.drupal.org/project/canvas_page_metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/canvas_page_metatag",
+                "issues": "https://www.drupal.org/project/issues/canvas_page_metatag"
+            },
+            "published-time": "2026-09-02T15:55:04+00:00"
         },
         {
             "name": "drupal/captcha",
@@ -6088,6 +6269,72 @@
             }
         },
         {
+            "name": "drupal/llms_txt",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/llms_txt.git",
+                "reference": "1.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/llms_txt-1.1.1.zip",
+                "reference": "1.1.1",
+                "shasum": "fd9d29dab8b4e852a08f646a9a56698cf63564eb"
+            },
+            "require": {
+                "drupal/core": "^10.5 || ^11.2",
+                "php": "~8.1.6 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "drupal/llms_txt_generator": "*",
+                "drupal/llmstxt": "*"
+            },
+            "require-dev": {
+                "drupal/config_inspector": "^2.1.9",
+                "drupal/markdownify": "^1.1.1",
+                "drupal/redirect": "^1.12",
+                "drush/drush": "^12.5 || ^13.6",
+                "mglaman/phpstan-drupal": "^1.3.8 || ^2.0.7",
+                "phpstan/phpstan-deprecation-rules": "^1.2.1 || ^2.0.3"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.1.1",
+                    "datestamp": "1786883255",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "christophweber",
+                    "homepage": "https://www.drupal.org/user/281751"
+                },
+                {
+                    "name": "mxr576",
+                    "homepage": "https://www.drupal.org/user/315522"
+                },
+                {
+                    "name": "pronovix",
+                    "homepage": "https://www.drupal.org/user/3834019"
+                }
+            ],
+            "description": "Dynamically generates and allows editing of the /llms.txt file for your Drupal site.",
+            "homepage": "https://www.drupal.org/project/llms_txt",
+            "support": {
+                "source": "https://git.drupalcode.org/project/llms_txt"
+            },
+            "published-time": "2026-08-16T12:27:14+00:00"
+        },
+        {
             "name": "drupal/login_emailusername",
             "version": "3.0.1",
             "source": {
@@ -6232,6 +6479,85 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/mailsystem"
             }
+        },
+        {
+            "name": "drupal/markdownify",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/markdownify.git",
+                "reference": "1.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/markdownify-1.2.0.zip",
+                "reference": "1.2.0",
+                "shasum": "931e1f50d32e7ca8aec7f5f0a10a3b16a9e668a5"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10 || ^11",
+                "league/html-to-markdown": "^5.1"
+            },
+            "suggest": {
+                "league/commonmark": "For extended Markdown formatting capabilities."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.2.0",
+                    "datestamp": "1787109623",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\markdownify\\": "src/",
+                    "Drupal\\markdownify_file_attachment\\": "modules/file_attachment/src/",
+                    "Drupal\\markdownify_metadata\\": "modules/metadata/src/",
+                    "Drupal\\markdownify_path\\": "modules/path/src/",
+                    "Drupal\\markdownify_views\\": "modules/views/src/"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Morelos",
+                    "homepage": "https://www.drupal.org/user/3235287",
+                    "email": "adrian.tech.enthusiast@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Christoph Weber",
+                    "homepage": "https://www.drupal.org/user/2966261",
+                    "email": "webersd@gmail.com",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "breidert",
+                    "homepage": "https://www.drupal.org/user/135619"
+                },
+                {
+                    "name": "christophweber",
+                    "homepage": "https://www.drupal.org/user/281751"
+                },
+                {
+                    "name": "pronovix",
+                    "homepage": "https://www.drupal.org/user/3834019"
+                }
+            ],
+            "description": "Markdownify module for Drupal - Provides Markdown versions of content.",
+            "homepage": "https://www.drupal.org/project/markdownify",
+            "support": {
+                "source": "https://www.drupal.org/project/markdownify",
+                "issues": "https://www.drupal.org/project/issues/markdownify"
+            },
+            "published-time": "2026-08-19T03:20:03+00:00"
         },
         {
             "name": "drupal/media_file_delete",
@@ -6549,6 +6875,123 @@
                 "issues": "https://www.drupal.org/project/issues/metatag",
                 "docs": "https://www.drupal.org/docs/8/modules/metatag"
             }
+        },
+        {
+            "name": "drupal/metatag_facebook",
+            "version": "2.2.4",
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "drupal/metatag": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.4",
+                    "datestamp": "1793239109",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damienmckenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "A set of meta tags specially for controlling advanced functionality with Facebook.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/metatag"
+            },
+            "published-time": "2026-10-29T01:57:08+00:00"
+        },
+        {
+            "name": "drupal/metatag_open_graph",
+            "version": "2.2.4",
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "drupal/metatag": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.4",
+                    "datestamp": "1793239109",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damienmckenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provides support for Open Graph Protocol meta tags.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/metatag"
+            },
+            "published-time": "2026-10-29T01:57:08+00:00"
+        },
+        {
+            "name": "drupal/metatag_twitter_cards",
+            "version": "2.2.4",
+            "require": {
+                "drupal/core": "^10.3 || ^11 || ^12",
+                "drupal/metatag": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.4",
+                    "datestamp": "1793239109",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "damienmckenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provides support for Twitter's Card meta tags.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "https://git.drupalcode.org/project/metatag"
+            },
+            "published-time": "2026-10-29T01:57:08+00:00"
         },
         {
             "name": "drupal/migrate_file",
@@ -8540,6 +8983,77 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/token"
             }
+        },
+        {
+            "name": "drupal/token_filter",
+            "version": "2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/token_filter.git",
+                "reference": "2.2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/token_filter-2.2.1.zip",
+                "reference": "2.2.1",
+                "shasum": "1950ce8c0235418175e11c0d9ed15afbe1421dd7"
+            },
+            "require": {
+                "drupal/core": "^10 || ^11",
+                "drupal/token": "^1",
+                "php": ">=8.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.2.1",
+                    "datestamp": "1719183798",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ademarco",
+                    "homepage": "https://www.drupal.org/user/186696"
+                },
+                {
+                    "name": "asciikewl",
+                    "homepage": "https://www.drupal.org/user/147292"
+                },
+                {
+                    "name": "darvanen",
+                    "homepage": "https://www.drupal.org/user/1068770"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                },
+                {
+                    "name": "deciphered",
+                    "homepage": "https://www.drupal.org/user/103796"
+                },
+                {
+                    "name": "pescetti",
+                    "homepage": "https://www.drupal.org/user/436244"
+                },
+                {
+                    "name": "pvhee",
+                    "homepage": "https://www.drupal.org/user/108811"
+                }
+            ],
+            "description": "This is a very simple module to make global token values available as an input filter.",
+            "homepage": "https://www.drupal.org/project/token_filter",
+            "support": {
+                "source": "https://git.drupalcode.org/project/token_filter"
+            },
+            "published-time": "2024-06-23T23:03:10+00:00"
         },
         {
             "name": "drupal/token_or",
@@ -19023,7 +19537,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-24T11:36:00+00:00"
+            "time": "2026-10-24T11:36:00+00:00",
+            "published-time": "2026-10-24T11:36:12+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -21298,5 +21813,5 @@
     "platform-overrides": {
         "php": "8.3.14"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }

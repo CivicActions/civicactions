@@ -1,0 +1,23 @@
+uuid: 44896914-e63b-46fd-afe9-5bcdae759ff8
+langcode: en
+status: true
+dependencies:
+  module:
+    - token_filter
+name: 'llms.txt content'
+format: llms_txt_content
+weight: 0
+filters:
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: true
+    weight: -10
+    settings: {  }
+  token_filter:
+    id: token_filter
+    provider: token_filter
+    status: true
+    weight: 0
+    settings:
+      replace_empty: true

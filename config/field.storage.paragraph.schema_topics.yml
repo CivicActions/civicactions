@@ -1,20 +1,19 @@
-uuid: 01584ec1-e584-41e4-b17b-d6bce1e01e29
+uuid: 4022c32b-0d1f-4aa1-bce5-5f9a590f0f85
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.schema_text
-field_name: schema_text
+    - taxonomy
+id: paragraph.schema_topics
+field_name: schema_topics
 entity_type: paragraph
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

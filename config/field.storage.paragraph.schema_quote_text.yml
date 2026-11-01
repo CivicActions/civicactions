@@ -1,19 +1,18 @@
-uuid: c72d000e-16d1-4e5a-b57c-ee7789ad6461
+uuid: e8ec2de7-a99d-4002-8344-89c232d6d7d9
 langcode: en
 status: true
 dependencies:
   module:
-    - node
     - paragraphs
-id: paragraph.schema_keywords
-field_name: schema_keywords
+id: paragraph.schema_quote_text
+field_name: schema_quote_text
 entity_type: paragraph
-type: entity_reference
+type: string_long
 settings:
-  target_type: node
+  case_sensitive: false
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
