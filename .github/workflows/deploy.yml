@@ -151,6 +151,7 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: "https://test-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
+          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
           REF_URL: "https://live-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
         run: |
           npm ci
@@ -199,6 +200,7 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: "https://live-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
+          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
         run: |
           npx playwright test --grep "@smoke"
 

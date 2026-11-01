@@ -43,6 +43,10 @@ To maintain code quality, verify visual and functional parity across responsive 
 7. **Terminus Session Caching for CI**:
    - Workflows delegate Terminus setup and authentication to `pantheon-systems/terminus-github-actions`, passing the machine token directly to the action.
    - The action encrypts and restores `$HOME/.terminus/cache/session` using GitHub Actions cache (`actions/cache`), preserving active sessions across workflow jobs and avoiding Auth0 authentication rate limits.
+8. **Pantheon Edge Bypass for Browser Tests**:
+   - The site is on Pantheon's Cloudflare-based Global CDN, which serves a bot challenge to headless browsers on `*.pantheonsite.io`. Playwright sends Pantheon's bot bypass token as `x-pantheon-bot-bypass`, from the `PANTHEON_BOT_BYPASS_TOKEN` secret, only to `*.pantheonsite.io` hosts, never to third parties.
+   - Sandbox-plan sites also show a "Sandbox Environment Notice" interstitial. Tests pre-set the `Deterrence-Bypass=1` cookie that its Continue button sets.
+   - The token is valid for 6 months. Rotate it quarterly: run `terminus gcdn:bot-bypass <site>` (requires `terminus-gcdn-plugin`) and update the secret with the `current` token. An invalid token makes every request return 403.
 
 ## Consequences
 
@@ -54,6 +58,7 @@ To maintain code quality, verify visual and functional parity across responsive 
 - **Negative / Trade-offs**:
   - Developers must resolve live configuration drift manually if content editors make unexported config changes on production.
   - If feature commits land on `master` ahead of `live`, automated security deployment pauses until a human performs a manual release.
+  - The Pantheon bot bypass token must be rotated manually each quarter. It expires 6 months after it's issued.
 
 ## Alternatives considered
 

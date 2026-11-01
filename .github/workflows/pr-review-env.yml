@@ -186,6 +186,7 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: ${{ needs.verify-and-deploy.outputs.env_url }}
+          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
           REF_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
         run: |
           npx playwright test --grep "@functional|@a11y"
@@ -194,6 +195,7 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
+          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
         run: |
           npx playwright test --grep "@visual" --update-snapshots=all || true
 
@@ -202,6 +204,7 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: ${{ needs.verify-and-deploy.outputs.env_url }}
+          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
         run: |
           npx playwright test --grep "@visual" || true
 

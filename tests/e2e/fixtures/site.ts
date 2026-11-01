@@ -9,6 +9,28 @@ const BLOCKED_HOST_PATTERNS = [
   'friendlycaptcha.com',
 ];
 
+const BOT_BYPASS_TOKEN = process.env.PANTHEON_BOT_BYPASS_TOKEN || '';
+
+/**
+ * Returns the Pantheon bot bypass header for platform-domain URLs.
+ *
+ * Pantheon's Cloudflare-based Global CDN challenges headless browsers on
+ * *.pantheonsite.io. The token is only sent to Pantheon hosts, never to
+ * third parties.
+ */
+export function pantheonHeaders(url: string): Record<string, string> {
+  if (!BOT_BYPASS_TOKEN) {
+    return {};
+  }
+  try {
+    return new URL(url).hostname.endsWith('.pantheonsite.io')
+      ? { 'x-pantheon-bot-bypass': BOT_BYPASS_TOKEN }
+      : {};
+  } catch {
+    return {};
+  }
+}
+
 export async function settle(page: Page): Promise<void> {
   // 1. Wait for document fonts to load
   await page.evaluate(async () => {
@@ -41,11 +63,17 @@ export const test = base.extend<SiteFixtures>({
     await use(errors);
   },
   sitePage: async ({ page, pageErrors, context, baseURL }, use) => {
-    // 1. Block analytics and third-party trackers
+    // 1. Block analytics and third-party trackers; add the bot bypass header
+    // for Pantheon hosts.
     await page.route('**/*', (route) => {
-      const url = route.request().url();
+      const request = route.request();
+      const url = request.url();
       if (BLOCKED_HOST_PATTERNS.some((pattern) => url.includes(pattern))) {
         return route.abort();
+      }
+      const extraHeaders = pantheonHeaders(url);
+      if (Object.keys(extraHeaders).length) {
+        return route.continue({ headers: { ...request.headers(), ...extraHeaders } });
       }
       return route.continue();
     });
@@ -58,6 +86,14 @@ export const test = base.extend<SiteFixtures>({
           {
             name: 'klaro',
             value: encodeURIComponent(JSON.stringify({ default: true, analytics: false })),
+            domain: parsed.hostname,
+            path: '/',
+          },
+          // Skips Pantheon's "Sandbox Environment Notice" interstitial, which
+          // sets this cookie when a visitor clicks Continue.
+          {
+            name: 'Deterrence-Bypass',
+            value: '1',
             domain: parsed.hostname,
             path: '/',
           },

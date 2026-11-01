@@ -1,4 +1,4 @@
-import { test, expect, settle } from '../fixtures/site.js';
+import { test, expect, settle, pantheonHeaders } from '../fixtures/site.js';
 import { getPages } from '../lib/pages.js';
 
 const pages = getPages();
@@ -25,7 +25,10 @@ for (const pageEntry of pages) {
       // check if reference URL also returns 404
       if (REF_URL && status === 404) {
         try {
-          const refRes = await request.get(`${REF_URL}${pageEntry.path}`);
+          const refUrl = `${REF_URL}${pageEntry.path}`;
+          const refRes = await request.get(refUrl, {
+            headers: { ...pantheonHeaders(refUrl), Cookie: 'Deterrence-Bypass=1' },
+          });
           if (refRes.status() === 404) {
             test.skip(true, `page list out of date: ${pageEntry.id} (${pageEntry.path} returns 404 on reference)`);
             return;

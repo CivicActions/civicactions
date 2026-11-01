@@ -83,6 +83,7 @@ jobs:
         working-directory: tests/e2e
         env:
           BASE_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
+          PANTHEON_BOT_BYPASS_TOKEN: ${{ secrets.PANTHEON_BOT_BYPASS_TOKEN }}
         run: |
           npm ci
           npx playwright install --with-deps chromium
