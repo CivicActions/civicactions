@@ -23,8 +23,10 @@ on:
         type: string
         default: "{}"
 
+# inputs.trigger is only set when called from another workflow (the gate),
+# which already holds the pantheon-deploy lock; requesting it again deadlocks.
 concurrency:
-  group: pantheon-deploy
+  group: ${{ inputs.trigger && format('pantheon-deploy-release-{0}', github.run_id) || 'pantheon-deploy' }}
   cancel-in-progress: false
 
 permissions:
