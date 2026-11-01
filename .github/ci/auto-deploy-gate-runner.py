@@ -81,6 +81,7 @@ if gh_out:
     with open(gh_out, 'a') as out:
         out.write(f"decision={eval_data['decision']}\n")
         out.write(f"target_sha={master_sha}\n")
+        out.write(f"gate_json={json.dumps(eval_data)}\n")
 
 gh_env = os.environ.get('GITHUB_ENV')
 if gh_env:

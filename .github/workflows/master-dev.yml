@@ -110,5 +110,9 @@ jobs:
   check-auto-deploy:
     name: "Evaluate Auto-Deploy Gate"
     needs: [sync-dev]
+    permissions:
+      contents: read
+      deployments: write
+      issues: write
     uses: ./.github/workflows/auto-deploy-gate.yml
     secrets: inherit

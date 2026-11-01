@@ -5,10 +5,17 @@ on:
     # 16:05 and 17:05 UTC covers window opening under both PDT and PST
     - cron: "5 16,17 * * 1-4"
   workflow_call:
+    inputs:
+      nested:
+        description: "Set automatically when called from another workflow that already holds the pantheon-deploy lock"
+        type: boolean
+        default: true
   workflow_dispatch:
 
+# Only top-level runs take the shared lock. A called workflow requesting its
+# caller's group deadlocks, so nested runs use a run-scoped group instead.
 concurrency:
-  group: pantheon-deploy
+  group: ${{ inputs.nested && format('pantheon-deploy-gate-{0}', github.run_id) || 'pantheon-deploy' }}
   cancel-in-progress: false
 
 permissions:
@@ -17,9 +24,13 @@ permissions:
   deployments: read
 
 jobs:
-  evaluate-and-deploy:
-    name: "Evaluate Gate & Trigger Deploy"
+  evaluate:
+    name: "Evaluate Gate"
     runs-on: ubuntu-latest
+    outputs:
+      decision: ${{ steps.gate.outputs.decision }}
+      target_sha: ${{ steps.gate.outputs.target_sha }}
+      gate_json: ${{ steps.gate.outputs.gate_json }}
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -78,14 +89,6 @@ jobs:
           export DEV_SHA TEST_SHA LIVE_SHA MASTER_SHA IN_WINDOW LIVE_CLEAN TRACK_RECORD
           python3 .github/ci/auto-deploy-gate-runner.py
 
-      - name: Trigger Automated Deployment
-        if: steps.gate.outputs.decision == 'deploy'
-        uses: ./.github/workflows/deploy.yml
-        with:
-          trigger: "auto"
-          expected_sha: ${{ steps.gate.outputs.target_sha }}
-          gate_json: ${{ env.GATE_JSON || '{}' }}
-
       - name: Notify Blocked Auto-Deployment
         if: steps.gate.outputs.decision == 'blocked'
         env:
@@ -108,3 +111,18 @@ jobs:
           else
             echo "No pending security PRs to deploy. Gate evaluation complete without action."
           fi
+
+  deploy:
+    name: "Automated Deployment"
+    needs: [evaluate]
+    if: needs.evaluate.outputs.decision == 'deploy'
+    permissions:
+      contents: read
+      deployments: write
+      issues: write
+    uses: ./.github/workflows/deploy.yml
+    with:
+      trigger: "auto"
+      expected_sha: ${{ needs.evaluate.outputs.target_sha }}
+      gate_json: ${{ needs.evaluate.outputs.gate_json || '{}' }}
+    secrets: inherit
