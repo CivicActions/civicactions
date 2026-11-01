@@ -52,7 +52,7 @@ Creates and updates GitHub Deployment records for auditability and tracks the co
 
 ### 7. `health-check.sh`
 Runs Drupal runtime diagnostics using standard Drush commands (`core:requirements`, `updatedb:status`, `config:status`, `config:get`, `watchdog:show`) and fails on:
-- System requirements errors (the `automatic_updates` readiness check is skipped while unattended updates are disabled, because Pantheon's code filesystem is read-only).
+- System requirements errors. Skipped: `update_core`/`update_contrib` (available releases, which Dependabot and the daily security workflow handle), and the `automatic_updates` readiness check while unattended updates are disabled (Pantheon's code filesystem is read-only).
 - Pending database updates.
 - Configuration drift (names and states only, never values).
 - Error-level watchdog entries logged after `--since-wid`, when given.

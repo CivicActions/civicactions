@@ -120,12 +120,17 @@ print(f"- **Max Watchdog ID**: {max_wid}")
 print(f"- **Automatic Updates Disabled**: {auto_updates_disabled}")
 
 requirements = load('requirements') or {}
+# Available releases (including security releases) are tracked by Dependabot and
+# the daily security workflow. Failing deploys on them would also block the
+# deploy that ships the update.
+IGNORED_REQUIREMENTS = {'update_core', 'update_contrib'}
 req_errors = {
     key: req for key, req in requirements.items()
+    if key not in IGNORED_REQUIREMENTS
     # Pantheon's code filesystem is always read-only, so automatic_updates
     # readiness checks cannot pass there. Irrelevant while unattended updates
     # are disabled.
-    if not (auto_updates_disabled and key.startswith('automatic_updates_status'))
+    and not (auto_updates_disabled and key.startswith('automatic_updates_status'))
 } if isinstance(requirements, dict) else {}
 if req_errors:
     failures.append("Requirements Errors")
