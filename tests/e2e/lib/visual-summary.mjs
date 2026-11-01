@@ -22,7 +22,11 @@ export function parseVisualResults(jsonPath) {
       for (const test of spec.tests || []) {
         const projectName = test.projectName || 'default';
         const pageIdMatch = spec.title.match(/visual regression for ([\w-]+)/);
-        const pageId = pageIdMatch ? pageIdMatch[1] : spec.title;
+        if (!pageIdMatch) {
+          // results.json may hold functional/a11y results if visual tests didn't run.
+          continue;
+        }
+        const pageId = pageIdMatch[1];
 
         const result = (test.results && test.results[0]) || {};
         let status = 'match';

@@ -199,6 +199,12 @@ jobs:
         working-directory: tests/e2e
         run: npm ci
 
+      # The container image only ships browsers for its own Playwright version;
+      # install the build matching package-lock.json so Dependabot bumps work.
+      - name: Install Playwright browser
+        working-directory: tests/e2e
+        run: npx playwright install chromium
+
       - name: Run Functional & Accessibility Tests
         working-directory: tests/e2e
         env:
@@ -208,6 +214,7 @@ jobs:
           npx playwright test --grep "@functional|@a11y"
 
       - name: Capture Dev Reference Screenshots
+        if: ${{ !cancelled() }}
         working-directory: tests/e2e
         env:
           BASE_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
@@ -215,6 +222,7 @@ jobs:
           npx playwright test --grep "@visual" --update-snapshots=all || true
 
       - name: Compare PR Screenshots against Dev Reference
+        if: ${{ !cancelled() }}
         id: visual-compare
         working-directory: tests/e2e
         env:
