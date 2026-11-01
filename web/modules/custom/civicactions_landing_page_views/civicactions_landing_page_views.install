@@ -67,3 +67,37 @@ function civicactions_landing_page_views_update_9003(): void {
     ->set('display.default.display_options.fields', [])
     ->save(TRUE);
 }
+
+/**
+ * Installs entity definitions that were never applied on existing sites.
+ *
+ * The metatag module adds a "metatags" base field to canvas_page, and the
+ * schemadotorg module defines two config entity types, but neither installs
+ * them retroactively, so core:requirements reports an entity_update error.
+ */
+function civicactions_landing_page_views_update_9004(): string {
+  $update_manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $installed = [];
+
+  foreach (['schemadotorg_mapping', 'schemadotorg_mapping_type'] as $entity_type_id) {
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id, FALSE);
+    if ($entity_type && !$update_manager->getEntityType($entity_type_id)) {
+      $update_manager->installEntityType($entity_type);
+      $installed[] = $entity_type_id;
+    }
+  }
+
+  if ($entity_type_manager->hasDefinition('canvas_page')) {
+    $storage_definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('canvas_page');
+    if (isset($storage_definitions['metatags']) && !$update_manager->getFieldStorageDefinition('metatags', 'canvas_page')) {
+      $definition = $storage_definitions['metatags'];
+      $update_manager->installFieldStorageDefinition('metatags', 'canvas_page', $definition->getProvider(), $definition);
+      $installed[] = 'canvas_page.metatags';
+    }
+  }
+
+  return $installed
+    ? sprintf('Installed entity definitions: %s.', implode(', ', $installed))
+    : 'No pending entity definitions to install.';
+}
