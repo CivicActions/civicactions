@@ -12,6 +12,7 @@ dependencies:
     - media.type.remote_video
     - media.type.svg_image
     - node.type.page
+    - taxonomy.vocabulary.tool
     - workflows.workflow.basic_editorial
   module:
     - ai_image_alt_text
@@ -28,6 +29,7 @@ dependencies:
     - redirect
     - scheduler
     - system
+    - taxonomy_access_fix
     - trash
 _core:
   default_config_hash: g-zSnaBXJnH7VoimReFb6KcLjIgHCU-hisiShtZ9hjQ
@@ -83,4 +85,5 @@ permissions:
   - 'view own unpublished content'
   - 'view own unpublished media'
   - 'view scheduled content'
+  - 'view terms in tool'
   - 'view welcome dashboard'

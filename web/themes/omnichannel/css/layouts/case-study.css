@@ -1,7 +1,18 @@
 .ca-case-study__hero,
 .ca-case-study__proofpoints,
+.ca-case-study__body,
 .ca-case-study__expertise-tools {
   margin-bottom: var(--size-20);
+}
+
+.ca-case-study-header,
+.ca-case-study__quote {
+  margin-bottom: var(--size-16);
+}
+
+/* Case studies keep the gray quote background below the component's 1024px breakpoint. */
+.ca-case-study__quote .ca-quote--gray {
+  background-color: var(--gray-05, #f0f0f0);
 }
 
 .ca-case-study__hero img {
@@ -27,8 +38,8 @@
 
 .ca-case-study__expertise,
 .ca-case-study__tools {
-  background-color: var(--color-gray-background);
   padding: var(--size-12);
+  background-color: var(--color-gray-background);
 
   @media (min-width: 1024px) {
     padding: var(--size-12) var(--size-16);
@@ -49,15 +60,15 @@
 }
 
 .ca-case-study__outcomes .ca-case-study__heading {
+  margin-bottom: 0;
+  padding-bottom: var(--size-12);
   text-align: center;
   color: var(--white, #fff);
-  padding-bottom: var(--size-12);
-  margin-bottom: 0;
 }
 
 .ca-case-study__outcomes {
-  background-color: var(--primary-blue);
   padding: var(--size-8) 0;
+  background-color: var(--primary-blue);
 
   @media (min-width: 1024px) {
     padding: var(--size-20) 0;

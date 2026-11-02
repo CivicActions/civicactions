@@ -7,6 +7,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -24,6 +25,7 @@ class OmnichannelHooks {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
+    private readonly EntityRepositoryInterface $entityRepository,
   ) {}
 
   /**
@@ -233,8 +235,94 @@ class OmnichannelHooks {
     // array, so its access and cache dependencies are applied to the preprocess
     // variables by the caller.
     $props['proofpoints_component_props'] = $this->buildProofpointsProps($variables['node'], $cacheability);
+    $props['quote'] = $this->buildQuoteProps($variables['node'], $cacheability);
 
     return $props;
+  }
+
+  /**
+   * Maps the first accessible Quote paragraph to the Quote SDC props.
+   *
+   * Quotes added from the Paragraphs library are resolved to their source
+   * paragraph.
+   */
+  private function buildQuoteProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    if (!$node->hasField('field_quote')) {
+      return [];
+    }
+
+    $field = $node->get('field_quote');
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return [];
+    }
+
+    foreach ($field->referencedEntities() as $paragraph) {
+      $paragraph = $this->resolveLibraryParagraph($this->entityRepository->getTranslationFromContext($paragraph), $cacheability);
+      if ($paragraph === NULL || $paragraph->bundle() !== 'quote') {
+        continue;
+      }
+
+      $paragraph = $this->entityRepository->getTranslationFromContext($paragraph);
+      $cacheability->addCacheableDependency($paragraph);
+      $paragraph_access = $paragraph->access('view', NULL, TRUE);
+      $cacheability->addCacheableDependency($paragraph_access);
+      if (!$paragraph_access->isAllowed()) {
+        continue;
+      }
+
+      $quote = trim($this->getParagraphStringValue($paragraph, 'schema_quote_text', $cacheability));
+      if ($quote === '') {
+        continue;
+      }
+
+      return array_filter([
+        'quote' => $quote,
+        'name' => trim($this->getParagraphStringValue($paragraph, 'schema_author', $cacheability, TRUE)),
+        'role' => trim($this->getParagraphStringValue($paragraph, 'schema_description', $cacheability)),
+      ], static fn (string $value): bool => $value !== '');
+    }
+
+    return [];
+  }
+
+  /**
+   * Returns the source paragraph for a From library paragraph.
+   */
+  private function resolveLibraryParagraph(EntityInterface $paragraph, CacheableMetadata $cacheability): ?EntityInterface {
+    if ($paragraph->bundle() !== 'from_library') {
+      return $paragraph;
+    }
+
+    $cacheability->addCacheableDependency($paragraph);
+    $paragraph_access = $paragraph->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($paragraph_access);
+    if (!$paragraph_access->isAllowed() || !$paragraph->hasField('field_reusable_paragraph')) {
+      return NULL;
+    }
+
+    $field = $paragraph->get('field_reusable_paragraph');
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return NULL;
+    }
+
+    $library_item = $field->entity;
+    if (!$library_item instanceof EntityInterface || !$library_item->hasField('paragraphs')) {
+      return NULL;
+    }
+
+    $cacheability->addCacheableDependency($library_item);
+    $library_access = $library_item->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($library_access);
+    if (!$library_access->isAllowed()) {
+      return NULL;
+    }
+
+    $source = $library_item->get('paragraphs')->entity;
+    return $source instanceof EntityInterface ? $source : NULL;
   }
 
   /**

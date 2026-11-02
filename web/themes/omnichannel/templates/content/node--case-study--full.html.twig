@@ -31,42 +31,55 @@
       </section>
     {% endif %}
 
-    <div{{ content_attributes.addClass('node__content ca-container ca-container--narrow') }}>
-      {{ props.body }}
-    </div>
+    {% if props.quote.quote is not empty %}
+      <section class="ca-case-study__quote">
+        {% include 'omnichannel:quote' with props.quote only %}
+      </section>
+    {% endif %}
+
+    {% set body = props.body|render %}
+    {% if body|striptags|trim is not empty %}
+      <div{{ content_attributes.addClass('node__content ca-case-study__body ca-container ca-container--narrow') }}>
+        {{ body }}
+      </div>
+    {% endif %}
 
     {# Expertise and Tools #}
-    {% if props.expertise is not empty or props.tools is not empty %}
+    {% set expertise = props.expertise|render %}
+    {% set tools = props.tools|render %}
+    {% if expertise|striptags|trim is not empty or tools|striptags|trim is not empty %}
       <section class="ca-case-study__expertise-tools ca-container">
-        {% if props.expertise is not empty %}
+        {% if expertise|striptags|trim is not empty %}
           <div class="ca-case-study__expertise">
             <h2 class="ca-case-study__heading">{{ 'Expertise'|t }}</h2>
-            {{ props.expertise }}
+            {{ expertise }}
           </div>
         {% endif %}
-        {% if props.tools is not empty %}
+        {% if tools|striptags|trim is not empty %}
           <div class="ca-case-study__tools">
             <h2 class="ca-case-study__heading">{{ 'Tools'|t }}</h2>
-            {{ props.tools }}
+            {{ tools }}
           </div>
         {% endif %}
       </section>
     {% endif %}
 
-    {% if props.outcomes is not empty %}
+    {% set outcomes = props.outcomes|render %}
+    {% if outcomes|striptags|trim is not empty %}
       <section class="ca-case-study__outcomes">
         <h2 class="ca-case-study__heading">{{ 'Key outcomes'|t }}</h2>
         <div class="ca-case-study__outcomes-grid ca-container">
-          {{ props.outcomes }}
+          {{ outcomes }}
         </div>
       </section>
     {% endif %}
 
-    {% if props.team_members is not empty %}
+    {% set team_members = props.team_members|render %}
+    {% if team_members|striptags|trim is not empty %}
       <section class="ca-case-study__team">
         <div class="ca-case-study__team-inner ca-container">
           <h2 class="ca-case-study__heading">{{ 'Meet the team'|t }}</h2>
-          {{ props.team_members }}
+          {{ team_members }}
         </div>
       </section>
     {% endif %}

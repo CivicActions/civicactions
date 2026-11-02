@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - filter.format.webform_default
+    - taxonomy.vocabulary.expertise
+    - taxonomy.vocabulary.tool
   module:
     - captcha
     - coffee
@@ -17,6 +19,7 @@ dependencies:
     - navigation
     - node
     - system
+    - taxonomy_access_fix
 _core:
   default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
 id: authenticated
@@ -38,4 +41,8 @@ permissions:
   - 'view editoria11y checker'
   - 'view media'
   - 'view own unpublished content'
+  - 'view term names in expertise'
+  - 'view term names in tool'
+  - 'view terms in expertise'
+  - 'view terms in tool'
   - 'view the administration theme'

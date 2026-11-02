@@ -4,9 +4,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - core.entity_view_mode.media.teaser
+    - field.field.node.case_study.field_body
     - field.field.node.case_study.field_expertise
     - field.field.node.case_study.field_hero_image
+    - field.field.node.case_study.field_outcomes
+    - field.field.node.case_study.field_proof_points
+    - field.field.node.case_study.field_quote
     - field.field.node.case_study.field_team_members
     - field.field.node.case_study.field_tools
     - field.field.node.case_study.schema_article_body
@@ -59,6 +62,7 @@ hidden:
   field_hero_image: true
   field_outcomes: true
   field_proof_points: true
+  field_quote: true
   field_team_members: true
   field_tools: true
   schema_article_body: true
