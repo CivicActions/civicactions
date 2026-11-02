@@ -198,6 +198,13 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **Medium Article Redirects:** Legacy Medium slug-hash redirects are operational via Andy's Drush command (PR #67); domain-level 301 redirect from `blog.civicactions.com` to `civicactions.com/insights/articles` remains on the switchover checklist.
 - **Icon Library:** Post-MVP ticket to expand the current 6-icon catalog using the original Noun Project source library.
 
+### November 2 Operational Alignment & Punchlist
+
+- **Environment Deployment:** Code and configuration promotions across Pantheon Test and Live completed, syncing Webform, Greenhouse, and Icon settings into active environments.
+- **Case Study Detail & Quote Support (PR #90):** Iris's PR #90 (`MAHOM-1162`) introduces Quote SDC field support, hides empty case study sections (body, expertise, tools, outcomes, and "Meet the team"), scopes the template to full view mode, and grants public view permissions for `expertise` and `tool` taxonomies.
+- **Content SDC Heading Hierarchy:** Updated `content.css`, `accordion-container.css`, and `global.css` so all `h2` headings (Content, Section, Accordion Container, and formatted text) render uniformly at 32px (`var(--size-8, 2rem)` with `line-height: var(--line-height-base, 1.15)`). This resolves the issue where rich-text `h2` and `h3` headings inside Canvas Content blocks both rendered at 28px and aligns heading scale across all landing page components.
+- **Webforms Delivery:** Webform module is active on Live with Captcha tested on Contact. DITAP and Feedback forms are being authored via the Webform UI and placed on Canvas pages without contrib patches.
+
 ---
 
 ## 4. Integration Boundaries

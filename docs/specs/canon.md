@@ -40,6 +40,8 @@ Include SDCs by their Drupal plugin ID, such as `omnichannel:case-study-header`,
 
 Canvas requires useful, non-empty defaults and examples for required and structured props. A valid Drupal SDC is not automatically a Canvas-available component. Canvas configuration must be generated through Drupal's component source services rather than hand-maintained opaque identifiers.
 
+The Content SDC (`omnichannel:content`) styles rich-text prose within `@scope (.ca-content)`. All `h2` headings across Content, Section (`.ca-section__title`), and Accordion Container (`.ca-accordion-container__title`) render uniformly at 32px (`var(--size-8, 2rem)` with `line-height: var(--line-height-base, 1.15)`), establishing consistent visual hierarchy above 28px `h3` elements.
+
 ## Views listings and teaser rendering
 
 The `civicactions_landing_page_views` module owns the Team, Editorial, News, Publications, and Case Study listing Views. Publications represents White Papers through the Editorial taxonomy; it does not require a separate content bundle or teaser component. The Omnichannel theme renders their node teaser view modes through the existing teaser SDCs rather than introducing listing-specific components.
