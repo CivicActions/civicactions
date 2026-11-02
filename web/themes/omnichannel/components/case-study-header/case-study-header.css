@@ -8,7 +8,7 @@
 
 .ca-case-study-header__inner {
   display: grid;
-  padding: 0 0 var(--size-16, 4rem);
+  padding: 0;
 }
 
 .ca-case-study-header__title {

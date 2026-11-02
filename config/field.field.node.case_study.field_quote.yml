@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_quote
     - node.type.case_study
+    - paragraphs.paragraphs_type.from_library
     - paragraphs.paragraphs_type.quote
   module:
     - entity_reference_revisions
@@ -16,7 +17,7 @@ label: Quote
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value: {}
 default_value_callback: ''
 settings:
   handler: 'default:paragraph'
