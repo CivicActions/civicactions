@@ -2,10 +2,14 @@ uuid: f7ad1cb8-450a-4c2c-8409-e63a976eff85
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.expertise
+    - taxonomy.vocabulary.tool
   module:
     - klaro
     - media
     - system
+    - taxonomy_access_fix
 _core:
   default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
 id: anonymous
@@ -16,3 +20,7 @@ permissions:
   - 'access content'
   - 'use klaro'
   - 'view media'
+  - 'view term names in expertise'
+  - 'view term names in tool'
+  - 'view terms in expertise'
+  - 'view terms in tool'
