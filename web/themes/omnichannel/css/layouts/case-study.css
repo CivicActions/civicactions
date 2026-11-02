@@ -38,8 +38,8 @@
 
 .ca-case-study__expertise,
 .ca-case-study__tools {
-  background-color: var(--color-gray-background);
   padding: var(--size-12);
+  background-color: var(--color-gray-background);
 
   @media (min-width: 1024px) {
     padding: var(--size-12) var(--size-16);
@@ -60,15 +60,15 @@
 }
 
 .ca-case-study__outcomes .ca-case-study__heading {
+  margin-bottom: 0;
+  padding-bottom: var(--size-12);
   text-align: center;
   color: var(--white, #fff);
-  padding-bottom: var(--size-12);
-  margin-bottom: 0;
 }
 
 .ca-case-study__outcomes {
-  background-color: var(--primary-blue);
   padding: var(--size-8) 0;
+  background-color: var(--primary-blue);
 
   @media (min-width: 1024px) {
     padding: var(--size-20) 0;
