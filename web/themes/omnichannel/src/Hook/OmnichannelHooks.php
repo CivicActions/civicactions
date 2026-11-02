@@ -296,11 +296,20 @@ class OmnichannelHooks {
     }
 
     $cacheability->addCacheableDependency($paragraph);
-    if (!$paragraph->hasField('field_reusable_paragraph') || $paragraph->get('field_reusable_paragraph')->isEmpty()) {
+    $paragraph_access = $paragraph->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($paragraph_access);
+    if (!$paragraph_access->isAllowed() || !$paragraph->hasField('field_reusable_paragraph')) {
       return NULL;
     }
 
-    $library_item = $paragraph->get('field_reusable_paragraph')->entity;
+    $field = $paragraph->get('field_reusable_paragraph');
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return NULL;
+    }
+
+    $library_item = $field->entity;
     if (!$library_item instanceof EntityInterface || !$library_item->hasField('paragraphs')) {
       return NULL;
     }
