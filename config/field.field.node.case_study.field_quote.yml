@@ -1,0 +1,35 @@
+uuid: bed578d0-7586-4f8b-aca8-5274358d140e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_quote
+    - node.type.case_study
+    - paragraphs.paragraphs_type.quote
+  module:
+    - entity_reference_revisions
+id: node.case_study.field_quote
+field_name: field_quote
+entity_type: node
+bundle: case_study
+label: Quote
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      quote: quote
+      from_library: from_library
+    negate: 0
+    target_bundles_drag_drop:
+      from_library:
+        weight: 1
+        enabled: true
+      quote:
+        weight: 0
+        enabled: true
+field_type: entity_reference_revisions
