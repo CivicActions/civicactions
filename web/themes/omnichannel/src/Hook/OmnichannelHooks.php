@@ -233,8 +233,86 @@ class OmnichannelHooks {
     // array, so its access and cache dependencies are applied to the preprocess
     // variables by the caller.
     $props['proofpoints_component_props'] = $this->buildProofpointsProps($variables['node'], $cacheability);
+    $props['quote'] = $this->buildQuoteProps($variables['node'], $cacheability);
 
     return $props;
+  }
+
+  /**
+   * Maps the first accessible Quote paragraph to the Quote SDC props.
+   *
+   * Quotes added from the Paragraphs library are resolved to their source
+   * paragraph.
+   */
+  private function buildQuoteProps(NodeInterface $node, CacheableMetadata $cacheability): array {
+    if (!$node->hasField('field_quote')) {
+      return [];
+    }
+
+    $field = $node->get('field_quote');
+    $field_access = $field->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($field_access);
+    if (!$field_access->isAllowed() || $field->isEmpty()) {
+      return [];
+    }
+
+    $entity_repository = \Drupal::service('entity.repository');
+    foreach ($field->referencedEntities() as $paragraph) {
+      $paragraph = $this->resolveLibraryParagraph($entity_repository->getTranslationFromContext($paragraph), $cacheability);
+      if ($paragraph === NULL || $paragraph->bundle() !== 'quote') {
+        continue;
+      }
+
+      $paragraph = $entity_repository->getTranslationFromContext($paragraph);
+      $cacheability->addCacheableDependency($paragraph);
+      $paragraph_access = $paragraph->access('view', NULL, TRUE);
+      $cacheability->addCacheableDependency($paragraph_access);
+      if (!$paragraph_access->isAllowed()) {
+        continue;
+      }
+
+      $quote = trim($this->getParagraphStringValue($paragraph, 'schema_quote_text', $cacheability));
+      if ($quote === '') {
+        continue;
+      }
+
+      return array_filter([
+        'quote' => $quote,
+        'name' => trim($this->getParagraphStringValue($paragraph, 'schema_author', $cacheability, TRUE)),
+        'role' => trim($this->getParagraphStringValue($paragraph, 'schema_description', $cacheability)),
+      ], static fn (string $value): bool => $value !== '');
+    }
+
+    return [];
+  }
+
+  /**
+   * Returns the source paragraph for a From library paragraph.
+   */
+  private function resolveLibraryParagraph(EntityInterface $paragraph, CacheableMetadata $cacheability): ?EntityInterface {
+    if ($paragraph->bundle() !== 'from_library') {
+      return $paragraph;
+    }
+
+    $cacheability->addCacheableDependency($paragraph);
+    if (!$paragraph->hasField('field_reusable_paragraph') || $paragraph->get('field_reusable_paragraph')->isEmpty()) {
+      return NULL;
+    }
+
+    $library_item = $paragraph->get('field_reusable_paragraph')->entity;
+    if (!$library_item instanceof EntityInterface || !$library_item->hasField('paragraphs')) {
+      return NULL;
+    }
+
+    $cacheability->addCacheableDependency($library_item);
+    $library_access = $library_item->access('view', NULL, TRUE);
+    $cacheability->addCacheableDependency($library_access);
+    if (!$library_access->isAllowed()) {
+      return NULL;
+    }
+
+    $source = $library_item->get('paragraphs')->entity;
+    return $source instanceof EntityInterface ? $source : NULL;
   }
 
   /**

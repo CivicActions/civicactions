@@ -31,6 +31,12 @@
       </section>
     {% endif %}
 
+    {% if props.quote.quote is not empty %}
+      <section class="ca-case-study__quote">
+        {% include 'omnichannel:quote' with props.quote only %}
+      </section>
+    {% endif %}
+
     {% set body = props.body|render %}
     {% if body|striptags|trim is not empty %}
       <div{{ content_attributes.addClass('node__content ca-case-study__body ca-container ca-container--narrow') }}>

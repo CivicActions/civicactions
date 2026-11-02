@@ -5,8 +5,14 @@
   margin-bottom: var(--size-20);
 }
 
-.ca-case-study-header {
+.ca-case-study-header,
+.ca-case-study__quote {
   margin-bottom: var(--size-16);
+}
+
+/* Case studies keep the gray quote background below the component's 1024px breakpoint. */
+.ca-case-study__quote .ca-quote--gray {
+  background-color: var(--gray-05, #f0f0f0);
 }
 
 .ca-case-study__hero img {
