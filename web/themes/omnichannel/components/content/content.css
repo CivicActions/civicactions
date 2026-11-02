@@ -28,10 +28,10 @@
   margin: 0 0 var(--size-4, 1rem);
 }
 
-/* As in .text-formatted, h2 uses the h3 scale to match the legacy editorial content. */
+/* Content h2 uses 32px (var(--size-8)) to match section and accordion h2 headings. */
 .ca-content h2 {
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-h3);
+  font-size: var(--size-8, 2rem);
+  line-height: var(--line-height-base, 1.15);
 }
 
 .ca-content h5,
@@ -128,8 +128,8 @@
   }
 
   h2 {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
+    font-size: var(--size-8, 2rem);
+    line-height: var(--line-height-base, 1.15);
   }
 
   h5,
