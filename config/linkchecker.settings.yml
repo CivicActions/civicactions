@@ -1,12 +1,12 @@
 check_links_types: 1
-default_url_scheme: 'http://'
+default_url_scheme: 'https://'
 base_path: ''
 extract:
   from_a: true
   from_audio: false
   from_embed: false
   from_iframe: false
-  from_img: false
+  from_img: true
   from_object: false
   from_video: false
   filter_blacklist:
@@ -20,11 +20,11 @@ extract:
     weblinks_embed: weblinks_embed
     weblinks_filter: weblinks_filter
 check:
-  connections_max: 8
-  connections_max_per_domain: 2
+  connections_max: 4
+  connections_max_per_domain: 1
   disable_link_check_for_urls: ''
   library: core
-  interval: 2419200
+  interval: 604800
   useragent: 'Drupal (+http://drupal.org/)'
 error:
   action_status_code_301: 0
@@ -32,4 +32,4 @@ error:
   ignore_response_codes: "200\n206\n302\n304\n401\n403"
   impersonate_account: ''
 logging:
-  level: 6
+  level: 5
