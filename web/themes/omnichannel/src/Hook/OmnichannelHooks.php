@@ -7,6 +7,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -24,6 +25,7 @@ class OmnichannelHooks {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
+    private readonly EntityRepositoryInterface $entityRepository,
   ) {}
 
   /**
@@ -256,14 +258,13 @@ class OmnichannelHooks {
       return [];
     }
 
-    $entity_repository = \Drupal::service('entity.repository');
     foreach ($field->referencedEntities() as $paragraph) {
-      $paragraph = $this->resolveLibraryParagraph($entity_repository->getTranslationFromContext($paragraph), $cacheability);
+      $paragraph = $this->resolveLibraryParagraph($this->entityRepository->getTranslationFromContext($paragraph), $cacheability);
       if ($paragraph === NULL || $paragraph->bundle() !== 'quote') {
         continue;
       }
 
-      $paragraph = $entity_repository->getTranslationFromContext($paragraph);
+      $paragraph = $this->entityRepository->getTranslationFromContext($paragraph);
       $cacheability->addCacheableDependency($paragraph);
       $paragraph_access = $paragraph->access('view', NULL, TRUE);
       $cacheability->addCacheableDependency($paragraph_access);
