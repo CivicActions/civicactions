@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.case_study.field_hero_image
     - field.field.node.case_study.field_outcomes
     - field.field.node.case_study.field_proof_points
+    - field.field.node.case_study.field_quote
     - field.field.node.case_study.field_team_members
     - field.field.node.case_study.field_tools
     - field.field.node.case_study.schema_article_body
@@ -65,6 +66,15 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 110
+    region: content
+  field_quote:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 111
     region: content
   field_team_members:
     type: entity_reference_label
