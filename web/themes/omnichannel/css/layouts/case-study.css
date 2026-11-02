@@ -1,7 +1,12 @@
 .ca-case-study__hero,
 .ca-case-study__proofpoints,
+.ca-case-study__body,
 .ca-case-study__expertise-tools {
   margin-bottom: var(--size-20);
+}
+
+.ca-case-study-header {
+  margin-bottom: var(--size-16);
 }
 
 .ca-case-study__hero img {
