@@ -66,6 +66,7 @@ module:
   friendlycaptcha: 0
   gin_login: 0
   gin_toolbar: 0
+  google_analytics: 0
   honeypot: 0
   image: 0
   jquery_ui: 0
