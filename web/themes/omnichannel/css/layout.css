@@ -290,10 +290,6 @@
     justify-content: center;
   }
 
-  .view-ca-case-studies {
-    margin-inline: calc(var(--container-spacing-md) - var(--container-spacing-lg));
-  }
-
   .view-ca-case-studies .views-view-grid.horizontal.cols-2 {
     gap: var(--size-8);
   }
@@ -308,10 +304,6 @@
   .views-view-grid.horizontal.cols-5 {
     grid-template-columns: repeat(4, max-content);
     justify-content: center;
-  }
-
-  .view-ca-case-studies {
-    margin-inline: calc(-1 * var(--container-spacing-lg));
   }
 }
 
