@@ -15,6 +15,7 @@
     'ca-form',
   ]
 %}
-<form{{ attributes.addClass(classes) }}>
+{% set form_attributes = attributes|default(create_attribute()) %}
+<form{{ form_attributes.addClass(classes) }}>
   {{ children }}
 </form>

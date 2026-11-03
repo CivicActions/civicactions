@@ -344,7 +344,7 @@ class OmnichannelHooks {
       return [];
     }
 
-    $entity_repository = \Drupal::service('entity.repository');
+    $entity_repository = $this->entityRepository;
     $props = [];
     $position = 0;
     foreach ($field->referencedEntities() as $paragraph) {
