@@ -5,11 +5,101 @@
 
 .button,
 .image-button {
-  margin-right: 1em;
-  margin-left: 1em;
+  margin-inline: var(--size-2, 0.5rem);
 }
+
 .button:first-child,
 .image-button:first-child {
-  margin-right: 0;
-  margin-left: 0;
+  margin-inline-start: 0;
+}
+
+/* Base button and primary form submit styles */
+.button,
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding-block: 0.875rem;
+  padding-inline: 1.75rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+  text-align: center;
+  text-decoration: none;
+  color: var(--white, #fff);
+  border: 2px solid var(--primary-red, #d83933);
+  border-radius: 30px;
+  background-color: var(--primary-red, #d83933);
+  font-family: var(--font-body, "Nunito", "Helvetica Neue", sans-serif);
+  font-size: var(--font-size-body, 1rem);
+  font-weight: 600;
+  line-height: var(--line-height-body, 1.375rem);
+  appearance: none;
+}
+
+.button:hover,
+.form-submit:hover {
+  transform: translateY(-1px);
+  color: var(--white, #fff);
+  border-color: #a23737;
+  background-color: #a23737;
+}
+
+.button:focus-visible,
+.form-submit:focus-visible {
+  transform: translateY(-1px);
+  color: var(--white, #fff);
+  border-color: #a23737;
+  outline: var(--focus-outline-width, 3px) solid var(--primary-blue, #162e51);
+  outline-offset: var(--focus-outline-offset, 3px);
+  background-color: #a23737;
+}
+
+.button:active,
+.form-submit:active {
+  transform: translateY(0);
+}
+
+.button:disabled,
+.button.is-disabled,
+.form-submit:disabled {
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.6;
+}
+
+/* Secondary button variant */
+.button--secondary {
+  color: var(--primary-blue, #162e51);
+  border-color: var(--primary-blue, #162e51);
+  background-color: var(--white, #fff);
+}
+
+.button--secondary:hover {
+  color: var(--white, #fff);
+  border-color: var(--primary-blue, #162e51);
+  background-color: var(--primary-blue, #162e51);
+}
+
+.button--secondary:focus-visible {
+  color: var(--white, #fff);
+  border-color: var(--primary-blue, #162e51);
+  outline-color: var(--primary-blue, #162e51);
+  background-color: var(--primary-blue, #162e51);
+}
+
+.button--danger {
+  border-color: var(--sec-red, #8b0a03);
+  background-color: var(--sec-red, #8b0a03);
+}
+
+.button--danger:hover,
+.button--danger:focus-visible {
+  border-color: var(--gray-90, #171717);
+  background-color: var(--gray-90, #171717);
 }

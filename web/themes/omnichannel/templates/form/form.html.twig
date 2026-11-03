@@ -10,6 +10,11 @@
  * @see \Drupal\Core\Form\FormPreprocess::preprocessForm()
  */
 #}
-<form{{ attributes }}>
+{%
+  set classes = [
+    'ca-form',
+  ]
+%}
+<form{{ attributes.addClass(classes) }}>
   {{ children }}
 </form>

@@ -25,8 +25,10 @@ class OmnichannelHooks {
 
   public function __construct(
     private readonly RouteMatchInterface $routeMatch,
-    private readonly EntityRepositoryInterface $entityRepository,
-  ) {}
+    private ?EntityRepositoryInterface $entityRepository = NULL,
+  ) {
+    $this->entityRepository ??= \Drupal::service('entity.repository');
+  }
 
   /**
    * Content types rendered with the full-width page container.
