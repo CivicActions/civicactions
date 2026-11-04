@@ -21,7 +21,7 @@ The core implementation and master merge are committed in PR #40 (commit `83c61c
 
 ### Out of Scope
 
-- Full Case Study detail theming, owned by Iris under MAHOM-1186.
+- Full Case Study detail theming, tracked under MAHOM-1186.
 - Individual Person profile pages, deferred post-MVP.
 - Backend Views filters, taxonomy migrations, or content-model changes.
 - Section color-switch hardening, deferred until after the summit.
@@ -89,7 +89,7 @@ Team grid geometry has been measured at 375px, 768px, 1024px, 1200px, and 1280px
 - The local Person image file is absent from the current fixture, so the browser screenshot shows the configured alt text while the image request fails. This is a local file-sync/content fixture gap, not a template discovery failure.
 - Browser measurements used the local DDEV site and public Gatsby site at matched viewports. The local Case Studies route had no console errors/warnings or HTTP responses at 400+ across 85 requests, and all 11 teaser images had non-empty alt text. Drupal CSS lint and editor diagnostics pass.
 - After selectively applying upstream Editorial News changes locally, the News child SDC declares and renders its structured image prop. `ddev lint-css`, `ddev drush cr`, and the local `/news` request pass; the route returns HTTP 200 and all four teaser images expose alt text.
-- The Editorial teaser node template follows the existing `teaser_props` dispatcher pattern. `OmnichannelHooks::buildEditorialTeaserProps()` maps News/Whitepaper to the News variant and Article/Highlight to the Press card, retaining Jacqueline's taxonomy intent while using the established theme render boundary.
+- The Editorial teaser node template follows the existing `teaser_props` dispatcher pattern. `OmnichannelHooks::buildEditorialTeaserProps()` maps News/Whitepaper to the News variant and Article/Highlight to the Press card, retaining the original taxonomy intent while using the established theme render boundary.
 - Upstream `master` was cleanly merged into the feature branch in merge commit `83c61c5` on PR #40.
 - Media teaser image styling was moved to Drupal configuration (`media.teaser` view mode and `media.image.teaser` display using `uncropped_600w_webp`), selected by each node teaser display. `OmnichannelHooks::getImageProp()` loads the configured style and transforms dimensions, eliminating the desktop image expansion and viewport overflow on `/news`.
 - Scoped the News final-separator reset to `.view-ca-news .views-row:last-child .editorial-teaser-news`, preserving the legacy dashed red separator and 45px padding on preceding rows while removing them from the last row.

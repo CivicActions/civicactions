@@ -15,7 +15,7 @@ Locking down config ownership in Git ensures deployments are safe and config imp
 This task must happen **first, before anything else in the MVP launch plan**:
 
 1. **Safety prerequisite for all deployments:** Any downstream backend or frontend deployment (Webforms under MAHOM-1200, Greenhouse module enabling, or node theming under MAHOM-1162) will execute `drush cim` on Pantheon. If MAHOM-1193 is not merged first, every deployment threatens to wipe the Live database state.
-2. **Hard blocker for Wednesday 5 PM ET Content Cowork:** Jenna and the content team are scheduled to assemble Canvas pages (`/case-studies`, `/insights/articles`, `/news`, `/publications`, and `/careers`) on Wednesday. Placing Views blocks on those pages requires stable, Git-tracked Canvas block configuration entities. If authors place blocks on Live before this config is in Git, the next code deployment will erase their placements.
+2. **Hard blocker for Wednesday 5 PM ET Content Cowork:** The content team is scheduled to assemble Canvas pages (`/case-studies`, `/insights/articles`, `/news`, `/publications`, and `/careers`) on Wednesday. Placing Views blocks on those pages requires stable, Git-tracked Canvas block configuration entities. If authors place blocks on Live before this config is in Git, the next code deployment will erase their placements.
 3. **Prerequisite for Views feature tickets:** MAHOM-1202 (Team filters and default current status) and MAHOM-1203 (Views pager styling) directly modify these Views. The Views must be tracked in Git root `config/` before they can be revised and deployed through version control.
 
 Conclusion: MAHOM-1193 must be completed, verified, and merged to `master` as Step 0 before Wednesday's cowork and before any further configuration imports on Test or Live.
@@ -129,6 +129,6 @@ Conclusion: MAHOM-1193 must be completed, verified, and merged to `master` as St
 - [Plan] -> completed: Implementation plan saved to `.agents/plans/MAHOM-1193-plan.md`.
 - [Build] -> needs: Feature/chore branch rebased on `master`, surgical addition of 10 YAML files plus `core.extension.yml` entry.
 - [Validate] -> needs: Clean `ddev drush cim -y` and `ddev drush cex -y` pass, route validation, and Canvas component tray verification.
-- [Communicate] -> needs: PR or direct commit to `master`, closure notes informing team that `drush cim` is now safe on Test/Live, and notification to Jenna prior to Wednesday 5 PM cowork.
+- [Communicate] -> needs: PR or direct commit to `master`, closure notes informing team that `drush cim` is now safe on Test/Live, and notification to the content team prior to Wednesday 5 PM cowork.
 
 _AI-assisted, reviewed/adjusted by me._
