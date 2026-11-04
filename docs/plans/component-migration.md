@@ -1,9 +1,8 @@
 # Component Migration & Frontend Roadmap
 
-Status: Active shared implementation plan
+Status: Completed MVP / Post-Launch Operational Hardening (Launched November 2, 2026)
 Audience: Contributors working on the CivicActions homesite rebuild
-Target end date: November 1, 2026
-Last reviewed: 2026-10-19
+Last reviewed: 2026-11-04
 
 This plan records the complete component migration strategy from the legacy Strapi/Gatsby homesite to Drupal 11 and Drupal CMS 2.0. It coordinates the delivery of Twig Single Directory Components (SDCs), Drupal Canvas visual authoring integration, and structured Drupal Views listings.
 
@@ -21,7 +20,7 @@ The rebuild delivers an integrated Drupal CMS 2.0 architecture where:
 - Structured content types (Case Studies, Editorial Articles, and Person listings) use semantic Twig templates and Views without requiring manual page assembly.
 - Frontend components strictly encapsulate styles using the `.ca-` namespace and `@scope` progressive enhancement, eliminating bleed into Drupal admin chrome.
 
-MAHOM-1168's header and main-menu code is merged in PR #18. Jira remains in Develop while the CMS menu configuration and environment visibility are completed. The animated or pinned-on-scroll header behavior is intentionally deferred post-MVP.
+The production homesite launched live on Pantheon on November 2, 2026, bypassing a separate beta phase. MAHOM-1168's header and main-menu code is merged in PR #18. Jira remains in Develop while the CMS menu configuration and environment visibility are completed. The animated or pinned-on-scroll header behavior is intentionally deferred post-MVP.
 
 ---
 
@@ -68,11 +67,16 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **`clients.js`** | Client and agency seal grid. The October 8 decision was to avoid governance risk from official seals and logos. | **De-scoped** | Text-based agency names or simple icons in standard Canvas sections; no custom logo rail | No ticket planned | N/A |
 | **`tabmobile.js`** | Mobile tab navigation. | **De-scoped** | Permanently retired; use straightforward page flow and standard links | N/A | N/A |
 | **`sections.js`** | Generic legacy content renderer. Replaced by Drupal Canvas layout system. | **Retired** | Replaced by Drupal Canvas layout system | N/A | N/A |
-| **`seo.js`** | Social sharing and SEO tags. Handled via Drupal `metatag` module configuration (Dublin Core and Open Graph). | **Backend Core** | Drupal `metatag` module config | Core Config | Low |
+| **`seo.js`** | Social sharing, SEO tags, XML sitemap, and Schema.org. Handled via Drupal `metatag`, `schema_metatag`, and `simple_sitemap` module configurations. | **Merged (PR #83 & PR #95)** | Core & Contrib Config | Core Config | Done |
 | **`pagination.js`** | Pagination navigation. | **Merged (PR #47)** | `omnichannel:link-button` & Views pager templates (legacy Back / Page X of Y / Next pattern) | MAHOM-1203 | Done |
 | **Views exposed filters** | Token-based flexbox layout, 44px touch targets, uppercase Nunito bold labels, and Link Button submit styling with 3px focus rings across `/case-studies` and `/insights/articles`. For MVP, noisy taxonomy keyword/topic filters and non-functional quick-link headers are hidden. | **Merged (PR #50 & PR #64)** | `exposed-filters.css`, `views.view.ca_*` | MAHOM-1202 | Done |
 | **`banner.js`** | Dismissible announcement banner. Placed via Canvas block. | **Canvas** | Standard Canvas banner block | Editorial | Low |
 | **Careers Job Board (`/careers/`)** | Job board feed implemented as a custom Drupal PHP block fetching Greenhouse JSON. The sandbox is running; webhook setup remains before deployment. | **In Progress** | Custom Drupal block plugin with cache-clearing webhook | Backend | Med |
+| **Contact Form (`/contact`)** | Main inquiry form styled with brand tokens, pill inputs, 2-column grid layout at 768px+, Friendly CAPTCHA, and email routing to site default (`homesite@mg.civicactions.net`; `sales@civicactions.com` routing pending confirmation). | **Merged (PR #96)** | Drupal Webform + `form.css` (`.ca-form--contact`) | MAHOM-1200 | Done |
+| **DITAP RFI Form** | Offering-specific DITAP inquiry form configured via Drupal Webform, styled with default form primitives. | **In Progress (PR #95 / PR #96)** | `config/webform.webform.ditap_rfi.yml` | MAHOM-1200 | Med |
+| **Feedback Form** | Legacy feedback form. Retired because it has been unused since 2021; removed from footer links and 301 redirected to `/contact`. | **Retired / Redirected** | Redirect entity `/feedback/` -> `/contact/` | Decision 2026-11-02 | Done |
+| **Google Analytics (GA4)** | Google Analytics integration via contrib module using existing GA4 property (`G-Y5EFTNKK2G`) with admin/user path exclusions. | **Merged (PR #92)** | `config/google_analytics.settings.yml` | Operations / Engineering | Done |
+| **Link Health Monitoring** | Automated broken link checking tuned for low-traffic sites to proactively catch legacy and migrated route regressions. | **Merged (PR #94)** | `config/linkchecker.settings.yml` | Operations | Done |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |
 
 ---
@@ -158,14 +162,14 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - Create separate landing pages for Articles, Insights, Highlights, and News (MAHOM-1201). Confirm route paths and breadcrumb behavior with the content team.
 - Defer dynamic topic taxonomy feeds and keyword filtering until after the summit (MAHOM-1205).
 - Build the main Contact and DITAP forms with Drupal Webforms (MAHOM-1200). Keep embedded forms as a fallback if Webforms cannot be delivered within MVP scope. DITAP submissions must be available by email or CSV, and public forms require a service-based CAPTCHA.
-- Owen is setting up site email, potentially through Mailgun, to support Webform notifications.
+- The infrastructure team is setting up site email, potentially through Mailgun, to support Webform notifications.
 - Use Playwright to compare the Live site with PR environments (MAHOM-1204).
 - Default the Team page to current team members and suppress the internal/external filter (MAHOM-1202). Pager styling is tracked in MAHOM-1203.
-- Jack's next frontend work is to finish plugging teasers into Views and merge listing styles.
+- The next frontend work is to finish plugging teasers into Views and merge listing styles.
 
 ### October 26 Live Environment & Jira Reconciliation
 
-- **Skeleton Canvas pages created on Live:** Jenna created skeleton Canvas Page entities on Live for `/case-studies` (Page 17), `/insights/articles` (Page 18), `/news` (Page 19), `/publications` (Page 21), `/careers` (Page 8), and `/contact` (Page 11). These currently override Drupal Views page routes with empty layouts. Placing the corresponding Views blocks (`ca_*_block_1`) and an H1 title on each page fixes this.
+- **Skeleton Canvas pages created on Live:** The content team created skeleton Canvas Page entities on Live for `/case-studies` (Page 17), `/insights/articles` (Page 18), `/news` (Page 19), `/publications` (Page 21), `/careers` (Page 8), and `/contact` (Page 11). These currently override Drupal Views page routes with empty layouts. Placing the corresponding Views blocks (`ca_*_block_1`) and an H1 title on each page fixes this.
 - **Team Listing Populated:** `/team` (Canvas Page 9) has `ca_team-block-1` placed and renders 112+ staff cards. Needs H1 title and intro mission copy.
 - **Missing `/ditap` Route:** `/ditap` currently returns a 404 error; Canvas page not yet created.
 - **Empty Publications Listing:** Node 13 ("Whitepaper test", TID 281) is soft-deleted in Drupal Trash, leaving `/publications` empty until restored or replaced with real content.
@@ -178,32 +182,50 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 
 - **PR #49 Merged:** Editorial node detail theming (`node--editorial--full.html.twig`, 720px narrow column, author/contributor fields, label suppression) merged to `master`.
 - **PR #50 Merged:** Views exposed filters styled with token-based flexbox; `/team` defaults to current members without internal/external filter.
-- **PR #51 Merged:** Comprehensive CI/CD pipeline merged by Owen (PR static checks, Playwright visual regression, Storybook build checks, and gated deployments).
-- **PR #52 Merged:** Component margin spacing between section columns added by Jacqueline.
-- **PR #61 Merged (MAHOM-1189):** Dedicated theming for Basic Page nodes merged by Iris (card-style hero rendering page title and short description, dedicated typography stylesheet, and overridable `node_title` block).
+- **PR #51 Merged:** Comprehensive CI/CD pipeline merged by DevOps (PR static checks, Playwright visual regression, Storybook build checks, and gated deployments).
+- **PR #52 Merged:** Component margin spacing between section columns added by frontend engineering.
+- **PR #61 Merged (MAHOM-1189):** Dedicated theming for Basic Page nodes merged by frontend engineering (card-style hero rendering page title and short description, dedicated typography stylesheet, and overridable `node_title` block).
 - **PR #62 Merged:** 404 Not Found error template (`page--404.html.twig`) extending `page.html.twig`, `@scope (.ca-not-found)` styles, team Zoom photo (`zoom-image.png`), quick navigation to `/`, `/careers/`, `/insights/`, and full-width Primary Page CTA.
 - **PR #63 Merged (MAHOM-1204):** Hero SDC `heading_level` prop (default `1`, supports `2`) added to resolve duplicate H1 on Home; footer menu links mapped to canonical MVP routes (`/team/`, `/news/`, `https://reports.civicactions.com/2025`, `/services/`, `/case-studies/`, `/contracting/`, `/contact/`, `/insights/`, `/careers/`).
 - **PR #64 Merged (MAHOM-1202):** Taxonomy keyword and topic filters set to `exposed: false` in `ca_articles` and `ca_case_studies` (both sync and install configs); non-functional quick-link header areas removed.
 - **PR #66 Merged:** E2E test suite validation (functional, a11y, and visual suites) and selector fixes.
-- **PR #67 Merged:** Reversible Medium legacy redirect sync command merged by Andy (`drush civicactions:medium-legacy-redirects` creates 301 redirects from legacy Medium paths to migrated editorial articles).
-- **Active Open PRs:** Owen's multidev testing branches (PR #68, PR #60, PR #56) and Dependabot dependency updates (PR #57, PR #59).
+- **PR #67 Merged:** Reversible Medium legacy redirect sync command merged by engineering (`drush civicactions:medium-legacy-redirects` creates 301 redirects from legacy Medium paths to migrated editorial articles).
+- **Active Open PRs:** Multidev testing branches (PR #68, PR #60, PR #56) and Dependabot dependency updates (PR #57, PR #59).
 - **Ticket Status Reconciliation:** `MAHOM-1160`, `MAHOM-1164`, `MAHOM-1165`, `MAHOM-1166`, and `MAHOM-1189` are all Delivered/Merged in code. Next critical engineering blocker is Webform / form embeds on Live (`MAHOM-1200`).
 
 ### October 28 Team Sync Decisions & Operational Alignment
 
-- **Launch Strategy & QA Timeline:** Soft launch targeted for Wednesday November 4, 2026 (prioritizing low-risk release over public announcement). Holistic browser/mobile viewport QA conducted by Bridget on Monday November 2, with feedback remediation on Tuesday November 3.
-- **Webform Priority & Live Error (`MAHOM-1200`):** The primary remaining functional blocker is Webform enablement on Live. Enabling the module caused an unexpected error that broke `/admin/modules`; Jack is investigating the error and configuration on Live. Implementation sequence: build the simple Contact form first to validate email delivery and Friendly CAPTCHA; convert the DITAP Google Form second, ensuring submissions route to Farook.
+- **Launch Strategy & QA Timeline:** Soft launch targeted for Wednesday November 4, 2026 (prioritizing low-risk release over public announcement). Holistic browser/mobile viewport QA conducted by QA on Monday November 2, with feedback remediation on Tuesday November 3.
+- **Webform Priority & Live Error (`MAHOM-1200`):** The primary remaining functional blocker is Webform enablement on Live. Enabling the module caused an unexpected error that broke `/admin/modules`; engineering investigated the error and configuration on Live. Implementation sequence: build the simple Contact form first to validate email delivery and Friendly CAPTCHA; convert the DITAP Google Form second, ensuring submissions route to program management.
 - **Team Page / In Memoriam Status Audit:** Team sync raised why *in memoriam* staff do not appear on `/team`. Root cause: `views.view.ca_team` filters on `field_profile_status` with `value: { current: current }`, intentionally excluding the 3 `in_memoriam` nodes. If desired, the filter value can be expanded to `{ current: current, in_memoriam: in_memoriam }` or broken into a dedicated memorial section. Staff profile detail links remain deferred post-MVP.
 - **Case Studies & Articles Listing Filters:** Confirmed team consensus to hide the taxonomy keyword/topic filters for MVP to eliminate cluttered, duplicative term dropdowns (delivered in PR #64).
-- **Medium Article Redirects:** Legacy Medium slug-hash redirects are operational via Andy's Drush command (PR #67); domain-level 301 redirect from `blog.civicactions.com` to `civicactions.com/insights/articles` remains on the switchover checklist.
+- **Medium Article Redirects:** Legacy Medium slug-hash redirects are operational via the custom Drush command (PR #67); domain-level 301 redirect from `blog.civicactions.com` to `civicactions.com/insights/articles` remains on the switchover checklist.
 - **Icon Library:** Post-MVP ticket to expand the current 6-icon catalog using the original Noun Project source library.
 
-### November 2 Operational Alignment & Punchlist
+### November 2 Live Soft-Launch & Post-MVP Operations
 
-- **Environment Deployment:** Code and configuration promotions across Pantheon Test and Live completed, syncing Webform, Greenhouse, and Icon settings into active environments.
-- **Case Study Detail & Quote Support (PR #90):** Iris's PR #90 (`MAHOM-1162`) introduces Quote SDC field support, hides empty case study sections (body, expertise, tools, outcomes, and "Meet the team"), scopes the template to full view mode, and grants public view permissions for `expertise` and `tool` taxonomies.
-- **Content SDC Heading Hierarchy:** Updated `content.css`, `accordion-container.css`, and `global.css` so all `h2` headings (Content, Section, Accordion Container, and formatted text) render uniformly at 32px (`var(--size-8, 2rem)` with `line-height: var(--line-height-base, 1.15)`). This resolves the issue where rich-text `h2` and `h3` headings inside Canvas Content blocks both rendered at 28px and aligns heading scale across all landing page components.
-- **Webforms Delivery:** Webform module is active on Live with Captcha tested on Contact. DITAP and Feedback forms are being authored via the Webform UI and placed on Canvas pages without contrib patches.
+- **Live Soft-Launch:** The team soft-launched the new homesite live on Pantheon on November 2, 2026, bypassing a separate beta phase and transitioning the project into post-MVP operational hardening.
+- **Hosting & Infrastructure:** The site is hosted on Pantheon's standard starter plan, sized for current baseline traffic (~3,000 monthly active users).
+- **PR & Feature Reconciliation:**
+  - **PR #90 (`MAHOM-1162`):** Case Study Quote SDC field support, empty section suppression, and full-view-mode scoping.
+  - **PR #91:** Uniform 32px heading scale across Content SDC, Section, and Accordions.
+  - **PR #92:** Google Analytics module enabled and configured with GA4 property ID `G-Y5EFTNKK2G`, excluding admin and user paths.
+  - **PR #94:** Link Checker module installed and tuned for low-traffic sites to proactively catch and remediate broken links.
+  - **PR #95:** Live configuration sync exported to git, adding `config/webform.webform.ditap_rfi.yml` and `simple_sitemap` settings.
+  - **PR #96 (`MAHOM-1200`):** Theme form styling (`form.css`, `button.css`, `textarea.css`), contact form 2-column grid layout, Friendly CAPTCHA polish, and case studies container width fix.
+- **Form Strategy:**
+  - **Contact Form:** Active on `/contact/` with brand styling and Friendly CAPTCHA; submissions currently route to site default (`homesite@mg.civicactions.net`), with routing confirmation to `sales@civicactions.com` pending.
+  - **DITAP RFI Form:** Webform configuration committed (`ditap_rfi`); the content lead is completing field settings and submission handling.
+  - **Feedback Form Retirement:** The feedback form (unused since 2021) is retired, removed from footer navigation, and 301 redirected to `/contact/`.
+- **Domain Continuity & Redirects:**
+  - **Medium Blog:** Remains active to preserve external search rankings and inbound backlink authority. Path redirects from legacy Medium slug-hashes to migrated editorial articles are operational via Drush; a domain-level redirect from `blog.civicactions.com` remains on the switchover checklist.
+  - **Legacy Gatsby Redirects:** The DevOps lead is reviewing and porting legacy Gatsby redirects, excluding paths that would shadow new site content.
+- **Active Post-Launch Punchlist & Blockers:**
+  - **Insights Page:** The `/insights` route currently combines news and articles views; the content team is leading the redesign and cleanup into distinct content feeds.
+  - **Firefox FOUC:** Intermittent flash of unstyled content during page load in Firefox is being diagnosed.
+  - **Mailchimp Audit:** Infrastructure is investigating unexpected Mailchimp notification alerts to ensure clean separation from the homesite.
+  - **QA Checklist:** QA is preparing a landing page checklist for holistic post-launch verification.
+  - **Frontend Support:** Engineering leadership is identifying additional front-end developer support for post-launch backlog tasks.
 
 ---
 
