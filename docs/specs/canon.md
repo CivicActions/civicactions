@@ -1,8 +1,8 @@
 # CivicActions Homesite Canon
 
-Status: Active public technical canon
+Status: Active public technical canon (Live Production)
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-10-19
+Last reviewed: 2026-11-04
 
 This document records the public-facing architecture, design-system rules, and component conventions for the homesite rebuild. It is intentionally distilled from project work rather than copied from internal discovery notes.
 
@@ -19,7 +19,9 @@ When the docs and code disagree, label the gap as current state or target state,
 
 ## Platform architecture
 
-The site uses Drupal 11 and Drupal CMS 2.0 on Pantheon. Drupal provides content management, routing, permissions, and publishing. Drupal Canvas provides visual page composition. The production theme is `web/themes/omnichannel/`, based on Drupal's starter theme and extended with Twig Single Directory Components.
+The site uses Drupal 11 and Drupal CMS 2.0 on Pantheon. The production homesite launched live on Pantheon on November 2, 2026, bypassing a separate public beta phase. The production environment operates on Pantheon's standard starter plan, sized appropriately for baseline traffic of approximately 3,000 monthly active users, with scaling reserved for traffic increases.
+
+Drupal provides content management, routing, permissions, and publishing. Drupal Canvas provides visual page composition. The production theme is `web/themes/omnichannel/`, based on Drupal's starter theme and extended with Twig Single Directory Components.
 
 The frontend is server-rendered Twig with component-local CSS. The theme-local Storybook provides isolated previews for component props and variants. Storybook does not replace Canvas verification for Drupal slots, entity registration, or editor behavior.
 
@@ -59,6 +61,8 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, Pub
 
 The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. On Live, these routes resolve to Canvas Page entities created by editorial authors, which override naked Views page routes. Placing the matching Views blocks (`ca_*_block_1`) and an authored H1 `page-title` component within these Canvas pages is the active architecture (demonstrated on `/team` with `ca_team-block-1`). MAHOM-1201 tracks separate landing pages for Articles, Insights, Highlights, and News. Sitewide footer menu links in `templates/partials/footer/menu.html.twig` map directly to canonical MVP routes (`/team/`, `/news/`, `https://reports.civicactions.com/2025`, `/services/`, `/case-studies/`, `/contracting/`, `/contact/`, `/insights/`, `/careers/`); dynamic Drupal menu block integration is deferred post-MVP.
 
+The legacy `/feedback/` URL has been retired (unused since 2021) and is 301 redirected to `/contact/`. It is removed from footer bottom links (`bottom-links.html.twig`).
+
 ## Frontend form rendering standards
 
 Form styling in `web/themes/omnichannel/css/components/form.css`, `button.css`, and `textarea.css` applies CivicActions brand tokens sitewide across standard Drupal Form API and Webform outputs (`.ca-form`):
@@ -69,7 +73,8 @@ Form styling in `web/themes/omnichannel/css/components/form.css`, `button.css`, 
 - **Buttons:** `.button`, `.button--primary`, and `.form-submit` use pill geometry (`border-radius: 30px`), `var(--primary-red)` background, `14px 28px` padding, Nunito bold typography, a `-1px` hover lift, and accessible `3px` focus rings (`var(--primary-blue)`).
 - **Labels & required markers:** Labels render in Nunito 18px (`1.125rem`) bold (`var(--primary-blue, #162e51)`). Required fields append a red asterisk icon (`.form-required::after`).
 - **Validation & error states:** Fields with errors switch to a red border (`var(--primary-red)`) with an inline error message (`.form-item--error-message`) displaying the error icon.
-- **Contact form layout (`.webform-submission-contact-form`, `.ca-form--contact`):** Form container is capped at `955px` centered width. At tablet/desktop (`min-width: 768px`), fields render in a 2-column grid (`column-gap: var(--size-12, 3rem)`, `row-gap: var(--size-8, 2rem)`) with Name and Subject/Organization in Row 1, full-width Email and Message in Rows 2 and 3, and a right-aligned pill submit button in Row 4.
+- **Contact form layout (`.webform-submission-contact-form`, `.ca-form--contact`):** Form container is capped at `955px` centered width. At tablet/desktop (`min-width: 768px`), fields render in a 2-column grid (`column-gap: var(--size-12, 3rem)`, `row-gap: var(--size-8, 2rem)`) with Name and Subject/Organization in Row 1, full-width Email and Message in Rows 2 and 3, and a right-aligned pill submit button in Row 4. Submissions route to `sales@civicactions.com`.
+- **DITAP form (`.webform-submission-ditap-rfi-form`):** The DITAP Request for Information form is configured via Webform (`config/webform.webform.ditap_rfi.yml`) and styled using the same base form primitives and button components.
 
 ## Full node rendering standards
 
@@ -77,7 +82,7 @@ Full node detail displays (`editorial`, `case_study`, `page`) render standard no
 
 - **Reading width:** Long-form prose and editorial content (`page`, `editorial`) use the 720px narrow container (`.ca-container.ca-container--narrow`).
 - **Entity view display sanitization:** Full node displays must hide internal administrative taxonomies (`field_funnel_stage`, `field_content_job`, `schema_audience`, `field_tools`, `field_expertise`) and raw field labels ("Description", "Featured Image", "Article body").
-- **Case Study node theming:** Tracked in MAHOM-1162 (in Develop with Iris Ibekwe). Dedicated 1:1 Gatsby parity was declined under MAHOM-1186; clean node theming matching the Omnichannel design tokens is the target standard.
+- **Case Study node theming:** Tracked in MAHOM-1162. Dedicated 1:1 Gatsby parity was declined under MAHOM-1186; clean node theming matching the Omnichannel design tokens is the target standard.
 - **Person nodes:** Person teaser cards remain unlinked on `/team` for MVP. Individual staff detail nodes are deferred post-MVP.
 
 ### Basic page detail rendering
@@ -221,3 +226,16 @@ Controlled via repository variables:
   2. Inspect and export locally: `ddev drush config:status` and `ddev drush config:export`.
   3. Review exported files in `config/` to ensure no credentials or secrets are present.
   4. Submit changes via a standard PR, or revert unintended changes on live.
+
+## Analytics, link integrity, and domain continuity
+
+- **Google Analytics (GA4):** Analytics are integrated via the `google_analytics` contrib module (`config/google_analytics.settings.yml`), utilizing the existing production GA4 measurement ID `G-F0KMY3D611` to maintain historical trend continuity. Tracking excludes administrative and user management routes (`/admin*`, `/user*`).
+- **Link health monitoring:** The `linkchecker` contrib module is installed and configured (`config/linkchecker.settings.yml`) with scan frequencies tuned for low-traffic sites to proactively catch and remediate broken internal links and migrated references (such as legacy press releases pointing to `/news`).
+- **Medium blog continuity:** The external Medium blog remains active to preserve search engine authority and inbound backlink equity. Redirects from `blog.civicactions.com` to matching migrated editorial articles on the new site are maintained via 301 redirects (`drush civicactions:medium-legacy-redirects`).
+- **Legacy Gatsby redirects:** Historical Gatsby site paths are ported over to Drupal redirect entities, excluding any legacy paths that would shadow newly authored content.
+
+## Known post-launch investigations
+
+- **Insights landing page redesign:** The `/insights` route currently combines news and articles views and is undergoing redesign to cleanly separate content subtypes and topic feeds.
+- **Firefox FOUC:** An intermittent flash of unstyled content during initial page rendering in Firefox is under investigation.
+- **Mailchimp notification audit:** Legacy notification hooks are being audited to eliminate extraneous external service alerts.
