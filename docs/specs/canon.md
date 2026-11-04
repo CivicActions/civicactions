@@ -73,7 +73,7 @@ Form styling in `web/themes/omnichannel/css/components/form.css`, `button.css`, 
 - **Buttons:** `.button`, `.button--primary`, and `.form-submit` use pill geometry (`border-radius: 30px`), `var(--primary-red)` background, `14px 28px` padding, Nunito bold typography, a `-1px` hover lift, and accessible `3px` focus rings (`var(--primary-blue)`).
 - **Labels & required markers:** Labels render in Nunito 18px (`1.125rem`) bold (`var(--primary-blue, #162e51)`). Required fields append a red asterisk icon (`.form-required::after`).
 - **Validation & error states:** Fields with errors switch to a red border (`var(--primary-red)`) with an inline error message (`.form-item--error-message`) displaying the error icon.
-- **Contact form layout (`.webform-submission-contact-form`, `.ca-form--contact`):** Form container is capped at `955px` centered width. At tablet/desktop (`min-width: 768px`), fields render in a 2-column grid (`column-gap: var(--size-12, 3rem)`, `row-gap: var(--size-8, 2rem)`) with Name and Subject/Organization in Row 1, full-width Email and Message in Rows 2 and 3, and a right-aligned pill submit button in Row 4. Submissions route to `sales@civicactions.com`.
+- **Contact form layout (`.webform-submission-contact-form`, `.ca-form--contact`):** Form container is capped at `955px` centered width. At tablet/desktop (`min-width: 768px`), fields render in a 2-column grid (`column-gap: var(--size-12, 3rem)`, `row-gap: var(--size-8, 2rem)`) with Name and Subject/Organization in Row 1, full-width Email and Message in Rows 2 and 3, and a right-aligned pill submit button in Row 4. Submissions currently route to the site default address (`homesite@mg.civicactions.net`), with routing to `sales@civicactions.com` pending confirmation as a post-launch follow-up.
 - **DITAP form (`.webform-submission-ditap-rfi-form`):** The DITAP Request for Information form is configured via Webform (`config/webform.webform.ditap_rfi.yml`) and styled using the same base form primitives and button components.
 
 ## Full node rendering standards
@@ -229,9 +229,9 @@ Controlled via repository variables:
 
 ## Analytics, link integrity, and domain continuity
 
-- **Google Analytics (GA4):** Analytics are integrated via the `google_analytics` contrib module (`config/google_analytics.settings.yml`), utilizing the existing production GA4 measurement ID `G-F0KMY3D611` to maintain historical trend continuity. Tracking excludes administrative and user management routes (`/admin*`, `/user*`).
+- **Google Analytics (GA4):** Analytics are integrated via the `google_analytics` contrib module (`config/google_analytics.settings.yml`), utilizing the existing production GA4 measurement ID `G-Y5EFTNKK2G` to maintain historical trend continuity. Tracking excludes administrative and user management routes (`/admin*`, `/user*`).
 - **Link health monitoring:** The `linkchecker` contrib module is installed and configured (`config/linkchecker.settings.yml`) with scan frequencies tuned for low-traffic sites to proactively catch and remediate broken internal links and migrated references (such as legacy press releases pointing to `/news`).
-- **Medium blog continuity:** The external Medium blog remains active to preserve search engine authority and inbound backlink equity. Redirects from `blog.civicactions.com` to matching migrated editorial articles on the new site are maintained via 301 redirects (`drush civicactions:medium-legacy-redirects`).
+- **Medium blog continuity:** The external Medium blog remains active to preserve search engine authority and inbound backlink equity. Migrated Medium slug-hash paths are redirected to matching editorial articles via Drupal 301 redirects (`drush civicactions:medium-legacy-redirects`). Any host-level redirect from `blog.civicactions.com` is tracked separately as a domain switchover action.
 - **Legacy Gatsby redirects:** Historical Gatsby site paths are ported over to Drupal redirect entities, excluding any legacy paths that would shadow newly authored content.
 
 ## Known post-launch investigations

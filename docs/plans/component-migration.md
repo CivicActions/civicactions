@@ -72,10 +72,10 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **Views exposed filters** | Token-based flexbox layout, 44px touch targets, uppercase Nunito bold labels, and Link Button submit styling with 3px focus rings across `/case-studies` and `/insights/articles`. For MVP, noisy taxonomy keyword/topic filters and non-functional quick-link headers are hidden. | **Merged (PR #50 & PR #64)** | `exposed-filters.css`, `views.view.ca_*` | MAHOM-1202 | Done |
 | **`banner.js`** | Dismissible announcement banner. Placed via Canvas block. | **Canvas** | Standard Canvas banner block | Editorial | Low |
 | **Careers Job Board (`/careers/`)** | Job board feed implemented as a custom Drupal PHP block fetching Greenhouse JSON. The sandbox is running; webhook setup remains before deployment. | **In Progress** | Custom Drupal block plugin with cache-clearing webhook | Backend | Med |
-| **Contact Form (`/contact`)** | Main inquiry form styled with brand tokens, pill inputs, 2-column grid layout at 768px+, Friendly CAPTCHA, and email routing to `sales@civicactions.com`. | **Merged (PR #96)** | Drupal Webform + `form.css` (`.ca-form--contact`) | MAHOM-1200 | Done |
+| **Contact Form (`/contact`)** | Main inquiry form styled with brand tokens, pill inputs, 2-column grid layout at 768px+, Friendly CAPTCHA, and email routing to site default (`homesite@mg.civicactions.net`; `sales@civicactions.com` routing pending confirmation). | **Merged (PR #96)** | Drupal Webform + `form.css` (`.ca-form--contact`) | MAHOM-1200 | Done |
 | **DITAP RFI Form** | Offering-specific DITAP inquiry form configured via Drupal Webform, styled with default form primitives. | **In Progress (PR #95 / PR #96)** | `config/webform.webform.ditap_rfi.yml` | MAHOM-1200 | Med |
 | **Feedback Form** | Legacy feedback form. Retired because it has been unused since 2021; removed from footer links and 301 redirected to `/contact`. | **Retired / Redirected** | Redirect entity `/feedback/` -> `/contact/` | Decision 2026-11-02 | Done |
-| **Google Analytics (GA4)** | Google Analytics integration via contrib module using existing GA4 property (`G-F0KMY3D611`) with admin/user path exclusions. | **Merged (PR #92)** | `config/google_analytics.settings.yml` | Operations / Engineering | Done |
+| **Google Analytics (GA4)** | Google Analytics integration via contrib module using existing GA4 property (`G-Y5EFTNKK2G`) with admin/user path exclusions. | **Merged (PR #92)** | `config/google_analytics.settings.yml` | Operations / Engineering | Done |
 | **Link Health Monitoring** | Automated broken link checking tuned for low-traffic sites to proactively catch legacy and migrated route regressions. | **Merged (PR #94)** | `config/linkchecker.settings.yml` | Operations | Done |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |
 
@@ -209,16 +209,16 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **PR & Feature Reconciliation:**
   - **PR #90 (`MAHOM-1162`):** Case Study Quote SDC field support, empty section suppression, and full-view-mode scoping.
   - **PR #91:** Uniform 32px heading scale across Content SDC, Section, and Accordions.
-  - **PR #92:** Google Analytics module enabled and configured with GA4 property ID `G-F0KMY3D611`, excluding admin and user paths.
+  - **PR #92:** Google Analytics module enabled and configured with GA4 property ID `G-Y5EFTNKK2G`, excluding admin and user paths.
   - **PR #94:** Link Checker module installed and tuned for low-traffic sites to proactively catch and remediate broken links.
   - **PR #95:** Live configuration sync exported to git, adding `config/webform.webform.ditap_rfi.yml` and `simple_sitemap` settings.
   - **PR #96 (`MAHOM-1200`):** Theme form styling (`form.css`, `button.css`, `textarea.css`), contact form 2-column grid layout, Friendly CAPTCHA polish, and case studies container width fix.
 - **Form Strategy:**
-  - **Contact Form:** Active on `/contact/` with brand styling and Friendly CAPTCHA; submissions configured to route to `sales@civicactions.com`.
+  - **Contact Form:** Active on `/contact/` with brand styling and Friendly CAPTCHA; submissions currently route to site default (`homesite@mg.civicactions.net`), with routing confirmation to `sales@civicactions.com` pending.
   - **DITAP RFI Form:** Webform configuration committed (`ditap_rfi`); the content lead is completing field settings and submission handling.
   - **Feedback Form Retirement:** The feedback form (unused since 2021) is retired, removed from footer navigation, and 301 redirected to `/contact/`.
 - **Domain Continuity & Redirects:**
-  - **Medium Blog:** Remains active to preserve external search rankings and inbound backlink authority; redirects from `blog.civicactions.com` point to migrated articles.
+  - **Medium Blog:** Remains active to preserve external search rankings and inbound backlink authority. Path redirects from legacy Medium slug-hashes to migrated editorial articles are operational via Drush; a domain-level redirect from `blog.civicactions.com` remains on the switchover checklist.
   - **Legacy Gatsby Redirects:** The DevOps lead is reviewing and porting legacy Gatsby redirects, excluding paths that would shadow new site content.
 - **Active Post-Launch Punchlist & Blockers:**
   - **Insights Page:** The `/insights` route currently combines news and articles views; the content team is leading the redesign and cleanup into distinct content feeds.
