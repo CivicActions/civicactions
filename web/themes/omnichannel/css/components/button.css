@@ -3,6 +3,64 @@
  * Visual styles for buttons.
  */
 
+.ca-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 50px;
+  padding: 12px 24px;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 100%;
+
+  /* Default primary button styles. */
+  background: var(--button-background);
+  border: 2px solid var(--button-border);
+  color: var(--button-text-color);
+
+  &:focus-visible {
+    outline: var(--focus-outline-width, 3px) solid var(--button-background);
+    outline-offset: var(--focus-outline-offset, 3px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.ca-button--primary {
+  &:hover {
+    --button-background: var(--primary-blue);
+    --button-border: var(--button-background);
+    --button-text-color: var(--white);
+  }
+}
+
+.ca-button--secondary {
+  --button-background: transparent;
+  --button-border: var(--primary-blue);
+  --button-text-color: var(--button-border);
+
+  &:hover {
+    --button-background: var(--primary-blue);
+    --button-text-color: var(--white);
+  }
+    &:focus-visible {
+    outline: var(--focus-outline-width, 3px) solid var(--button-border);
+  }
+}
+
 .button,
 .image-button {
   margin-inline: var(--size-2, 0.5rem);

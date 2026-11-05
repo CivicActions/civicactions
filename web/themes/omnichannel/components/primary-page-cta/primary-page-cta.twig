@@ -36,12 +36,12 @@
     {% if (primary_button_text and primary_button_url) or (secondary_button_text and secondary_button_url) %}
       <div class="ca-primary-page-cta__buttons">
         {% if primary_button_text and primary_button_url %}
-          <a href="{{ primary_button_url|e('html_attr') }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--primary">
+          <a href="{{ primary_button_url|e('html_attr') }}" class="ca-button ca-button--primary ca-primary-page-cta__button ca-primary-page-cta__button--primary">
             {{ primary_button_text }}
           </a>
         {% endif %}
         {% if secondary_button_text and secondary_button_url %}
-          <a href="{{ secondary_button_url|e('html_attr') }}" class="ca-primary-page-cta__button ca-primary-page-cta__button--secondary">
+          <a href="{{ secondary_button_url|e('html_attr') }}" class="ca-button ca-button--secondary ca-primary-page-cta__button ca-primary-page-cta__button--secondary">
             {{ secondary_button_text }}
           </a>
         {% endif %}

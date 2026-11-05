@@ -66,6 +66,11 @@
   --font-size-h4: var(--size-4);
   --line-height-h4: 1.375rem;
 
+  /* Buttons */
+  --button-background: var(--primary-red);
+  --button-border: var(--button-background);
+  --button-text-color: var(--white);
+
   /* Sizing */
   --icon-size-md: var(--size-6);
   --icon-size-large: var(--size-8);
@@ -192,7 +197,13 @@ a {
   color: var(--link-internal);
 }
 
-a:hover,
-a:focus {
+a:not(.ca-button):hover,
+a:not(.ca-button):focus-visible {
   color: var(--gray-90);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: var(--focus-outline-width, 3px) solid var(--primary-red, #d83933);
+  outline-offset: var(--focus-outline-offset, 3px);
 }
