@@ -137,16 +137,16 @@
 
 .ca-section--blue .ca-section__column > .ca-content a,
 .ca-section--red .ca-section__column > .ca-content a,
-.ca-section--blue .ca-section__column > a,
-.ca-section--red .ca-section__column > a,
+.ca-section--blue .ca-section__column > a:not(.ca-button),
+.ca-section--red .ca-section__column > a:not(.ca-button),
 .ca-section--blue .ca-section__column > .ca-content a:hover,
 .ca-section--red .ca-section__column > .ca-content a:hover,
-.ca-section--blue .ca-section__column > a:hover,
-.ca-section--red .ca-section__column > a:hover,
+.ca-section--blue .ca-section__column > a:not(.ca-button):hover,
+.ca-section--red .ca-section__column > a:not(.ca-button):hover,
 .ca-section--blue .ca-section__column > .ca-content a:focus,
 .ca-section--red .ca-section__column > .ca-content a:focus,
-.ca-section--blue .ca-section__column > a:focus,
-.ca-section--red .ca-section__column > a:focus {
+.ca-section--blue .ca-section__column > a:not(.ca-button):focus,
+.ca-section--red .ca-section__column > a:not(.ca-button):focus {
   color: var(--white, #fff);
 }
 
@@ -156,6 +156,44 @@
 .ca-section--red .ca-section__column > a:focus-visible {
   outline: var(--focus-outline-width, 3px) solid var(--white, #fff);
   outline-offset: var(--focus-outline-offset, 3px);
+}
+
+.ca-section--blue,
+.ca-section--red {
+  .ca-button {
+    --button-background: var(--white);
+    --button-border: var(--button-background);
+    --button-text-color: var(--primary-red);
+
+    &:hover {
+      --button-background: transparent;
+      --button-border: var(--white);
+      --button-text-color: var(--button-border);
+    }
+  }
+
+  .ca-button--secondary {
+    --button-background: transparent;
+    --button-border: var(--white);
+    --button-text-color: var(--button-border);
+
+    &:hover {
+      --button-background: var(--white);
+      --button-text-color: var(--primary-red);
+    }
+  }
+}
+.ca-section--blue {
+  .ca-button {
+    --button-text-color: var(--primary-blue);
+  }
+  .ca-button--secondary {
+    --button-text-color: var(--white);
+
+    &:hover {
+      --button-text-color: var(--primary-blue);
+    }
+  }
 }
 
 /* Section width styles */
@@ -240,16 +278,16 @@
 
   :scope.ca-section--blue .ca-section__column > .ca-content a,
   :scope.ca-section--red .ca-section__column > .ca-content a,
-  :scope.ca-section--blue .ca-section__column > a,
-  :scope.ca-section--red .ca-section__column > a,
+  :scope.ca-section--blue .ca-section__column > a:not(.ca-button),
+  :scope.ca-section--red .ca-section__column > a:not(.ca-button),
   :scope.ca-section--blue .ca-section__column > .ca-content a:hover,
   :scope.ca-section--red .ca-section__column > .ca-content a:hover,
-  :scope.ca-section--blue .ca-section__column > a:hover,
-  :scope.ca-section--red .ca-section__column > a:hover,
+  :scope.ca-section--blue .ca-section__column > a:not(.ca-button):hover,
+  :scope.ca-section--red .ca-section__column > a:not(.ca-button):hover,
   :scope.ca-section--blue .ca-section__column > .ca-content a:focus,
   :scope.ca-section--red .ca-section__column > .ca-content a:focus,
-  :scope.ca-section--blue .ca-section__column > a:focus,
-  :scope.ca-section--red .ca-section__column > a:focus {
+  :scope.ca-section--blue .ca-section__column > a:not(.ca-button):focus,
+  :scope.ca-section--red .ca-section__column > a:not(.ca-button):focus {
     color: var(--white, #fff);
   }
 
@@ -259,5 +297,43 @@
   :scope.ca-section--red .ca-section__column > a:focus-visible {
     outline: var(--focus-outline-width, 3px) solid var(--white, #fff);
     outline-offset: var(--focus-outline-offset, 3px);
+  }
+
+  :scope.ca-section--blue,
+  :scope.ca-section--red {
+    .ca-button {
+      --button-background: var(--white);
+      --button-border: var(--button-background);
+      --button-text-color: var(--primary-red);
+
+      &:hover {
+        --button-background: transparent;
+        --button-border: var(--white);
+        --button-text-color: var(--button-border);
+      }
+    }
+
+    .ca-button--secondary {
+      --button-background: transparent;
+      --button-border: var(--white);
+      --button-text-color: var(--button-border);
+
+      &:hover {
+        --button-background: var(--white);
+        --button-text-color: var(--primary-red);
+      }
+    }
+  }
+  :scope.ca-section--blue {
+    .ca-button {
+      --button-text-color: var(--primary-blue);
+    }
+    .ca-button--secondary {
+      --button-text-color: var(--white);
+
+      &:hover {
+        --button-text-color: var(--primary-blue);
+      }
+    }
   }
 }

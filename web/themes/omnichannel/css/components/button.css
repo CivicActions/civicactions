@@ -56,7 +56,7 @@
     --button-background: var(--primary-blue);
     --button-text-color: var(--white);
   }
-    &:focus-visible {
+  &:focus-visible {
     outline: var(--focus-outline-width, 3px) solid var(--button-border);
   }
 }
