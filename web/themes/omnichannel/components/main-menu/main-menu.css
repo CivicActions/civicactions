@@ -1,6 +1,6 @@
 /* Styles for the main navigation menu. */
 
-/******************************  Mobile styles *****************************/
+/******************************  Mobile/default styles *****************************/
 
 /* Stop page scroll when menu is open. */
 body {
@@ -32,7 +32,7 @@ body {
 .mobile-buttons,
 .primary-nav__menu {
   button {
-    background-color: unset;
+    background-color: var(--white);
     border: unset;
     text-align: start;
   }
@@ -47,6 +47,18 @@ body {
   z-index: 1101;
   padding: var(--size-4);
   margin-right: calc(var(--size-4) * -1);
+
+  &:hover {
+    .icon-menu {
+      fill: var(--primary-red);
+    }
+    .icon-close path {
+      stroke: var(--primary-red);
+    }
+  }
+  &:active {
+    transform: translateY(1px);
+  }
 
   svg {
     height: var(--icon-size-md);
@@ -106,17 +118,25 @@ ul.primary-nav__menu--level-1 {
 .primary-nav__menu-item {
   list-style-type: none;
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.5em;
   padding-top: var(--size-8);
 
-  a {
+  a,
+  button {
     text-decoration: none;
     color: var(--gray-90);
-  }
-  a:hover,
-  a:focus {
-    text-decoration: underline;
+
+    /* Set interactive styles. */
+    &:hover {
+      text-decoration: var(--primary-blue) underline 3px;
+    }
+    &:focus-visible {
+      outline: var(--focus-outline-width, 3px) solid var(--primary-red);
+    }
+    &:active {
+      transform: translateY(1px);
+    }
   }
 }
 
@@ -162,7 +182,7 @@ ul.primary-nav__menu--level-1 {
 /******************************  Desktop styles **************************** */
 @media (min-width: 1200px) {
   .mobile-buttons {
-    /* Display of these buttons triggers some mobile nav js.  */
+    /* Display of these buttons triggers mobile nav js.  */
     display: none;
   }
 
@@ -179,6 +199,7 @@ ul.primary-nav__menu--level-1 {
     max-width: none;
     font-family: var(--font-body);
     padding: 0;
+    background-color: transparent;
   }
 
   ul.primary-nav__menu--level-1 {
@@ -199,13 +220,17 @@ ul.primary-nav__menu--level-1 {
       padding: var(--size-2);
       text-transform: uppercase;
       font-weight: 700;
+
+      &:hover {
+        text-decoration: none;
+        background-color: var(--gray-05);
+      }
     }
   }
 
   .primary-nav__menu-item--level-1 {
     position: relative;
-    top: 1.75rem; /* Needed to offset bottom padding. */
-    padding-bottom: var(--size-6); /* Needed to avoid gap for submenu hover. */
+    top: 1.75rem;
     border-bottom: none;
     margin-left: var(--size-6);
     overflow: visible;
@@ -240,11 +265,9 @@ ul.primary-nav__menu--level-1 {
     z-index: 105;
     position: absolute;
     width: max-content;
-    margin-left: var(--size-1);
-    top: var(--size-14);
+    margin-left: 0;
     padding: var(--size-4);
     background-color: var(--white);
-
     box-shadow: var(--shadow-card);
     transition:
       visibility 0.2s,
