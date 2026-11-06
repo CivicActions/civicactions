@@ -2,7 +2,7 @@
 
 Status: Active public technical canon (Live Production)
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-11-04
+Last reviewed: 2026-11-06
 
 This document records the public-facing architecture, design-system rules, and component conventions for the homesite rebuild. It is intentionally distilled from project work rather than copied from internal discovery notes.
 
@@ -44,6 +44,10 @@ Canvas requires useful, non-empty defaults and examples for required and structu
 
 The Content SDC (`omnichannel:content`) styles rich-text prose within `@scope (.ca-content)`. All `h2` headings across Content, Section (`.ca-section__title`), and Accordion Container (`.ca-accordion-container__title`) render uniformly at 32px (`var(--size-8, 2rem)` with `line-height: var(--line-height-base, 1.15)`), establishing consistent visual hierarchy above 28px `h3` elements.
 
+### Button and interactive typography standards
+
+All interactive button elements sitewide—including Link Buttons (`omnichannel:link-button`), Hero action links, Primary Page CTA buttons, and standard Drupal Form/Webform submit buttons (`.form-submit`, `.button`)—standardize on Nunito typography (`var(--font-body)`) and sentence case (rendered as typed), superseding legacy Gatsby uppercase text-transform conventions (`MAHOM-1206`). Button geometry standardizes on pill borders (`border-radius: 30px`), consistent touch targets (minimum 44px), and accessible high-contrast focus rings (`3px solid var(--primary-blue)` with offset).
+
 ## Views listings and teaser rendering
 
 The `civicactions_landing_page_views` module owns the Team, Editorial, News, Publications, and Case Study listing Views. Publications represents White Papers through the Editorial taxonomy; it does not require a separate content bundle or teaser component. The Omnichannel theme renders their node teaser view modes through the existing teaser SDCs rather than introducing listing-specific components.
@@ -58,6 +62,7 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, Pub
 - Full Views pagination uses the legacy Back | Page X of Y | Next pattern centered in the 720px container (`.ca-pager`), delegating button presentation to `omnichannel:link-button` while preserving Drupal core's `.js-pager__items` hook for Views AJAX paging.
 - Views exposed filters (`.ca-views-exposed-form`) use token-based flexbox layout, 44px minimum touch targets, uppercase Nunito bold labels, and Link Button submit styling with 3px focus rings. For the MVP launch, taxonomy keyword/topic filters and non-functional quick-link headers are hidden on `/insights/articles` and `/case-studies`, and the Team listing defaults to current members without an exposed internal/external filter. The exposed form styles remain available for post-MVP topic feeds (MAHOM-1205).
 - The Case Studies listing (`.view-ca-case-studies`) adheres strictly to standard container bounds (`.ca-container`) across all viewports without negative margins, keeping grid teasers flush and aligned with the header and exposed filter content above.
+- On listing pages where teasers appear directly beneath an `h1` page title without an intermediate section title (such as `/case-studies`), teaser titles must render as `h2` elements (or support a configurable `heading_level` prop) to satisfy WCAG 2.1 AA heading hierarchy and avoid skipped heading level violations.
 
 The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. On Live, these routes resolve to Canvas Page entities created by editorial authors, which override naked Views page routes. Placing the matching Views blocks (`ca_*_block_1`) and an authored H1 `page-title` component within these Canvas pages is the active architecture (demonstrated on `/team` with `ca_team-block-1`). MAHOM-1201 tracks separate landing pages for Articles, Insights, Highlights, and News. Sitewide footer menu links in `templates/partials/footer/menu.html.twig` map directly to canonical MVP routes (`/team/`, `/news/`, `https://reports.civicactions.com/2025`, `/services/`, `/case-studies/`, `/contracting/`, `/contact/`, `/insights/`, `/careers/`); dynamic Drupal menu block integration is deferred post-MVP.
 
@@ -91,7 +96,7 @@ Full node detail displays (`editorial`, `case_study`, `page`) render standard no
 
 ### Case study detail rendering
 
-[node--case-study--full.html.twig](../../web/themes/omnichannel/templates/content/node--case-study--full.html.twig) extends the shared node template. In full view mode it renders the header (title, client, description), hero media, proof points, article body, expertise and tools, key outcomes, and team members in that order. Display-enabled fields that are not mapped to a prop, such as keywords, are not rendered; non-full view modes retain the parent markup unless a more specific template applies.
+[node--case-study--full.html.twig](../../web/themes/omnichannel/templates/content/node--case-study--full.html.twig) extends the shared node template. In full view mode it renders the header (title, client, description), hero media, proof points, article body, expertise and tools, key outcomes, and team members in that order. Display-enabled fields that are not mapped to a prop, such as keywords, are not rendered; non-full view modes retain the parent markup unless a more specific template applies. Inline links within card containers with tinted backgrounds, such as Outcome Cards (`.ca-outcome-card` using `var(--gray-05, #f0f0f0)`), must maintain a minimum 4.5:1 contrast ratio against the background. Using `var(--sec-red, #8b0a03)` satisfies this requirement (8.6:1), whereas the standard `--link-internal` (#d83933) falls short at 4.05:1.
 
 The "Key outcomes" and "Meet the team" bands are shown only when their respective rendered fields contain non-whitespace text after stripping tags. The template renders each field once and reuses that output, so render-array metadata, empty wrappers, and Twig debug comments do not create an empty section.
 
@@ -239,3 +244,7 @@ Controlled via repository variables:
 - **Insights landing page redesign:** The `/insights` route currently combines news and articles views and is undergoing redesign to cleanly separate content subtypes and topic feeds.
 - **Firefox FOUC:** An intermittent flash of unstyled content during initial page rendering in Firefox is under investigation.
 - **Mailchimp notification audit:** Legacy notification hooks are being audited to eliminate extraneous external service alerts.
+- **Drupal system messages theming:** Aligning status, warning, and error messages (`messages.css`) with CivicActions brand tokens, Nunito typography, and accessible iconography.
+- **Editorial image style derivative generation:** Investigating missing or broken image style previews for `1312x738` and `1800x1080` derivatives in media selection.
+- **Article body copy deduplication:** Cleaning up redundant legacy dates and author bylines pasted directly into editorial article body fields that duplicate the theme's native node header metadata.
+- **CI/CD test automation gates:** Tuning Playwright visual regression test (VRT) stability on multidev environments and configuring axe accessibility scans to fail pull request builds on WCAG violations.

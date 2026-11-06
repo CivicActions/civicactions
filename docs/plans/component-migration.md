@@ -2,7 +2,7 @@
 
 Status: Completed MVP / Post-Launch Operational Hardening (Launched November 2, 2026)
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-11-04
+Last reviewed: 2026-11-06
 
 This plan records the complete component migration strategy from the legacy Strapi/Gatsby homesite to Drupal 11 and Drupal CMS 2.0. It coordinates the delivery of Twig Single Directory Components (SDCs), Drupal Canvas visual authoring integration, and structured Drupal Views listings.
 
@@ -31,7 +31,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | Legacy Component / Pattern | Audit Analysis & Architectural Decision | Status | Target Drupal SDC or Architecture | Ticket Reference | LOE |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`primary-page-cta.js`** | Full-width call-to-action banner supporting default (blue) and home (red) variants. | **Merged** | `omnichannel:primary-page-cta` | MAHOM-1167 | Done |
-| **`link-button.js`** | Primary and secondary interactive link button primitive with default and large sizes. | **Merged** | `omnichannel:link-button` | MAHOM-1167 | Done |
+| **`link-button.js`** | Primary and secondary interactive link button primitive with default and large sizes. Standardizing sitewide to sentence case (as typed) and Nunito font across all button components under MAHOM-1206. | **Merged / Polish In Progress** | `omnichannel:link-button` | MAHOM-1167, MAHOM-1206 | In Progress |
 | **`external-link-button.js`** | External link button. Folded into generalized button primitive with protocol sanitization. | **Merged** | Consolidated into `omnichannel:link-button` | MAHOM-1167 | Done |
 | **`ditap-page-cta.js`** | Offering-specific CTA. Retired as duplicate; replaced with standard primary CTA variant. | **Merged** | Consolidated into `omnichannel:primary-page-cta` | MAHOM-1167 | Done |
 | **`card.js`** | Linked card with icon, title, and body for offerings and service highlights. | **Merged** | `omnichannel:card` | MAHOM-1167 | Done |
@@ -77,6 +77,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **Feedback Form** | Legacy feedback form. Retired because it has been unused since 2021; removed from footer links and 301 redirected to `/contact`. | **Retired / Redirected** | Redirect entity `/feedback/` -> `/contact/` | Decision 2026-11-02 | Done |
 | **Google Analytics (GA4)** | Google Analytics integration via contrib module using existing GA4 property (`G-Y5EFTNKK2G`) with admin/user path exclusions. | **Merged (PR #92)** | `config/google_analytics.settings.yml` | Operations / Engineering | Done |
 | **Link Health Monitoring** | Automated broken link checking tuned for low-traffic sites to proactively catch legacy and migrated route regressions. | **Merged (PR #94)** | `config/linkchecker.settings.yml` | Operations | Done |
+| **Drupal System Messages** | Theme override for Drupal core/Gin status, warning, and error messages styled with brand tokens and Nunito typography. | **Backlog** | `status-messages.html.twig`, `messages.css` | Theming | Low |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |
 
 ---
@@ -226,6 +227,19 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
   - **Mailchimp Audit:** Infrastructure is investigating unexpected Mailchimp notification alerts to ensure clean separation from the homesite.
   - **QA Checklist:** QA is preparing a landing page checklist for holistic post-launch verification.
   - **Frontend Support:** Engineering leadership is identifying additional front-end developer support for post-launch backlog tasks.
+
+### November 6 Post-MVP QA Audit & Operational Alignment
+
+- **Button and Focus Consistency (`MAHOM-1206`):** Frontend engineering claimed MAHOM-1206, standardizing all buttons sitewide (Hero, CTA, Link Button, form submit) to sentence case (as typed) and Nunito font (`var(--font-body)`), superseding legacy Gatsby uppercase text-transform conventions.
+- **Accessibility & Contrast Violations:**
+  - **Outcome Card Link Contrast:** Identified WCAG AA contrast failure on `--gray-05` background (`4.05:1` vs `4.5:1` required). Standardizes inline links in `.ca-outcome-card` to use compliant `--sec-red` (`#8b0a03`, `8.6:1` ratio).
+  - **Case Studies Heading Level:** Resolved skipped heading level on `/case-studies` (`h1` followed by `h3`). Adding `heading_level` prop support (defaulting to `h2` on listing displays) to `case-study-teaser`.
+- **Drupal System Messages Theming:** Modernizing `messages.css` to align Drupal core/Gin status, warning, and error messages with CivicActions brand tokens, Nunito typography, and accessible SVGs.
+- **Editorial Workflow & Admin UX Bugs:**
+  - Media derivative preview fix for missing/broken `1312x738` and `1800x1080` image styles.
+  - Alt text input wrapping on featured images in the node edit form.
+  - Article body cleanup to remove redundant legacy dates and author bylines duplicated from node headers.
+- **CI/CD Quality Gates:** Workstream to tune Playwright Visual Regression Test (VRT) multidev reliability and configure automated `@a11y` test failures to block CI merges.
 
 ---
 
