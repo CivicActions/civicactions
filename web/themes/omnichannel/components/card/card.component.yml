@@ -24,34 +24,34 @@ props:
     title:
       type: string
       title: Title
-      default: "Web and CMS"
+      default: 'Web and CMS'
       examples:
-        - "Web and CMS"
+        - 'Web and CMS'
     link:
       type: string
       title: Link URL
       format: uri-reference
       default: ''
       examples:
-        - "/services#web-cms"
+        - '/services#web-cms'
     icon:
       type: string
       title: Icon URL
-      description: "Bundled icons: check.svg, error.svg, feed.svg, help.png, and warning.svg in /themes/omnichannel/images/icons/."
+      description: 'Bundled icons: check.svg, error.svg, feed.svg, help.png, and warning.svg in /themes/omnichannel/images/icons/.'
       format: uri-reference
-      default: "/themes/omnichannel/images/icons/check.svg"
+      default: '/themes/omnichannel/images/icons/check.svg'
       examples:
-        - "/themes/omnichannel/images/icons/check.svg"
+        - '/themes/omnichannel/images/icons/check.svg'
     icon_alt:
       type: string
       title: Icon alternative text
-      default: "Service category icon"
+      default: ''
       examples:
-        - "Service category icon"
+        - 'Service category icon'
     icon_name:
       type: string
       title: Icon name
-      description: "Bundled icon symbol from the Icon SDC, or none to hide the card icon."
+      description: 'Bundled icon symbol from the Icon SDC, or none to hide the card icon.'
       enum:
         - none
         - check
@@ -61,6 +61,18 @@ props:
         - arrow
         - document
         - star
+        - web-cms
+        - it-modernization
+        - data-services
+        - product-design
+        - security-compliance
+        - workforce-dev
+        - health-benefits
+        - 401k-program
+        - time-off
+        - remote-life
+        - annual-upgrades
+        - family-friendly
       meta:enum:
         none: No icon
         check: Checkmark
@@ -70,12 +82,24 @@ props:
         arrow: Arrow Right
         document: Document
         star: Star
+        web-cms: Web / CMS 
+        it-modernization: IT Modernization
+        data-services: Data Services
+        product-design: Product Design
+        security-compliance: Security Compliance
+        workforce-dev: Workforce Development
+        health-benefits: Health Benefits
+        401k-program: 401k Program
+        time-off: Time Off
+        remote-life: Remote Life
+        annual-upgrades: Annual Upgrades
+        family-friendly: Family Friendly
       default: none
       examples:
         - none
     body:
       type: string
       title: Body text
-      default: "Accessible digital services for the public good."
+      default: 'Accessible digital services for the public good.'
       examples:
-        - "Accessible digital services for the public good."
+        - 'Accessible digital services for the public good.'
