@@ -26,6 +26,10 @@
   line-height: inherit;
 }
 
+.ca-outcome-card__body a {
+  color: var(--sec-red, #8b0a03);
+}
+
 @scope (.ca-outcome-card) {
   :scope {
     box-sizing: border-box;
@@ -42,5 +46,9 @@
     font-size: inherit;
     font-weight: 700;
     line-height: inherit;
+  }
+
+  .ca-outcome-card__body a {
+    color: var(--sec-red, #8b0a03);
   }
 }

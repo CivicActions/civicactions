@@ -67,7 +67,6 @@ import{a as n,T as i,t as s,D as r}from"./twig-CXPxoFJk.js";const p=t=>t.extendF
     <li><a href="/licensing/">Licensing</a></li>
     <li><a href="/privacy/">Privacy</a></li>
     <li><a href="/sustainability/">Sustainability</a></li>
-    <li><a href="/feedback/">Feedback</a></li>
     <li>&copy; 2026</li>
   </ul>
-`,position:{start:1231,end:1538}}]},position:{open:{start:1206,end:1230},close:{start:1538,end:1552}}}],precompiled:!0});o.options.allowInlineIncludes=!0;try{let e=t.defaultAttributes?t.defaultAttributes:[];return Array.isArray(e)||(e=Object.entries(e)),a(o.render({attributes:new r(e),...t}))}catch(e){return a("An error occurred whilst rendering /Users/jack.haas/Projects/civicactions/web/themes/omnichannel/components/site-footer/site-footer-preview.twig: "+e.toString())}};export{d as t};
+`,position:{start:1231,end:1491}}]},position:{open:{start:1206,end:1230},close:{start:1491,end:1505}}}],precompiled:!0});o.options.allowInlineIncludes=!0;try{let e=t.defaultAttributes?t.defaultAttributes:[];return Array.isArray(e)||(e=Object.entries(e)),a(o.render({attributes:new r(e),...t}))}catch(e){return a("An error occurred whilst rendering /Users/jack.haas/Projects/civicactions/web/themes/omnichannel/components/site-footer/site-footer-preview.twig: "+e.toString())}};export{d as t};
