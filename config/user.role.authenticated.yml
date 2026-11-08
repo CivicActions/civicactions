@@ -13,8 +13,11 @@ dependencies:
     - editoria11y
     - file
     - filter
+<<<<<<< HEAD
     - google_analytics
     - honeypot
+=======
+>>>>>>> e81a3d92 (Uninstall unused modules.)
     - klaro
     - media
     - navigation
@@ -33,7 +36,6 @@ permissions:
   - 'access content'
   - 'access contextual links'
   - 'access navigation'
-  - 'bypass honeypot protection'
   - 'delete own files'
   - 'mark as hidden in editoria11y'
   - 'opt-in or out of google analytics tracking'
