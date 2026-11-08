@@ -23,7 +23,6 @@ dependencies:
     - filter
     - llms_txt
     - media
-    - media_library_bulk_upload
     - node
     - path
     - redirect
@@ -72,10 +71,6 @@ permissions:
   - 'use basic_editorial transition create_new_draft'
   - 'use basic_editorial transition publish'
   - 'use basic_editorial transition unpublish'
-  - 'use media document bulk upload form'
-  - 'use media image bulk upload form'
-  - 'use media remote_video bulk upload form'
-  - 'use media svg_image bulk upload form'
   - 'use text format content_format'
   - 'use text format inline_content'
   - 'use text format llms_txt_content'
