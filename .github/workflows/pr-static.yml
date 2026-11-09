@@ -158,7 +158,6 @@ jobs:
         run: |
           STYLELINT="$(pwd)/web/core/node_modules/.bin/stylelint"
           ESLINT="$(pwd)/web/core/node_modules/.bin/eslint"
-          CORE_PATH="$(pwd)/web/core"
           THEME_PATH="web/themes/omnichannel"
 
           css_files=()
@@ -180,14 +179,14 @@ jobs:
 
           if [[ ${#css_files[@]} -gt 0 ]]; then
             echo "Linting CSS files: ${css_files[*]}"
-            (cd "$THEME_PATH" && "$STYLELINT" --config .stylelint-local.json --config-basedir "$CORE_PATH" "${css_files[@]}")
+            (cd "$THEME_PATH" && "$STYLELINT" --config .stylelint-local.json --config-basedir "$(pwd)/web/core" "${css_files[@]}")
           else
             echo "No changed theme CSS files."
           fi
 
           if [[ ${#js_files[@]} -gt 0 ]]; then
             echo "Linting JS files: ${js_files[*]}"
-            (cd "$THEME_PATH" && "$ESLINT" --config .eslintrc-local.json --resolve-plugins-relative-to "$CORE_PATH" "${js_files[@]}")
+            (cd "$THEME_PATH" && "$ESLINT" --config .eslintrc-local.json --resolve-plugins-relative-to "$(pwd)/web/core" "${js_files[@]}")
           else
             echo "No changed theme JS files."
           fi
