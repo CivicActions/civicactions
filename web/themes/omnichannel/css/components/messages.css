@@ -32,6 +32,12 @@
 [data-drupal-messages]:not(:empty) {
   margin-block-end: var(--size-6, 1.5rem);
 }
+/* Avoid a second gutter set inside constrained page content. */
+.ca-container:not(.ca-container--full-width) [data-drupal-messages].ca-container {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 0;
+}
 .messages p:first-of-type {
   margin-block-start: 0;
 }
