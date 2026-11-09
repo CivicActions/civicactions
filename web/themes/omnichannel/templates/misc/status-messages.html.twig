@@ -19,7 +19,7 @@
  *   - class: HTML classes.
  */
 #}
-<div data-drupal-messages>
+<div data-drupal-messages class="ca-container">
 {% block messages %}
 {% for type, messages in message_list %}
   {%
@@ -28,24 +28,19 @@
       'messages--' ~ type,
     ]
   %}
-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
-    {% if type == 'error' %}
-      <div role="alert">
+  {% set message_role = type == 'error' ? 'alert' : 'status' %}
+  <div role="{{ message_role }}" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+    {% if status_headings[type] %}
+      <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
     {% endif %}
-      {% if status_headings[type] %}
-        <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
-      {% endif %}
-      {% if messages|length > 1 %}
-        <ul class="messages__list">
-          {% for message in messages %}
-            <li class="messages__item">{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        {{ messages|first }}
-      {% endif %}
-    {% if type == 'error' %}
-      </div>
+    {% if messages|length > 1 %}
+      <ul class="messages__list">
+        {% for message in messages %}
+          <li class="messages__item">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ messages|first }}
     {% endif %}
   </div>
   {# Remove type specific classes. #}

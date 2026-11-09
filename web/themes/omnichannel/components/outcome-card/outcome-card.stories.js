@@ -26,3 +26,9 @@ export const LongContent = {
     body: '<p>Drupal 10 introduces a modern rich text editor with many interface enhancements, helping editors create accessible content with fewer errors and a much clearer publishing experience.</p>',
   },
 };
+
+export const InlineLinkContrast = {
+  args: {
+    body: '<p>Explore the <a href="/case-studies">case studies</a> to learn more about our work.</p>',
+  },
+};
