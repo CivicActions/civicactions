@@ -32,8 +32,14 @@
 [data-drupal-messages]:not(:empty) {
   margin-block-end: var(--size-6, 1.5rem);
 }
+/* Match the header container's outer bounds, not its inner content gutters. */
+.ca-container[data-drupal-messages] {
+  width: calc(100% - var(--container-spacing-sm) - var(--container-spacing-sm));
+  padding-inline: 0;
+}
 /* Avoid a second gutter set inside constrained page content. */
 .ca-container:not(.ca-container--full-width) [data-drupal-messages].ca-container {
+  width: 100%;
   max-width: none;
   margin-inline: 0;
   padding-inline: 0;
