@@ -77,7 +77,7 @@ The homesite team audited all 39 legacy components and patterns against public p
 | **Feedback Form** | Legacy feedback form. Retired because it has been unused since 2021; removed from footer links and 301 redirected to `/contact`. | **Retired / Redirected** | Redirect entity `/feedback/` -> `/contact/` | Decision 2026-11-02 | Done |
 | **Google Analytics (GA4)** | Google Analytics integration via contrib module using existing GA4 property (`G-Y5EFTNKK2G`) with admin/user path exclusions. | **Merged (PR #92)** | `config/google_analytics.settings.yml` | Operations / Engineering | Done |
 | **Link Health Monitoring** | Automated broken link checking tuned for low-traffic sites to proactively catch legacy and migrated route regressions. | **Merged (PR #94)** | `config/linkchecker.settings.yml` | Operations | Done |
-| **Drupal System Messages** | Theme override for Drupal core/Gin status, warning, and error messages styled with brand tokens and Nunito typography. | **Backlog** | `status-messages.html.twig`, `messages.css` | Theming | Low |
+| **Drupal System Messages** | Theme override for Drupal core status, warning, and error messages styled with brand tokens, accessible state colors, and Nunito typography. | **In Progress (PR Pending)** | `status-messages.html.twig`, `messages.css` | MAHOM-1207 | Normal |
 | **Configuration Sync** | Pull Pantheon Live database locally, export config to git (`config/`), and establish PR workflow. | **Merged** | Drupal config export (`ddev drush cex -y`) | MAHOM-1182 | Done |
 
 ---
@@ -234,7 +234,7 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **Accessibility & Contrast Violations:**
   - **Outcome Card Link Contrast:** Identified WCAG AA contrast failure on `--gray-05` background (`4.05:1` vs `4.5:1` required). Standardizes inline links in `.ca-outcome-card` to use compliant `--sec-red` (`#8b0a03`, `8.6:1` ratio).
   - **Case Studies Heading Level:** Resolved skipped heading level on `/case-studies` (`h1` followed by `h3`). Adding `heading_level` prop support (defaulting to `h2` on listing displays) to `case-study-teaser`.
-- **Drupal System Messages Theming:** Modernizing `messages.css` to align Drupal core/Gin status, warning, and error messages with CivicActions brand tokens, Nunito typography, and accessible SVGs.
+- **Drupal System Messages Theming (`MAHOM-1207`):** Modernizing `messages.css` and `status-messages.html.twig` to align Drupal core frontend status, warning, and error messages with CivicActions brand tokens, Nunito typography, and accessible SVGs.
 - **Editorial Workflow & Admin UX Bugs:**
   - Media derivative preview fix for missing/broken `1312x738` and `1800x1080` image styles.
   - Alt text input wrapping on featured images in the node edit form.

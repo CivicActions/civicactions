@@ -1,26 +1,26 @@
-const s={title:"Base/Messages"},e={render:()=>`
-    <div data-drupal-messages>
+/* empty css               */const e={title:"Base/Messages"},a={render:()=>`
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--status" role="status" aria-label="Status message">
         <h2 class="visually-hidden">Status message</h2>
         <p>Your changes have been saved.</p>
       </div>
     </div>
-  `},a={render:()=>`
-    <div data-drupal-messages>
+  `},r={render:()=>`
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--warning" role="status" aria-label="Warning message">
         <h2 class="visually-hidden">Warning message</h2>
         <p>This action may affect other content on the site.</p>
       </div>
     </div>
-  `},r={render:()=>`
-    <div data-drupal-messages>
+  `},l={render:()=>`
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--error" role="alert" aria-label="Error message">
         <h2 class="visually-hidden">Error message</h2>
         <p class="error">We could not save your changes. Please try again.</p>
       </div>
     </div>
-  `},l={render:()=>`
-    <div data-drupal-messages>
+  `},i={render:()=>`
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--status" role="status" aria-label="Status message">
         <h2 class="visually-hidden">Status message</h2>
         <ul class="messages__list">
@@ -29,8 +29,8 @@ const s={title:"Base/Messages"},e={render:()=>`
         </ul>
       </div>
     </div>
-  `},i={render:()=>`
-    <div data-drupal-messages>
+  `},t={render:()=>`
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--status" role="status" aria-label="Status message">
         <h2 class="visually-hidden">Status message</h2>
         <p>Your profile has been updated.</p>
@@ -44,4 +44,4 @@ const s={title:"Base/Messages"},e={render:()=>`
         <p class="error">The recovery email address could not be saved.</p>
       </div>
     </div>
-  `},t=["StatusMessage","WarningMessage","ErrorMessage","MultipleMessages","CombinedMessages"];export{i as CombinedMessages,r as ErrorMessage,l as MultipleMessages,e as StatusMessage,a as WarningMessage,t as __namedExportsOrder,s as default};
+  `},d=["StatusMessage","WarningMessage","ErrorMessage","MultipleMessages","CombinedMessages"];export{t as CombinedMessages,l as ErrorMessage,i as MultipleMessages,a as StatusMessage,r as WarningMessage,d as __namedExportsOrder,e as default};

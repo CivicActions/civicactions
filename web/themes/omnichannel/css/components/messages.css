@@ -20,7 +20,7 @@
 }
 .messages::before {
   position: absolute;
-  inset-block-start: var(--size-4, 1rem);
+  inset-block-start: calc(var(--size-4, 1rem) + 0.7em - var(--size-2, 0.5rem));
   inset-inline-start: var(--size-4, 1rem);
   width: var(--size-4, 1rem);
   height: var(--size-4, 1rem);
@@ -28,6 +28,12 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+[data-drupal-messages]:not(:empty) {
+  margin-block-end: var(--size-6, 1.5rem);
+}
+.messages p:first-of-type {
+  margin-block-start: 0;
 }
 .messages + .messages {
   margin-block-start: var(--size-4, 1rem);
@@ -39,6 +45,9 @@
 }
 .messages__item + .messages__item {
   margin-block-start: var(--size-2, 0.5rem);
+}
+.messages > :last-child {
+  margin-block-end: 0;
 }
 .messages--status {
   color: #1b4d24;

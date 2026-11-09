@@ -1,4 +1,5 @@
 import '../../css/components/messages.css';
+import '../../css/layout.css';
 
 export default {
   title: 'Base/Messages',
@@ -6,7 +7,7 @@ export default {
 
 export const StatusMessage = {
   render: () => `
-    <div data-drupal-messages>
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--status" role="status" aria-label="Status message">
         <h2 class="visually-hidden">Status message</h2>
         <p>Your changes have been saved.</p>
@@ -17,7 +18,7 @@ export const StatusMessage = {
 
 export const WarningMessage = {
   render: () => `
-    <div data-drupal-messages>
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--warning" role="status" aria-label="Warning message">
         <h2 class="visually-hidden">Warning message</h2>
         <p>This action may affect other content on the site.</p>
@@ -28,7 +29,7 @@ export const WarningMessage = {
 
 export const ErrorMessage = {
   render: () => `
-    <div data-drupal-messages>
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--error" role="alert" aria-label="Error message">
         <h2 class="visually-hidden">Error message</h2>
         <p class="error">We could not save your changes. Please try again.</p>
@@ -39,7 +40,7 @@ export const ErrorMessage = {
 
 export const MultipleMessages = {
   render: () => `
-    <div data-drupal-messages>
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--status" role="status" aria-label="Status message">
         <h2 class="visually-hidden">Status message</h2>
         <ul class="messages__list">
@@ -53,7 +54,7 @@ export const MultipleMessages = {
 
 export const CombinedMessages = {
   render: () => `
-    <div data-drupal-messages>
+    <div data-drupal-messages class="ca-container">
       <div class="messages messages--status" role="status" aria-label="Status message">
         <h2 class="visually-hidden">Status message</h2>
         <p>Your profile has been updated.</p>
