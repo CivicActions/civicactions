@@ -2,7 +2,7 @@
 
 Status: Active public technical canon (Live Production)
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-11-06
+Last reviewed: 2026-11-09
 
 This document records the public-facing architecture, design-system rules, and component conventions for the homesite rebuild. It is intentionally distilled from project work rather than copied from internal discovery notes.
 
@@ -244,7 +244,6 @@ Controlled via repository variables:
 - **Insights landing page redesign:** The `/insights` route currently combines news and articles views and is undergoing redesign to cleanly separate content subtypes and topic feeds.
 - **Firefox FOUC:** An intermittent flash of unstyled content during initial page rendering in Firefox is under investigation.
 - **Mailchimp notification audit:** Legacy notification hooks are being audited to eliminate extraneous external service alerts.
-- **Drupal system messages theming:** Aligning status, warning, and error messages (`messages.css`) with CivicActions brand tokens, Nunito typography, and accessible iconography.
 - **Editorial image style derivative generation:** Investigating missing or broken image style previews for `1312x738` and `1800x1080` derivatives in media selection.
 - **Article body copy deduplication:** Cleaning up redundant legacy dates and author bylines pasted directly into editorial article body fields that duplicate the theme's native node header metadata.
 - **CI/CD test automation gates:** Tuning Playwright visual regression test (VRT) stability on multidev environments and configuring axe accessibility scans to fail pull request builds on WCAG violations.
