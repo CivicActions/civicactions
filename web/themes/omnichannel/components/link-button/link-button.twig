@@ -13,6 +13,8 @@
 {% set button_type = type|default('primary') %}
 {% set button_size = size|default('default') %}
 {% set button_classes = [
+  'ca-button',
+  'ca-button--' ~ button_type,
   'ca-link-button',
   'ca-link-button--' ~ button_type,
 ] %}
