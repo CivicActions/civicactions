@@ -14,7 +14,7 @@
 }
 
 .site-logo {
-  display: flex;;
+  display: inline-flex;
   padding: var(--size-1);
   margin-left: calc(var(--size-1) * -1);
 
