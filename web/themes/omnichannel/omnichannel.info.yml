@@ -2,6 +2,18 @@ name: Omnichannel
 type: theme
 'base theme': false
 version: 1.0.0
+regions:
+  header: 'Header'
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  breadcrumb: 'Breadcrumb'
+  sidebar_first: 'Left sidebar'
+  sidebar_second: 'Right sidebar'
+  highlighted: 'Highlighted'
+  content: 'Content'
+  footer: 'Footer'
+  footer_bottom: 'Footer bottom'
+  help: 'Help'
 libraries:
   - omnichannel/base
   - omnichannel/global
