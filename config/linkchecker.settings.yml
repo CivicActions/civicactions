@@ -29,7 +29,13 @@ check:
 error:
   action_status_code_301: 0
   action_status_code_404: 0
-  ignore_response_codes: "200\n206\n302\n304\n401\n403"
+  ignore_response_codes: |-
+    200
+    206
+    302
+    304
+    401
+    403
   impersonate_account: ''
 logging:
   level: 5

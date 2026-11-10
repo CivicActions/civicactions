@@ -13,7 +13,6 @@ dependencies:
     - editoria11y
     - file
     - filter
-    - honeypot
     - klaro
     - media
     - navigation
@@ -32,7 +31,6 @@ permissions:
   - 'access content'
   - 'access contextual links'
   - 'access navigation'
-  - 'bypass honeypot protection'
   - 'delete own files'
   - 'mark as hidden in editoria11y'
   - 'skip CAPTCHA'
