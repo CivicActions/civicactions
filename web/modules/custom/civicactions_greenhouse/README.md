@@ -26,7 +26,7 @@ invalidation.
   - Graceful fallback serves the last known good cached jobs data during upstream outages.
 - **Webhook Integration**:
   - Exposes an endpoint at `/api/v1/greenhouse/webhook`.
-  - Authenticates incoming requests via HTTP Basic Authentication against a Key entity.
+  - Authenticates incoming requests by verifying the Greenhouse HMAC SHA-256 `Signature` header against a secret stored in a Key entity.
   - Listens for `ping`, `job_post_created`, `job_post_updated`, and `job_post_deleted` events.
   - Instantly invalidates the `civicactions_greenhouse:jobs` cache tag and proactively re-warms the cache.
 
@@ -111,8 +111,58 @@ To enable real-time updates when positions are posted, modified, or removed in G
      - `Job Post Updated`
      - `Job Post Deleted`
    - **Endpoint URL**: `https://your-domain.com/api/v1/greenhouse/webhook`
-   - **Secret key**: Enter the exact secret string stored in your Drupal Key entity.
+   - **Secret key**: Enter the exact secret string stored in your Drupal Key
+     entity. Greenhouse uses it to sign each request body (HMAC SHA-256, sent
+     in the `Signature` header). Leading/trailing whitespace in the stored key
+     value is ignored, so make sure none is pasted into Greenhouse either.
+   - Leave **Advanced settings > Basic authentication** empty. The endpoint
+     only accepts signed requests; Basic Auth credentials are ignored.
 3. Greenhouse will verify the endpoint via a `ping` action, which returns `HTTP 200 OK`.
+   A `403` means the signature did not match: confirm the Greenhouse secret
+   equals the key value (`drush key:value-get <key_id>` prints it inside a
+   table, so do not copy the table padding).
+
+---
+
+## Drush Commands & Manual Cache Refresh
+
+If you need to manually trigger a jobs refresh without waiting for or relying on a webhook (such as while rotating secrets or testing):
+
+### Dedicated Drush Command
+
+```bash
+ddev drush greenhouse:refresh
+# or aliases:
+ddev drush civicactions:greenhouse-refresh
+ddev drush gh-refresh
+```
+
+This command:
+1. Invalidates the `civicactions_greenhouse:jobs` cache tag across all pages and blocks.
+2. Immediately fetches the latest jobs from the Greenhouse Job Board API.
+3. Re-warms the cache and prints a formatted summary table of active jobs found.
+
+### One-liner via Drush `php:eval`
+
+```bash
+ddev drush ev "\Drupal::service('cache_tags.invalidator')->invalidateTags(['civicactions_greenhouse:jobs']); \$res = \Drupal::service('civicactions_greenhouse.client')->warmCache(); echo 'Refreshed ' . count(\$res['jobs']) . ' jobs.' . PHP_EOL;"
+```
+
+### Drush Script (`drush scr`)
+
+You can execute a standalone PHP script with Drush:
+
+```bash
+ddev drush scr path/to/script.php
+```
+
+Example script contents:
+```php
+<?php
+\Drupal::service('cache_tags.invalidator')->invalidateTags(['civicactions_greenhouse:jobs']);
+$result = \Drupal::service('civicactions_greenhouse.client')->warmCache();
+echo "Refreshed " . count($result['jobs']) . " jobs from Greenhouse.\n";
+```
 
 ---
 
@@ -138,28 +188,32 @@ ddev exec vendor/bin/phpstan analyze web/modules/custom/civicactions_greenhouse
 
 ### Manual Webhook Verification with cURL
 
-Test the endpoint from your terminal using `curl`:
+Requests must carry a `Signature: sha256 <digest>` header, where the digest is
+the HMAC SHA-256 of the exact request body using the webhook secret. Run these
+inside the web container so the signature tools match the server:
+
+```bash
+ddev ssh
+SECRET='your_secret_string'
+URL=http://localhost/api/v1/greenhouse/webhook
+sign() { printf '%s' "$1" | openssl dgst -sha256 -hmac "$SECRET" | sed 's/^.*= //'; }
+```
 
 #### Scenario 1: Ping / Handshake (Expected: 200 OK)
 ```bash
-curl -X POST https://civicactions.ddev.site/api/v1/greenhouse/webhook \
-  -u :your_secret_string \
-  -H "Content-Type: application/json" \
-  -d '{"action": "ping"}'
+BODY='{"action":"ping"}'
+curl -X POST "$URL" -H "Content-Type: application/json" \
+  -H "Signature: sha256 $(sign "$BODY")" -d "$BODY"
 ```
 
 #### Scenario 2: Job Post Event (Expected: 200 OK with Cache Invalidation)
 ```bash
-curl -X POST https://civicactions.ddev.site/api/v1/greenhouse/webhook \
-  -u :your_secret_string \
-  -H "Content-Type: application/json" \
-  -d '{"action": "job_post_updated", "payload": {"id": 123}}'
+BODY='{"action":"job_post_updated","payload":{"job_post":{"id":123}}}'
+curl -X POST "$URL" -H "Content-Type: application/json" \
+  -H "Signature: sha256 $(sign "$BODY")" -d "$BODY"
 ```
 
-#### Scenario 3: Unauthorized Request (Expected: 403 Forbidden)
+#### Scenario 3: Unsigned Request (Expected: 403 Forbidden)
 ```bash
-curl -X POST https://civicactions.ddev.site/api/v1/greenhouse/webhook \
-  -u :invalid_secret \
-  -H "Content-Type: application/json" \
-  -d '{"action": "ping"}'
+curl -X POST "$URL" -H "Content-Type: application/json" -d '{"action":"ping"}'
 ```
