@@ -8,6 +8,19 @@ props:
   required:
     - title
   properties:
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Heading level for the editorial title. Use a lower level when the teaser sits inside a headed section.
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 2
+      examples:
+        - 2
     variant:
       type: string
       title: Content type

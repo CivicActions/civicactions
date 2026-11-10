@@ -146,7 +146,7 @@ class OmnichannelHooks {
    */
   private function buildPersonTeaserProps(NodeInterface $node, CacheableMetadata $cacheability): array {
     return [
-      'heading_level' => 3,
+      'heading_level' => 2,
       'name' => $node->label(),
       'role' => $this->getStringFieldValue($node, 'schema_job_title', $cacheability),
       'image' => $this->getImageProp($node, 'schema_image', $cacheability) ?? [
@@ -170,6 +170,7 @@ class OmnichannelHooks {
       default => 'press',
     };
     $props = [
+      'heading_level' => 2,
       'variant' => $variant,
       'title' => $node->label(),
       'description' => $this->getStringFieldValue($node, 'schema_short_description', $cacheability),
@@ -197,6 +198,7 @@ class OmnichannelHooks {
    */
   private function buildCaseStudyTeaserProps(NodeInterface $node, CacheableMetadata $cacheability): array {
     $props = [
+      'heading_level' => 2,
       'teaserlink' => $node->toUrl('canonical')->toString(),
       'title' => $node->label(),
       'client' => $this->getReferencedLabel($node, 'schema_client', $cacheability),

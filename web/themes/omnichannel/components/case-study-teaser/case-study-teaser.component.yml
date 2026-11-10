@@ -9,6 +9,19 @@ props:
     - teaserlink
     - title
   properties:
+    heading_level:
+      type: integer
+      title: Heading level
+      description: Heading level for the case study title. Use a lower level when the teaser sits inside a headed section.
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 2
+      examples:
+        - 2
     teaserlink:
       type: string
       title: Teaser link

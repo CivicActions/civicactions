@@ -2,7 +2,7 @@
 
 Status: Completed MVP / Post-Launch Operational Hardening (Launched November 2, 2026)
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-11-06
+Last reviewed: 2026-11-10
 
 This plan records the complete component migration strategy from the legacy Strapi/Gatsby homesite to Drupal 11 and Drupal CMS 2.0. It coordinates the delivery of Twig Single Directory Components (SDCs), Drupal Canvas visual authoring integration, and structured Drupal Views listings.
 
@@ -233,7 +233,7 @@ The Storybook parity fixtures for this batch cover seven page archetypes: Homepa
 - **Button and Focus Consistency (`MAHOM-1206`):** Frontend engineering claimed MAHOM-1206, standardizing all buttons sitewide (Hero, CTA, Link Button, form submit) to sentence case (as typed) and Nunito font (`var(--font-body)`), superseding legacy Gatsby uppercase text-transform conventions.
 - **Accessibility & Contrast Violations:**
   - **Outcome Card Link Contrast:** Identified WCAG AA contrast failure on `--gray-05` background (`4.05:1` vs `4.5:1` required). Standardizes inline links in `.ca-outcome-card` to use compliant `--sec-red` (`#8b0a03`, `8.6:1` ratio).
-  - **Case Studies Heading Level:** Resolved skipped heading level on `/case-studies` (`h1` followed by `h3`). Adding `heading_level` prop support (defaulting to `h2` on listing displays) to `case-study-teaser`.
+  - **Teaser Heading Levels:** Case Study, Person, and Editorial teaser SDCs default to configurable `h2` headings (`heading_level` supports `2`–`6`). Component-class typography preserves the existing visual style when the semantic heading tag changes.
 - **Drupal System Messages Theming (`MAHOM-1207`):** Modernizing `messages.css` and `status-messages.html.twig` to align Drupal core frontend status, warning, and error messages with CivicActions brand tokens, Nunito typography, and accessible SVGs.
 - **Editorial Workflow & Admin UX Bugs:**
   - Media derivative preview fix for missing/broken `1312x738` and `1800x1080` image styles.

@@ -4,6 +4,7 @@
  * News variant for the Editorial Teaser component.
  *
  * Available props:
+ * - heading_level: Optional heading level (2-6, default 2).
  * - date: Optional publication date (YYYY-MM-DD).
  * - fullstorylink: Destination of the full story.
  * - image: Optional Media Library image.
@@ -13,13 +14,15 @@
 #}
 
 {% set teaser_attributes = attributes|default(create_attribute()) %}
+{% set teaser_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6'} %}
+{% set teaser_heading_tag = teaser_heading_tags[heading_level|default(2)]|default('h2') %}
 
 <article {{ teaser_attributes.addClass(['editorial-teaser-news']) }}>
   <div class="editorial-teaser__text-wrapper">
     {% if date %}
       <p class="editorial-teaser__date">News Release: <time datetime="{{ date|e('html_attr') }}">{{ date }}</time></p>
     {% endif %}
-    <h2 class="editorial-teaser__title">{{ title }}</h2>
+    <{{ teaser_heading_tag }} class="editorial-teaser__title">{{ title }}</{{ teaser_heading_tag }}>
     {% if description %}
       <p class="editorial-teaser__description">{{ description }}</p>
     {% endif %}

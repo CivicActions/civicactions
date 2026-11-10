@@ -9,6 +9,16 @@ props:
     - title
     - fullstorylink
   properties:
+    heading_level:
+      type: integer
+      title: Heading level
+      enum:
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+      default: 2
     date:
       type: string
       title: Date

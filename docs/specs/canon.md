@@ -2,7 +2,7 @@
 
 Status: Active public technical canon (Live Production)
 Audience: Contributors working on the CivicActions homesite rebuild
-Last reviewed: 2026-11-06
+Last reviewed: 2026-11-10
 
 This document records the public-facing architecture, design-system rules, and component conventions for the homesite rebuild. It is intentionally distilled from project work rather than copied from internal discovery notes.
 
@@ -62,7 +62,7 @@ The `civicactions_landing_page_views` module owns the Team, Editorial, News, Pub
 - Full Views pagination uses the legacy Back | Page X of Y | Next pattern centered in the 720px container (`.ca-pager`), delegating button presentation to `omnichannel:link-button` while preserving Drupal core's `.js-pager__items` hook for Views AJAX paging.
 - Views exposed filters (`.ca-views-exposed-form`) use token-based flexbox layout, 44px minimum touch targets, uppercase Nunito bold labels, and Link Button submit styling with 3px focus rings. For the MVP launch, taxonomy keyword/topic filters and non-functional quick-link headers are hidden on `/insights/articles` and `/case-studies`, and the Team listing defaults to current members without an exposed internal/external filter. The exposed form styles remain available for post-MVP topic feeds (MAHOM-1205).
 - The Case Studies listing (`.view-ca-case-studies`) adheres strictly to standard container bounds (`.ca-container`) across all viewports without negative margins, keeping grid teasers flush and aligned with the header and exposed filter content above.
-- On listing pages where teasers appear directly beneath an `h1` page title without an intermediate section title (such as `/case-studies`), teaser titles must render as `h2` elements (or support a configurable `heading_level` prop) to satisfy WCAG 2.1 AA heading hierarchy and avoid skipped heading level violations.
+- Case Study, Person, and Editorial teaser SDCs default their title to an `h2` and expose a configurable `heading_level` prop (`2`–`6`) for layouts that need a different semantic level. Teaser title styling stays on component classes, so changing the heading tag preserves its visual typography. On listings such as `/case-studies`, teaser titles follow the page `h1` without skipping a heading level.
 
 The current local listing routes are `/team`, `/news`, `/publications`, `/case-studies`, and `/insights/articles`; `/blog` is not the configured local Articles route. On Live, these routes resolve to Canvas Page entities created by editorial authors, which override naked Views page routes. Placing the matching Views blocks (`ca_*_block_1`) and an authored H1 `page-title` component within these Canvas pages is the active architecture (demonstrated on `/team` with `ca_team-block-1`). MAHOM-1201 tracks separate landing pages for Articles, Insights, Highlights, and News. Sitewide footer menu links in `templates/partials/footer/menu.html.twig` map directly to canonical MVP routes (`/team/`, `/news/`, `https://reports.civicactions.com/2025`, `/services/`, `/case-studies/`, `/contracting/`, `/contact/`, `/insights/`, `/careers/`); dynamic Drupal menu block integration is deferred post-MVP.
 
