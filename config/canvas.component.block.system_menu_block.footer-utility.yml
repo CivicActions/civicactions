@@ -1,0 +1,27 @@
+uuid: 7eac9f2a-c68e-4ecd-97e2-89abeb2e0a85
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.footer-utility
+  module:
+    - system
+active_version: 3a5d5b47f165323f
+versioned_properties:
+  active:
+    settings:
+      default_settings:
+        id: 'system_menu_block:footer-utility'
+        label: 'Footer utility'
+        label_display: '0'
+        provider: system
+        level: 1
+        depth: null
+        expand_all_items: false
+    fallback_metadata:
+      slot_definitions: null
+label: 'Footer utility'
+id: block.system_menu_block.footer-utility
+provider: system
+source: block
+source_local_id: 'system_menu_block:footer-utility'
