@@ -1,3 +1,5 @@
+_core:
+  default_config_hash: dwMYPgAnj9KBO77SLEv9Z42NDJAbuxe0uU9eGC8qw3M
 account: G-Y5EFTNKK2G
 domain_mode: 0
 cross_domains: ''
@@ -5,7 +7,9 @@ visibility:
   request_path_mode: 0
   request_path_pages: "/admin\n/admin/*\n/batch\n/node/add*\n/node/*/*\n/user\n/user/*\n/user/*/*"
   user_role_mode: 0
-  user_role_roles: {  }
+  user_role_roles:
+    anonymous: anonymous
+    authenticated: authenticated
   user_account_mode: 1
 track:
   outbound: true
@@ -32,3 +36,4 @@ codesnippet:
 translation_set: false
 cache: false
 debug: false
+

@@ -13,6 +13,7 @@ dependencies:
     - editoria11y
     - file
     - filter
+    - google_analytics
     - honeypot
     - klaro
     - media
@@ -35,6 +36,7 @@ permissions:
   - 'bypass honeypot protection'
   - 'delete own files'
   - 'mark as hidden in editoria11y'
+  - 'opt-in or out of google analytics tracking'
   - 'skip CAPTCHA'
   - 'use klaro'
   - 'use text format webform_default'
@@ -46,3 +48,4 @@ permissions:
   - 'view terms in expertise'
   - 'view terms in tool'
   - 'view the administration theme'
+
