@@ -18,7 +18,7 @@ const meta = {
     bio: { control: 'text' },
   },
   args: {
-    heading_level: 3,
+    heading_level: 2,
     name: 'Alex Rivera',
     role: 'Co-Founder & Government Solutions Lead',
     image: quotePortrait,

@@ -4,6 +4,7 @@
  * Template for the CivicActions Case Study Teaser component.
  *
  * Available props:
+ * - heading_level: Heading level for the case study title.
  * - teaserlink: Case study destination.
  * - image: Optional Media Library image.
  * - client: Client or partner name.
@@ -12,6 +13,8 @@
  */
 #}
 {% set teaser_attributes = attributes|default(create_attribute()) %}
+{% set teaser_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6'} %}
+{% set teaser_heading_tag = teaser_heading_tags[heading_level|default(2)]|default('h2') %}
 
 <article {{ teaser_attributes.addClass('ca-case-study-teaser') }}>
   <a href="{{ teaserlink|e('html_attr') }}" class="ca-case-study-teaser__link">
@@ -34,7 +37,7 @@
       {% if client %}
         <span class="ca-case-study-teaser__client">{{ client }}</span>
       {% endif %}
-      <h3 class="ca-case-study-teaser__title">{{ title }}</h3>
+      <{{ teaser_heading_tag }} class="ca-case-study-teaser__title">{{ title }}</{{ teaser_heading_tag }}>
       {% if summary %}
         <p class="ca-case-study-teaser__summary">{{ summary }}</p>
       {% endif %}

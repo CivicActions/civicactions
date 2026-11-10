@@ -4,6 +4,7 @@
  * Template for the CivicActions Editorial Teaser component.
  *
  * Available props:
+ * - heading_level: Heading level for the teaser title.
  * - variant: Content type ('press' or 'news').
  * - layout: Press release layout ('card' or 'compact').
  * - teaserlink: Press release destination.
@@ -24,6 +25,7 @@
 <div {{ teaser_attributes.addClass(teaser_classes) }}>
   {% if teaser_variant == 'press' %}
     {% set press_args = {
+      heading_level: heading_level|default(2),
       layout: layout|default('card'),
       teaserlink: teaserlink,
       title: title,
@@ -37,6 +39,7 @@
     {% include 'omnichannel:editorial-press-teaser' with press_args only %}
   {% elseif teaser_variant == 'news' %}
     {% set news_args = {
+      heading_level: heading_level|default(2),
       title: title,
       fullstorylink: fullstorylink|default(teaserlink),
     } %}

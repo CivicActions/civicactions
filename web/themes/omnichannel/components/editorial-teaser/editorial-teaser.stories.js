@@ -6,6 +6,7 @@ const meta = {
   title: 'Components/Editorial Teaser',
   render: (args) => template(args),
   argTypes: {
+    heading_level: { control: 'select', options: [2, 3, 4, 5, 6] },
     variant: { control: 'inline-radio', options: ['press', 'news'] },
     layout: {
       control: 'inline-radio',
@@ -31,6 +32,7 @@ const meta = {
     description: { control: 'text' },
   },
   args: {
+    heading_level: 2,
     variant: 'press',
     layout: 'card',
     teaserlink: '/press-releases/example',
@@ -60,6 +62,12 @@ export const PressReleaseCompact = {
 export const PressReleaseCardWithoutImage = {
   args: {
     image: null,
+  },
+};
+
+export const NestedHeading = {
+  args: {
+    heading_level: 3,
   },
 };
 

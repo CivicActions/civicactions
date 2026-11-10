@@ -6,6 +6,7 @@ const meta = {
   title: 'Components/Case Study Teaser',
   render: (args) => template(args),
   argTypes: {
+    heading_level: { control: 'select', options: [2, 3, 4, 5, 6] },
     teaserlink: { control: 'text' },
     image: { control: 'object' },
     client: { control: 'text' },
@@ -13,6 +14,7 @@ const meta = {
     summary: { control: 'text' },
   },
   args: {
+    heading_level: 2,
     teaserlink: '/case-studies/example',
     image: placeholderImage,
     client: 'National Science Foundation',
@@ -24,3 +26,9 @@ const meta = {
 export default meta;
 
 export const Default = {};
+
+export const NestedHeading = {
+  args: {
+    heading_level: 3,
+  },
+};

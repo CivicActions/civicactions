@@ -14,7 +14,7 @@
 #}
 {% set teaser_attributes = attributes|default(create_attribute()) %}
 {% set teaser_heading_tags = {2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6'} %}
-{% set teaser_heading_tag = teaser_heading_tags[heading_level|default(3)]|default('h3') %}
+{% set teaser_heading_tag = teaser_heading_tags[heading_level|default(2)]|default('h2') %}
 
 <article {{ teaser_attributes.addClass('ca-person-teaser') }}>
   {% if teaserlink %}
