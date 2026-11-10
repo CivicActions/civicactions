@@ -88,8 +88,9 @@ class GreenhouseClient implements GreenhouseClientInterface {
         '@message' => $e->getMessage(),
       ]);
 
-      // Fallback: check if we have any stale cache entry.
-      if ($cache_item = $this->cache->get($cid)) {
+      // Allow invalidated items so a webhook-triggered refresh that fails
+      // still serves the previous job list.
+      if ($cache_item = $this->cache->get($cid, TRUE)) {
         return [
           'jobs' => $cache_item->data,
           'from_cache' => TRUE,
