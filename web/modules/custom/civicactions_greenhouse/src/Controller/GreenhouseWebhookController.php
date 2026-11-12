@@ -27,7 +27,7 @@ final class GreenhouseWebhookController extends ControllerBase {
     protected readonly GreenhouseClientInterface $greenhouseClient,
     protected readonly CacheTagsInvalidatorInterface $cacheTagsInvalidator,
     protected readonly LoggerInterface $logger,
-    protected readonly ?KeyRepositoryInterface $keyRepository = NULL,
+    protected readonly KeyRepositoryInterface $keyRepository,
   ) {
     $this->configFactory = $config_factory;
   }
@@ -56,12 +56,16 @@ final class GreenhouseWebhookController extends ControllerBase {
    */
   public function handle(Request $request): JsonResponse {
     if (!$this->authenticate($request)) {
-      $this->logger->warning('Rejected unauthorized Greenhouse webhook request from @ip', [
-        '@ip' => $request->getClientIp(),
-      ]);
+      $this->logger->warning(
+        'Rejected Greenhouse webhook request from @ip (Signature header @sig).',
+        [
+          '@ip' => $request->getClientIp(),
+          '@sig' => $request->headers->has('Signature') ? 'invalid' : 'missing',
+        ]
+      );
       return new JsonResponse([
         'status' => 'error',
-        'message' => 'Invalid or missing webhook credentials.',
+        'message' => 'Invalid or missing webhook signature.',
       ], 403);
     }
 
@@ -83,8 +87,8 @@ final class GreenhouseWebhookController extends ControllerBase {
       ], 400);
     }
 
-    $action = $payload['action'] ?? NULL;
-    if (!$action) {
+    $action = is_array($payload) ? ($payload['action'] ?? NULL) : NULL;
+    if (!is_string($action) || $action === '') {
       return new JsonResponse([
         'status' => 'error',
         'message' => 'Missing action field.',
@@ -135,84 +139,49 @@ final class GreenhouseWebhookController extends ControllerBase {
   }
 
   /**
-   * Resolves the configured webhook secret from Key entity or legacy config.
+   * Resolves the webhook secret from the configured Key entity.
    *
    * @return string
-   *   The secret string, or empty string if not configured.
+   *   The secret with surrounding whitespace removed, or an empty string if
+   *   no key is configured or the key has no value.
    */
   protected function getSecret(): string {
-    $config = $this->configFactory->get('civicactions_greenhouse.settings');
-    $key_id = (string) $config->get('webhook_key');
-    if ($key_id !== '' && $this->keyRepository) {
-      $key = $this->keyRepository->getKey($key_id);
-      if ($key) {
-        return trim((string) $key->getKeyValue());
-      }
+    $key_id = (string) $this->configFactory
+      ->get('civicactions_greenhouse.settings')
+      ->get('webhook_key');
+    if ($key_id === '') {
+      return '';
     }
 
-    // Fallback to legacy raw config if present.
-    $raw_secret = (string) $config->get('webhook_secret');
-    return trim($raw_secret);
+    $key = $this->keyRepository->getKey($key_id);
+    return $key ? trim((string) $key->getKeyValue()) : '';
   }
 
   /**
-   * Authenticates the webhook request against the configured secret.
+   * Verifies the Greenhouse HMAC SHA-256 signature of the request body.
+   *
+   * Greenhouse sends "Signature: sha256 <hex digest>", where the digest is
+   * hash_hmac('sha256', <raw body>, <secret key>).
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The incoming request.
    *
    * @return bool
-   *   TRUE if authenticated, FALSE otherwise.
+   *   TRUE if the signature matches, FALSE otherwise.
    */
   protected function authenticate(Request $request): bool {
-    $configured_secret = $this->getSecret();
-
-    // If no secret has been configured, reject all webhook requests.
-    if ($configured_secret === '') {
+    $secret = $this->getSecret();
+    if ($secret === '') {
       return FALSE;
     }
 
-    $user = $request->getUser();
-    $password = $request->getPassword();
-
-    // Check password or username against configured secret using constant-time
-    // comparison.
-    if ($password !== NULL && hash_equals($configured_secret, $password)) {
-      return TRUE;
+    $header = trim((string) $request->headers->get('Signature', ''));
+    if (!preg_match('/^sha256 ([0-9a-f]{64})$/i', $header, $matches)) {
+      return FALSE;
     }
 
-    if ($user !== NULL && hash_equals($configured_secret, $user)) {
-      return TRUE;
-    }
-
-    // Check direct server variables (e.g. when username is omitted or in test
-    // requests).
-    $server_pw = $request->server->get('PHP_AUTH_PW');
-    if ($server_pw !== NULL && hash_equals($configured_secret, (string) $server_pw)) {
-      return TRUE;
-    }
-
-    $server_user = $request->server->get('PHP_AUTH_USER');
-    if ($server_user !== NULL && hash_equals($configured_secret, (string) $server_user)) {
-      return TRUE;
-    }
-
-    // Support Authorization header if not extracted into PHP_AUTH_* by server.
-    $auth_header = $request->headers->get('Authorization', '');
-    if (str_starts_with($auth_header, 'Basic ')) {
-      $decoded = base64_decode(substr($auth_header, 6), TRUE);
-      if ($decoded !== FALSE) {
-        $parts = explode(':', $decoded, 2);
-        $header_user = $parts[0];
-        $header_pw = $parts[1] ?? '';
-
-        if (hash_equals($configured_secret, $header_pw) || hash_equals($configured_secret, $header_user)) {
-          return TRUE;
-        }
-      }
-    }
-
-    return FALSE;
+    $expected = hash_hmac('sha256', (string) $request->getContent(), $secret);
+    return hash_equals($expected, strtolower($matches[1]));
   }
 
 }
