@@ -1,0 +1,25 @@
+uuid: b494f12c-9650-4fec-b989-beab52dc516d
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-utility
+  module:
+    - system
+  theme:
+    - omnichannel
+id: omnichannel_footerutility_2
+theme: omnichannel
+region: footer_bottom
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer-utility'
+settings:
+  id: 'system_menu_block:footer-utility'
+  label: 'Footer utility'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: null
+  expand_all_items: true
+visibility: {  }

@@ -18,37 +18,54 @@
 {% set heading_id = heading_id|default('footer--menu') %}
 {% set footer_attributes = attributes|default(create_attribute()) %}
 
-<footer{{ footer_attributes.addClass('footer').setAttribute('id', 'footer--section').setAttribute('tabindex', '-1') }}>
+<footer{{ footer_attributes.addClass('footer').setAttribute('id', 'footer--section') }}>
   <div class="footer__inner">
     <div class="footer__area footer__branding">
       {% block branding %}
-        <a class="footer__branding-link" href="{{ path('<front>') }}" aria-label="{{ 'CivicActions home page'|t }}">
-          {{ source(componentMetadata.path ~ '/ca-extended-logo.svg') }}
-        </a>
+        {% if page.footer.omnichannel_sitebranding_2 is not empty %}
+          {{ page.footer.omnichannel_sitebranding_2 }}
+        {% else %}
+          <a class="site-logo" href="{{ path('<front>') }}" aria-label="{{ 'CivicActions home page'|t }}">
+            {{ source(componentMetadata.path ~ '/ca-extended-logo.svg') }}
+          </a>
+        {% endif %}
       {% endblock %}
     </div>
 
     <div class="footer__area footer__about">
-      {% block about %}{% endblock %}
+      {% block about %}
+        {% include '@omnichannel/templates/partials/footer/about.html.twig' only %}
+      {% endblock %}
     </div>
 
     <div class="footer__area footer__contact">
-      {% block contact %}{% endblock %}
+      {% block contact %}
+        {% include '@omnichannel/templates/partials/footer/contact.html.twig' only %}
+      {% endblock %}
     </div>
 
     <div class="footer__area footer__menu--wrapper">
-      <h2 id="{{ heading_id }}" class="visually-hidden">{{ 'Footer'|t }}</h2>
-      <nav class="footer__menu" aria-labelledby="{{ heading_id }}">
-        {% block menu %}{% endblock %}
+      {% block menu %}
+        {% if page.footer.omnichannel_footer is not empty %}
+          {{ page.footer.omnichannel_footer }}
+        {% endif %}      
+      {% endblock %}
       </nav>
     </div>
 
     <div class="footer__area footer__social">
-      {% block social %}{% endblock %}
+      {% block social %}
+        {% include 'omnichannel:social-links' with {
+        vimeo_url: 'https://vimeo.com/civicactions',
+        bluesky_url: 'https://bsky.app/profile/civicactions.com',
+        x_url: 'https://twitter.com/civicactions?lang=en',
+        linkedin_url: 'https://www.linkedin.com/company/civicactions/mycompany/',
+        } only %}
+      {% endblock %}
     </div>
 
     <div class="footer__area footer__bottom--links">
-      {% block bottom_links %}{% endblock %}
+      {{ page.footer_bottom }}
     </div>
   </div>
 </footer>

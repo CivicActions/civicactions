@@ -32,35 +32,32 @@
   max-width: 294px;
 }
 
-/* Footer menu */
-.footer__menu--list {
-  margin-top: var(--size-8);
-  margin-bottom: var(--size-10);
-  padding-left: 0;
-  list-style: none;
+.footer__social {
+  margin-bottom: calc(var(--size-2) * -1);
 }
 
-.footer__menu--list li {
-  margin: var(--size-4) 0 0;
-}
-
-.footer__menu--list li a {
-  padding: var(--size-2) 0;
-}
-
-/* Footer bottom links */
+/* Shared footer menu styles for main footer menu AND footer utility menu. */
+.menu--footer ul,
 .footer__bottom--links ul {
-  margin: 0;
+  /* Bottom margin matches margin/padding on li/a */
+  margin: var(--size-6) 0 calc(var(--size-6) + 0.2em);
   padding-left: 0;
   list-style: none;
 }
 
+.menu--footer ul li,
 .footer__bottom--links li {
   margin: var(--size-4) 0 0;
 }
 
+.menu--footer ul li a,
 .footer__bottom--links li a {
   padding: var(--size-2) 0;
+}
+
+/* Footer bottom only. */
+.footer__bottom--links ul {
+  margin-bottom: 0;
 }
 
 /* ------ Tablet grid styles -------- */
@@ -93,44 +90,38 @@
     grid-area: contact;
   }
 
-  .footer__menu--wrapper {
+  .menu--footer--wrapper {
     grid-area: menu;
   }
 
   .footer__social {
     grid-area: social;
-    align-self: end;
-    margin-bottom: calc(-1 * var(--size-5));
+    align-self: last baseline;
   }
 
   .footer__bottom--links {
     grid-area: links;
-    margin-top: 15px;
-    margin-bottom: -17px;
   }
 
-  .footer__menu,
+  .menu--footer,
   .footer__bottom--links {
     margin-right: -2rem;
   }
 
-  .footer__menu--list,
+  .menu--footer ul,
   .footer__bottom--links ul {
     column-count: 2;
     column-gap: var(--size-20);
+    margin-top: 0;
   }
 
-  .footer__menu--list {
+  .footer__bottom--links li:first-child,
+  .menu--footer ul li:first-child {
     margin-top: 0;
   }
 
   .footer__bottom--links li {
     margin-top: var(--size-1);
-  }
-
-  .footer__bottom--links li:first-child,
-  .footer__menu--list li:first-child {
-    margin-top: 0;
   }
   /* End of tablet grid styles */
 }
@@ -139,10 +130,6 @@
   .footer__inner {
     padding: var(--size-24) var(--size-12);
   }
-
-  .footer__social {
-    margin-bottom: var(--size-1);
-  }
 }
 
 @media (min-width: 1200px) {
@@ -150,11 +137,11 @@
     grid-template-areas:
       "branding branding branding"
       "about contact menu"
-      ". social social"
+      ". . social"
       ". links links";
     grid-template-columns: auto 1fr auto;
     margin: 0 auto;
-    column-gap: var(--size-24);
+    column-gap: var(--size-20);
   }
 
   .footer__branding {
@@ -170,23 +157,27 @@
   }
 
   .footer__contact p:first-child,
-  .footer__menu--wrapper {
+  .menu--footer--wrapper {
     margin-top: 0;
   }
 
-  .footer__menu--list {
-    margin: 0;
-    column-count: 3;
-    column-gap: var(--size-20);
-  }
-
-  .footer__menu--wrapper a {
+  .menu--footer--wrapper a {
     font-size: var(--size-5);
     line-height: 33.6px;
   }
 
   .footer__social {
-    margin-top: var(--size-4);
+    margin-bottom: 0;
+  }
+
+  .menu--footer {
+    margin-right: -1rem;
+  }
+
+  .menu--footer ul {
+    margin: 0;
+    column-count: 3;
+    column-gap: var(--size-20);
   }
 
   .footer__bottom--links {
