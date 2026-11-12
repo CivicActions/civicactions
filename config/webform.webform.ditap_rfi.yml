@@ -12,14 +12,7 @@ id: ditap_rfi
 title: 'DITAP RFI'
 description: '<p>RFI form for DITAP cohorts.</p>'
 categories: {  }
-elements: |-
-  your_email:
-    '#type': email
-    '#title': 'Your email'
-    '#required': true
-  your_name:
-    '#type': textfield
-    '#title': 'Your name'
+elements: "your_email:\n  '#type': email\n  '#title': 'Your email'\n  '#required': true\nyour_name:\n  '#type': textfield\n  '#title': 'Your name'\n  '#description': \"<p>If you need to register other people for DITAP, you'll have a chance to enter their names later.</p>\"\n  '#required': true\norganization:\n  '#type': textfield\n  '#title': Organization\n  '#required': true\nwhat_do_you_want_to_do:\n  '#type': webform_radios_other\n  '#title': 'What do you want to do?'\n  '#options':\n    'Request training for one or more people (less than 25)': 'Request training for one or more people (less than 25)'\n    'Request training for 25-30 people (a full cohort)': 'Request training for 25-30 people (a full cohort)'\n    'Request training for more than 30 people': 'Request training for more than 30 people'\nhow_many_people_would_you_like_to_register:\n  '#type': textfield\n  '#title': 'How many people would you like to register?'\nwhat_is_your_earliest_available_start_date_for_training_this_is:\n  '#type': date\n  '#title': 'What is your earliest available start date for training? (This is a 6-month program.)'\nthe_ditap_program_requires_that_participants_have_at_least_a_fac:\n  '#type': webform_radios_other\n  '#title': 'The DITAP program requires that participants have at least a FAC-C Level II certification. Do you (and/or the people you are registering) meet this qualification?'\n  '#description': '<p><span style=\"-webkit-text-stroke-width:0px;background-color:rgb(255, 255, 255);color:rgb(31, 31, 31);display:inline !important;float:none;font-family:Roboto, Arial, sans-serif;font-size:14.6667px;font-style:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;orphans:2;text-align:start;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;\">Participants may also be working toward the FAC-C Level II, with planned completion prior to the DITAP program conclusion. Additionally, supervisor permission may be given for people without that certification level to take the training.</span></p>'\n  '#options':\n    'Yes': 'Yes'\n    'No, but supervisor permission is being given to take the training.': 'No, but supervisor permission is being given to take the training.'\nditap_training_is_7_000_per_participant_unless_we_have_arranged:\n  '#type': radios\n  '#title': 'DITAP training is $7,000 per participant, unless we have arranged a special rate for you. How would you like to pay?'\n  '#options':\n    'Credit card - right now (You will be given a checkout link when you submit this form)': 'Credit card - right now (You will be given a checkout link when you submit this form)'\n    'Purchase order - send me more information': 'Purchase order - send me more information'\n    \"I'm not sure - please contact me\": \"I'm not sure - please contact me\"\nanything_else_you_want_to_tell_us_or_ask_us:\n  '#type': textarea\n  '#title': 'Anything else you want to tell us or ask us?'\ncaptcha:\n  '#type': captcha"
 css: ''
 javascript: ''
 settings:
@@ -125,10 +118,10 @@ settings:
   draft_loaded_message: ''
   draft_pending_single_message: ''
   draft_pending_multiple_message: ''
-  confirmation_type: page
+  confirmation_type: inline
   confirmation_url: ''
-  confirmation_title: ''
-  confirmation_message: ''
+  confirmation_title: 'Thank you for your submission!'
+  confirmation_message: '<div style="color:#1d1c1d;margin:0;padding:0;">Thank you! We''ll be in touch soon.&nbsp;</div><div style="color:#1d1c1d;margin:0;padding:0;">&nbsp;</div><div style="color:#1d1c1d;margin:0;padding:0;">If you are registering fewer than 25 people, and are ready to pay now, continue to our secure payment platform: <a style="color:#1264a3;text-decoration:none;" href="https://checkout.square.site/buy/VCMYVBYSWU65XVJC2QOAVNJT" target="_blank" rel="noopener noreferrer"><span style="color:inherit;" draggable="true">https://checkout.square.site/buy/VCMYVBYSWU65XVJC2QOAVNJT</span></a></div>'
   confirmation_attributes: {  }
   confirmation_back: true
   confirmation_back_label: ''
@@ -204,5 +197,44 @@ access:
     roles: {  }
     users: {  }
     permissions: {  }
-handlers: {  }
+handlers:
+  email:
+    id: email
+    handler_id: email
+    label: Email
+    notes: ''
+    status: true
+    conditions: {  }
+    weight: 0
+    settings:
+      states:
+        - completed
+      to_mail: sales@civicactions.com
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: _default
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: "We've received your request for info on CivicActions' DITAP Training"
+      body: "<p>Thank you! We'll be in touch soon.</p><p>If you are registering fewer than 25 people, and are ready to pay now, continue to our secure payment platform:</p><p>https://checkout.square.site/buy/VCMYVBYSWU65XVJC2QOAVNJT</p><p>----------</p><p>Submitted on [webform_submission:created]</p><p>Submitted by: [webform_submission:user]</p><p>Submitted values are:</p><p>[webform_submission:values]</p>"
+      excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      langcode: ''
+      parameters: {  }
+      debug: false
 variants: {  }
+
