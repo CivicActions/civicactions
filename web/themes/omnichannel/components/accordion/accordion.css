@@ -21,9 +21,9 @@
   cursor: pointer;
   color: var(--primary-blue, #162e51);
   font-family: var(--font-heading, "Merriweather", georgia, serif);
-  font-size: 1.75rem;
+  font-size: var(--font-size-h3);
   font-weight: 400;
-  line-height: 1.25;
+  line-height: var(--line-height-h3);
   gap: 0;
 }
 
@@ -112,9 +112,9 @@
     cursor: pointer;
     color: var(--primary-blue, #162e51);
     font-family: var(--font-heading, "Merriweather", georgia, serif);
-    font-size: 1.75rem;
+    font-size: var(--font-size-h3);
     font-weight: 400;
-    line-height: 1.25;
+    line-height: var(--line-height-h3);
     gap: 0;
   }
 
