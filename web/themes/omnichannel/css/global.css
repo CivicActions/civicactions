@@ -177,19 +177,26 @@ h4 {
 }
 
 /* Styles for .text-formatted content/CKEDitor content */
-.text-formatted :is(h1, h2, h3, h4, h5, h6, p, ul, ol) {
-  margin-top: 0;
+.text-formatted :is(h2, h3, h4, h5, h6) {
+  margin-top: var(--size-10);
   margin-bottom: var(--size-4);
+
+  & + :is(h2, h3, h4, h5, h6) {
+    margin-top: 0;
+  }
 }
+/* .text-formatted :is(p, ul, ol) {
+margin-top: 0;
+} */
 
 /* All H2 headings in formatted content render at 32px (var(--size-8)) matching section and accordion titles. */
-.text-formatted h2 {
+/* .text-formatted h2 {
   font-size: var(--size-8, 2rem);
   line-height: var(--line-height-base, 1.15);
-}
+} */
 
-.text-formatted li + li {
-  margin-top: var(--size-4);
+li + li {
+  margin-top: var(--size-2);
 }
 
 a {
