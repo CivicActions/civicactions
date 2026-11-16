@@ -12,6 +12,7 @@ concurrency:
 
 permissions:
   contents: read
+  deployments: read
   pull-requests: write
   statuses: write
 
@@ -51,6 +52,7 @@ jobs:
         id: prep
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          DEPLOYMENTS_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.issue.number }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
           EVENT_NAME: ${{ github.event_name }}
@@ -94,11 +96,25 @@ jobs:
             gh api --method DELETE "repos/${REPO}/issues/${PR_NUMBER}/labels/refresh-content" || true
           fi
 
-          # 4. Check deployed commit vs VERIFIED_SHA
-          DEPLOYED_ID=$(deploy_id "${ENV_NAME}")
-          echo "Deployed identifier on ${ENV_NAME}: ${DEPLOYED_ID}"
-          if [[ -n "${DEPLOYED_ID}" ]] && ! sha_matches "${DEPLOYED_ID}" "${VERIFIED_SHA}"; then
-            echo "Environment ${ENV_NAME} has ${DEPLOYED_ID}, not head ${VERIFIED_SHA:0:7}. Exiting without status change."
+          # 4. Confirm Pantheon finished deploying the PR head. Pantheon's GitHub
+          # app records a deployment per build with the exact commit;
+          # PANTHEON_DEPLOYMENT_IDENTIFIER is unreliable on new multidevs.
+          echo "stage=checking Pantheon deployment" >> "$GITHUB_OUTPUT"
+          for attempt in 1 2 3 4 5 6; do
+            DEPLOYMENT=$(latest_deployment "${ENV_NAME}")
+            read -r DEPLOYED_SHA DEPLOY_STATE <<< "${DEPLOYMENT}" || true
+            echo "Latest ${ENV_NAME} deployment: ${DEPLOYED_SHA:-none} (${DEPLOY_STATE:-none})"
+            # Statuses can lag the bot comment slightly.
+            [[ "${DEPLOYED_SHA:-}" == "${VERIFIED_SHA}" && "${DEPLOY_STATE}" =~ ^(pending|queued|in_progress)$ && "${attempt}" -lt 6 ]] || break
+            sleep 10
+          done
+          if [[ "${DEPLOYED_SHA:-}" != "${VERIFIED_SHA}" || "${DEPLOY_STATE}" != "success" ]]; then
+            if [[ "${DEPLOYED_SHA:-}" == "${VERIFIED_SHA}" && "${DEPLOY_STATE}" =~ ^(failure|error)$ ]]; then
+              echo "::error::Pantheon reported a failed deployment of ${VERIFIED_SHA:0:7} to ${ENV_NAME}."
+              exit 1
+            fi
+            echo "Pantheon has not finished deploying head ${VERIFIED_SHA:0:7} to ${ENV_NAME}; its next comment re-runs this check."
+            gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"                 -f state="pending"                 -f context="ci/review-env"                 -f description="Waiting for Pantheon to deploy ${VERIFIED_SHA:0:7} (latest: ${DEPLOYED_SHA:0:7} ${DEPLOY_STATE:-none})" >/dev/null
             echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -278,6 +294,7 @@ jobs:
       - name: Post-test Diagnostics & Reporting
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          DEPLOYMENTS_TOKEN: ${{ github.token }}
           VERIFIED_SHA: ${{ needs.verify-and-deploy.outputs.verified_sha }}
           ENV_NAME: ${{ needs.verify-and-deploy.outputs.env_name }}
           ENV_URL: ${{ needs.verify-and-deploy.outputs.env_url }}
@@ -312,10 +329,11 @@ jobs:
           HAS_DIFF=$(cat has-diff.txt 2>/dev/null || echo "false")
           VISUAL_TABLE=$(cat visual-table.md 2>/dev/null || echo "No visual summary available.")
 
-          # 4. Check if final deployed commit matches VERIFIED_SHA
-          FINAL_ID=$(deploy_id "${ENV_NAME}")
-          if [[ -n "${FINAL_ID}" ]] && ! sha_matches "${FINAL_ID}" "${VERIFIED_SHA}"; then
-            echo "Environment identifier changed from ${VERIFIED_SHA:0:7} to ${FINAL_ID} during testing. Discarding results."
+          # 4. Discard results if Pantheon deployed a newer commit during testing
+          FINAL_DEPLOYMENT=$(latest_deployment "${ENV_NAME}")
+          FINAL_SHA="${FINAL_DEPLOYMENT%% *}"
+          if [[ -n "${FINAL_SHA}" && "${FINAL_SHA}" != "${VERIFIED_SHA}" ]]; then
+            echo "Pantheon deployed ${FINAL_SHA:0:7} to ${ENV_NAME} during testing of ${VERIFIED_SHA:0:7}. Discarding results."
             exit 0
           fi
 

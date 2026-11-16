@@ -21,7 +21,7 @@ To maintain code quality, verify visual and functional parity across responsive 
    - Code is promoted to `test` and `live` via Pantheon environment deployments (`terminus env:deploy`), not through gitflow branches.
 2. **Review Environment Test Trigger**:
    - The Pantheon GitHub App creates/syncs review environments and posts a PR comment (`Successfully created multidev environment...`).
-   - GitHub Actions triggers environment testing from this comment event, verifies the deployed commit matches the PR head (`PANTHEON_DEPLOYMENT_IDENTIFIER`), runs `drush deploy`, health diagnostics, Playwright functional/accessibility suites, and visual regression against `dev`.
+   - GitHub Actions triggers environment testing from this comment event, verifies Pantheon finished deploying the PR head, using the GitHub deployment and status the Pantheon app records for each build (`PANTHEON_DEPLOYMENT_IDENTIFIER` is unreliable on newly created multidevs), runs `drush deploy`, health diagnostics, Playwright functional/accessibility suites, and visual regression against `dev`.
    - Untrusted external fork PRs require maintainer manual dispatch before running against Pantheon.
 3. **No Reference Images in Version Control**:
    - Visual regression captures `dev` baselines dynamically in the same job before comparing against the review environment across desktop (1440px) and mobile (390px) viewports.
