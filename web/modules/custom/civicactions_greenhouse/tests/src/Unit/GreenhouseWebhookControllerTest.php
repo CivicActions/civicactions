@@ -12,235 +12,316 @@ use Drupal\Core\Config\ImmutableConfig;
 use Drupal\key\KeyInterface;
 use Drupal\key\KeyRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Tests GreenhouseWebhookController authentication and cache invalidation.
+ * Tests Greenhouse webhook signature verification and cache invalidation.
  */
 #[CoversClass(GreenhouseWebhookController::class)]
 #[Group('civicactions_greenhouse')]
 class GreenhouseWebhookControllerTest extends TestCase {
 
+  private const SECRET = 'test-secret-value';
+
   /**
-   * Tests webhook rejection when no secret or key is configured.
+   * The mocked Greenhouse client.
    */
-  public function testHandleUnconfiguredSecret(): void {
-    $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->willReturnMap([
-      ['webhook_key', ''],
-      ['webhook_secret', ''],
-    ]);
+  private GreenhouseClientInterface&MockObject $client;
 
-    $config_factory = $this->createMock(ConfigFactoryInterface::class);
-    $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
+  /**
+   * The mocked cache tags invalidator.
+   */
+  private CacheTagsInvalidatorInterface&MockObject $invalidator;
 
-    $client = $this->createMock(GreenhouseClientInterface::class);
-    $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
-    $logger = $this->createMock(LoggerInterface::class);
-    $key_repository = $this->createMock(KeyRepositoryInterface::class);
-
-    $controller = new GreenhouseWebhookController(
-      $config_factory,
-      $client,
-      $cache_tags_invalidator,
-      $logger,
-      $key_repository
-    );
-
-    $request = Request::create('/api/v1/greenhouse/webhook', 'POST', [], [], [], [
-      'PHP_AUTH_PW' => 'some_secret',
-    ]);
-
-    $response = $controller->handle($request);
-    $this->assertEquals(403, $response->getStatusCode());
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+    $this->client = $this->createMock(GreenhouseClientInterface::class);
+    $this->invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
   }
 
   /**
-   * Tests webhook rejection when configured key entity does not exist.
+   * Builds a controller whose key resolves to the given value.
+   *
+   * @param string $key_id
+   *   The configured webhook_key value.
+   * @param string|null $key_value
+   *   The key value, or NULL if the key entity does not exist.
    */
-  public function testHandleKeyNotFound(): void {
+  private function buildController(string $key_id = 'greenhouse_webhook', ?string $key_value = self::SECRET): GreenhouseWebhookController {
     $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->willReturnMap([
-      ['webhook_key', 'non_existent_key'],
-      ['webhook_secret', ''],
-    ]);
-
+    $config->method('get')->with('webhook_key')->willReturn($key_id);
     $config_factory = $this->createMock(ConfigFactoryInterface::class);
     $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
 
+    $key = NULL;
+    if ($key_value !== NULL) {
+      $key = $this->createMock(KeyInterface::class);
+      $key->method('getKeyValue')->willReturn($key_value);
+    }
     $key_repository = $this->createMock(KeyRepositoryInterface::class);
-    $key_repository->method('getKey')->with('non_existent_key')->willReturn(NULL);
+    $key_repository->method('getKey')->willReturn($key);
 
-    $client = $this->createMock(GreenhouseClientInterface::class);
-    $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
-    $logger = $this->createMock(LoggerInterface::class);
-
-    $controller = new GreenhouseWebhookController(
+    return new GreenhouseWebhookController(
       $config_factory,
-      $client,
-      $cache_tags_invalidator,
-      $logger,
-      $key_repository
+      $this->client,
+      $this->invalidator,
+      $this->createMock(LoggerInterface::class),
+      $key_repository,
     );
-
-    $request = Request::create('/api/v1/greenhouse/webhook', 'POST', [], [], [], [
-      'PHP_AUTH_PW' => 'some_secret',
-    ]);
-
-    $response = $controller->handle($request);
-    $this->assertEquals(403, $response->getStatusCode());
   }
 
   /**
-   * Tests webhook rejection with invalid credentials using key module key.
+   * Builds a webhook request with optional headers.
    */
-  public function testHandleInvalidCredentials(): void {
-    $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->willReturnMap([
-      ['webhook_key', 'greenhouse_webhook_key'],
-      ['webhook_secret', ''],
-    ]);
-
-    $config_factory = $this->createMock(ConfigFactoryInterface::class);
-    $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
-
-    $key = $this->createMock(KeyInterface::class);
-    $key->method('getKeyValue')->willReturn('super_secret_123');
-
-    $key_repository = $this->createMock(KeyRepositoryInterface::class);
-    $key_repository->method('getKey')->with('greenhouse_webhook_key')->willReturn($key);
-
-    $client = $this->createMock(GreenhouseClientInterface::class);
-    $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
-    $logger = $this->createMock(LoggerInterface::class);
-
-    $controller = new GreenhouseWebhookController(
-      $config_factory,
-      $client,
-      $cache_tags_invalidator,
-      $logger,
-      $key_repository
-    );
-
-    // Request with wrong password.
-    $request = Request::create('/api/v1/greenhouse/webhook', 'POST', [], [], [], [
-      'PHP_AUTH_PW' => 'wrong_secret',
-    ]);
-
-    $response = $controller->handle($request);
-    $this->assertEquals(403, $response->getStatusCode());
-  }
-
-  /**
-   * Tests successful ping event handling using key module key.
-   */
-  public function testHandlePingSuccess(): void {
-    $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->willReturnMap([
-      ['webhook_key', 'greenhouse_webhook_key'],
-      ['webhook_secret', ''],
-    ]);
-
-    $config_factory = $this->createMock(ConfigFactoryInterface::class);
-    $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
-
-    $key = $this->createMock(KeyInterface::class);
-    $key->method('getKeyValue')->willReturn('super_secret_123');
-
-    $key_repository = $this->createMock(KeyRepositoryInterface::class);
-    $key_repository->method('getKey')->with('greenhouse_webhook_key')->willReturn($key);
-
-    $client = $this->createMock(GreenhouseClientInterface::class);
-    $client->expects($this->never())->method('warmCache');
-
-    $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
-    $cache_tags_invalidator->expects($this->never())->method('invalidateTags');
-
-    $logger = $this->createMock(LoggerInterface::class);
-
-    $controller = new GreenhouseWebhookController(
-      $config_factory,
-      $client,
-      $cache_tags_invalidator,
-      $logger,
-      $key_repository
-    );
-
-    $request = Request::create(
+  private function buildRequest(string $body, array $server = []): Request {
+    return Request::create(
       '/api/v1/greenhouse/webhook',
       'POST',
       [],
       [],
       [],
-      ['PHP_AUTH_PW' => 'super_secret_123', 'CONTENT_TYPE' => 'application/json'],
-      json_encode(['action' => 'ping'])
+      $server + ['CONTENT_TYPE' => 'application/json'],
+      $body,
     );
-
-    $response = $controller->handle($request);
-    $this->assertEquals(200, $response->getStatusCode());
-    $data = json_decode((string) $response->getContent(), TRUE);
-    $this->assertEquals('success', $data['status']);
-    $this->assertEquals('Webhook ping acknowledged.', $data['message']);
   }
 
   /**
-   * Tests job post event triggers tag invalidation and cache re-warm.
+   * Builds a request signed the way Greenhouse signs it.
    */
-  public function testHandleJobPostEventSuccess(): void {
-    $config = $this->createMock(ImmutableConfig::class);
-    $config->method('get')->willReturnMap([
-      ['webhook_key', 'greenhouse_webhook_key'],
-      ['webhook_secret', ''],
+  private function buildSignedRequest(string $body, string $secret = self::SECRET): Request {
+    return $this->buildRequest($body, [
+      'HTTP_SIGNATURE' => 'sha256 ' . hash_hmac('sha256', $body, $secret),
     ]);
+  }
 
-    $config_factory = $this->createMock(ConfigFactoryInterface::class);
-    $config_factory->method('get')->with('civicactions_greenhouse.settings')->willReturn($config);
+  /**
+   * Asserts the request is rejected with 403 and has no side effects.
+   */
+  private function assertRejected(GreenhouseWebhookController $controller, Request $request): void {
+    $this->invalidator->expects($this->never())->method('invalidateTags');
+    $this->client->expects($this->never())->method('warmCache');
 
-    $key = $this->createMock(KeyInterface::class);
-    $key->method('getKeyValue')->willReturn('super_secret_123');
+    $response = $controller->handle($request);
+    $this->assertSame(403, $response->getStatusCode());
+    $this->assertSame('error', json_decode((string) $response->getContent(), TRUE)['status']);
+  }
 
-    $key_repository = $this->createMock(KeyRepositoryInterface::class);
-    $key_repository->method('getKey')->with('greenhouse_webhook_key')->willReturn($key);
+  /**
+   * Tests that a validly signed ping is acknowledged without invalidation.
+   */
+  public function testSignedPingIsAcknowledged(): void {
+    $this->invalidator->expects($this->never())->method('invalidateTags');
+    $this->client->expects($this->never())->method('warmCache');
 
-    $client = $this->createMock(GreenhouseClientInterface::class);
-    $client->expects($this->once())->method('warmCache')->willReturn(['jobs' => []]);
+    $response = $this->buildController()->handle($this->buildSignedRequest('{"action":"ping"}'));
 
-    $cache_tags_invalidator = $this->createMock(CacheTagsInvalidatorInterface::class);
-    $cache_tags_invalidator->expects($this->once())
+    $this->assertSame(200, $response->getStatusCode());
+    $this->assertSame('Webhook ping acknowledged.', json_decode((string) $response->getContent(), TRUE)['message']);
+  }
+
+  /**
+   * Tests that signed job post events invalidate and re-warm the cache.
+   */
+  #[DataProvider('jobPostActionProvider')]
+  public function testSignedJobPostEventInvalidatesAndWarms(string $action): void {
+    $this->invalidator->expects($this->once())
       ->method('invalidateTags')
       ->with(['civicactions_greenhouse:jobs']);
+    $this->client->expects($this->once())->method('warmCache')->willReturn(['jobs' => []]);
 
-    $logger = $this->createMock(LoggerInterface::class);
+    $body = json_encode(['action' => $action, 'payload' => ['job_post' => ['id' => 1]]]);
+    $response = $this->buildController()->handle($this->buildSignedRequest($body));
 
-    $controller = new GreenhouseWebhookController(
-      $config_factory,
-      $client,
-      $cache_tags_invalidator,
-      $logger,
-      $key_repository
+    $this->assertSame(200, $response->getStatusCode());
+    $this->assertSame($action, json_decode((string) $response->getContent(), TRUE)['action']);
+  }
+
+  /**
+   * Provides the job post actions that trigger invalidation.
+   */
+  public static function jobPostActionProvider(): array {
+    return [
+      'created' => ['job_post_created'],
+      'updated' => ['job_post_updated'],
+      'deleted' => ['job_post_deleted'],
+    ];
+  }
+
+  /**
+   * Tests that unrelated actions are acknowledged without invalidation.
+   */
+  public function testSignedUnrelatedActionDoesNotInvalidate(): void {
+    $this->invalidator->expects($this->never())->method('invalidateTags');
+    $this->client->expects($this->never())->method('warmCache');
+
+    $response = $this->buildController()->handle($this->buildSignedRequest('{"action":"candidate_hired"}'));
+
+    $this->assertSame(200, $response->getStatusCode());
+  }
+
+  /**
+   * Tests that surrounding whitespace in the stored key value is ignored.
+   */
+  public function testKeyValueWhitespaceIsTrimmed(): void {
+    $controller = $this->buildController(key_value: "  " . self::SECRET . "\n");
+
+    $response = $controller->handle($this->buildSignedRequest('{"action":"ping"}'));
+
+    $this->assertSame(200, $response->getStatusCode());
+  }
+
+  /**
+   * Tests that an uppercase hex digest is accepted.
+   */
+  public function testUppercaseDigestIsAccepted(): void {
+    $body = '{"action":"ping"}';
+    $request = $this->buildRequest($body, [
+      'HTTP_SIGNATURE' => 'sha256 ' . strtoupper(hash_hmac('sha256', $body, self::SECRET)),
+    ]);
+
+    $this->assertSame(200, $this->buildController()->handle($request)->getStatusCode());
+  }
+
+  /**
+   * Tests rejection when no webhook key is configured.
+   */
+  public function testRejectsWhenKeyNotConfigured(): void {
+    $this->assertRejected(
+      $this->buildController(key_id: ''),
+      $this->buildSignedRequest('{"action":"ping"}', ''),
     );
+  }
 
-    $request = Request::create(
-      '/api/v1/greenhouse/webhook',
-      'POST',
-      [],
-      [],
-      [],
-      ['PHP_AUTH_PW' => 'super_secret_123', 'CONTENT_TYPE' => 'application/json'],
-      json_encode([
-        'action' => 'job_post_created',
-        'payload' => ['id' => 999],
-      ])
+  /**
+   * Tests rejection when the configured key entity does not exist.
+   */
+  public function testRejectsWhenKeyEntityMissing(): void {
+    $this->assertRejected(
+      $this->buildController(key_value: NULL),
+      $this->buildSignedRequest('{"action":"ping"}'),
     );
+  }
 
-    $response = $controller->handle($request);
-    $this->assertEquals(200, $response->getStatusCode());
-    $data = json_decode((string) $response->getContent(), TRUE);
-    $this->assertEquals('success', $data['status']);
-    $this->assertEquals('job_post_created', $data['action']);
+  /**
+   * Tests rejection when the key entity has an empty value.
+   */
+  public function testRejectsWhenKeyValueEmpty(): void {
+    $this->assertRejected(
+      $this->buildController(key_value: '   '),
+      $this->buildSignedRequest('{"action":"ping"}', ''),
+    );
+  }
+
+  /**
+   * Tests rejection of requests without a Signature header.
+   */
+  public function testRejectsMissingSignature(): void {
+    $this->assertRejected(
+      $this->buildController(),
+      $this->buildRequest('{"action":"job_post_created"}'),
+    );
+  }
+
+  /**
+   * Tests rejection of a signature made with the wrong secret.
+   */
+  public function testRejectsWrongSecret(): void {
+    $this->assertRejected(
+      $this->buildController(),
+      $this->buildSignedRequest('{"action":"job_post_created"}', 'wrong-secret'),
+    );
+  }
+
+  /**
+   * Tests rejection when the body was altered after signing.
+   */
+  public function testRejectsTamperedBody(): void {
+    $signature = hash_hmac('sha256', '{"action":"ping"}', self::SECRET);
+    $request = $this->buildRequest('{"action":"job_post_deleted"}', [
+      'HTTP_SIGNATURE' => 'sha256 ' . $signature,
+    ]);
+
+    $this->assertRejected($this->buildController(), $request);
+  }
+
+  /**
+   * Tests rejection of malformed Signature header values.
+   */
+  #[DataProvider('malformedSignatureProvider')]
+  public function testRejectsMalformedSignatureHeader(string $header): void {
+    $request = $this->buildRequest('{"action":"ping"}', ['HTTP_SIGNATURE' => $header]);
+
+    $this->assertRejected($this->buildController(), $request);
+  }
+
+  /**
+   * Provides malformed Signature header values.
+   */
+  public static function malformedSignatureProvider(): array {
+    $digest = hash_hmac('sha256', '{"action":"ping"}', self::SECRET);
+    return [
+      'digest without algorithm' => [$digest],
+      'wrong algorithm' => ['sha1 ' . $digest],
+      'truncated digest' => ['sha256 ' . substr($digest, 0, 32)],
+      'non-hex digest' => ['sha256 ' . str_repeat('z', 64)],
+      'empty' => [''],
+    ];
+  }
+
+  /**
+   * Tests that HTTP Basic Auth containing the secret is not accepted.
+   */
+  #[DataProvider('basicAuthProvider')]
+  public function testRejectsBasicAuthWithSecret(array $server): void {
+    $this->assertRejected(
+      $this->buildController(),
+      $this->buildRequest('{"action":"job_post_created"}', $server),
+    );
+  }
+
+  /**
+   * Provides Basic Auth credential placements that must be rejected.
+   */
+  public static function basicAuthProvider(): array {
+    return [
+      'secret as password' => [['PHP_AUTH_USER' => 'greenhouse', 'PHP_AUTH_PW' => self::SECRET]],
+      'secret as username' => [['PHP_AUTH_USER' => self::SECRET, 'PHP_AUTH_PW' => '']],
+      'authorization header' => [['HTTP_AUTHORIZATION' => 'Basic ' . base64_encode(':' . self::SECRET)]],
+    ];
+  }
+
+  /**
+   * Tests that signed but invalid payloads return 400.
+   */
+  #[DataProvider('invalidPayloadProvider')]
+  public function testSignedInvalidPayloadReturnsBadRequest(string $body): void {
+    $this->invalidator->expects($this->never())->method('invalidateTags');
+
+    $response = $this->buildController()->handle($this->buildSignedRequest($body));
+
+    $this->assertSame(400, $response->getStatusCode());
+  }
+
+  /**
+   * Provides signed payloads that are malformed or missing an action.
+   */
+  public static function invalidPayloadProvider(): array {
+    return [
+      'empty body' => [''],
+      'malformed json' => ['{not json'],
+      'json scalar' => ['"ping"'],
+      'missing action' => ['{"payload":{}}'],
+      'empty action' => ['{"action":""}'],
+      'non-string action' => ['{"action":["ping"]}'],
+    ];
   }
 
 }

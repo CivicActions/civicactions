@@ -9,6 +9,8 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Psr7\Request as GuzzleRequest;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -105,6 +107,57 @@ class GreenhouseClientTest extends TestCase {
     $this->assertEquals('UX Researcher', $result['jobs'][1]['title']);
     $this->assertFalse($result['from_cache']);
     $this->assertNull($result['error']);
+  }
+
+  /**
+   * Builds a client whose HTTP request throws a connection error.
+   */
+  private function buildFailingClient(CacheBackendInterface $cache): GreenhouseClient {
+    $http_client = $this->createMock(ClientInterface::class);
+    $http_client->method('request')->willThrowException(
+      new ConnectException('Connection timed out', new GuzzleRequest('GET', 'https://boards-api.greenhouse.io'))
+    );
+
+    $config = $this->createMock(ImmutableConfig::class);
+    $config->method('get')->with('board_token')->willReturn('civicactions');
+    $config_factory = $this->createMock(ConfigFactoryInterface::class);
+    $config_factory->method('get')->willReturn($config);
+
+    return new GreenhouseClient($http_client, $config_factory, $cache, $this->createMock(LoggerInterface::class));
+  }
+
+  /**
+   * Tests that a failed refresh serves the invalidated (stale) job list.
+   */
+  public function testFetchFailureServesStaleCacheAfterInvalidation(): void {
+    $stale_jobs = [['id' => 1, 'title' => 'Engineer', 'url' => 'https://example.com/1', 'location' => '']];
+    $cache = $this->createMock(CacheBackendInterface::class);
+    $cache->expects($this->never())->method('set');
+    // The item was invalidated by the webhook, so only allow_invalid finds it.
+    $cache->method('get')->willReturnCallback(
+      fn (string $cid, bool $allow_invalid = FALSE) => $allow_invalid ? (object) ['data' => $stale_jobs] : FALSE
+    );
+
+    $result = $this->buildFailingClient($cache)->fetchJobs(TRUE);
+
+    $this->assertSame($stale_jobs, $result['jobs']);
+    $this->assertTrue($result['from_cache']);
+    $this->assertNotNull($result['error']);
+  }
+
+  /**
+   * Tests the empty error result when the API fails and nothing is cached.
+   */
+  public function testFetchFailureWithoutCacheReturnsError(): void {
+    $cache = $this->createMock(CacheBackendInterface::class);
+    $cache->method('get')->willReturn(FALSE);
+    $cache->expects($this->never())->method('set');
+
+    $result = $this->buildFailingClient($cache)->fetchJobs(TRUE);
+
+    $this->assertSame([], $result['jobs']);
+    $this->assertFalse($result['from_cache']);
+    $this->assertSame('Currently unable to retrieve job postings.', $result['error']);
   }
 
 }

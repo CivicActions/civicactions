@@ -1,0 +1,8 @@
+services:
+  civicactions_greenhouse.commands:
+    class: Drupal\civicactions_greenhouse\Commands\GreenhouseCommands
+    arguments:
+      - '@civicactions_greenhouse.client'
+      - '@cache_tags.invalidator'
+    tags:
+      - { name: drush.command }
