@@ -65,11 +65,6 @@
 
 .ca-hero__title {
   margin: 0;
-  color: var(--primary-blue, #162e51);
-  font-family: var(--font-heading, "Merriweather", Georgia, serif);
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.3;
 }
 
 .ca-hero__summary {
@@ -133,11 +128,6 @@
 }
 
 @media (min-width: 1024px) {
-  .ca-hero__title {
-    font-size: 48px;
-    line-height: 1.4;
-  }
-
   .ca-hero__inner {
     padding: var(--size-14, 56px) var(--container-spacing-md, 48px);
   }
@@ -202,11 +192,6 @@
 
   .ca-hero__title {
     margin: 0;
-    color: var(--primary-blue, #162e51);
-    font-family: var(--font-heading, "Merriweather", Georgia, serif);
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 1.3;
   }
 
   .ca-hero__summary {
@@ -266,11 +251,6 @@
   }
 
   @media (min-width: 1024px) {
-    .ca-hero__title {
-      font-size: 48px;
-      line-height: 1.4;
-    }
-
     .ca-hero__inner {
       padding: var(--size-14, 56px) var(--container-spacing-md, 48px);
     }
