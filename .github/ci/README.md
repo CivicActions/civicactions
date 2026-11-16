@@ -38,7 +38,7 @@ Evaluates a JSON window configuration against a given timestamp in a specified t
 ### 4. `pantheon.sh`
 Bash helper library for interacting with Pantheon environments via Terminus.
 - `env_sha <env>`: retrieves deployed commit SHA from Pantheon code log.
-- `deploy_id <env>`: retrieves short deployment identifier via `drush php:eval`.
+- `latest_deployment <env>`: prints the commit SHA and status (`in_progress`, `success`, `failure`, or `pending`) of the newest GitHub deployment the Pantheon GitHub app recorded for the environment.
 - `wait_workflows <env> [timeout]`: waits (default 30m) for active Pantheon platform workflows to complete; fails if the latest workflow for the env failed.
 - `drush <env> -- ...`: executes Drush with retries and quiet SSH output.
 

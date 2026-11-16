@@ -31,10 +31,24 @@ except Exception:
 "
 }
 
-# Fetch PANTHEON_DEPLOYMENT_IDENTIFIER (7-character short SHA) via drush php:eval
-deploy_id() {
+# Print "<sha> <state>" for the most recent GitHub deployment of an environment.
+# Pantheon's GitHub app records a deployment for each build with the exact
+# commit it deployed and an in_progress/success/failure status. The state is
+# "pending" when no status has been posted yet; prints nothing if there is no
+# deployment. Uses DEPLOYMENTS_TOKEN when set, otherwise GH_TOKEN.
+latest_deployment() {
   local env="$1"
-  terminus drush "${SITE}.${env}" -- php:eval 'echo getenv("PANTHEON_DEPLOYMENT_IDENTIFIER") ?: "";' 2>/dev/null || true
+  local repo="${REPO:-${GITHUB_REPOSITORY}}"
+  local token="${DEPLOYMENTS_TOKEN:-${GH_TOKEN:-}}"
+  local dep id sha state
+  dep=$(GH_TOKEN="${token}" gh api "repos/${repo}/deployments?environment=${env}&per_page=1" \
+    -q '.[0] | select(.) | "\(.id) \(.sha)"') || return 1
+  [[ -z "${dep}" ]] && return 0
+  id="${dep%% *}"
+  sha="${dep##* }"
+  state=$(GH_TOKEN="${token}" gh api "repos/${repo}/deployments/${id}/statuses?per_page=1" \
+    -q '.[0].state // "pending"') || return 1
+  echo "${sha} ${state}"
 }
 
 # Check if a short SHA matches the beginning of a full SHA
