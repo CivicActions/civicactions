@@ -8,7 +8,7 @@
 
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--section-gap);
+  column-gap: var(--section-gap);
   max-width: var(--container-max-width);
   margin-inline: auto;
 }
@@ -37,6 +37,11 @@
 
 .ca-section__column {
   min-width: 0;
+  margin-bottom: 2rem;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 }
 
 /* Double selector hack to force consistent spacing for components in columns. */
