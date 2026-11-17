@@ -1,0 +1,1 @@
+import{a as e,n as t}from"./rolldown-runtime-sJBDdmOt.js";import{a as n,n as r,t as i}from"./twig-DMxubsYZ.js";function a(){return(a=t((()=>{})))()}var o,s;function c(){return(c=t((()=>{o=e(n()),r(),s=e=>e.extendFilter(`toSrcSet`,()=>()=>null),s(o.default),i(o.default),o.default.cache(!1)})))()}export{a as n,c as t};
