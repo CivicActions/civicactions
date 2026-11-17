@@ -88,9 +88,9 @@
   --line-height-body: 1.375;
   --line-height-body-large: 1.7;
   --font-size-body-large: var(--size-5);
-
-  /* Base type scale, measured from the legacy site. Larger sizes are set in the media queries below. */
   --text-body: #1b1b1b;
+
+  /* Base type scale. Larger sizes are set in the media queries below. */
   --font-size-body: var(--size-4, 1rem);
   --font-size-h1: var(--size-6, 1.5rem);
   --font-size-h2: var(--size-5, 1.25rem);
@@ -120,7 +120,6 @@
     --font-size-h6: 0.875rem;
   }
 }
-/*  */
 @media (min-width: 1201px) {
   :root {
     --font-size-h2: var(--size-9);
@@ -145,6 +144,7 @@ h4,
 h5,
 h6 {
   margin-top: 0;
+  margin-bottom: 0;
   color: var(--primary-blue);
   font-family: var(--font-heading);
   font-weight: 400;
@@ -171,32 +171,32 @@ h6 {
 }
 
 /* Styles for .text-formatted content/CKEDitor content */
+.ca-content :is(h2, h3, h4, h5, h6),
 .text-formatted :is(h2, h3, h4, h5, h6) {
   margin-top: var(--size-6);
-  margin-bottom: 0;
 
-  & + :is(h2, h3, h4, h5, h6),
-  & + :is(p, ul, ol) {
+  & + :is(h2, h3, h4, h5, h6) {
     margin-top: 0.5rem;
   }
 
   @media (min-width: 1024px) {
     margin-top: var(--size-10);
-    margin-bottom: .5em;
-
-    & + :is(h2, h3, h4, h5, h6) {
-      margin-top: 0;
-    }
   }
 }
 
+p,
+ul,
+ol {
+  margin-top: 0.5rem;
+}
 li + li {
   margin-top: var(--size-2);
 }
 
 a {
-  text-decoration: underline;
   color: var(--link-internal);
+  text-decoration: underline;
+  text-underline-offset: var(--size-1, 0.25rem);
 }
 
 a:not(.ca-button):hover,
