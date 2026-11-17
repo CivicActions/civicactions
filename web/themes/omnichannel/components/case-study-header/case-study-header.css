@@ -30,7 +30,9 @@
 }
 
 @scope (.ca-case-study-header) {
-  padding-inline: 0;
+  :where(:scope) {
+    padding-inline: 0;
+  }
 
   .ca-case-study-header__inner {
     display: grid;

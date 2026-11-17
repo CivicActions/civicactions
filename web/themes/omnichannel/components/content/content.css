@@ -141,11 +141,11 @@
     margin: 0 0 var(--size-4, 1rem);
   }
 
-  > :first-child {
+  :where(:scope) > :first-child {
     margin-top: 0;
   }
 
-  > :last-child {
+  :where(:scope) > :last-child {
     margin-bottom: 0;
   }
 
