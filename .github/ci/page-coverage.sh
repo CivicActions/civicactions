@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Check that every node type with published content on dev is covered in pages.yml
-# Warns if any bundle is missing (FR-020). Does not fail build.
+# Check that every node type with published content is covered in pages.yml
+# (FR-020). Does not fail the build. Prints a Markdown note to stdout only when a
+# type is missing, for the PR comment; log output and the annotation go to stderr.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PAGES_FILE="${SCRIPT_DIR}/../../tests/e2e/pages.yml"
@@ -15,7 +16,7 @@ fi
 ENV="${1:-dev}"
 source "${SCRIPT_DIR}/pantheon.sh"
 
-echo "Querying active published node types on ${ENV}..."
+echo "Querying active published node types on ${ENV}..." >&2
 DEV_TYPES_RAW=$(drush "${ENV}" -- php:eval '
 $bundles = [];
 foreach (\Drupal::entityTypeManager()->getStorage("node_type")->loadMultiple() as $t) {
@@ -32,7 +33,7 @@ foreach (\Drupal::entityTypeManager()->getStorage("node_type")->loadMultiple() a
 echo json_encode($bundles);
 ' 2>/dev/null || echo "[]")
 
-python3 -c "
+python3 - "${DEV_TYPES_RAW}" "${PAGES_FILE}" <<'PY'
 import sys, json, re
 
 dev_types = []
@@ -43,7 +44,7 @@ try:
     if start != -1 and end != -1:
         dev_types = json.loads(s[start:end+1])
 except Exception as e:
-    print(f'Warning: failed to query node types from Drupal: {e}')
+    print(f'Warning: failed to query node types from Drupal: {e}', file=sys.stderr)
 
 with open(sys.argv[2], 'r') as f:
     content = f.read()
@@ -54,7 +55,10 @@ covered_types = set(re.findall(r'kind:\s*node:([a-zA-Z0-9_]+)', content))
 missing = [t for t in dev_types if t not in covered_types]
 
 if missing:
-    print('::warning::The following content types have published nodes on dev but lack test coverage in pages.yml: ' + ', '.join(missing))
+    names = ', '.join(missing)
+    print(f'::warning::Content types with published nodes but no page in tests/e2e/pages.yml: {names}', file=sys.stderr)
+    print('> [!NOTE]')
+    print('> Content types with published nodes but no page in `tests/e2e/pages.yml`: ' + ', '.join(f'`{t}`' for t in missing))
 else:
-    print('All published content types on dev are represented in pages.yml.')
-" "${DEV_TYPES_RAW}" "${PAGES_FILE}"
+    print('All published content types are represented in pages.yml.', file=sys.stderr)
+PY

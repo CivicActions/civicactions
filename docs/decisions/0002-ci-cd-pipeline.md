@@ -26,6 +26,8 @@ To maintain code quality, verify visual and functional parity across responsive 
 3. **No Reference Images in Version Control**:
    - Visual regression captures `dev` baselines dynamically in the same job before comparing against the review environment across desktop (1440px) and mobile (390px) viewports.
    - Visual differences on developer PRs are informational and non-blocking; differences on dependency bot PRs block auto-merge.
+   - Each difference in the PR comment links to a side-by-side image (dev reference, review environment, highlighted changes) uploaded as an unzipped workflow artifact, kept for 14 days.
+   - Because `dev` is the reference, review-environment content must not predate `dev`'s last database replacement. Bot PR environments re-clone content from `dev` automatically in that case; developer PRs get a warning, since reviewers may have entered content on the review environment.
 4. **Dependabot Classification & Auto-Merge**:
    - Dependabot updates are classified by diffing lockfiles across all packages.
    - Only patch/minor updates resolving known advisories (with Drupal core strictly patch-only) and touching only manifest/lock files receive `deps:security-verified` and auto-merge.

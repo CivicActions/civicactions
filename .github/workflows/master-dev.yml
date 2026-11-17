@@ -18,6 +18,8 @@ jobs:
   sync-dev:
     name: "Sync & Verify Dev Environment"
     runs-on: ubuntu-latest
+    outputs:
+      superseded: ${{ steps.wait-dev.outputs.superseded }}
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -38,8 +40,10 @@ jobs:
       - name: Wait for Dev to Deploy Master Commit
         id: wait-dev
         env:
+          GH_TOKEN: ${{ github.token }}
           HEAD_SHA: ${{ github.sha }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+          REPO: ${{ github.repository }}
         run: |
           source .github/ci/pantheon.sh
 
@@ -56,6 +60,16 @@ jobs:
               break
             fi
 
+            # Pantheon builds only the newest commit when pushes land close
+            # together, so dev may never show this one. The newer push's run
+            # (queued on the pantheon-deploy lock) verifies dev instead.
+            MASTER_SHA=$(gh api "repos/${REPO}/commits/master" -q .sha 2>/dev/null || true)
+            if [[ -n "${MASTER_SHA}" && "${MASTER_SHA}" != "${HEAD_SHA}" ]]; then
+              echo "master has moved on to ${MASTER_SHA:0:7}; its run verifies dev. Skipping ${HEAD_SHA:0:7}."
+              echo "superseded=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
             current_time=$(date +%s)
             if (( current_time - start_time > timeout )); then
               echo "Timed out waiting for dev to deploy ${HEAD_SHA}." >&2
@@ -65,7 +79,8 @@ jobs:
             sleep 15
           done
 
-          wait_workflows dev
+          # Dev code syncs have taken up to 40 minutes.
+          wait_workflows dev 3600
           echo "Running drush deploy on dev..."
           drush dev -- deploy
 
@@ -73,6 +88,7 @@ jobs:
           .github/ci/health-check.sh dev --phase post
 
       - name: Setup Node.js for smoke tests
+        if: steps.wait-dev.outputs.superseded != 'true'
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22"
@@ -80,12 +96,14 @@ jobs:
           cache-dependency-path: tests/e2e/package-lock.json
 
       - name: Get Pantheon bot bypass token
+        if: steps.wait-dev.outputs.superseded != 'true'
         env:
           TERMINUS_MACHINE_TOKEN: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
         run: node .github/ci/pantheon-bot-bypass.mjs
 
       - name: Run Smoke Tests against Dev
+        if: steps.wait-dev.outputs.superseded != 'true'
         working-directory: tests/e2e
         env:
           BASE_URL: "https://dev-${{ vars.PANTHEON_SITE || 'civicactions' }}.pantheonsite.io"
@@ -110,6 +128,7 @@ jobs:
   check-auto-deploy:
     name: "Evaluate Auto-Deploy Gate"
     needs: [sync-dev]
+    if: needs.sync-dev.outputs.superseded != 'true'
     permissions:
       contents: read
       deployments: write

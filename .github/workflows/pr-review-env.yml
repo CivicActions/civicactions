@@ -6,8 +6,15 @@ on:
   issue_comment:
     types: [created]
 
+# Every PR comment starts this workflow. Only Pantheon's "Successfully created"
+# comments share the per-PR group; other comments get a run-scoped group so they
+# can't cancel an in-progress review-env run.
 concurrency:
-  group: review-env-${{ github.event.issue.number }}
+  group: >-
+    ${{ github.event.comment.user.login == 'pantheon-site-integration[bot]'
+    && startsWith(github.event.comment.body, 'Successfully created multidev environment')
+    && format('review-env-{0}', github.event.issue.number)
+    || format('review-env-ignored-{0}', github.run_id) }}
   cancel-in-progress: true
 
 permissions:
@@ -30,6 +37,8 @@ jobs:
       env_url: ${{ steps.prep.outputs.env_url }}
       pr_number: ${{ steps.prep.outputs.pr_number }}
       is_bot_pr: ${{ steps.prep.outputs.is_bot_pr }}
+      content_at: ${{ steps.prep.outputs.content_at }}
+      content_note: ${{ steps.prep.outputs.content_note }}
       should_run_tests: ${{ steps.prep.outputs.should_run_tests }}
     steps:
       - name: Generate GitHub App token
@@ -125,6 +134,36 @@ jobs:
           echo "Pinging ${ENV_URL}..."
           curl -sSf -m 30 "${ENV_URL}" >/dev/null
 
+          is_bot_pr="false"
+          if [[ "${AUTHOR_LOGIN}" == "dependabot[bot]" || "${LABELS}" == *"deps:"* ]]; then
+            is_bot_pr="true"
+          fi
+
+          # 5b. Visual comparisons use dev as the reference, so content copied
+          # before dev's database was last replaced makes differences
+          # meaningless. Re-copy automatically on bot PRs; on other PRs,
+          # reviewers may have entered content here, so warn instead.
+          DEV_DB_AT=$(last_db_clone_at dev)
+          CONTENT_AT=$(terminus env:info "${PANTHEON_SITE}.${ENV_NAME}" --field=created 2>/dev/null | cut -d. -f1)
+          CONTENT_AT=${CONTENT_AT:-0}
+          ENV_CLONE_AT=$(last_db_clone_at "${ENV_NAME}")
+          if (( ENV_CLONE_AT > CONTENT_AT )); then
+            CONTENT_AT=${ENV_CLONE_AT}
+          fi
+          CONTENT_NOTE=""
+          if (( DEV_DB_AT > CONTENT_AT )); then
+            if [[ "${is_bot_pr}" == "true" ]]; then
+              echo "Dev's database was replaced after ${ENV_NAME}'s content was copied. Re-copying content from dev..."
+              echo "stage=refreshing content from dev" >> "$GITHUB_OUTPUT"
+              terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --yes
+              CONTENT_AT=$(date +%s)
+            else
+              echo "::warning::${ENV_NAME} content predates dev's last database replacement; visual differences may come from content."
+              CONTENT_NOTE='> [!WARNING]
+          > The content on this environment was copied before the dev database was last replaced, so visual differences may come from content rather than code. Add the `refresh-content` label to copy the current dev content (this overwrites content entered on this environment).'
+            fi
+          fi
+
           # 6. Set ci/review-env to pending (Running)
           gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"             -f state="pending"             -f context="ci/review-env"             -f description="Running Drupal deploy & health checks" >/dev/null
 
@@ -138,17 +177,16 @@ jobs:
           echo "Running pre-test health check..."
           .github/ci/health-check.sh "${ENV_NAME}" --phase pre
 
-          is_bot_pr="false"
-          if [[ "${AUTHOR_LOGIN}" == "dependabot[bot]" || "${LABELS}" == *"deps:"* ]]; then
-            is_bot_pr="true"
-          fi
-
           {
             echo "verified_sha=${VERIFIED_SHA}"
             echo "env_name=${ENV_NAME}"
             echo "env_url=${ENV_URL}"
             echo "pr_number=${PR_NUMBER}"
             echo "is_bot_pr=${is_bot_pr}"
+            echo "content_at=${CONTENT_AT}"
+            echo "content_note<<CONTENT_NOTE_EOF"
+            echo "${CONTENT_NOTE}"
+            echo "CONTENT_NOTE_EOF"
             echo "should_run_tests=true"
           } >> "$GITHUB_OUTPUT"
 
@@ -291,6 +329,22 @@ jobs:
           path: tests/e2e/test-results
         continue-on-error: true
 
+      - name: Install CI script dependencies
+        run: npm ci --prefix .github/ci
+        continue-on-error: true
+
+      # Runs in a JavaScript action because artifact uploads need the Actions
+      # runtime token, which plain run steps don't receive.
+      - name: Upload visual difference images
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PR_NUMBER: ${{ needs.verify-and-deploy.outputs.pr_number }}
+        with:
+          script: |
+            const { run } = await import(`${process.env.GITHUB_WORKSPACE}/.github/ci/vrt-diff-links.mjs`);
+            await run();
+        continue-on-error: true
+
       - name: Post-test Diagnostics & Reporting
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -301,6 +355,8 @@ jobs:
           PR_NUMBER: ${{ needs.verify-and-deploy.outputs.pr_number }}
           IS_BOT_PR: ${{ needs.verify-and-deploy.outputs.is_bot_pr }}
           BROWSER_RESULT: ${{ needs.browser-tests.result }}
+          CONTENT_AT: ${{ needs.verify-and-deploy.outputs.content_at }}
+          CONTENT_NOTE: ${{ needs.verify-and-deploy.outputs.content_note }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
           REPO: ${{ github.repository }}
         run: |
@@ -311,7 +367,7 @@ jobs:
           .github/ci/health-check.sh "${ENV_NAME}" --phase post
 
           # 2. Check for missing page coverage warnings
-          COVERAGE_WARNINGS=$(.github/ci/page-coverage.sh "${ENV_NAME}" 2>&1 || true)
+          COVERAGE_WARNINGS=$(.github/ci/page-coverage.sh "${ENV_NAME}" || true)
 
           # 3. Check visual regression results
           node --input-type=module -e "
@@ -319,8 +375,12 @@ jobs:
           import fs from 'node:fs';
 
           const items = parseVisualResults('./tests/e2e/test-results/results.json');
-          const table = formatVisualMarkdownTable(items);
-          const hasDiff = items.some(i => i.status === 'diff' || i.status === 'reference_unavailable');
+          const links = fs.existsSync('vrt-links.json') ? JSON.parse(fs.readFileSync('vrt-links.json', 'utf8')) : {};
+          let table = formatVisualMarkdownTable(items, links);
+          if (Object.keys(links).length > 0) {
+            table += '\n_Difference links open a side-by-side image: dev reference, this environment, highlighted changes. GitHub sign-in required; kept for 14 days._\n';
+          }
+          const hasDiff = items.some(i => ['diff', 'reference_unavailable', 'error'].includes(i.status));
 
           fs.writeFileSync('visual-table.md', table);
           fs.writeFileSync('has-diff.txt', hasDiff ? 'true' : 'false');
@@ -352,9 +412,9 @@ jobs:
           gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"             -f state="${FINAL_STATE}"             -f context="ci/review-env"             -f description="${FINAL_DESC}" >/dev/null
 
           # 6. Build PR comment
-          CREATED_AT=$(terminus env:info "${PANTHEON_SITE}.${ENV_NAME}" --field=created)
-          COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Cloned At**: <t:%s:f>\n- **Functional & A11y Tests**: %s\n- **Drush Deploy & Health**: ✓ Passed\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s" \
-            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CREATED_AT}" "${BROWSER_RESULT}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
+          CONTENT_DATE=$(date -u -d "@${CONTENT_AT:-0}" '+%Y-%m-%d %H:%M UTC')
+          COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Copied From Dev**: %s\n- **Functional & A11y Tests**: %s\n- **Drush Deploy & Health**: ✓ Passed\n\n%s\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s" \
+            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CONTENT_DATE}" "${BROWSER_RESULT}" "${CONTENT_NOTE}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
 
           {
             echo "COMMENT_BODY<<EOF"

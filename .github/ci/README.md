@@ -39,6 +39,7 @@ Evaluates a JSON window configuration against a given timestamp in a specified t
 Bash helper library for interacting with Pantheon environments via Terminus.
 - `env_sha <env>`: retrieves deployed commit SHA from Pantheon code log.
 - `latest_deployment <env>`: prints the commit SHA and status (`in_progress`, `success`, `failure`, or `pending`) of the newest GitHub deployment the Pantheon GitHub app recorded for the environment.
+- `last_db_clone_at <env>`: prints the epoch time the environment's database was last replaced by a Pantheon "Clone database" workflow (0 if none in recent history).
 - `wait_workflows <env> [timeout]`: waits (default 30m) for active Pantheon platform workflows to complete; fails if the latest workflow for the env failed.
 - `drush <env> -- ...`: executes Drush with retries and quiet SSH output.
 
@@ -59,3 +60,8 @@ Runs Drupal runtime diagnostics using standard Drush commands (`core:requirement
 - Unattended automatic updates not disabled.
 
 Any Drush call that fails also fails the check, so an unreachable site never reports healthy.
+
+### 8. `vrt-diff-links.mjs`
+For each failed visual comparison in a review-environment run, composes a side-by-side PNG (dev reference, review environment, Playwright's highlighted diff) and uploads it as its own unzipped artifact, so the PR comment can link to it from the "⚠️ Difference" cell. It runs through `actions/github-script` because artifact uploads need the Actions runtime token, which plain `run` steps don't get. Links require GitHub sign-in and expire after 14 days.
+
+Dependencies (`@actions/artifact`, `pngjs`) are in `.github/ci/package.json`; install them with `npm ci --prefix .github/ci`.
