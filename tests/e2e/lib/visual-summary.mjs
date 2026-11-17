@@ -28,24 +28,14 @@ export function parseVisualResults(jsonPath) {
         }
         const pageId = pageIdMatch[1];
 
-        const result = (test.results && test.results[0]) || {};
-        let status = 'match';
-
-        if (result.status === 'skipped') {
-          status = 'stale';
-        } else if (result.status !== 'passed') {
-          const errorMsg = (result.errors || []).map((e) => e.message || '').join(' ');
-          if (errorMsg.includes('Snapshot comparison failed') || errorMsg.includes('Screenshot comparison failed')) {
-            status = 'diff';
-          } else {
-            status = 'reference_unavailable';
-          }
-        }
+        // With retries, the last attempt is the outcome.
+        const results = test.results || [];
+        const result = results[results.length - 1] || {};
 
         items.push({
           pageId,
           project: projectName,
-          status,
+          status: classifyResult(result),
         });
       }
     }
@@ -60,6 +50,25 @@ export function parseVisualResults(jsonPath) {
   }
 
   return items;
+}
+
+export function classifyResult(result) {
+  if (result.status === 'passed') {
+    return 'match';
+  }
+  if (result.status === 'skipped') {
+    return 'stale';
+  }
+  const errorMsg = (result.errors || []).map((e) => e.message || '').join(' ');
+  if (/snapshot doesn't exist/i.test(errorMsg)) {
+    return 'reference_unavailable';
+  }
+  // Current Playwright reports "expect(page).toHaveScreenshot(expected) failed";
+  // older versions said "Screenshot comparison failed".
+  if (/toHaveScreenshot|screenshot comparison failed|snapshot comparison failed/i.test(errorMsg)) {
+    return 'diff';
+  }
+  return 'error';
 }
 
 export function formatVisualMarkdownTable(items) {
@@ -95,6 +104,8 @@ function formatStatus(status) {
       return '⚠️ Difference';
     case 'reference_unavailable':
       return '❓ Reference Unavailable';
+    case 'error':
+      return '❌ Error';
     case 'stale':
       return 'ℹ️ Stale (Reference 404)';
     default:

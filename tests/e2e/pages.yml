@@ -82,6 +82,14 @@ pages:
     expect_status: 200
     masks: []
 
+  - id: node-case-study-fcc
+    path: /case-studies/building-modern-web-experience-fcc-customers
+    kind: node:case_study
+    smoke: false
+    visual: true
+    expect_status: 200
+    masks: []
+
   - id: node-page-privacy
     path: /privacy-policy
     kind: node:page

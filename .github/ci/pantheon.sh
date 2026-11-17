@@ -51,6 +51,26 @@ latest_deployment() {
   echo "${sha} ${state}"
 }
 
+# Print the epoch time an environment's database was last replaced by a
+# Pantheon "Clone database" workflow, or 0 if none is in the workflow history.
+last_db_clone_at() {
+  local env="$1"
+  terminus workflow:list "${SITE}" --format=json 2>/dev/null | python3 -c '
+import sys, json
+env = sys.argv[1]
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    print(0)
+    sys.exit()
+items = list(data.values()) if isinstance(data, dict) else data
+times = [int(w.get("finished_at") or 0) for w in items
+         if w.get("env") == env and w.get("status") == "succeeded"
+         and (w.get("workflow") or "").startswith("Clone database")]
+print(max(times, default=0))
+' "${env}"
+}
+
 # Check if a short SHA matches the beginning of a full SHA
 sha_matches() {
   local short="$1"

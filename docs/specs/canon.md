@@ -213,7 +213,7 @@ The homesite rebuild follows a trunk-based deployment model on Pantheon with Git
 - `deps:security-verified`: Applied to Dependabot PRs updating only manifest/lock files with patch/minor versions that resolve published security advisories.
 - `deps:tooling`: Applied to theme-local development tooling updates in `web/themes/omnichannel`.
 - `deps:needs-review`: Applied to version bumps, major updates, or PRs touching non-lock files. Requires human review.
-- `refresh-content`: Add this label to a PR to request that the next environment run re-clones the database and files from `dev`.
+- `refresh-content`: Add this label to a PR to request that the next environment run re-clones the database and files from `dev`. This overwrites content entered on the review environment. Dependency bot PRs re-clone automatically when `dev`'s database was replaced after their content was copied; other PRs get a warning in the review comment instead.
 
 ### Kill switches & configuration
 
