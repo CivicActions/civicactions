@@ -14,7 +14,6 @@ dependencies:
     - file
     - filter
     - google_analytics
-    - honeypot
     - klaro
     - media
     - navigation
