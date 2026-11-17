@@ -5,9 +5,13 @@
 
 .ca-social-links {
   display: flex;
-  margin: 0;
+  margin: var(--size-4) 0 0;
   padding: 0;
   list-style: none;
+
+  li {
+    margin-top: 0;
+  }
 }
 
 .ca-social-links__link {
