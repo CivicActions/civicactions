@@ -329,6 +329,22 @@ jobs:
           path: tests/e2e/test-results
         continue-on-error: true
 
+      - name: Install CI script dependencies
+        run: npm ci --prefix .github/ci
+        continue-on-error: true
+
+      # Runs in a JavaScript action because artifact uploads need the Actions
+      # runtime token, which plain run steps don't receive.
+      - name: Upload visual difference images
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PR_NUMBER: ${{ needs.verify-and-deploy.outputs.pr_number }}
+        with:
+          script: |
+            const { run } = await import(`${process.env.GITHUB_WORKSPACE}/.github/ci/vrt-diff-links.mjs`);
+            await run();
+        continue-on-error: true
+
       - name: Post-test Diagnostics & Reporting
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -359,7 +375,11 @@ jobs:
           import fs from 'node:fs';
 
           const items = parseVisualResults('./tests/e2e/test-results/results.json');
-          const table = formatVisualMarkdownTable(items);
+          const links = fs.existsSync('vrt-links.json') ? JSON.parse(fs.readFileSync('vrt-links.json', 'utf8')) : {};
+          let table = formatVisualMarkdownTable(items, links);
+          if (Object.keys(links).length > 0) {
+            table += '\n_Difference links open a side-by-side image: dev reference, this environment, highlighted changes. GitHub sign-in required; kept for 14 days._\n';
+          }
           const hasDiff = items.some(i => ['diff', 'reference_unavailable', 'error'].includes(i.status));
 
           fs.writeFileSync('visual-table.md', table);

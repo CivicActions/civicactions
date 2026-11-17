@@ -32,11 +32,14 @@ export function parseVisualResults(jsonPath) {
         const results = test.results || [];
         const result = results[results.length - 1] || {};
 
-        items.push({
-          pageId,
-          project: projectName,
-          status: classifyResult(result),
-        });
+        const item = { pageId, project: projectName, status: classifyResult(result) };
+        if (item.status === 'diff') {
+          const images = diffImagePaths(result.attachments || []);
+          if (images) {
+            item.images = images;
+          }
+        }
+        items.push(item);
       }
     }
 
@@ -50,6 +53,29 @@ export function parseVisualResults(jsonPath) {
   }
 
   return items;
+}
+
+/**
+ * Returns the expected/actual/diff image paths for a failed screenshot
+ * comparison, relative to Playwright's test-results directory (the uploaded
+ * artifact root), or null. Playwright copies the expected image into the same
+ * output directory as the actual and diff images.
+ */
+export function diffImagePaths(attachments) {
+  const marker = '/test-results/';
+  const diff = attachments.find((a) => /-diff\.png$/.test(a.name || '') && a.path);
+  const index = diff ? diff.path.lastIndexOf(marker) : -1;
+  if (index === -1) {
+    return null;
+  }
+  const diffPath = diff.path.slice(index + marker.length);
+  const dir = path.posix.dirname(diffPath);
+  const base = diff.name.replace(/-diff\.png$/, '');
+  return {
+    expected: `${dir}/${base}-expected.png`,
+    actual: `${dir}/${base}-actual.png`,
+    diff: diffPath,
+  };
 }
 
 export function classifyResult(result) {
@@ -71,7 +97,11 @@ export function classifyResult(result) {
   return 'error';
 }
 
-export function formatVisualMarkdownTable(items) {
+/**
+ * @param links Optional map of "<pageId>:<project>" to a URL for that
+ *   comparison's difference image.
+ */
+export function formatVisualMarkdownTable(items, links = {}) {
   if (items.length === 0) {
     return 'No visual regression comparisons were executed.';
   }
@@ -88,12 +118,16 @@ export function formatVisualMarkdownTable(items) {
   table += '|------|------------------|----------------|\n';
 
   for (const [pageId, statuses] of pagesMap.entries()) {
-    const desktopStatus = formatStatus(statuses['desktop']);
-    const mobileStatus = formatStatus(statuses['mobile']);
+    const desktopStatus = withLink(formatStatus(statuses['desktop']), links[`${pageId}:desktop`]);
+    const mobileStatus = withLink(formatStatus(statuses['mobile']), links[`${pageId}:mobile`]);
     table += `| \`${pageId}\` | ${desktopStatus} | ${mobileStatus} |\n`;
   }
 
   return table;
+}
+
+function withLink(label, url) {
+  return url ? `[${label}](${url})` : label;
 }
 
 function formatStatus(status) {

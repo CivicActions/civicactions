@@ -53,7 +53,29 @@ updates:
           - "patch"
           - "minor"
 
-  # 3. GitHub Actions
+  # 3. NPM (CI script dependencies)
+  - package-ecosystem: "npm"
+    directory: "/.github/ci"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 1
+    groups:
+      ci-scripts-version:
+        applies-to: "version-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+      ci-scripts-security:
+        applies-to: "security-updates"
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+          - "minor"
+
+  # 4. GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

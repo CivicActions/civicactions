@@ -1,0 +1,13 @@
+{
+  "name": "civicactions-ci",
+  "private": true,
+  "description": "Dependencies for CI scripts in .github/ci",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@actions/artifact": "^6.3.1",
+    "pngjs": "^7.0.0"
+  }
+}

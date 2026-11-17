@@ -60,3 +60,8 @@ Runs Drupal runtime diagnostics using standard Drush commands (`core:requirement
 - Unattended automatic updates not disabled.
 
 Any Drush call that fails also fails the check, so an unreachable site never reports healthy.
+
+### 8. `vrt-diff-links.mjs`
+For each failed visual comparison in a review-environment run, composes a side-by-side PNG (dev reference, review environment, Playwright's highlighted diff) and uploads it as its own unzipped artifact, so the PR comment can link to it from the "⚠️ Difference" cell. It runs through `actions/github-script` because artifact uploads need the Actions runtime token, which plain `run` steps don't get. Links require GitHub sign-in and expire after 14 days.
+
+Dependencies (`@actions/artifact`, `pngjs`) are in `.github/ci/package.json`; install them with `npm ci --prefix .github/ci`.
