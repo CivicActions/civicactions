@@ -20,45 +20,12 @@
   margin-left: auto;
 }
 
-.ca-content h2,
-.ca-content h3,
-.ca-content h4,
-.ca-content h5,
-.ca-content h6 {
-  margin: 0 0 var(--size-4, 1rem);
-}
-
-/* Content h2 uses 32px (var(--size-8)) to match section and accordion h2 headings. */
-.ca-content h2 {
-  font-size: var(--size-8, 2rem);
-  line-height: var(--line-height-base, 1.15);
-}
-
-.ca-content h5,
-.ca-content h6 {
-  font-size: var(--size-4, 1rem);
-}
-
-.ca-content p {
-  margin: 0 0 var(--size-4, 1rem);
-}
-
 .ca-content > :first-child {
   margin-top: 0;
 }
 
 .ca-content > :last-child {
   margin-bottom: 0;
-}
-
-.ca-content ul,
-.ca-content ol {
-  margin: 0 0 var(--size-4, 1rem);
-  padding-left: var(--size-10, 2.5rem);
-}
-
-.ca-content li + li {
-  margin-top: var(--size-4, 1rem);
 }
 
 .ca-content blockquote {
@@ -103,10 +70,6 @@
   font-size: 0.9375em;
 }
 
-.ca-content a {
-  text-underline-offset: var(--size-1, 0.25rem);
-}
-
 @scope (.ca-content) {
   :scope {
     box-sizing: border-box;
@@ -119,44 +82,12 @@
     margin-left: auto;
   }
 
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 0 0 var(--size-4, 1rem);
-  }
-
-  h2 {
-    font-size: var(--size-8, 2rem);
-    line-height: var(--line-height-base, 1.15);
-  }
-
-  h5,
-  h6 {
-    font-size: var(--size-4, 1rem);
-  }
-
-  p {
-    margin: 0 0 var(--size-4, 1rem);
-  }
-
   :where(:scope) > :first-child {
     margin-top: 0;
   }
 
   :where(:scope) > :last-child {
     margin-bottom: 0;
-  }
-
-  ul,
-  ol {
-    margin: 0 0 var(--size-4, 1rem);
-    padding-left: var(--size-10, 2.5rem);
-  }
-
-  li + li {
-    margin-top: var(--size-4, 1rem);
   }
 
   blockquote {
@@ -199,9 +130,5 @@
   code {
     font-family: ui-monospace, "Cascadia Code", monospace;
     font-size: 0.9375em;
-  }
-
-  a {
-    text-underline-offset: var(--size-1, 0.25rem);
   }
 }

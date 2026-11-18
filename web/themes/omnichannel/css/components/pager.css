@@ -30,7 +30,7 @@
 @scope (.ca-pager) {
   :scope {
     clear: both;
-    margin-block: var(--size-8, 2rem);
+    margin-block: var(--container-spacing-md, 3rem) var(--size-4, 1rem);
     margin-inline: 0;
     text-align: center;
   }

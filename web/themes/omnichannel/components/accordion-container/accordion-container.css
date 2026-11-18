@@ -12,10 +12,6 @@
 .ca-accordion-container__title {
   margin: 0 0 var(--size-10, 2.5rem);
   color: var(--primary-blue, #162e51);
-  font-family: var(--font-heading, "Merriweather", georgia, serif);
-  font-size: var(--size-8, 2rem);
-  font-weight: 400;
-  line-height: var(--line-height-base, 1.15);
 }
 
 @media (max-width: 1023px) {
@@ -41,11 +37,6 @@
 
   .ca-accordion-container__title {
     margin: 0 0 var(--size-10, 2.5rem);
-    color: var(--primary-blue, #162e51);
-    font-family: var(--font-heading, "Merriweather", georgia, serif);
-    font-size: var(--size-8, 2rem);
-    font-weight: 400;
-    line-height: var(--line-height-base, 1.15);
   }
 
   @media (max-width: 1023px) {

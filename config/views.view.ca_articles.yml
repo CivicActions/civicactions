@@ -3,13 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.teaser
+    - node.type.editorial
     - taxonomy.vocabulary.editorial_type
-    - taxonomy.vocabulary.topic
+  content:
+    - 'taxonomy_term:editorial_type:8c622542-a438-4d1c-aec5-6d5747436878'
   module:
     - node
     - taxonomy
     - user
-    - views
 id: ca_articles
 label: 'CA Articles'
 module: views
@@ -30,7 +32,7 @@ display:
         type: full
         options:
           offset: 0
-          pagination_heading_level: h4
+          pagination_heading_level: h2
           items_per_page: 10
           total_pages: null
           id: 0
@@ -201,51 +203,6 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        topic_tid:
-          id: schema_keywords_target_id
-          table: node__schema_keywords
-          field: schema_keywords_target_id
-          relationship: none
-          group_type: group
-          admin_label: 'Topic keyword filter'
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: Topic
-            description: ''
-            use_operator: false
-            operator: topic_tid_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: topic_tid
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: Topic
-            description: ''
-            identifier: topic_tid
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: true
-          vid: topic
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
       style:
         type: default
         options:
@@ -272,9 +229,7 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
@@ -290,9 +245,7 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
@@ -308,9 +261,7 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
