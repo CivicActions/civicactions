@@ -45,6 +45,7 @@
   --size-16: 4rem;
   --size-20: 5rem;
   --size-24: 6rem;
+  --size-28: 7rem;
 
   /* Buttons */
   --button-background: var(--primary-red);
@@ -194,9 +195,9 @@ li + li {
 }
 
 a {
-  color: var(--link-internal);
   text-decoration: underline;
   text-underline-offset: var(--size-1, 0.25rem);
+  color: var(--link-internal);
 }
 
 a:not(.ca-button):hover,
