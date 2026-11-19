@@ -7,6 +7,7 @@ Use a shared plan when it captures a roadmap, cross-ticket implementation sequen
 ## Active plans
 
 - [component-migration.md](component-migration.md): Component migration strategy from the legacy homesite to Drupal 11 SDCs and Canvas, including the 39-component audit matrix and batched implementation phases.
+- [dependency-config-sync.md](dependency-config-sync.md): Automatically commit the configuration changes that Drupal module updates produce, so dependency pull requests stop failing on configuration drift.
 
 ## Plan expectations
 
