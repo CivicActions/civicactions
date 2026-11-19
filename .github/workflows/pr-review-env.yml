@@ -212,7 +212,11 @@ jobs:
             drush "${ENV_NAME}" -- config:status --format=json > "${RUNNER_TEMP}/config-status.json"
             STILL_DRIFTED=$(node .github/ci/config-sync.mjs drift --status "${RUNNER_TEMP}/config-status.json")
             if [[ -n "${STILL_DRIFTED}" ]]; then
-              fail_round_trip "$(sed 's/.*/- `&`/' <<< "${STILL_DRIFTED}")"
+              STILL_LIST=""
+              while IFS= read -r name; do
+                STILL_LIST+="- \`${name}\`"$'\n'
+              done <<< "${STILL_DRIFTED}"
+              fail_round_trip "${STILL_LIST}"
             fi
             SYNC_SKIP="the head commit is a config sync commit and nothing differs"
           fi
