@@ -176,7 +176,105 @@ jobs:
           echo "Running drush deploy on ${ENV_NAME}..."
           drush "${ENV_NAME}" -- deploy
 
-          # 8. Pre-test health check
+          # 8. Commit configuration that module updates changed. Config that
+          # still differs after drush deploy's import is what the updated code
+          # writes, so it belongs in git. See docs/plans/dependency-config-sync.md.
+          echo "stage=config sync" >> "$GITHUB_OUTPUT"
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          HEAD_REPO=$(echo "${PR_JSON}" | jq -r .head.repo.full_name)
+          HEAD_REF=$(echo "${PR_JSON}" | jq -r .head.ref)
+          PR_FILES=$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/files" --jq '.[].filename')
+          HEAD_MESSAGE=$(gh api "repos/${REPO}/commits/${VERIFIED_SHA}" --jq .commit.message)
+
+          # Fails the run, listing config that exporting and committing cannot
+          # fix (usually a module bug), so the sync never commits in a loop.
+          fail_round_trip() {
+            echo "::error::Configuration still differs after its export was committed, so it does not round-trip. The config sync will not commit again."
+            gh pr comment "${PR_NUMBER}" -R "${REPO}" --body "$(printf '%s\n' \
+              '### Configuration does not round-trip' \
+              '' \
+              "This configuration still differs on \`${ENV_NAME}\` after \`drush deploy\`, and exporting and committing it cannot fix that, so the config sync stopped:" \
+              '' \
+              "$1" \
+              '' \
+              'This is usually a module bug. Fix it or update the configuration by hand, then push a new commit.' \
+              '' \
+              "[Workflow run](${RUN_URL})")"
+            exit 1
+          }
+
+          SYNC_SKIP=""
+          if [[ "${HEAD_REPO}" != "${REPO}" ]]; then
+            SYNC_SKIP="the pull request is from a fork"
+          elif ! grep -qxE 'composer\.(json|lock)' <<< "${PR_FILES}"; then
+            SYNC_SKIP="the pull request does not change composer.json or composer.lock"
+          elif node .github/ci/config-sync.mjs is-sync-commit <<< "${HEAD_MESSAGE}"; then
+            drush "${ENV_NAME}" -- config:status --format=json > "${RUNNER_TEMP}/config-status.json"
+            STILL_DRIFTED=$(node .github/ci/config-sync.mjs drift --status "${RUNNER_TEMP}/config-status.json")
+            if [[ -n "${STILL_DRIFTED}" ]]; then
+              fail_round_trip "$(sed 's/.*/- `&`/' <<< "${STILL_DRIFTED}")"
+            fi
+            SYNC_SKIP="the head commit is a config sync commit and nothing differs"
+          fi
+
+          if [[ -n "${SYNC_SKIP}" ]]; then
+            echo "Skipping config sync: ${SYNC_SKIP}."
+          else
+            # Only YAML files are copied into this checkout and committed; no
+            # code from the pull request runs.
+            SYNC_DIR="${RUNNER_TEMP}/pr-head"
+            git init -q "${SYNC_DIR}"
+            git -C "${SYNC_DIR}" config http.https://github.com/.extraheader \
+              "AUTHORIZATION: basic $(printf 'x-access-token:%s' "${GH_TOKEN}" | base64 -w0)"
+            git -C "${SYNC_DIR}" fetch -q --depth 1 "https://github.com/${REPO}.git" "${VERIFIED_SHA}"
+            git -C "${SYNC_DIR}" checkout -q FETCH_HEAD
+
+            SYNC_STATUS=0
+            .github/ci/sync-config-drift.sh "${ENV_NAME}" "${SYNC_DIR}/config" "${RUNNER_TEMP}/config-sync.json" || SYNC_STATUS=$?
+            if [[ "${SYNC_STATUS}" -eq 3 ]]; then
+              fail_round_trip "$(jq -r '.drift[] | "- `\(.name)` (\(.state))"' "${RUNNER_TEMP}/config-sync.json")"
+            elif [[ "${SYNC_STATUS}" -ne 0 ]]; then
+              exit "${SYNC_STATUS}"
+            fi
+
+            CHANGED=$(jq -r '.changed[] | "- `\(.name)` (\(.state))"' "${RUNNER_TEMP}/config-sync.json")
+            if [[ -n "${CHANGED}" ]]; then
+              BOT_LOGIN="${APP_SLUG}[bot]"
+              BOT_ID=$(gh api "users/${BOT_LOGIN}" --jq .id)
+              git -C "${SYNC_DIR}" add -A config
+              git -C "${SYNC_DIR}" -c user.name="${BOT_LOGIN}" \
+                -c user.email="${BOT_ID}+${BOT_LOGIN}@users.noreply.github.com" \
+                commit -q \
+                -m "chore(config): sync config after dependency update" \
+                -m "Configuration that still differed on ${ENV_NAME} after drush deploy, exported with drush cex:" \
+                -m "${CHANGED}" \
+                -m "Config-Sync: ${RUN_URL}"
+              # Not forced: if the branch moved since this run started, the push
+              # is rejected and the newer commit gets its own run.
+              git -C "${SYNC_DIR}" push -q "https://github.com/${REPO}.git" "HEAD:refs/heads/${HEAD_REF}"
+              NEW_SHA=$(git -C "${SYNC_DIR}" rev-parse HEAD)
+              echo "Committed configuration changes as ${NEW_SHA:0:7}."
+
+              gh pr comment "${PR_NUMBER}" -R "${REPO}" --body "$(printf '%s\n' \
+                '### Configuration synced' \
+                '' \
+                "This configuration still differed on \`${ENV_NAME}\` after \`drush deploy\`. It was exported with \`drush cex\` and committed in ${NEW_SHA}:" \
+                '' \
+                "${CHANGED}" \
+                '' \
+                'Please review the changes. The review environment checks run again once Pantheon has deployed the new commit.' \
+                '' \
+                "[Workflow run](${RUN_URL})")"
+              gh api "repos/${REPO}/statuses/${VERIFIED_SHA}" \
+                -f state="pending" \
+                -f context="ci/review-env" \
+                -f description="Config changes committed in ${NEW_SHA:0:7}; checks run on that commit" >/dev/null
+              echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+
+          # 9. Pre-test health check
           echo "stage=pre-test health check" >> "$GITHUB_OUTPUT"
           echo "Running pre-test health check..."
           .github/ci/health-check.sh "${ENV_NAME}" --phase pre
