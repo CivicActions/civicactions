@@ -8,6 +8,10 @@ inputs:
     description: "Pantheon SSH Private Key (for remote Drush / Git operations)"
     required: false
     default: ""
+  config-export-plugin-ref:
+    description: "Commit of grugnog/terminus-config-export to install, for `terminus cexr`. Empty skips the plugin."
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -34,3 +38,20 @@ runs:
       shell: bash
       run: |
         terminus auth:whoami
+
+    # The fork carries cexr fixes for sites using Pantheon's GitHub
+    # integration until they are released upstream (aaronbauman/terminus-config-export#7-#11).
+    # Terminus installs plugins from a local path, so fetch the pinned commit.
+    - name: Install terminus-config-export plugin
+      if: inputs.config-export-plugin-ref != ''
+      shell: bash
+      env:
+        PLUGIN_REF: ${{ inputs.config-export-plugin-ref }}
+      run: |
+        plugin_dir="${RUNNER_TEMP}/terminus-config-export"
+        git init -q "${plugin_dir}"
+        # TODO: This can be moved to upstream when PRs are merged.
+        git -C "${plugin_dir}" fetch -q --depth 1 https://github.com/grugnog/terminus-config-export.git "${PLUGIN_REF}"
+        git -C "${plugin_dir}" checkout -q FETCH_HEAD
+        terminus self:plugin:install "${plugin_dir}"
+        grep -q "site:config-export-remote" <<< "$(terminus list)"

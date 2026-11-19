@@ -56,11 +56,15 @@ jobs:
         with:
           pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
           pantheon-ssh-key: ${{ secrets.PANTHEON_SSH_KEY }}
+          # grugnog/terminus-config-export civicactions-main
+          # TODO: This can be moved to an upstream commit when PRs are merged.
+          config-export-plugin-ref: fd9ca8aee996e0eea4d443a9f24b6f66892e994e
 
       - name: Verify Environment and Run Pre-test Deploy
         id: prep
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
           DEPLOYMENTS_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.issue.number }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
