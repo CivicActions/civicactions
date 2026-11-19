@@ -17,7 +17,34 @@ id: contact
 title: Contact
 description: 'Basic email contact webform.'
 categories: {  }
-elements: "name:\n  '#title': 'Your Name'\n  '#type': textfield\n  '#required': true\n  '#default_value': '[current-user:display-name]'\nsubject:\n  '#type': textfield\n  '#title': Organization\n  '#required': true\n  '#test': 'Testing contact webform from [site:name]'\nemail:\n  '#title': 'Your Email'\n  '#type': email\n  '#required': true\n  '#default_value': '[current-user:mail]'\nmessage:\n  '#title': Message\n  '#type': textarea\n  '#required': true\n  '#test': 'Please ignore this email.'\ncaptcha:\n  '#type': captcha\n  '#captcha_type': friendlycaptcha/friendlycaptcha\nactions:\n  '#type': webform_actions\n  '#title': 'Submit button(s)'\n  '#submit__label': 'Send message'"
+elements: |-
+  name:
+    '#title': 'Your Name'
+    '#type': textfield
+    '#required': true
+    '#default_value': '[current-user:display-name]'
+  subject:
+    '#type': textfield
+    '#title': Organization
+    '#required': true
+    '#test': 'Testing contact webform from [site:name]'
+  email:
+    '#title': 'Your Email'
+    '#type': email
+    '#required': true
+    '#default_value': '[current-user:mail]'
+  message:
+    '#title': Message
+    '#type': textarea
+    '#required': true
+    '#test': 'Please ignore this email.'
+  captcha:
+    '#type': captcha
+    '#captcha_type': friendlycaptcha/friendlycaptcha
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': 'Send message'
 css: ''
 javascript: ''
 settings:
@@ -279,4 +306,3 @@ handlers:
       parameters: {  }
       debug: false
 variants: {  }
-

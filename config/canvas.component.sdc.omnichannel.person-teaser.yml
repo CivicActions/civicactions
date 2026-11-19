@@ -191,4 +191,3 @@ id: sdc.omnichannel.person-teaser
 provider: omnichannel
 source: sdc
 source_local_id: 'omnichannel:person-teaser'
-

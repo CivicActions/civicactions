@@ -32,21 +32,17 @@ extract:
 check:
   connections_max: 8
   connections_max_per_domain: 2
-  disable_link_check_for_urls: "example.com\nexample.net\nexample.org"
+  disable_link_check_for_urls: |-
+    example.com
+    example.net
+    example.org
   library: core
   interval: 604800
   useragent: 'Drupal (+https://drupal.org/)'
 error:
   action_status_code_301: 0
   action_status_code_404: 0
-  ignore_response_codes: |-
-    200
-    206
-    302
-    304
-    401
-    403
-  impersonate_account: ''
+  ignore_response_codes: "200\r\n206\r\n302\r\n304\r\n401\r\n403"
+  impersonate_account: owen.barton@civicactions.com
 logging:
   level: 5
-
