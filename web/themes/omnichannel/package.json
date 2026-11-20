@@ -7,8 +7,8 @@
     "build-storybook": "storybook build -o ../../storybook"
   },
   "devDependencies": {
-    "@storybook/html": "^10.6.4",
-    "@storybook/html-vite": "^10.6.4",
+    "@storybook/html": "^10.6.7",
+    "@storybook/html-vite": "^10.6.7",
     "storybook": "^10.6.5",
     "vite": "^8.3.8",
     "vite-plugin-twig-drupal": "^1.7.0"
