@@ -141,6 +141,24 @@ test('classifyDependencyPr: theme npm tooling update without advisory is tooling
   assert.equal(result.label, 'deps:tooling');
 });
 
+test('classifyDependencyPr: theme npm_and_yarn tooling update without advisory is tooling', () => {
+  const baseLock = { packages: { 'node_modules/vite': { version: '7.3.6', dev: true } } };
+  const headLock = { packages: { 'node_modules/vite': { version: '7.3.7', dev: true } } };
+
+  const result = classifyDependencyPr({
+    metadata: { advisories: [] },
+    baseLockContent: baseLock,
+    headLockContent: headLock,
+    changedFiles: ['web/themes/omnichannel/package.json', 'web/themes/omnichannel/package-lock.json'],
+    ecosystem: 'npm_and_yarn',
+  });
+
+  assert.equal(result.category, 'tooling');
+  assert.equal(result.label, 'deps:tooling');
+  assert.equal(result.reasons.length, 0);
+  assert.equal(result.diffs.length, 1);
+});
+
 test('classifyDependencyPr: version update without advisory is needs-review', () => {
   const baseLock = { packages: [{ name: 'drupal/token', version: '1.16.0' }] };
   const headLock = { packages: [{ name: 'drupal/token', version: '1.17.0' }] };
