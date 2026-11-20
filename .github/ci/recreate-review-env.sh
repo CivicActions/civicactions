@@ -4,7 +4,7 @@
 # GitHub app builds a fresh multidev (code from the PR, content cloned from
 # dev) and its "Successfully created" comment re-runs the review-env checks.
 #
-# Usage: recreate-review-env.sh <pr-number> <requested-by>
+# Usage: recreate-review-env.sh <pr-number> <reason>
 # Env: GH_TOKEN (contents: write on the repo), REPO, PANTHEON_SITE; Terminus
 # must be authenticated. Prints the new commit SHA on the last line.
 set -euo pipefail
@@ -14,7 +14,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/pantheon.sh"
 
 PR_NUMBER="$1"
-REQUESTED_BY="$2"
+REASON="$2"
 ENV_NAME="pr-${PR_NUMBER}"
 
 read -r STATE HEAD_SHA HEAD_REF HEAD_REPO <<< "$(gh api "repos/${REPO}/pulls/${PR_NUMBER}" \
@@ -27,6 +27,9 @@ if [[ "${HEAD_REPO}" != "${REPO}" ]]; then
   echo "::error::PR #${PR_NUMBER} comes from a fork (${HEAD_REPO}); its branch can't be updated." >&2
   exit 1
 fi
+
+# Deleting while Pantheon creates another PR's multidev makes that create fail.
+wait_multidev_ops 1800 >&2
 
 if terminus multidev:list "${SITE}" --format=list 2>/dev/null | grep -qx "${ENV_NAME}"; then
   # Let an in-progress build or sync finish first; a failed one is expected here.
@@ -56,7 +59,7 @@ wait_multidev_ops 900 >&2
 # concurrent push.
 NEW_SHA=$(jq -n \
   --arg repo "${REPO}" --arg branch "${HEAD_REF}" --arg head "${HEAD_SHA}" \
-  --arg body "Requested by @${REQUESTED_BY} via /recreate-review-env." \
+  --arg body "${REASON}" \
   '{
     query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid } } }",
     variables: { input: {

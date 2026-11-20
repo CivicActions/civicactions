@@ -2,10 +2,13 @@ name: "Recreate Review Environment"
 
 run-name: recreate review-env PR #${{ github.event.issue.number }}
 
-# Comment "/recreate-review-env" on a PR to delete its Pantheon multidev and
-# push an empty commit, so Pantheon builds a fresh one (current dev content)
-# and the review-env checks re-run. Use after a failed multidev creation, or
-# when the environment's content is out of date.
+# Deletes a PR's Pantheon multidev and pushes an empty commit, so Pantheon
+# builds a fresh one (current dev content) and the review-env checks re-run.
+# - Manual: comment "/recreate-review-env" (write access required), e.g. when
+#   the environment's content is out of date.
+# - Automatic: when Pantheon comments "Failed to create multidev environment"
+#   (usually because a multidev delete ran at the same time), up to
+#   MAX_AUTO_RETRIES times per PR.
 on:
   issue_comment:
     types: [created]
@@ -13,7 +16,9 @@ on:
 # Other comments get a run-scoped group, so they never queue behind a recreate.
 concurrency:
   group: >-
-    ${{ startsWith(github.event.comment.body, '/recreate-review-env')
+    ${{ (startsWith(github.event.comment.body, '/recreate-review-env')
+    || (github.event.comment.user.login == 'pantheon-site-integration[bot]'
+    && startsWith(github.event.comment.body, 'Failed to create multidev environment')))
     && format('recreate-review-env-{0}', github.event.issue.number)
     || format('recreate-review-env-ignored-{0}', github.run_id) }}
   cancel-in-progress: false
@@ -21,13 +26,20 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  MAX_AUTO_RETRIES: 2
+
 jobs:
   recreate:
     name: "Recreate Review Environment"
     runs-on: ubuntu-latest
     if: |
-      github.event.issue.pull_request &&
-      startsWith(github.event.comment.body, '/recreate-review-env')
+      github.event.issue.pull_request && (
+        startsWith(github.event.comment.body, '/recreate-review-env') || (
+          github.event.comment.user.login == 'pantheon-site-integration[bot]' &&
+          startsWith(github.event.comment.body, 'Failed to create multidev environment')
+        )
+      )
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -36,8 +48,13 @@ jobs:
           app-id: ${{ secrets.CI_APP_ID }}
           private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
 
-      - name: Check commenter has write access
-        id: permission
+      - name: Checkout master tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Decide whether to recreate
+        id: decide
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -45,6 +62,27 @@ jobs:
           COMMENT_ID: ${{ github.event.comment.id }}
           PR_NUMBER: ${{ github.event.issue.number }}
         run: |
+          if [[ "${COMMENTER}" == "pantheon-site-integration[bot]" ]]; then
+            ATTEMPTS=$(gh api --paginate "repos/${REPO}/issues/${PR_NUMBER}/comments" \
+              -q '.[] | select(.body | contains("<!-- ci:auto-recreate -->")) | .id' | wc -l)
+            if (( ATTEMPTS >= MAX_AUTO_RETRIES )); then
+              HEAD_SHA=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}" -q .head.sha)
+              gh api "repos/${REPO}/statuses/${HEAD_SHA}" -f state=failure -f context=ci/review-env \
+                -f description="Pantheon failed to create the environment ${ATTEMPTS} times; comment /recreate-review-env to retry" >/dev/null
+              gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="Pantheon failed to create the review environment again after ${ATTEMPTS} automatic retries. Comment \`/recreate-review-env\` to try again." >/dev/null
+              echo "Retry limit reached (${ATTEMPTS}/${MAX_AUTO_RETRIES})."
+              echo "head_sha=${HEAD_SHA}" >> "$GITHUB_OUTPUT"
+              echo "action=give-up" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            {
+              echo "action=recreate"
+              echo "reason=Automatic retry $((ATTEMPTS + 1))/${MAX_AUTO_RETRIES} after Pantheon failed to create the environment."
+              echo "marker=<!-- ci:auto-recreate -->"
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           PERMISSION=$(gh api "repos/${REPO}/collaborators/${COMMENTER}/permission" -q .permission 2>/dev/null || echo none)
           if [[ ! "${PERMISSION}" =~ ^(admin|maintain|write)$ ]]; then
             gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=-1 >/dev/null
@@ -54,45 +92,62 @@ jobs:
             exit 1
           fi
           gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=eyes >/dev/null
+          {
+            echo "action=recreate"
+            echo "reason=Requested by @${COMMENTER} via /recreate-review-env."
+            echo "marker="
+          } >> "$GITHUB_OUTPUT"
 
-      - name: Checkout master tools
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Update gate after giving up
+        if: steps.decide.outputs.action == 'give-up'
+        uses: ./.github/actions/update-gate
         with:
-          persist-credentials: false
+          sha: ${{ steps.decide.outputs.head_sha }}
+          github-token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup Terminus
+        if: steps.decide.outputs.action == 'recreate'
         uses: ./.github/actions/terminus-setup
         with:
           pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
 
       - name: Delete multidev and push empty commit
         id: recreate
+        if: steps.decide.outputs.action == 'recreate'
         env:
           # The app token makes the push trigger PR workflows; GITHUB_TOKEN pushes don't.
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           REPO: ${{ github.repository }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
           PR_NUMBER: ${{ github.event.issue.number }}
-          COMMENTER: ${{ github.event.comment.user.login }}
+          REASON: ${{ steps.decide.outputs.reason }}
         run: |
-          NEW_SHA=$(.github/ci/recreate-review-env.sh "${PR_NUMBER}" "${COMMENTER}" | tail -1)
+          NEW_SHA=$(.github/ci/recreate-review-env.sh "${PR_NUMBER}" "${REASON}" | tail -1)
           echo "new_sha=${NEW_SHA}" >> "$GITHUB_OUTPUT"
 
       - name: Report result
-        if: always() && steps.permission.outcome == 'success'
+        if: always() && steps.decide.outputs.action == 'recreate'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.issue.number }}
           COMMENT_ID: ${{ github.event.comment.id }}
+          COMMENTER: ${{ github.event.comment.user.login }}
           NEW_SHA: ${{ steps.recreate.outputs.new_sha }}
           RECREATE_OUTCOME: ${{ steps.recreate.outcome }}
+          REASON: ${{ steps.decide.outputs.reason }}
+          MARKER: ${{ steps.decide.outputs.marker }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          # The marker counts toward the automatic retry limit even when the attempt fails.
           if [[ "${RECREATE_OUTCOME}" == "success" && -n "${NEW_SHA}" ]]; then
-            gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=rocket >/dev/null
-            gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="Deleted \`pr-${PR_NUMBER}\` and pushed empty commit ${NEW_SHA:0:7}. Pantheon will build a fresh environment with current dev content, and the review-env checks re-run once it posts \"Successfully created\". ([run](${RUN_URL}))" >/dev/null
+            BODY="${REASON} Deleted \`pr-${PR_NUMBER}\` and pushed empty commit ${NEW_SHA:0:7}; Pantheon will build a fresh environment with current dev content, and the review-env checks re-run once it posts \"Successfully created\". ([run](${RUN_URL}))"
+            REACTION=rocket
           else
-            gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=confused >/dev/null
-            gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="\`/recreate-review-env\` failed; see the [run](${RUN_URL})." >/dev/null
+            BODY="${REASON} Recreating the review environment failed; see the [run](${RUN_URL})."
+            REACTION=confused
           fi
+          if [[ "${COMMENTER}" != "pantheon-site-integration[bot]" ]]; then
+            gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content="${REACTION}" >/dev/null
+          fi
+          gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="${MARKER}${BODY}" >/dev/null
