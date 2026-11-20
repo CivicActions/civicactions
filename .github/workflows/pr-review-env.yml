@@ -164,9 +164,27 @@ jobs:
             else
               echo "::warning::${ENV_NAME} content predates dev's last database replacement; visual differences may come from content."
               CONTENT_NOTE='> [!WARNING]
-          > The content on this environment was copied before the dev database was last replaced, so visual differences may come from content rather than code. Add the `refresh-content` label to copy the current dev content (this overwrites content entered on this environment).'
+          > The content on this environment was copied before the dev database was last replaced, so visual differences may come from content rather than code. To copy the current dev content, add the `refresh-content` label, or comment `/recreate-review-env` to rebuild the environment. Both overwrite content entered on this environment.'
             fi
           fi
+
+          # 5c. Pantheon's content copy can silently drop uploaded files, which
+          # shows up as visual differences on every page. Re-copy files only
+          # (safe: the database is untouched) and fail if that doesn't help.
+          echo "stage=checking uploaded files" >> "$GITHUB_OUTPUT"
+          ENV_MISSING=$(missing_files "${ENV_NAME}")
+          DEV_MISSING=$(missing_files dev)
+          if (( ENV_MISSING > DEV_MISSING )); then
+            echo "${ENV_NAME} is missing ${ENV_MISSING} uploaded files (dev: ${DEV_MISSING}). Re-copying files from dev..."
+            terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --files-only --yes
+            ENV_MISSING=$(missing_files "${ENV_NAME}")
+            if (( ENV_MISSING > DEV_MISSING )); then
+              echo "::error::${ENV_NAME} is still missing ${ENV_MISSING} uploaded files (dev: ${DEV_MISSING}) after re-copying files. Comment /recreate-review-env to rebuild it."
+              echo "stage=file check (${ENV_MISSING} files missing; comment /recreate-review-env)" >> "$GITHUB_OUTPUT"
+              exit 1
+            fi
+          fi
+          echo "Uploaded files OK on ${ENV_NAME} (missing: ${ENV_MISSING}, dev: ${DEV_MISSING})."
 
           # 6. Set ci/review-env to pending (Running)
           gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"             -f state="pending"             -f context="ci/review-env"             -f description="Running Drupal deploy & health checks" >/dev/null

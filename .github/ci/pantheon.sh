@@ -71,6 +71,17 @@ print(max(times, default=0))
 ' "${env}"
 }
 
+# Print how many managed files (file entities) have no file on disk in an
+# environment. Pantheon's content copy can silently drop uploaded files.
+missing_files() {
+  local env="$1"
+  local count
+  # shellcheck disable=SC2016 # PHP code, not shell.
+  count=$(drush "${env}" -- php:eval '$n = 0; foreach (\Drupal::entityTypeManager()->getStorage("file")->loadMultiple() as $f) { if (!file_exists($f->getFileUri())) { $n++; } } echo $n, PHP_EOL;' 2>/dev/null | tail -n 1)
+  [[ "${count}" =~ ^[0-9]+$ ]] || return 1
+  echo "${count}"
+}
+
 # Check if a short SHA matches the beginning of a full SHA
 sha_matches() {
   local short="$1"
@@ -128,6 +139,50 @@ except Exception:
       return 1
     fi
 
+    sleep 10
+  done
+}
+
+# Wait until Pantheon's site-level multidev workflows (create, delete, and the
+# "Clean up Advanced Edge configuration" that follows a delete) have finished,
+# and, if quiet_seconds is given, until the last delete finished at least that
+# long ago. These run without an environment, so wait_workflows doesn't see
+# them. A create that starts during a delete, or within about a minute after
+# one, fails. Content clones into dev also count, since creates copy dev.
+wait_multidev_ops() {
+  local timeout="${1:-600}"
+  local quiet="${2:-0}"
+  local start_time running
+  start_time=$(date +%s)
+  echo "Waiting for Pantheon multidev operations on ${SITE} (timeout: ${timeout}s, quiet period: ${quiet}s)..."
+  while true; do
+    running=$(terminus workflow:list "${SITE}" --format=json 2>/dev/null | python3 -c '
+import sys, json, re, time
+quiet = int(sys.argv[1])
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    print(-1)
+    sys.exit()
+items = list(data.values()) if isinstance(data, dict) else data
+ops = [w for w in items if not w.get("env")
+       and re.search(r"Multidev|Advanced Edge", w.get("workflow") or "")]
+dev_clones = [w for w in items if w.get("env") == "dev"
+              and (w.get("workflow") or "").startswith("Clone ")]
+active = sum(1 for w in ops + dev_clones if w.get("status") in ("running", "queued"))
+deleted = [w.get("finished_at") or 0 for w in ops
+           if re.search(r"^Delete a Multidev|Advanced Edge", w.get("workflow") or "")]
+recent = 1 if deleted and time.time() - max(deleted) < quiet else 0
+print(active + recent)
+' "${quiet}")
+    if [[ "${running}" == "0" ]]; then
+      echo "No Pantheon multidev operations running on ${SITE}."
+      return 0
+    fi
+    if (( $(date +%s) - start_time > timeout )); then
+      echo "Timed out waiting for Pantheon multidev operations on ${SITE} after ${timeout}s." >&2
+      return 1
+    fi
     sleep 10
   done
 }
