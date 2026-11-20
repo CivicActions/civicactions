@@ -137,7 +137,7 @@ except Exception:
 # and, if quiet_seconds is given, until the last delete finished at least that
 # long ago. These run without an environment, so wait_workflows doesn't see
 # them. A create that starts during a delete, or within about a minute after
-# one, fails.
+# one, fails. Content clones into dev also count, since creates copy dev.
 wait_multidev_ops() {
   local timeout="${1:-600}"
   local quiet="${2:-0}"
@@ -156,7 +156,9 @@ except Exception:
 items = list(data.values()) if isinstance(data, dict) else data
 ops = [w for w in items if not w.get("env")
        and re.search(r"Multidev|Advanced Edge", w.get("workflow") or "")]
-active = sum(1 for w in ops if w.get("status") in ("running", "queued"))
+dev_clones = [w for w in items if w.get("env") == "dev"
+              and (w.get("workflow") or "").startswith("Clone ")]
+active = sum(1 for w in ops + dev_clones if w.get("status") in ("running", "queued"))
 deleted = [w.get("finished_at") or 0 for w in ops
            if re.search(r"^Delete a Multidev|Advanced Edge", w.get("workflow") or "")]
 recent = 1 if deleted and time.time() - max(deleted) < quiet else 0
