@@ -65,3 +65,6 @@ Any Drush call that fails also fails the check, so an unreachable site never rep
 For each failed visual comparison in a review-environment run, composes a side-by-side PNG (dev reference, review environment, Playwright's highlighted diff) and uploads it as its own unzipped artifact, so the PR comment can link to it from the "⚠️ Difference" cell. It runs through `actions/github-script` because artifact uploads need the Actions runtime token, which plain `run` steps don't get. Links require GitHub sign-in and expire after 14 days.
 
 Dependencies (`@actions/artifact`, `pngjs`) are in `.github/ci/package.json`; install them with `npm ci --prefix .github/ci`.
+
+### 9. `recreate-review-env.sh`
+Backs the `/recreate-review-env` PR comment command (`review-env-recreate.yml`). It deletes the PR's `pr-N` multidev, waiting for any in-progress build first, waits for Pantheon's post-delete edge cleanup to finish (`wait_multidev_ops`; pushing during it makes the re-create fail), then pushes an empty commit to the PR branch through GitHub's GraphQL `createCommitOnBranch`, which GitHub signs, as the "Require Signed Commits" ruleset requires. The push uses the CI app's token so it triggers PR workflows. Pantheon then builds a fresh multidev and its "Successfully created" comment re-runs the review-env checks. Prints the new commit SHA.

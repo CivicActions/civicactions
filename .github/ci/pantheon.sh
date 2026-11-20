@@ -132,6 +132,41 @@ except Exception:
   done
 }
 
+# Wait until Pantheon's site-level multidev workflows (create, delete, and the
+# "Clean up Advanced Edge configuration" that follows a delete) have finished.
+# These run without an environment, so wait_workflows doesn't see them, and a
+# push that lands while one runs makes Pantheon's multidev create fail.
+wait_multidev_ops() {
+  local timeout="${1:-600}"
+  local start_time running
+  start_time=$(date +%s)
+  echo "Waiting for Pantheon multidev operations on ${SITE} (timeout: ${timeout}s)..."
+  while true; do
+    running=$(terminus workflow:list "${SITE}" --format=json 2>/dev/null | python3 -c '
+import sys, json, re
+try:
+    data = json.load(sys.stdin)
+except Exception:
+    print(-1)
+    sys.exit()
+items = list(data.values()) if isinstance(data, dict) else data
+print(sum(1 for w in items
+          if w.get("status") in ("running", "queued")
+          and not w.get("env")
+          and re.search(r"Multidev|Advanced Edge", w.get("workflow") or "")))
+')
+    if [[ "${running}" == "0" ]]; then
+      echo "No Pantheon multidev operations running on ${SITE}."
+      return 0
+    fi
+    if (( $(date +%s) - start_time > timeout )); then
+      echo "Timed out waiting for Pantheon multidev operations on ${SITE} after ${timeout}s." >&2
+      return 1
+    fi
+    sleep 10
+  done
+}
+
 # Run drush command with retries and suppressed SSH host key prompts
 drush() {
   local env="$1"
