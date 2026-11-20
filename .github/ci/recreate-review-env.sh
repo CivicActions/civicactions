@@ -48,11 +48,12 @@ else
   echo "No ${ENV_NAME} multidev exists; Pantheon will create it on the next push." >&2
 fi
 
-# Pantheon runs a separate edge cleanup after a delete; pushing before it
-# finishes makes the new multidev create fail. The short pause covers a
-# cleanup that hasn't been queued yet when the delete returns.
+# A create that starts during a delete (including Pantheon's separate edge
+# cleanup) or within about a minute after one fails; creates starting 0-60s
+# after a delete failed, 114s+ succeeded. The pause covers a cleanup that
+# hasn't been queued yet when the delete returns.
 sleep 30
-wait_multidev_ops 900 >&2
+wait_multidev_ops 1200 180 >&2
 
 # Commits made through the GraphQL API are signed by GitHub, which the
 # "Require Signed Commits" ruleset needs. expectedHeadOid guards against a
