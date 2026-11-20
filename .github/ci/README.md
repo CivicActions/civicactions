@@ -40,6 +40,7 @@ Bash helper library for interacting with Pantheon environments via Terminus.
 - `env_sha <env>`: retrieves deployed commit SHA from Pantheon code log.
 - `latest_deployment <env>`: prints the commit SHA and status (`in_progress`, `success`, `failure`, or `pending`) of the newest GitHub deployment the Pantheon GitHub app recorded for the environment.
 - `last_db_clone_at <env>`: prints the epoch time the environment's database was last replaced by a Pantheon "Clone database" workflow (0 if none in recent history).
+- `missing_files <env>`: prints how many managed files have no file on disk. Review-env compares this with dev, re-copies files from dev (files only) if the PR environment is missing more, and fails suggesting `/recreate-review-env` if that doesn't fix it.
 - `wait_workflows <env> [timeout]`: waits (default 30m) for active Pantheon platform workflows to complete; fails if the latest workflow for the env failed.
 - `drush <env> -- ...`: executes Drush with retries and quiet SSH output.
 

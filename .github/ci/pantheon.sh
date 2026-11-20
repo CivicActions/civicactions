@@ -71,6 +71,17 @@ print(max(times, default=0))
 ' "${env}"
 }
 
+# Print how many managed files (file entities) have no file on disk in an
+# environment. Pantheon's content copy can silently drop uploaded files.
+missing_files() {
+  local env="$1"
+  local count
+  # shellcheck disable=SC2016 # PHP code, not shell.
+  count=$(drush "${env}" -- php:eval '$n = 0; foreach (\Drupal::entityTypeManager()->getStorage("file")->loadMultiple() as $f) { if (!file_exists($f->getFileUri())) { $n++; } } echo $n, PHP_EOL;' 2>/dev/null | tail -n 1)
+  [[ "${count}" =~ ^[0-9]+$ ]] || return 1
+  echo "${count}"
+}
+
 # Check if a short SHA matches the beginning of a full SHA
 sha_matches() {
   local short="$1"
