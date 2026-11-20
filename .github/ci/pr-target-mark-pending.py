@@ -19,33 +19,27 @@ headers = {
     'User-Agent': 'civicactions-pr-target',
 }
 
-# 1. Post pending status for ci/static
+# 1. Post pending statuses for the checks ci/gate combines
 post_url = f'https://api.github.com/repos/{repo}/statuses/{sha}'
-req = urllib.request.Request(
-    post_url,
-    data=json.dumps({
-        'state': 'pending',
-        'context': 'ci/static',
-        'description': 'Static checks running',
-    }).encode('utf-8'),
-    headers=headers,
-)
-urllib.request.urlopen(req)
-
-# 2. Post pending status for ci/review-env
-req2 = urllib.request.Request(
-    post_url,
-    data=json.dumps({
-        'state': 'pending',
-        'context': 'ci/review-env',
-        'description': f'Waiting for Pantheon pr-{pr}',
-    }).encode('utf-8'),
-    headers=headers,
-)
-urllib.request.urlopen(req2)
+pending = {
+    'ci/static': 'Static checks running',
+    'ci/review-env': f'Waiting for Pantheon pr-{pr}',
+    'ci/visual': f'Waiting for visual comparison on pr-{pr}',
+}
+for context, description in pending.items():
+    req = urllib.request.Request(
+        post_url,
+        data=json.dumps({
+            'state': 'pending',
+            'context': context,
+            'description': description,
+        }).encode('utf-8'),
+        headers=headers,
+    )
+    urllib.request.urlopen(req)
 print(f'Initialized pending statuses for {sha[:8]} on PR #{pr}')
 
-# 3. Cancel in-flight pr-review-env runs for older SHAs on this PR
+# 2. Cancel in-flight pr-review-env runs for older SHAs on this PR
 runs_url = f'https://api.github.com/repos/{repo}/actions/workflows/pr-review-env.yml/runs?status=in_progress'
 try:
     req_runs = urllib.request.Request(runs_url, headers=headers)

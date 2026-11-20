@@ -68,4 +68,26 @@ For each failed visual comparison in a review-environment run, composes a side-b
 Dependencies (`@actions/artifact`, `pngjs`) are in `.github/ci/package.json`; install them with `npm ci --prefix .github/ci`.
 
 ### 9. `recreate-review-env.sh`
-Backs the `/recreate-review-env` PR comment command and the automatic retry after Pantheon's "Failed to create multidev environment" comment (`review-env-recreate.yml`, at most two automatic retries per PR). Usage: `recreate-review-env.sh <pr-number> <reason>`; the reason becomes the commit body. It deletes the PR's `pr-N` multidev, waiting for any in-progress build first, then waits until no Pantheon multidev operations are running and the last delete finished at least 3 minutes ago (`wait_multidev_ops 1200 180`). Creates that started during a delete, or up to a minute after one, failed, then pushes an empty commit to the PR branch through GitHub's GraphQL `createCommitOnBranch`, which GitHub signs, as the "Require Signed Commits" ruleset requires. The push uses the CI app's token so it triggers PR workflows. Pantheon then builds a fresh multidev and its "Successfully created" comment re-runs the review-env checks. Prints the new commit SHA.
+Backs the `/recreate-review-env` PR comment command and the automatic retry after Pantheon's "Failed to create multidev environment" comment (`review-env-commands.yml`, at most two automatic retries per PR). Usage: `recreate-review-env.sh <pr-number> <reason>`; the reason becomes the commit body. It deletes the PR's `pr-N` multidev, waiting for any in-progress build first, then waits until no Pantheon multidev operations are running and the last delete finished at least 3 minutes ago (`wait_multidev_ops 1200 180`). Creates that started during a delete, or up to a minute after one, failed, then pushes an empty commit to the PR branch through GitHub's GraphQL `createCommitOnBranch`, which GitHub signs, as the "Require Signed Commits" ruleset requires. The push uses the CI app's token so it triggers PR workflows. Pantheon then builds a fresh multidev and its "Successfully created" comment re-runs the review-env checks. Prints the new commit SHA.
+
+### 10. `visual-status.mjs`
+Decides the `ci/visual` status from the visual comparison results, and records and finds `/approve-visual` approvals.
+- `decide --results <results.json> [--approval <json>] [--content-stale]`: prints `{ state, description }`. No differences passes. Differences fail unless approved, with a description that suggests `/approve-visual`, or `/refresh-content` too when the content is older than dev. Screenshots that couldn't be compared, or no results at all, are an error that suggests `/rerun-review-env`.
+- `marker --tree <sha> --head <sha> --by <login>`: prints the hidden approval marker that `review-env-commands.yml` adds to its approval comment.
+- `find-approval --tree <sha> --bot <login>`: reads PR comments (`gh api --paginate --slurp`) on stdin and prints the latest approval for that git tree, if any. Only markers in comments by the CI app (`--bot`) count. Keying approvals to the tree means commits that change no files, such as recreate commits, keep them.
+
+### 11. `../actions/update-gate/gate.mjs`
+Computes `ci/gate`, the single required check, from `ci/static`, `ci/review-env` and `ci/visual`: success when all three pass, failure when any fails or errors, otherwise pending. `node gate.mjs <sha>` (with `GH_TOKEN` and `REPO`) reads the commit's statuses and posts the gate. The `update-gate` composite action and the review-env sweeper both run it, so the logic lives in one place.
+
+### PR comment commands (`review-env-commands.yml`)
+Anyone with write access can comment these on an open PR from this repository. The command is the first word of the comment.
+
+| Command | What it does |
+|---|---|
+| `/approve-visual [reason]` | Accepts the current head's visual differences: posts an approval comment with the marker, sets `ci/visual` to success and updates the gate. Refused unless `ci/visual` for the current head is `failure` or `error`. |
+| `/refresh-content` | Dispatches `pr-review-env.yml` with `refresh_content`, which copies dev's database and files to `pr-N` and then runs the checks. |
+| `/rerun-review-env` | Dispatches `pr-review-env.yml` to re-run the checks. |
+| `/recreate-review-env` | Runs `recreate-review-env.sh` (section 9). |
+
+The dispatched runs share the per-PR review-env concurrency group, so a content copy never overlaps a running check.
+

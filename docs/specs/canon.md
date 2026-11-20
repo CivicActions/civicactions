@@ -195,7 +195,8 @@ The homesite rebuild follows a trunk-based deployment model on Pantheon with Git
    - Fast static checks run immediately (`pr-static.yml`): Composer validate/audit, PHPStan (level 2), PHPCS (Drupal standards), theme Stylelint & ESLint, Storybook build, dependency review, and CI logic unit tests.
    - Pantheon builds a disposable review environment (`pr-<number>`) and posts a PR comment upon readiness.
    - Environment testing (`pr-review-env.yml`) triggers on this comment, verifies the deployed commit matches the PR head, runs `drush deploy`, health diagnostics, Playwright functional and axe accessibility tests on the curated page list, and visual regression against `dev`.
-   - Results rollup into a single required status check: `ci/gate`.
+   - Results roll up into a single required status check: `ci/gate`.
+   - PR comment commands (`review-env-commands.yml`) approve visual differences, refresh content, re-run the checks, or rebuild the environment.
 
 2. **Master branch**:
    - Pushes to `master` deploy automatically to Pantheon `dev` (`master-dev.yml`).
@@ -209,11 +210,15 @@ The homesite rebuild follows a trunk-based deployment model on Pantheon with Git
 
 ### Status contexts & PR labels
 
-- `ci/gate`: The single required status check on `master`. Derived dynamically from `ci/static` and `ci/review-env`.
+- `ci/gate`: The single required status check on `master`. Derived from `ci/static`, `ci/review-env` and `ci/visual` (`.github/actions/update-gate/gate.mjs`).
+- `ci/review-env`: Review environment deploy, health diagnostics, and Playwright functional and accessibility tests.
+- `ci/visual`: Visual comparison of the review environment against `dev`. Differences fail it, and so block merging, until someone comments `/approve-visual`.
 - `deps:security-verified`: Applied to Dependabot PRs updating only manifest/lock files with patch/minor versions that resolve published security advisories.
 - `deps:tooling`: Applied to theme-local development tooling updates in `web/themes/omnichannel`.
 - `deps:needs-review`: Applied to version bumps, major updates, or PRs touching non-lock files. Requires human review.
-- `refresh-content`: Add this label to a PR to request that the next environment run re-clones the database and files from `dev`. This overwrites content entered on the review environment. Dependency bot PRs re-clone automatically when `dev`'s database was replaced after their content was copied; other PRs get a warning in the review comment instead. Review-env also checks that every uploaded file exists on the PR environment, because Pantheon's content copy can silently drop files. If files are missing it re-copies files only (the database is untouched), and fails with a pointer to `/recreate-review-env` if that doesn't work.
+- `/approve-visual [reason]` (PR comment, write access required, the PR's author included): accepts the visual differences for the current code, for example after a theme change, and passes `ci/visual`. Only results for the current head can be approved. The approval carries over to commits that don't change any files (such as `/recreate-review-env` or content refreshes) and is reset by the next code change. It also works when the environment's content is older than `dev`.
+- `/refresh-content` (PR comment, write access required): copies `dev`'s database and files to the PR's review environment, then re-runs the review-env checks without a push. This overwrites content entered on the review environment. Dependency bot PRs re-copy automatically when `dev`'s database was replaced after their content was copied; other PRs get a warning in the review comment instead. Review-env also checks that every uploaded file exists on the PR environment, because Pantheon's content copy can silently drop files. If files are missing it re-copies files only (the database is untouched), and fails with a pointer to `/recreate-review-env` if that doesn't work.
+- `/rerun-review-env` (PR comment, write access required): re-runs the review-env checks without changing anything, for example after `dev` was briefly unavailable. It also runs the checks on PRs from external authors, which don't run automatically.
 - `/recreate-review-env` (PR comment, write access required): deletes the PR's Pantheon multidev, if it exists, and pushes an empty signed commit, so Pantheon builds a fresh environment with current `dev` content and the review-env checks re-run. It also runs automatically, up to twice per PR, when Pantheon comments "Failed to create multidev environment"; after that, `ci/review-env` fails and you can retry manually. Pantheon's creates usually fail because a multidev delete ran at the same time, for example when Dependabot closes a superseded PR as it opens its replacement. Use it manually when the environment's content is out of date or its site returns 404. It discards content entered on the review environment. On Dependabot PRs, the extra commit stops Dependabot rebasing the PR automatically; comment `@dependabot recreate` if it needs a rebase.
 
 ### Kill switches & configuration
