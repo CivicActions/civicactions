@@ -130,14 +130,7 @@ jobs:
             fi
           fi
 
-          # 3. /refresh-content: copy dev's database and files before testing.
-          if [[ "${REFRESH_CONTENT}" == "true" ]]; then
-            echo "stage=refreshing content from dev" >> "$GITHUB_OUTPUT"
-            echo "Copying content from dev to ${ENV_NAME} (/refresh-content)..."
-            terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --yes
-          fi
-
-          # 4. Confirm Pantheon finished deploying the PR head. Pantheon's GitHub
+          # 3. Confirm Pantheon finished deploying the PR head. Pantheon's GitHub
           # app records a deployment per build with the exact commit;
           # PANTHEON_DEPLOYMENT_IDENTIFIER is unreliable on new multidevs.
           echo "stage=checking Pantheon deployment" >> "$GITHUB_OUTPUT"
@@ -160,11 +153,18 @@ jobs:
             exit 0
           fi
 
-          # 5. Wait for workflows & verify HTTP 200
+          # 4. Wait for workflows & verify HTTP 200
           wait_workflows "${ENV_NAME}"
           ENV_URL=$(env_url "${ENV_NAME}")
           echo "Pinging ${ENV_URL}..."
           curl -sSf -m 30 "${ENV_URL}" >/dev/null
+
+          # 5. /refresh-content: copy dev's database and files before testing.
+          if [[ "${REFRESH_CONTENT}" == "true" ]]; then
+            echo "stage=refreshing content from dev" >> "$GITHUB_OUTPUT"
+            echo "Copying content from dev to ${ENV_NAME} (/refresh-content)..."
+            terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --yes
+          fi
 
           is_bot_pr="false"
           if [[ "${AUTHOR_LOGIN}" == "dependabot[bot]" || "${LABELS}" == *"deps:"* ]]; then
