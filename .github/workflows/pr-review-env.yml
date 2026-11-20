@@ -1,6 +1,6 @@
 name: "PR Review Environment Checks"
 
-run-name: review-env PR #${{ github.event.issue.number || inputs.pr_number }}
+run-name: "review-env PR #${{ github.event.issue.number || inputs.pr_number }}"
 
 # Runs when Pantheon comments that it built a PR's multidev, or when a PR
 # command (/rerun-review-env, /refresh-content in review-env-commands.yml)

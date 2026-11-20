@@ -1,6 +1,6 @@
 name: "Review Environment Commands"
 
-run-name: review-env command PR #${{ github.event.issue.number }}
+run-name: "review-env command PR #${{ github.event.issue.number }}"
 
 # PR comment commands for the review environment (write access required):
 # - /approve-visual [reason]: accept the visual differences for the current code.
