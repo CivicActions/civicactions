@@ -7,6 +7,8 @@ import { parseComposerLock, parseNpmLock, diffPackageMaps } from './lib/lockfile
 export function classifyDependencyPr({ metadata, baseLockContent, headLockContent, changedFiles, ecosystem }) {
   const reasons = [];
   const advisories = metadata.advisories || metadata.alerts || [];
+  // dependabot/fetch-metadata reports npm ecosystems as "npm_and_yarn".
+  const normalizedEcosystem = ecosystem === 'npm_and_yarn' ? 'npm' : ecosystem;
 
   // Allowed files by ecosystem
   const allowedFilePatterns = {
@@ -15,7 +17,7 @@ export function classifyDependencyPr({ metadata, baseLockContent, headLockConten
     'github-actions': ['.github/workflows/'],
   };
 
-  const allowedPatterns = allowedFilePatterns[ecosystem] || [];
+  const allowedPatterns = allowedFilePatterns[normalizedEcosystem] || [];
   for (const file of changedFiles || []) {
     const isAllowed = allowedPatterns.some((pattern) => file.startsWith(pattern) || file === pattern);
     if (!isAllowed) {
@@ -25,11 +27,11 @@ export function classifyDependencyPr({ metadata, baseLockContent, headLockConten
 
   // Parse lockfiles
   let diffs = [];
-  if (ecosystem === 'composer' && baseLockContent && headLockContent) {
+  if (normalizedEcosystem === 'composer' && baseLockContent && headLockContent) {
     const baseMap = parseComposerLock(baseLockContent);
     const headMap = parseComposerLock(headLockContent);
     diffs = diffPackageMaps(baseMap, headMap);
-  } else if (ecosystem === 'npm' && baseLockContent && headLockContent) {
+  } else if (normalizedEcosystem === 'npm' && baseLockContent && headLockContent) {
     const baseMap = parseNpmLock(baseLockContent);
     const headMap = parseNpmLock(headLockContent);
     diffs = diffPackageMaps(baseMap, headMap);
@@ -59,7 +61,7 @@ export function classifyDependencyPr({ metadata, baseLockContent, headLockConten
     category = 'needs-review';
   } else if (advisories.length > 0) {
     category = 'security-verified';
-  } else if (ecosystem === 'npm' && diffs.length > 0 && diffs.every((d) => d.dev)) {
+  } else if (normalizedEcosystem === 'npm' && diffs.length > 0 && diffs.every((d) => d.dev)) {
     category = 'tooling';
   } else {
     reasons.push('Version update without security advisory requires review');
