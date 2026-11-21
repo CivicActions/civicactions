@@ -1,0 +1,276 @@
+name: "Review Environment Commands"
+
+run-name: "review-env command PR #${{ github.event.issue.number }}"
+
+# PR comment commands for the review environment (write access required):
+# - /approve-visual [reason]: accept the visual differences for the current code.
+# - /refresh-content: copy dev's database and files to pr-N, then re-run checks.
+# - /rerun-review-env: re-run the review-env checks.
+# - /recreate-review-env: delete pr-N and push an empty commit, so Pantheon
+#   builds a fresh environment (current dev content) and the checks re-run.
+# The recreate also runs automatically when Pantheon comments "Failed to create
+# multidev environment" (usually because a multidev delete ran at the same
+# time), up to MAX_AUTO_RETRIES times per PR.
+on:
+  issue_comment:
+    types: [created]
+
+# Recreates for a PR queue behind each other; other comments get a run-scoped
+# group, so they never wait for a recreate.
+concurrency:
+  group: >-
+    ${{ (startsWith(github.event.comment.body, '/recreate-review-env')
+    || (github.event.comment.user.login == 'pantheon-site-integration[bot]'
+    && startsWith(github.event.comment.body, 'Failed to create multidev environment')))
+    && format('recreate-review-env-{0}', github.event.issue.number)
+    || format('review-env-command-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  MAX_AUTO_RETRIES: 2
+
+jobs:
+  command:
+    name: "Run Review Environment Command"
+    runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request && (
+        startsWith(github.event.comment.body, '/approve-visual') ||
+        startsWith(github.event.comment.body, '/refresh-content') ||
+        startsWith(github.event.comment.body, '/rerun-review-env') ||
+        startsWith(github.event.comment.body, '/recreate-review-env') || (
+          github.event.comment.user.login == 'pantheon-site-integration[bot]' &&
+          startsWith(github.event.comment.body, 'Failed to create multidev environment')
+        )
+      )
+    permissions:
+      contents: read
+      # Dispatches pr-review-env.yml for /rerun-review-env and /refresh-content.
+      actions: write
+    steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          app-id: ${{ secrets.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+
+      - name: Checkout master tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Parse command
+        id: parse
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENTER: ${{ github.event.comment.user.login }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          if [[ "${COMMENTER}" == "pantheon-site-integration[bot]" ]]; then
+            ATTEMPTS=$(gh api --paginate "repos/${REPO}/issues/${PR_NUMBER}/comments" \
+              -q '.[] | select(.body | contains("<!-- ci:auto-recreate -->")) | .id' | wc -l)
+            if (( ATTEMPTS >= MAX_AUTO_RETRIES )); then
+              HEAD_SHA=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}" -q .head.sha)
+              gh api "repos/${REPO}/statuses/${HEAD_SHA}" -f state=failure -f context=ci/review-env \
+                -f description="Pantheon failed to create the environment ${ATTEMPTS} times; comment /recreate-review-env to retry" >/dev/null
+              gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="Pantheon failed to create the review environment again after ${ATTEMPTS} automatic retries. Comment \`/recreate-review-env\` to try again." >/dev/null
+              echo "Retry limit reached (${ATTEMPTS}/${MAX_AUTO_RETRIES})."
+              echo "head_sha=${HEAD_SHA}" >> "$GITHUB_OUTPUT"
+              echo "command=give-up" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            {
+              echo "command=recreate"
+              echo "reason=Automatic retry $((ATTEMPTS + 1))/${MAX_AUTO_RETRIES} after Pantheon failed to create the environment."
+              echo "marker=<!-- ci:auto-recreate -->"
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # The command is the first word of the first line; the rest of that
+          # line is its argument (the /approve-visual reason).
+          FIRST_LINE=$(head -n 1 <<< "${COMMENT_BODY}" | tr -d '\r')
+          read -r WORD ARGS <<< "${FIRST_LINE}" || true
+          case "${WORD}" in
+            /approve-visual|/refresh-content|/rerun-review-env|/recreate-review-env) ;;
+            *)
+              echo "Not a review environment command: ${WORD}"
+              exit 0
+              ;;
+          esac
+
+          reply() {
+            gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=-1 >/dev/null
+            gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="@${COMMENTER} $1" >/dev/null
+            echo "::error::$1"
+            exit 1
+          }
+
+          PERMISSION=$(gh api "repos/${REPO}/collaborators/${COMMENTER}/permission" -q .permission 2>/dev/null || echo none)
+          if [[ ! "${PERMISSION}" =~ ^(admin|maintain|write)$ ]]; then
+            reply "\`${WORD}\` needs write access to this repository."
+          fi
+          PR_JSON=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}")
+          if [[ "$(jq -r .state <<< "${PR_JSON}")" != "open" ]]; then
+            reply "\`${WORD}\` only works on open pull requests."
+          fi
+          if [[ "$(jq -r .head.repo.full_name <<< "${PR_JSON}")" != "${REPO}" ]]; then
+            reply "\`${WORD}\` doesn't work on pull requests from forks, which have no review environment."
+          fi
+
+          gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content=eyes >/dev/null
+          case "${WORD}" in
+            /recreate-review-env)
+              {
+                echo "command=recreate"
+                echo "reason=Requested by @${COMMENTER} via /recreate-review-env."
+                echo "marker="
+              } >> "$GITHUB_OUTPUT"
+              ;;
+            /refresh-content) echo "command=refresh" >> "$GITHUB_OUTPUT" ;;
+            /rerun-review-env) echo "command=rerun" >> "$GITHUB_OUTPUT" ;;
+            /approve-visual)
+              # Drop HTML comment delimiters so a reason can't forge an approval marker.
+              REASON=$(sed -e 's/<!--//g' -e 's/-->//g' <<< "${ARGS}" | cut -c1-500)
+              {
+                echo "command=approve"
+                echo "head_sha=$(jq -r .head.sha <<< "${PR_JSON}")"
+                echo "reason=${REASON}"
+              } >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+
+      - name: Update gate after giving up
+        if: steps.parse.outputs.command == 'give-up'
+        uses: ./.github/actions/update-gate
+        with:
+          sha: ${{ steps.parse.outputs.head_sha }}
+          github-token: ${{ steps.app-token.outputs.token }}
+
+      - name: Setup Terminus
+        if: steps.parse.outputs.command == 'recreate'
+        uses: ./.github/actions/terminus-setup
+        with:
+          pantheon-machine-token: ${{ secrets.TERMINUS_MACHINE_TOKEN }}
+
+      - name: Delete multidev and push empty commit
+        id: recreate
+        if: steps.parse.outputs.command == 'recreate'
+        env:
+          # The app token makes the push trigger PR workflows; GITHUB_TOKEN pushes don't.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          REASON: ${{ steps.parse.outputs.reason }}
+        run: |
+          NEW_SHA=$(.github/ci/recreate-review-env.sh "${PR_NUMBER}" "${REASON}" | tail -1)
+          echo "new_sha=${NEW_SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: Report recreate result
+        if: always() && steps.parse.outputs.command == 'recreate'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+          COMMENTER: ${{ github.event.comment.user.login }}
+          NEW_SHA: ${{ steps.recreate.outputs.new_sha }}
+          RECREATE_OUTCOME: ${{ steps.recreate.outcome }}
+          REASON: ${{ steps.parse.outputs.reason }}
+          MARKER: ${{ steps.parse.outputs.marker }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          # The marker counts toward the automatic retry limit even when the attempt fails.
+          if [[ "${RECREATE_OUTCOME}" == "success" && -n "${NEW_SHA}" ]]; then
+            BODY="${REASON} Deleted \`pr-${PR_NUMBER}\` and pushed empty commit ${NEW_SHA:0:7}; Pantheon will build a fresh environment with current dev content, and the review-env checks re-run once it posts \"Successfully created\". ([run](${RUN_URL}))"
+            REACTION=rocket
+          else
+            BODY="${REASON} Recreating the review environment failed; see the [run](${RUN_URL})."
+            REACTION=confused
+          fi
+          if [[ "${COMMENTER}" != "pantheon-site-integration[bot]" ]]; then
+            gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content="${REACTION}" >/dev/null
+          fi
+          gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="${MARKER}${BODY}" >/dev/null
+
+      # pr-review-env.yml runs in the per-PR review-env group, so it never
+      # overlaps (or copies content during) another review-env run.
+      - name: Dispatch review-env checks
+        if: steps.parse.outputs.command == 'refresh' || steps.parse.outputs.command == 'rerun'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          REFRESH: ${{ steps.parse.outputs.command == 'refresh' }}
+        run: |
+          gh workflow run pr-review-env.yml -R "${REPO}" --ref "${DEFAULT_BRANCH}" \
+            -f pr_number="${PR_NUMBER}" -f refresh_content="${REFRESH}"
+          echo "Dispatched review-env for PR #${PR_NUMBER} (refresh_content=${REFRESH})."
+
+      - name: Approve visual differences
+        if: steps.parse.outputs.command == 'approve'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          COMMENTER: ${{ github.event.comment.user.login }}
+          HEAD_SHA: ${{ steps.parse.outputs.head_sha }}
+          REASON: ${{ steps.parse.outputs.reason }}
+        run: |
+          reply() {
+            gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="@${COMMENTER} $1" >/dev/null
+            echo "::error::$1"
+            exit 1
+          }
+
+          # Only results for the current head can be approved, so a push after
+          # the comparison ran can't slip unreviewed changes through.
+          VISUAL=$(gh api "repos/${REPO}/commits/${HEAD_SHA}/status" \
+            -q '[.statuses[] | select(.context == "ci/visual")][0] // {} | {state, description, target_url}')
+          STATE=$(jq -r '.state // "none"' <<< "${VISUAL}")
+          case "${STATE}" in
+            failure|error) ;;
+            success) reply "There's nothing to approve: \`ci/visual\` already passes for ${HEAD_SHA:0:7}." ;;
+            *) reply "There are no visual results for ${HEAD_SHA:0:7} yet. Wait for the review environment checks to finish, then comment \`/approve-visual\` again." ;;
+          esac
+          DESCRIPTION=$(jq -r .description <<< "${VISUAL}")
+          RESULTS_URL=$(jq -r '.target_url // empty' <<< "${VISUAL}")
+          TREE=$(gh api "repos/${REPO}/commits/${HEAD_SHA}" -q .commit.tree.sha)
+          MARKER=$(node .github/ci/visual-status.mjs marker --tree "${TREE}" --head "${HEAD_SHA}" --by "${COMMENTER}")
+
+          # The marker goes first: findApproval trusts only this app's comments.
+          BODY="${MARKER}
+          ✅ @${COMMENTER} approved the visual differences for ${HEAD_SHA:0:7}${RESULTS_URL:+ ([results](${RESULTS_URL}))}: ${DESCRIPTION}."
+          if [[ -n "${REASON}" ]]; then
+            BODY+="
+
+          > ${REASON}"
+          fi
+          BODY+="
+
+          The approval carries over to commits that don't change any files, such as \`/recreate-review-env\`, and is reset by the next code change."
+          gh api "repos/${REPO}/issues/${PR_NUMBER}/comments" -f body="${BODY}" >/dev/null
+
+          STATUS_ARGS=(-f state=success -f context=ci/visual -f description="Approved by @${COMMENTER} for this code")
+          [[ -n "${RESULTS_URL}" ]] && STATUS_ARGS+=(-f target_url="${RESULTS_URL}")
+          gh api "repos/${REPO}/statuses/${HEAD_SHA}" "${STATUS_ARGS[@]}" >/dev/null
+          node .github/actions/update-gate/gate.mjs "${HEAD_SHA}"
+
+      - name: React to result
+        if: always() && contains(fromJSON('["refresh", "rerun", "approve"]'), steps.parse.outputs.command)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+          REACTION: ${{ job.status == 'success' && 'rocket' || 'confused' }}
+        run: gh api "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" -f content="${REACTION}" >/dev/null

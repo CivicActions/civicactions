@@ -1,19 +1,34 @@
 name: "PR Review Environment Checks"
 
-run-name: review-env PR #${{ github.event.issue.number }}
+run-name: "review-env PR #${{ github.event.issue.number || inputs.pr_number }}"
 
+# Runs when Pantheon comments that it built a PR's multidev, or when a PR
+# command (/rerun-review-env, /refresh-content in review-env-commands.yml)
+# dispatches it.
 on:
   issue_comment:
     types: [created]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "Pull request number"
+        required: true
+        type: string
+      refresh_content:
+        description: "Copy dev's database and files to the environment first"
+        type: boolean
+        default: false
 
 # Every PR comment starts this workflow. Only Pantheon's "Successfully created"
-# comments share the per-PR group; other comments get a run-scoped group so they
-# can't cancel an in-progress review-env run.
+# comments and dispatches share the per-PR group; other comments get a
+# run-scoped group so they can't cancel an in-progress review-env run.
 concurrency:
   group: >-
-    ${{ github.event.comment.user.login == 'pantheon-site-integration[bot]'
+    ${{ github.event_name == 'workflow_dispatch'
+    && format('review-env-{0}', inputs.pr_number)
+    || (github.event.comment.user.login == 'pantheon-site-integration[bot]'
     && startsWith(github.event.comment.body, 'Successfully created multidev environment')
-    && format('review-env-{0}', github.event.issue.number)
+    && format('review-env-{0}', github.event.issue.number))
     || format('review-env-ignored-{0}', github.run_id) }}
   cancel-in-progress: true
 
@@ -28,16 +43,18 @@ jobs:
     name: "Verify & Prepare Review Environment"
     runs-on: ubuntu-latest
     if: |
-      github.event.issue.pull_request &&
-      github.event.comment.user.login == 'pantheon-site-integration[bot]' &&
-      startsWith(github.event.comment.body, 'Successfully created multidev environment')
+      github.event_name == 'workflow_dispatch' || (
+        github.event.issue.pull_request &&
+        github.event.comment.user.login == 'pantheon-site-integration[bot]' &&
+        startsWith(github.event.comment.body, 'Successfully created multidev environment')
+      )
     outputs:
       verified_sha: ${{ steps.prep.outputs.verified_sha }}
       env_name: ${{ steps.prep.outputs.env_name }}
       env_url: ${{ steps.prep.outputs.env_url }}
       pr_number: ${{ steps.prep.outputs.pr_number }}
-      is_bot_pr: ${{ steps.prep.outputs.is_bot_pr }}
       content_at: ${{ steps.prep.outputs.content_at }}
+      content_stale: ${{ steps.prep.outputs.content_stale }}
       content_note: ${{ steps.prep.outputs.content_note }}
       should_run_tests: ${{ steps.prep.outputs.should_run_tests }}
     steps:
@@ -66,18 +83,28 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
           DEPLOYMENTS_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.issue.number }}
+          PR_NUMBER: ${{ github.event.issue.number || inputs.pr_number }}
+          REFRESH_CONTENT: ${{ inputs.refresh_content }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
           EVENT_NAME: ${{ github.event_name }}
           REPO: ${{ github.repository }}
         run: |
           source .github/ci/pantheon.sh
 
+          if [[ ! "${PR_NUMBER}" =~ ^[0-9]+$ ]]; then
+            echo "::error::Invalid PR number: ${PR_NUMBER}"
+            exit 1
+          fi
           ENV_NAME="pr-${PR_NUMBER}"
-          echo "Processing review environment ${ENV_NAME} for PR #${PR_NUMBER}..."
+          echo "Processing review environment ${ENV_NAME} for PR #${PR_NUMBER} (${EVENT_NAME})..."
 
           # 1. Resolve PR details
           PR_JSON=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}")
+          if [[ "$(echo "${PR_JSON}" | jq -r .state)" != "open" ]]; then
+            echo "PR #${PR_NUMBER} is not open; nothing to check."
+            echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           VERIFIED_SHA=$(echo "${PR_JSON}" | jq -r .head.sha)
           AUTHOR_ASSOC=$(echo "${PR_JSON}" | jq -r .author_association)
           AUTHOR_LOGIN=$(echo "${PR_JSON}" | jq -r .user.login)
@@ -92,24 +119,18 @@ jobs:
             echo "stage=waiting for Pantheon environment"
           } >> "$GITHUB_OUTPUT"
 
-          # 2. Trust check
+          # 2. Trust check. Dispatches come from PR commands, which require
+          # write access, so a maintainer has asked for this run.
           if [[ "${EVENT_NAME}" == "issue_comment" ]]; then
             if [[ "${AUTHOR_LOGIN}" != "dependabot[bot]" &&                   "${AUTHOR_ASSOC}" != "OWNER" &&                   "${AUTHOR_ASSOC}" != "MEMBER" &&                   "${AUTHOR_ASSOC}" != "COLLABORATOR" ]]; then
               echo "Author ${AUTHOR_LOGIN} is external. Review environment tests are not run."
-              gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"                 -f state="pending"                 -f context="ci/review-env"                 -f description="External author: review-env tests not run automatically" >/dev/null
+              gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"                 -f state="pending"                 -f context="ci/review-env"                 -f description="External author: a maintainer can comment /rerun-review-env to run the checks" >/dev/null
               echo "should_run_tests=false" >> "$GITHUB_OUTPUT"
               exit 0
             fi
           fi
 
-          # 3. Check for refresh-content label
-          if echo "${LABELS}" | tr ',' '\n' | grep -q "^refresh-content$"; then
-            echo "Label refresh-content detected. Syncing content from dev..."
-            terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --yes
-            gh api --method DELETE "repos/${REPO}/issues/${PR_NUMBER}/labels/refresh-content" || true
-          fi
-
-          # 4. Confirm Pantheon finished deploying the PR head. Pantheon's GitHub
+          # 3. Confirm Pantheon finished deploying the PR head. Pantheon's GitHub
           # app records a deployment per build with the exact commit;
           # PANTHEON_DEPLOYMENT_IDENTIFIER is unreliable on new multidevs.
           echo "stage=checking Pantheon deployment" >> "$GITHUB_OUTPUT"
@@ -132,11 +153,18 @@ jobs:
             exit 0
           fi
 
-          # 5. Wait for workflows & verify HTTP 200
+          # 4. Wait for workflows & verify HTTP 200
           wait_workflows "${ENV_NAME}"
           ENV_URL=$(env_url "${ENV_NAME}")
           echo "Pinging ${ENV_URL}..."
           curl -sSf -m 30 "${ENV_URL}" >/dev/null
+
+          # 5. /refresh-content: copy dev's database and files before testing.
+          if [[ "${REFRESH_CONTENT}" == "true" ]]; then
+            echo "stage=refreshing content from dev" >> "$GITHUB_OUTPUT"
+            echo "Copying content from dev to ${ENV_NAME} (/refresh-content)..."
+            terminus env:clone-content "${PANTHEON_SITE}.dev" "${ENV_NAME}" --yes
+          fi
 
           is_bot_pr="false"
           if [[ "${AUTHOR_LOGIN}" == "dependabot[bot]" || "${LABELS}" == *"deps:"* ]]; then
@@ -155,6 +183,7 @@ jobs:
             CONTENT_AT=${ENV_CLONE_AT}
           fi
           CONTENT_NOTE=""
+          CONTENT_STALE="false"
           if (( DEV_DB_AT > CONTENT_AT )); then
             if [[ "${is_bot_pr}" == "true" ]]; then
               echo "Dev's database was replaced after ${ENV_NAME}'s content was copied. Re-copying content from dev..."
@@ -163,8 +192,10 @@ jobs:
               CONTENT_AT=$(date +%s)
             else
               echo "::warning::${ENV_NAME} content predates dev's last database replacement; visual differences may come from content."
+              CONTENT_STALE="true"
+              # shellcheck disable=SC2016 # Markdown backticks, not command substitution.
               CONTENT_NOTE='> [!WARNING]
-          > The content on this environment was copied before the dev database was last replaced, so visual differences may come from content rather than code. To copy the current dev content, add the `refresh-content` label, or comment `/recreate-review-env` to rebuild the environment. Both overwrite content entered on this environment.'
+          > The content on this environment was copied before the dev database was last replaced, so visual differences may come from content rather than code. Comment `/refresh-content` to copy the current dev content and re-run the checks (this overwrites content entered on this environment), or `/approve-visual` if you have checked the differences.'
             fi
           fi
 
@@ -186,8 +217,12 @@ jobs:
           fi
           echo "Uploaded files OK on ${ENV_NAME} (missing: ${ENV_MISSING}, dev: ${DEV_MISSING})."
 
-          # 6. Set ci/review-env to pending (Running)
+          # 6. Set ci/review-env and ci/visual to pending (Running); a re-run
+          # replaces earlier results for this commit.
           gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"             -f state="pending"             -f context="ci/review-env"             -f description="Running Drupal deploy & health checks" >/dev/null
+          gh api "repos/${REPO}/statuses/${VERIFIED_SHA}" -f state="pending" -f context="ci/visual" \
+            -f description="Waiting for visual comparison" >/dev/null
+          node .github/actions/update-gate/gate.mjs "${VERIFIED_SHA}"
 
           # 7. Drush deploy
           echo "stage=drush deploy" >> "$GITHUB_OUTPUT"
@@ -306,8 +341,8 @@ jobs:
             echo "env_name=${ENV_NAME}"
             echo "env_url=${ENV_URL}"
             echo "pr_number=${PR_NUMBER}"
-            echo "is_bot_pr=${is_bot_pr}"
             echo "content_at=${CONTENT_AT}"
+            echo "content_stale=${CONTENT_STALE}"
             echo "content_note<<CONTENT_NOTE_EOF"
             echo "${CONTENT_NOTE}"
             echo "CONTENT_NOTE_EOF"
@@ -470,19 +505,22 @@ jobs:
         continue-on-error: true
 
       - name: Post-test Diagnostics & Reporting
+        id: report
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
           DEPLOYMENTS_TOKEN: ${{ github.token }}
           VERIFIED_SHA: ${{ needs.verify-and-deploy.outputs.verified_sha }}
           ENV_NAME: ${{ needs.verify-and-deploy.outputs.env_name }}
           ENV_URL: ${{ needs.verify-and-deploy.outputs.env_url }}
           PR_NUMBER: ${{ needs.verify-and-deploy.outputs.pr_number }}
-          IS_BOT_PR: ${{ needs.verify-and-deploy.outputs.is_bot_pr }}
           BROWSER_RESULT: ${{ needs.browser-tests.result }}
           CONTENT_AT: ${{ needs.verify-and-deploy.outputs.content_at }}
+          CONTENT_STALE: ${{ needs.verify-and-deploy.outputs.content_stale }}
           CONTENT_NOTE: ${{ needs.verify-and-deploy.outputs.content_note }}
           PANTHEON_SITE: ${{ vars.PANTHEON_SITE || 'civicactions' }}
           REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           source .github/ci/pantheon.sh
 
@@ -493,7 +531,7 @@ jobs:
           # 2. Check for missing page coverage warnings
           COVERAGE_WARNINGS=$(.github/ci/page-coverage.sh "${ENV_NAME}" || true)
 
-          # 3. Check visual regression results
+          # 3. Visual comparison table
           node --input-type=module -e "
           import { parseVisualResults, formatVisualMarkdownTable } from './tests/e2e/lib/visual-summary.mjs';
           import fs from 'node:fs';
@@ -504,13 +542,8 @@ jobs:
           if (Object.keys(links).length > 0) {
             table += '\n_Difference links open a side-by-side image: dev reference, this environment, highlighted changes. GitHub sign-in required; kept for 14 days._\n';
           }
-          const hasDiff = items.some(i => ['diff', 'reference_unavailable', 'error'].includes(i.status));
-
           fs.writeFileSync('visual-table.md', table);
-          fs.writeFileSync('has-diff.txt', hasDiff ? 'true' : 'false');
           " || true
-
-          HAS_DIFF=$(cat has-diff.txt 2>/dev/null || echo "false")
           VISUAL_TABLE=$(cat visual-table.md 2>/dev/null || echo "No visual summary available.")
 
           # 4. Discard results if Pantheon deployed a newer commit during testing
@@ -521,24 +554,56 @@ jobs:
             exit 0
           fi
 
-          # 5. Determine overall review-env status
-          FINAL_STATE="success"
-          FINAL_DESC="All environment checks passed"
-
-          if [[ "${BROWSER_RESULT}" != "success" ]]; then
-            FINAL_STATE="failure"
-            FINAL_DESC="Functional or accessibility tests failed"
-          elif [[ "${IS_BOT_PR}" == "true" && "${HAS_DIFF}" == "true" ]]; then
-            FINAL_STATE="failure"
-            FINAL_DESC="Dependency bot PR has visual differences (blocking)"
+          # 5. ci/review-env: deploy, health, functional and accessibility checks
+          if [[ "${BROWSER_RESULT}" == "success" ]]; then
+            REVIEW_STATE="success"
+            REVIEW_DESC="All environment checks passed"
+          else
+            REVIEW_STATE="failure"
+            REVIEW_DESC="Functional or accessibility tests failed"
           fi
+          gh api "repos/${REPO}/statuses/${VERIFIED_SHA}" -f state="${REVIEW_STATE}" -f context="ci/review-env" \
+            -f description="${REVIEW_DESC}" -f target_url="${RUN_URL}" >/dev/null
 
-          gh api "repos/${REPO}/statuses/${VERIFIED_SHA}"             -f state="${FINAL_STATE}"             -f context="ci/review-env"             -f description="${FINAL_DESC}" >/dev/null
+          # 6. ci/visual: differences block merging until someone approves them
+          # for this code (/approve-visual). Approvals are keyed to the git
+          # tree, so commits that change no files keep them.
+          TREE=$(gh api "repos/${REPO}/commits/${VERIFIED_SHA}" -q .commit.tree.sha)
+          APPROVAL=$(gh api --paginate --slurp "repos/${REPO}/issues/${PR_NUMBER}/comments" \
+            | node .github/ci/visual-status.mjs find-approval --tree "${TREE}" --bot "${APP_SLUG}[bot]")
+          DECIDE_ARGS=(decide --results ./tests/e2e/test-results/results.json)
+          [[ -n "${APPROVAL}" ]] && DECIDE_ARGS+=(--approval "${APPROVAL}")
+          [[ "${CONTENT_STALE}" == "true" ]] && DECIDE_ARGS+=(--content-stale)
+          VISUAL=$(node .github/ci/visual-status.mjs "${DECIDE_ARGS[@]}")
+          VISUAL_STATE=$(jq -r .state <<< "${VISUAL}")
+          VISUAL_DESC=$(jq -r .description <<< "${VISUAL}")
+          gh api "repos/${REPO}/statuses/${VERIFIED_SHA}" -f state="${VISUAL_STATE}" -f context="ci/visual" \
+            -f description="${VISUAL_DESC}" -f target_url="${RUN_URL}" >/dev/null
+          echo "ci/review-env: ${REVIEW_STATE} (${REVIEW_DESC}); ci/visual: ${VISUAL_STATE} (${VISUAL_DESC})"
+          echo "reported=true" >> "$GITHUB_OUTPUT"
 
-          # 6. Build PR comment
+          # 7. Build PR comment
+          case "${VISUAL_STATE}" in
+            success) VISUAL_ICON="✅" ;;
+            failure) VISUAL_ICON="⚠️" ;;
+            *) VISUAL_ICON="❌" ;;
+          esac
+          # shellcheck disable=SC2016 # Markdown backticks, not command substitution.
+          COMMANDS='<details><summary>Review environment commands</summary>
+
+          Comment one of these on this pull request (write access required):
+
+          | Command | What it does |
+          |---|---|
+          | `/approve-visual [reason]` | Accepts the visual differences for this code. A code change resets the approval. |
+          | `/refresh-content` | Copies the dev database and files to this environment, then re-runs the checks. Overwrites content entered here. |
+          | `/rerun-review-env` | Re-runs the checks without changing anything. |
+          | `/recreate-review-env` | Deletes and rebuilds this environment from dev, then re-runs the checks. |
+
+          </details>'
           CONTENT_DATE=$(date -u -d "@${CONTENT_AT:-0}" '+%Y-%m-%d %H:%M UTC')
-          COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Copied From Dev**: %s\n- **Functional & A11y Tests**: %s\n- **Drush Deploy & Health**: ✓ Passed\n\n%s\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s" \
-            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CONTENT_DATE}" "${BROWSER_RESULT}" "${CONTENT_NOTE}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}")
+          COMMENT_BODY=$(printf "### Review Environment: [%s](%s)\n- **Deployed Commit**: \`%s\`\n- **Content Copied From Dev**: %s\n- **Drush Deploy & Health**: ✓ Passed\n- **Functional & A11y Tests**: %s\n- **Visual Comparison**: %s %s\n\n%s\n\n#### Visual Comparison (Dev vs %s)\n%s\n\n%s\n\n%s" \
+            "${ENV_NAME}" "${ENV_URL}" "${VERIFIED_SHA:0:7}" "${CONTENT_DATE}" "${BROWSER_RESULT}" "${VISUAL_ICON}" "${VISUAL_DESC}" "${CONTENT_NOTE}" "${ENV_NAME}" "${VISUAL_TABLE}" "${COVERAGE_WARNINGS}" "${COMMANDS}")
 
           {
             echo "COMMENT_BODY<<EOF"
@@ -547,6 +612,7 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: Upsert PR comment
+        if: steps.report.outputs.reported == 'true'
         uses: ./.github/actions/pr-comment
         with:
           pr-number: ${{ needs.verify-and-deploy.outputs.pr_number }}
@@ -554,7 +620,24 @@ jobs:
           body: ${{ env.COMMENT_BODY }}
           github-token: ${{ steps.app-token.outputs.token }}
 
+      # A health check or reporting failure would otherwise leave the statuses
+      # pending until the sweeper times them out.
+      - name: Report finalize failure
+        if: failure() && steps.report.outputs.reported != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          VERIFIED_SHA: ${{ needs.verify-and-deploy.outputs.verified_sha }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          for context in ci/review-env ci/visual; do
+            gh api "repos/${REPO}/statuses/${VERIFIED_SHA}" -f state="error" -f context="${context}" \
+              -f description="Post-test checks failed: see the run, then comment /rerun-review-env" \
+              -f target_url="${RUN_URL}" >/dev/null
+          done
+
       - name: Update Gate Status
+        if: always() && (steps.report.outputs.reported == 'true' || failure())
         uses: ./.github/actions/update-gate
         with:
           sha: ${{ needs.verify-and-deploy.outputs.verified_sha }}

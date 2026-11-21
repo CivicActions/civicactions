@@ -34,7 +34,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           python3 -c "
-          import os, sys, urllib.request, json, datetime
+          import os, sys, subprocess, urllib.request, json, datetime
 
           token = os.environ['GH_TOKEN']
           repo = os.environ['REPO']
@@ -63,34 +63,31 @@ jobs:
               with urllib.request.urlopen(req_s) as resp_s:
                   data = json.loads(resp_s.read().decode())
 
+              # Statuses that never finished: the environment never came up,
+              # or a run died before reporting.
+              expired = {
+                  'ci/review-env': f'Environment unavailable after {timeout_mins}m: comment /recreate-review-env or /rerun-review-env',
+                  'ci/visual': f'No visual results after {timeout_mins}m: comment /rerun-review-env',
+              }
+              swept = False
               for s in data.get('statuses', []):
-                  if s['context'] == 'ci/review-env' and s['state'] == 'pending':
+                  context = s['context']
+                  if context in expired and s['state'] == 'pending':
                       created_at = datetime.datetime.fromisoformat(s['created_at'].replace('Z', '+00:00'))
                       age_mins = (now - created_at).total_seconds() / 60.0
                       if age_mins > timeout_mins:
-                          print(f'PR #{pr_num} {head_sha[:8]} ci/review-env has been pending for {age_mins:.1f}m > {timeout_mins}m. Marking error.')
+                          print(f'PR #{pr_num} {head_sha[:8]} {context} has been pending for {age_mins:.1f}m > {timeout_mins}m. Marking error.')
                           post_url = f'https://api.github.com/repos/{repo}/statuses/{head_sha}'
                           post_data = json.dumps({
                               'state': 'error',
-                              'context': 'ci/review-env',
-                              'description': f'Environment unavailable after {timeout_mins}m (check multidev limit; re-run via dispatch)'
+                              'context': context,
+                              'description': expired[context],
                           }).encode('utf-8')
                           urllib.request.urlopen(urllib.request.Request(post_url, data=post_data, headers=headers))
+                          swept = True
 
-                          # Recompute gate status for the affected PR head
-                          try:
-                              with urllib.request.urlopen(urllib.request.Request(status_url, headers=headers)) as r_gate:
-                                  st_data = json.loads(r_gate.read().decode())
-                              st_map = {st['context']: st['state'] for st in st_data.get('statuses', [])}
-                              st_map['ci/review-env'] = 'error'
-                              static_st = st_map.get('ci/static', 'pending')
-                              gate_payload = json.dumps({
-                                  'state': 'failure',
-                                  'context': 'ci/gate',
-                                  'description': f'static: {static_st}, review-env: error'
-                              }).encode('utf-8')
-                              urllib.request.urlopen(urllib.request.Request(post_url, data=gate_payload, headers=headers))
-                              print(f'Updated ci/gate to failure for PR #{pr_num} {head_sha[:8]}')
-                          except Exception as e_gate:
-                              print(f'Could not update ci/gate for {head_sha[:8]}: {e_gate}')
+              if swept:
+                  result = subprocess.run(['node', '.github/actions/update-gate/gate.mjs', head_sha])
+                  if result.returncode != 0:
+                      print(f'Could not update ci/gate for {head_sha[:8]}')
           "

@@ -51,7 +51,6 @@ set_label() {
 set_label "deps:security-verified" "0e8a16" "Verified security dependency update (eligible for auto-merge and auto-deploy)"
 set_label "deps:tooling" "bfdadc" "Non-shipping development/build tooling update"
 set_label "deps:needs-review" "d93f0b" "Dependency update requiring human review"
-set_label "refresh-content" "1d76db" "Request fresh content clone from dev for PR environment"
 
 # 4. Environments
 echo "Ensuring environments..."
