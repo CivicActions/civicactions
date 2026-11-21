@@ -134,7 +134,7 @@ body {
   color: var(--text-body);
   font-family: var(--font-body);
   font-size: var(--font-size-body);
-  font-weight: 700;
+  font-weight: 300;
   line-height: var(--line-height-body);
 }
 
