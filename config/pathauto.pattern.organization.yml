@@ -1,0 +1,23 @@
+uuid: b030c3d9-8b19-463b-afc3-628a446556f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.organization
+  module:
+    - node
+id: organization
+label: Organization
+type: 'canonical_entities:node'
+pattern: '/organizations/[node:title]'
+selection_criteria:
+  42654778-cc39-4c5c-9d13-af2c5d2b8b84:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: node
+    bundles:
+      organization: organization
+selection_logic: and
+weight: -5
+relationships: {  }

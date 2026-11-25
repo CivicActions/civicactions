@@ -1,3 +1,13 @@
 row_limit: 10000
-pages: ''
+pages: |-
+  /wp-login.php
+  /wp-admin*
+  /wp-includes*
+  /wp-content*
+  /xmlrpc.php
+  /.env*
+  /.git*
+  /phpmyadmin*
+  /cgi-bin*
+  /*.php
 suppress_404: true

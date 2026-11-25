@@ -97,6 +97,7 @@ module:
   node: 0
   options: 0
   page_cache: 0
+  pantheon_advanced_page_cache: 0
   pantheon_secrets: 0
   paragraphs: 0
   paragraphs_library: 0

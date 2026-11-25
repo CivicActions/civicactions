@@ -11,6 +11,7 @@ tags:
   title: '[current-page:title] | [site:name]'
   og_site_name: '[site:name]'
   og_locale: en_US
+  twitter_cards_type: summary_large_image
   dcterms_publisher: '[site:name]'
   dcterms_language: en
   dcterms_type: Text
