@@ -20,6 +20,7 @@ dependencies:
     - content_moderation
     - dashboard
     - editoria11y
+    - environment_indicator
     - filter
     - llms_txt
     - media
@@ -39,6 +40,7 @@ is_admin: false
 permissions:
   - 'access administration pages'
   - 'access content overview'
+  - 'access environment indicator'
   - 'access media overview'
   - 'access trash'
   - 'administer llms.txt sections'
