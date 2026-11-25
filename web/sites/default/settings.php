@@ -44,10 +44,49 @@ if (isset($_ENV['PANTHEON_ROLLING_TMP'])) {
 }
 
 /**
- * Ensure in-site unattended automatic updates are disabled on all Pantheon environments.
+ * Configure Environment Indicator per environment (Pantheon and local DDEV).
  */
 if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
-  $config['automatic_updates.settings']['unattended']['level'] = 'disable';
+  switch ($_ENV['PANTHEON_ENVIRONMENT']) {
+    case 'live':
+      $config['environment_indicator.indicator'] = [
+        'name' => 'Live',
+        'bg_color' => '#990000',
+        'fg_color' => '#ffffff',
+      ];
+      break;
+
+    case 'test':
+      $config['environment_indicator.indicator'] = [
+        'name' => 'Test',
+        'bg_color' => '#8a5a00',
+        'fg_color' => '#ffffff',
+      ];
+      break;
+
+    case 'dev':
+      $config['environment_indicator.indicator'] = [
+        'name' => 'Dev',
+        'bg_color' => '#1e5f30',
+        'fg_color' => '#ffffff',
+      ];
+      break;
+
+    default:
+      $config['environment_indicator.indicator'] = [
+        'name' => 'Review (' . $_ENV['PANTHEON_ENVIRONMENT'] . ')',
+        'bg_color' => '#5b2c83',
+        'fg_color' => '#ffffff',
+      ];
+      break;
+  }
+}
+elseif (getenv('IS_DDEV_PROJECT') === 'true') {
+  $config['environment_indicator.indicator'] = [
+    'name' => 'Local (DDEV)',
+    'bg_color' => '#0b5394',
+    'fg_color' => '#ffffff',
+  ];
 }
 
 /**
